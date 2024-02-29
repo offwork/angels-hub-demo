@@ -1,8 +1,7 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
 import "./globals.css";
-
-const inter = Inter({ subsets: ["latin"] });
+import { FKGrotesk } from "./styles/fonts";
+import Topnavs from "./components/ah-topnavs";
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -16,7 +15,12 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={inter.className}>{children}</body>
+      <body className={`${FKGrotesk.variable} relative bg-primary w-full`}>
+        <Topnavs />
+        <main>
+          {children}
+        </main>
+      </body>
     </html>
   );
 }
