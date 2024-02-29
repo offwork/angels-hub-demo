@@ -6,7 +6,6 @@ import gsap from "gsap";
 import Slide1 from "./slide-1";
 import Slide2 from "./slide-2";
 import Slide3 from "./slide-3";
-import useInterval from "./use-interval";
 
 const NEXT = 1;
 const PREV = -1;
@@ -29,8 +28,6 @@ export default function Slider() {
   const onPrevSlide = () => {
     navigateSlider(PREV);
   };
-
-  useInterval(onNextSlide, 5000);
 
   const navigateSlider = contextSafe((value: number) => {
     if (isAnimating.current) return false;
