@@ -5,7 +5,7 @@ type LinkProps = {
   href: string;
   label: string;
   target?: string;
-  color: "bg-primary" | "bg-secondary" | undefined;
+  color: "bg-angel-blue" | "bg-angel-orange" | undefined;
   border?: boolean;
   fit?: boolean;
   size: "small" | "large" | undefined;

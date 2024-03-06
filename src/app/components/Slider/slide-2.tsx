@@ -1,15 +1,108 @@
 "use client";
+import { SelectedSlideContext } from "@/app/contexts/banner-context";
+import { useGSAP } from "@gsap/react";
+import gsap from "gsap";
 import Image from "next/image";
+import Link from "next/link";
+import { useContext, useRef } from "react";
 import CARD_2 from "../../../../public/images/slide-card-2.png";
 import CIP_2 from "../../../../public/images/slider-cip-2.png";
 import CIP_BLUR_2 from "../../../../public/images/slider-cip-blur-2.png";
 import SLIDER_PIC_2 from "../../../../public/images/slider-main-2.png";
-import AHLink from "../ah-link";
 
-export default function Slide2() {
+export default function Slide2({ slide }: { slide: number }) {
+  const { selected } = useContext(SelectedSlideContext);
+  const slideRef = useRef<HTMLDivElement>(null!);
+  const imageRef = useRef<HTMLImageElement>(null!);
+  const imageRef1 = useRef<HTMLImageElement>(null!);
+  const imageRef2 = useRef<HTMLImageElement>(null!);
+  const imageRef3 = useRef<HTMLImageElement>(null!);
+  const titleRef1 = useRef<HTMLHeadingElement>(null!);
+  const titleRef2 = useRef<HTMLHeadingElement>(null!);
+  const titleRef3 = useRef<HTMLHeadingElement>(null!);
+  const describeRef = useRef<HTMLParagraphElement>(null!);
+  const linkRef = useRef<HTMLAnchorElement>(null!);
+  const orangeRef = useRef<SVGSVGElement>(null!);
+  const blueRef = useRef<SVGSVGElement>(null!);
+
+  useGSAP(
+    () => {
+      gsap
+        .timeline({ defaults: { duration: 0.6, ease: "power1.inOut" } })
+        .paused(Number(selected) !== 1)
+        .fromTo(
+          orangeRef.current,
+          { xPercent: -20, yPercent: -20, opacity: 0, autoAlpha: 0 },
+          { xPercent: 0, yPercent: 0, opacity: 1, autoAlpha: 1 }
+        )
+        .fromTo(
+          blueRef.current,
+          { xPercent: 20, yPercent: 20, opacity: 0, autoAlpha: 0 },
+          { xPercent: 0, yPercent: 0, opacity: 1, autoAlpha: 1 },
+          "<0.2"
+        )
+        .fromTo(
+          imageRef.current,
+          { xPercent: 20, yPercent: 20, opacity: 0, autoAlpha: 0 },
+          { xPercent: 0, yPercent: 0, opacity: 1, autoAlpha: 1 },
+          "<0.1"
+        )
+        .fromTo(
+          titleRef1.current,
+          { yPercent: 20, opacity: 0, autoAlpha: 0 },
+          { yPercent: 0, opacity: 1, autoAlpha: 1 },
+          "<"
+        )
+        .fromTo(
+          titleRef2.current,
+          { yPercent: 30, opacity: 0, autoAlpha: 0 },
+          { yPercent: 0, opacity: 1, autoAlpha: 1 },
+          "<0.1"
+        )
+        .fromTo(
+          titleRef3.current,
+          { yPercent: 40, opacity: 0, autoAlpha: 0 },
+          { yPercent: 0, opacity: 1, autoAlpha: 1 },
+          "<0.1"
+        )
+        .fromTo(
+          describeRef.current,
+          { yPercent: 50, opacity: 0, autoAlpha: 0 },
+          { yPercent: 0, opacity: 1, autoAlpha: 1 },
+          "<0.1"
+        )
+        .fromTo(
+          linkRef.current,
+          { yPercent: 60, opacity: 0, autoAlpha: 0 },
+          { yPercent: 0, opacity: 1, autoAlpha: 1 },
+          "<0.1"
+        )
+        .fromTo(
+          imageRef1.current,
+          { xPercent: 20, yPercent: 20, opacity: 0, autoAlpha: 0 },
+          { xPercent: 0, yPercent: 0, opacity: 1, autoAlpha: 1 },
+          "<0.1"
+        )
+        .fromTo(
+          imageRef2.current,
+          { xPercent: 20, yPercent: 20, opacity: 0, autoAlpha: 0 },
+          { xPercent: 0, yPercent: 0, opacity: 1, autoAlpha: 1 },
+          "<0.1"
+        )
+        .fromTo(
+          imageRef3.current,
+          { xPercent: 20, yPercent: 20, opacity: 0, autoAlpha: 0 },
+          { xPercent: 0, yPercent: 0, opacity: 1, autoAlpha: 1 },
+          "<0.1"
+        );
+    },
+    { scope: slideRef, dependencies: [slide] }
+  );
+
   return (
-    <>
+    <div ref={slideRef} className="static w-full h-full">
       <Image
+        ref={imageRef}
         className="absolute z-20 object-contain right-0 bottom-0"
         src={SLIDER_PIC_2.src}
         priority
@@ -18,6 +111,7 @@ export default function Slide2() {
         alt="Slider picture 1"
       />
       <svg
+        ref={blueRef}
         className="absolute z-10 -right-[12%] -bottom-[25%]"
         width="1332"
         height="1386"
@@ -30,9 +124,9 @@ export default function Slide2() {
           fill="#1253df"
         />
       </svg>
-      <div className="absolute z-30 bottom-0 left-0 w-full h-2/3 bg-gradient-to-t from-primary via-primary via-15%"></div>
       <svg
-        className="absolute z-10 -left-[10%] -top-[40%]"
+        ref={orangeRef}
+        className="absolute z-30 -left-[10%] -top-[40%]"
         width="1431"
         height="1116"
         viewBox="0 0 1431 1116"
@@ -45,6 +139,7 @@ export default function Slide2() {
         />
       </svg>
       <Image
+        ref={imageRef1}
         className="absolute z-30 object-contain top-[650px] left-[700px] -rotate-45"
         src={CIP_2.src}
         priority
@@ -53,6 +148,7 @@ export default function Slide2() {
         alt="Slider picture 1"
       />
       <Image
+        ref={imageRef2}
         className="absolute z-30 object-contain top-10 right-[470px] rotate-45"
         src={CIP_BLUR_2.src}
         priority
@@ -61,6 +157,7 @@ export default function Slide2() {
         alt="Slider picture 1"
       />
       <Image
+        ref={imageRef3}
         className="absolute z-30 object-contain top-80 right-12"
         src={CARD_2.src}
         priority
@@ -68,29 +165,38 @@ export default function Slide2() {
         height={170}
         alt="Slider picture 1"
       />
-      <div className="container absolute z-30 top-48 mx-auto px-44">
-        <div className="grid max-w-3xl gap-14 text-white">
-          <h1 className="text-8xl drop-shadow-[0_4px_3px_rgba(0,0,0,0.65)]">
-            Home for NextGen <strong>iGaming Platform</strong>
+      <div className="absolute z-20 bottom-0 left-0 w-full h-2/3 bg-gradient-to-t from-angel-blue via-angel-blue via-15%"></div>
+      <div className="container absolute z-30 top-48 px-44 left-1/2 -translate-x-1/2">
+        <div className="grid max-w-3xl gap-10 text-white">
+          <h1
+            ref={titleRef1}
+            className="text-8xl font-light drop-shadow-[0_4px_3px_rgba(0,0,0,0.65)]"
+          >
+            Home for NextGen
           </h1>
-          <div className="grid gap-8">
-            <h2 className="text-3xl font-bold">Everything under one roof.</h2>
-            <p className="text-lg max-w-xl">
-              AngelsHub is a technology and service provider for online gaming
-              industry. We offer white label, turnkey, SAAS solutions, crypto
-              solutions and much much more!
-            </p>
-          </div>
-          <AHLink
+          <h2
+            ref={titleRef2}
+            className="text-8xl font-semibold -mt-9 drop-shadow-[0_4px_3px_rgba(0,0,0,0.65)]"
+          >
+            iGaming Platform
+          </h2>
+          <h3 ref={titleRef3} className="text-4xl font-bold">
+            Everything under one roof.
+          </h3>
+          <p ref={describeRef} className="text-lg max-w-xl">
+            AngelsHub is a technology and service provider for online gaming
+            industry. We offer white label, turnkey, SAAS solutions, crypto
+            solutions and much much more!
+          </p>
+          <Link
+            ref={linkRef}
             href="/"
-            label="BOOK A MEETING"
-            color="bg-secondary"
-            fit={true}
-            rounded="rounded-full"
-            size="large"
-          />
+            className="bg-angel-orange rounded-full max-w-fit px-11 py-4 text-white text-center"
+          >
+            <span className="">BOOK A MEETING</span>
+          </Link>
         </div>
       </div>
-    </>
+    </div>
   );
 }

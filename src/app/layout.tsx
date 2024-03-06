@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import "./globals.css";
-import { FKGrotesk } from "./styles/fonts";
+// import { FKGrotesk } from "./styles/fonts";
 import Topnavs from "./components/ah-topnavs";
 
 export const metadata: Metadata = {
@@ -15,7 +15,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${FKGrotesk.variable} relative bg-primary w-full`}>
+      <body className="font-sans relative bg-angel-blue w-full">
         <Topnavs />
         <main>
           {children}

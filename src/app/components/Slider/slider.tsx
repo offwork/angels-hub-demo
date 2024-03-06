@@ -1,40 +1,33 @@
 "use client";
-import { useRef } from "react";
-import BannerController from "./banner-controller";
+import { ReactNode, useRef, useState } from "react";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import Slide1 from "./slide-1";
 import Slide2 from "./slide-2";
 import Slide3 from "./slide-3";
+import { SelectedSlideContext } from "@/app/contexts/banner-context";
+import useInterval from "./use-interval";
 
-const NEXT = 1;
-const PREV = -1;
-
-gsap.registerPlugin(useGSAP);
-
-export default function Slider() {
+export default function Slider({ children }: { children: ReactNode }) {
+  const [selected, setSelected] = useState("0");
+  const tl = useRef<GSAPTimeline>(null!);
   const sliderRef = useRef<HTMLDivElement>(null!);
   const slidesRef = useRef<HTMLDivElement[]>(null!);
+  const decoRef = useRef<NodeList>(null!);
   const slideChildrenRef = useRef<HTMLDivElement[]>(null!);
   const isAnimating = useRef(false);
   const slide = useRef(0);
   const slidesTotal = useRef(0);
   const { context, contextSafe } = useGSAP({ scope: sliderRef });
 
-  const onNextSlide = () => {
-    navigateSlider(NEXT);
-  };
-  
-  const onPrevSlide = () => {
-    navigateSlider(PREV);
-  };
+  useInterval(() => { navigateSlider(1) }, 7000)
 
-  const navigateSlider = contextSafe((value: number) => {
+  const navigateSlider = contextSafe((direction: number) => {
     if (isAnimating.current) return false;
-    isAnimating.current = false;
+    isAnimating.current = true;
     const previous = slide.current;
     slide.current =
-      value === 1
+      direction === 1
         ? slide.current < slidesTotal.current - 1
           ? ++slide.current
           : 0
@@ -44,134 +37,148 @@ export default function Slider() {
 
     const currentSlide = slidesRef.current[previous];
     const upcomingSlide = slidesRef.current[slide.current];
-    const upcomingInner = slideChildrenRef.current[slide.current];
 
-    gsap
+    tl.current = gsap
       .timeline({
         defaults: {
           duration: 1.2,
           ease: "power3.inOut",
         },
         onStart: () => {
-          slidesRef.current[slide.current].classList.add(
-            "opacity-100",
-            "pointer-events-auto"
-          );
-          gsap.set(upcomingSlide, { zIndex: 99 });
-          isAnimating.current = true;
+          slidesRef.current[slide.current].classList.add("opacity-100");
         },
         onComplete: () => {
-          slidesRef.current[previous].classList.remove(
-            "opacity-100",
-            "pointer-events-auto"
-          );
-          gsap.set(upcomingSlide, { zIndex: 1 });
+          slidesRef.current[previous].classList.remove("opacity-100");
           isAnimating.current = false;
+          setSelected(String(slide.current));
         },
       })
       .addLabel("start", 0)
       .to(
         currentSlide,
         {
-          yPercent: -value * 100,
+          duration: 0.4,
+          ease: "power2.in",
+          xPercent: -direction * 100,
         },
         "start"
       )
       .fromTo(
+        decoRef.current,
+        {
+          xPercent: direction * 100,
+          autoAlpha: 1,
+        },
+        {
+          duration: 0.4,
+          ease: "power2.in",
+          xPercent: 0,
+        },
+        "start"
+      )
+      decoRef.current.forEach((_, pos, arr) => {
+        tl.current.to(
+          arr[arr.length - 1 - pos],
+          {
+            ease: "power4",
+            xPercent: -direction * 100,
+          },
+          `start+=${(pos + 1) * 0.2}`
+        );
+      });
+      tl.current
+      .addLabel("middle", "<")
+      .fromTo(
         upcomingSlide,
         {
-          yPercent: 0,
-          autoAlpha: 0,
-          rotationX: 140,
-          scale: 0.1,
-          z: -1000,
-        },
-        {
           autoAlpha: 1,
-          rotationX: 0,
-          z: 0,
-          scale: 1,
+          xPercent: direction * 100,
         },
-        "start+=0.1"
+        {
+          ease: "power4",
+          xPercent: 0,
+        },
+        "middle"
       )
-      .fromTo(
-        upcomingInner,
-        {
-          scale: 1.8,
-          skewY: 45,
-        },
-        {
-          scale: 1,
-          skewY: 0,
-        },
-        "start+=0.17"
-      );
   });
 
   useGSAP(
     () => {
       slidesRef.current = gsap.utils.toArray<HTMLDivElement>(".slide");
+      decoRef.current =
+        sliderRef.current.querySelectorAll<HTMLDivElement>(".deco");
       slideChildrenRef.current = slidesRef.current.map(
-        (child) => child.querySelector(".absolute")!
+        (child) => child.querySelector<HTMLDivElement>(".static")!
       );
-      slidesRef.current[slide.current].classList.add(
-        "opacity-100",
-        "pointer-events-auto"
-      );
+      slidesRef.current[slide.current].classList.add("opacity-100");
       slidesTotal.current = gsap.utils.toArray(".slide").length;
 
       return () => {
         context.kill();
         context.revert();
-      }
+      };
     },
     { scope: sliderRef }
   );
 
   return (
     <>
-      <div className="absolute z-30 w-full h-2">
-        <div className="container mx-auto px-44 pt-36">
-          <div className="flex space-x-2 items-center mb-9">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="162"
-              height="4"
-              viewBox="0 0 162 4"
-              fill="none"
-            >
-              <rect width="46" height="4" rx="2" fill="#D2D2D2" />
-              <rect x="58" width="46" height="4" rx="2" fill="#D2D2D2" />
-              <rect x="116" width="46" height="4" rx="2" fill="#D2D2D2" />
-            </svg>
+      <SelectedSlideContext.Provider value={{ selected, setSelected }}>
+        <div className="absolute z-30 w-full h-2">
+          <div className="container mx-auto px-44 pt-36">
+            <div className="flex space-x-2 items-center mb-9">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="162"
+                height="4"
+                viewBox="0 0 162 4"
+                fill="none"
+              >
+                <rect width="46" height="4" rx="2" fill="#D2D2D2" />
+                <rect x="58" width="46" height="4" rx="2" fill="#D2D2D2" />
+                <rect x="116" width="46" height="4" rx="2" fill="#D2D2D2" />
+              </svg>
+            </div>
           </div>
         </div>
-      </div>
-      <div
-        ref={sliderRef}
-        style={{ perspective: 1000 }}
-        className="grid place-items-center w-full h-[1123px] overflow-hidden"
-      >
         <div
-          style={{ gridArea: "1 / 1 / -1 / -1" }}
-          className="slide relative grid place-items-center w-full h-full opacity-0 pointer-events-none overflow-hidden"
+          ref={sliderRef}
+          style={{ perspective: 1000 }}
+          className="grid place-items-center w-full h-[1123px] overflow-hidden"
         >
-          <Slide1 />
+          <div
+            style={{ gridArea: "1 / 1 / -1 / -1" }}
+            className="slide relative grid place-items-center w-full h-full opacity-0 overflow-hidden"
+          >
+            <Slide1 slide={slide.current} />
+          </div>
+          <div
+            style={{ gridArea: "1 / 1 / -1 / -1" }}
+            className="slide relative grid place-items-center w-full h-full opacity-0 overflow-hidden"
+          >
+            <Slide2 slide={slide.current} />
+          </div>
+          <div
+            style={{ gridArea: "1 / 1 / -1 / -1" }}
+            className="slide relative grid place-items-center w-full h-full opacity-0 overflow-hidden"
+          >
+            <Slide3 slide={slide.current} />
+          </div>
+          <div
+            style={{ gridArea: "1 / 1 / -1 / -1" }}
+            className="deco bg-angel-orange relative grid place-items-center w-full h-full opacity-0"
+          ></div>
+          <div
+            style={{ gridArea: "1 / 1 / -1 / -1" }}
+            className="deco bg-angel-blue-950 relative grid place-items-center w-full h-full opacity-0"
+          ></div>
+          <div
+            style={{ gridArea: "1 / 1 / -1 / -1" }}
+            className="deco bg-angel-blue relative grid place-items-center w-full h-full opacity-0"
+          ></div>
         </div>
-        <div
-          style={{ gridArea: "1 / 1 / -1 / -1" }}
-          className="slide relative grid place-items-center w-full h-full opacity-0 pointer-events-none overflow-hidden"
-        >
-          <Slide2 />
-        </div>
-        <div
-          style={{ gridArea: "1 / 1 / -1 / -1" }}
-          className="slide relative grid place-items-center w-full h-full opacity-0 pointer-events-none overflow-hidden"
-        >
-          <Slide3 />
-        </div>
-      </div>
-      <BannerController onNextSlide={onNextSlide} onPrevSlide={onPrevSlide} />
+        { children }
+      </SelectedSlideContext.Provider>
     </>
   );
 }

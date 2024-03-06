@@ -4,33 +4,23 @@ import { ReactNode, forwardRef, useRef } from "react";
 
 interface FadeInProps {
   children: ReactNode;
-  x?: number;
-  stagger?: number;
+  y: number;
+  stagger: number;
 }
-export type AnimationRef = GSAPTimeline;
+export type AnimationRef = GSAPAnimation;
 
-const FadeInComponent = forwardRef<AnimationRef, FadeInProps>((props, ref) => {
-  const animationRef = useRef<GSAPTimeline>(null!);
+const FadeInComponent = forwardRef<AnimationRef, FadeInProps>(({ children, y = 0, stagger = 0 }, ref) => {
+  const animationRef = useRef<GSAPAnimation>(null!);
   const textContentRef = useRef<HTMLDivElement>(null!);
 
   useGSAP(() => {
     animationRef.current = gsap
-      .timeline({ defaults: { ease: "expo.inOut", immediateRender: false } })
-      .fromTo(
+      .from(
         textContentRef.current.children,
         {
           opacity: 0,
-          x: "-25%",
-          autoAlpha: 0,
-          duration: 2,
-          stagger: 0.1,
-        },
-        {
-          opacity: 1,
-          x: "-25%",
-          duration: 2,
-          autoAlpha: 1,
-          stagger: 0.1,
+          yPercent: y,
+          stagger: stagger
         },
       );
 
@@ -49,8 +39,8 @@ const FadeInComponent = forwardRef<AnimationRef, FadeInProps>((props, ref) => {
   }, [ref]);
 
   return (
-    <div className="absolute z-0 flex w-full h-full overflow-hidden" ref={textContentRef}>
-      {props.children}
+    <div className="relative" ref={textContentRef}>
+      {children}
     </div>
   );
 });
