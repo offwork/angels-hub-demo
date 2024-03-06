@@ -1,12 +1,11 @@
-
-import BannerController from "./components/Slider/banner-controller";
-import Slider from "./components/Slider/slider";
+import BannerController from "@/components/Slider/banner-controller";
+import Slider from "@/components/Slider/slider";
 
 export default function Home() {
   return (
     <>
       <Slider>
-      <BannerController />
+        <BannerController />
       </Slider>
       <button className="fixed flex space-x-2 items-center bottom-4 right-24">
         <span className="text-white text-lg">Scroll</span>

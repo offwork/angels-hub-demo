@@ -1,22 +1,18 @@
 "use client";
-import { SelectedSlideContext } from "@/app/contexts/banner-context";
+import { SelectedSlideContext } from "@/contexts/banner-context";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import Image from "next/image";
 import Link from "next/link";
 import { useContext, useRef } from "react";
-import CARD_2 from "../../../../public/images/slide-card-2.png";
-import CIP_2 from "../../../../public/images/slider-cip-2.png";
-import CIP_BLUR_2 from "../../../../public/images/slider-cip-blur-2.png";
-import SLIDER_PIC_2 from "../../../../public/images/slider-main-2.png";
+import BALL_3 from "../../../public/images/slider-ball-3.png";
+import SLIDER_PIC_3 from "../../../public/images/slider-main-3.png";
 
-export default function Slide2({ slide }: { slide: number }) {
+export default function Slide3({ slide }: { slide: number }) {
   const { selected } = useContext(SelectedSlideContext);
   const slideRef = useRef<HTMLDivElement>(null!);
   const imageRef = useRef<HTMLImageElement>(null!);
   const imageRef1 = useRef<HTMLImageElement>(null!);
-  const imageRef2 = useRef<HTMLImageElement>(null!);
-  const imageRef3 = useRef<HTMLImageElement>(null!);
   const titleRef1 = useRef<HTMLHeadingElement>(null!);
   const titleRef2 = useRef<HTMLHeadingElement>(null!);
   const titleRef3 = useRef<HTMLHeadingElement>(null!);
@@ -29,7 +25,7 @@ export default function Slide2({ slide }: { slide: number }) {
     () => {
       gsap
         .timeline({ defaults: { duration: 0.6, ease: "power1.inOut" } })
-        .paused(Number(selected) !== 1)
+        .paused(Number(selected) !== 2)
         .fromTo(
           orangeRef.current,
           { xPercent: -20, yPercent: -20, opacity: 0, autoAlpha: 0 },
@@ -40,12 +36,6 @@ export default function Slide2({ slide }: { slide: number }) {
           { xPercent: 20, yPercent: 20, opacity: 0, autoAlpha: 0 },
           { xPercent: 0, yPercent: 0, opacity: 1, autoAlpha: 1 },
           "<0.2"
-        )
-        .fromTo(
-          imageRef.current,
-          { xPercent: 20, yPercent: 20, opacity: 0, autoAlpha: 0 },
-          { xPercent: 0, yPercent: 0, opacity: 1, autoAlpha: 1 },
-          "<0.1"
         )
         .fromTo(
           titleRef1.current,
@@ -79,21 +69,24 @@ export default function Slide2({ slide }: { slide: number }) {
         )
         .fromTo(
           imageRef1.current,
-          { xPercent: 20, yPercent: 20, opacity: 0, autoAlpha: 0 },
-          { xPercent: 0, yPercent: 0, opacity: 1, autoAlpha: 1 },
-          "<0.1"
+          { yPercent: -80, opacity: 0, autoAlpha: 0 },
+          { yPercent: 0, opacity: 1, autoAlpha: 1 },
+          "<"
         )
         .fromTo(
-          imageRef2.current,
-          { xPercent: 20, yPercent: 20, opacity: 0, autoAlpha: 0 },
-          { xPercent: 0, yPercent: 0, opacity: 1, autoAlpha: 1 },
-          "<0.1"
-        )
-        .fromTo(
-          imageRef3.current,
-          { xPercent: 20, yPercent: 20, opacity: 0, autoAlpha: 0 },
-          { xPercent: 0, yPercent: 0, opacity: 1, autoAlpha: 1 },
-          "<0.1"
+          imageRef.current,
+          {
+            scale: 1.8,
+            opacity: 0,
+            autoAlpha: 0,
+            ease: "back.inOut",
+          },
+          {
+            scale: 1,
+            opacity: 1,
+            autoAlpha: 1,
+            ease: "circ.out",
+          }
         );
     },
     { scope: slideRef, dependencies: [slide] }
@@ -103,30 +96,25 @@ export default function Slide2({ slide }: { slide: number }) {
     <div ref={slideRef} className="static w-full h-full">
       <Image
         ref={imageRef}
-        className="absolute z-20 object-contain right-0 bottom-0"
-        src={SLIDER_PIC_2.src}
+        className="absolute z-20 object-contain right-[4%] bottom-[10%]"
+        src={SLIDER_PIC_3.src}
         priority
-        width={SLIDER_PIC_2.width}
-        height={SLIDER_PIC_2.height}
+        width={796}
+        height={778}
         alt="Slider picture 1"
       />
-      <svg
-        ref={blueRef}
-        className="absolute z-10 -right-[12%] -bottom-[25%]"
-        width="1332"
-        height="1386"
-        viewBox="0 0 1332 1386"
-        fill="none"
-        xmlns="http://www.w3.org/2000/svg"
+      <video
+        loop
+        muted
+        autoPlay
+        playsInline
+        className="absolute object-cover object-center z-0 top-1/2 left-1/2 w-full h-full -translate-y-1/2 -translate-x-1/2"
       >
-        <path
-          d="M1302.01 414.401L1159.57 128.112C1099.99 8.34829 970.267 -34.5383 870.263 32.4634L448.435 315.084C428.778 328.254 411.852 346.188 399.007 367.458L217.585 667.854L41.1386 960.013C39.0178 963.437 37.1122 966.718 35.1493 969.98C-8.86424 1047.28 -12.3693 1155.83 33.4995 1248.03C96.0537 1373.76 226.954 1422.38 325.523 1356.34L987.11 914.23L1228.67 752.957C1328.79 686.17 1361.53 534.146 1301.95 414.382L1302.01 414.401Z"
-          fill="#1253df"
-        />
-      </svg>
+        <source src="/videos/slider-video-3.mp4" type="video/mp4" />
+      </video>
       <svg
         ref={orangeRef}
-        className="absolute z-30 -left-[10%] -top-[40%]"
+        className="absolute z-10 mix-blend-color -left-[10%] -top-[40%]"
         width="1431"
         height="1116"
         viewBox="0 0 1431 1116"
@@ -138,31 +126,27 @@ export default function Slide2({ slide }: { slide: number }) {
           fill="#FE5F00"
         />
       </svg>
+      <svg
+        ref={blueRef}
+        className="absolute z-10 mix-blend-hard-light -right-[15%] -bottom-[40%]"
+        width="1332"
+        height="1386"
+        viewBox="0 0 1332 1386"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M1302.01 414.401L1159.57 128.112C1099.99 8.34829 970.267 -34.5383 870.263 32.4634L448.435 315.084C428.778 328.254 411.852 346.188 399.007 367.458L217.585 667.854L41.1386 960.013C39.0178 963.437 37.1122 966.718 35.1493 969.98C-8.86424 1047.28 -12.3693 1155.83 33.4995 1248.03C96.0537 1373.76 226.954 1422.38 325.523 1356.34L987.11 914.23L1228.67 752.957C1328.79 686.17 1361.53 534.146 1301.95 414.382L1302.01 414.401Z"
+          fill="#0F38B4"
+        />
+      </svg>
       <Image
         ref={imageRef1}
-        className="absolute z-30 object-contain top-[650px] left-[700px] -rotate-45"
-        src={CIP_2.src}
+        className="absolute z-10 object-contain left-[70%] top-[15%]"
+        src={BALL_3.src}
         priority
-        width={106}
-        height={100}
-        alt="Slider picture 1"
-      />
-      <Image
-        ref={imageRef2}
-        className="absolute z-30 object-contain top-10 right-[470px] rotate-45"
-        src={CIP_BLUR_2.src}
-        priority
-        width={114}
-        height={77}
-        alt="Slider picture 1"
-      />
-      <Image
-        ref={imageRef3}
-        className="absolute z-30 object-contain top-80 right-12"
-        src={CARD_2.src}
-        priority
-        width={188}
-        height={170}
+        width={90}
+        height={90}
         alt="Slider picture 1"
       />
       <div className="absolute z-20 bottom-0 left-0 w-full h-2/3 bg-gradient-to-t from-angel-blue via-angel-blue via-15%"></div>

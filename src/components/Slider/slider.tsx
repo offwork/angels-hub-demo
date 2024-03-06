@@ -1,11 +1,11 @@
 "use client";
-import { ReactNode, useRef, useState } from "react";
+import { SelectedSlideContext } from "@/contexts/banner-context";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
+import { ReactNode, useRef, useState } from "react";
 import Slide1 from "./slide-1";
 import Slide2 from "./slide-2";
 import Slide3 from "./slide-3";
-import { SelectedSlideContext } from "@/app/contexts/banner-context";
 import useInterval from "./use-interval";
 
 export default function Slider({ children }: { children: ReactNode }) {
@@ -20,7 +20,9 @@ export default function Slider({ children }: { children: ReactNode }) {
   const slidesTotal = useRef(0);
   const { context, contextSafe } = useGSAP({ scope: sliderRef });
 
-  useInterval(() => { navigateSlider(1) }, 7000)
+  useInterval(() => {
+    navigateSlider(1);
+  }, 7000);
 
   const navigateSlider = contextSafe((direction: number) => {
     if (isAnimating.current) return false;
@@ -75,31 +77,29 @@ export default function Slider({ children }: { children: ReactNode }) {
           xPercent: 0,
         },
         "start"
-      )
-      decoRef.current.forEach((_, pos, arr) => {
-        tl.current.to(
-          arr[arr.length - 1 - pos],
-          {
-            ease: "power4",
-            xPercent: -direction * 100,
-          },
-          `start+=${(pos + 1) * 0.2}`
-        );
-      });
-      tl.current
-      .addLabel("middle", "<")
-      .fromTo(
-        upcomingSlide,
-        {
-          autoAlpha: 1,
-          xPercent: direction * 100,
-        },
+      );
+    decoRef.current.forEach((_, pos, arr) => {
+      tl.current.to(
+        arr[arr.length - 1 - pos],
         {
           ease: "power4",
-          xPercent: 0,
+          xPercent: -direction * 100,
         },
-        "middle"
-      )
+        `start+=${(pos + 1) * 0.2}`
+      );
+    });
+    tl.current.addLabel("middle", "<").fromTo(
+      upcomingSlide,
+      {
+        autoAlpha: 1,
+        xPercent: direction * 100,
+      },
+      {
+        ease: "power4",
+        xPercent: 0,
+      },
+      "middle"
+    );
   });
 
   useGSAP(
@@ -177,7 +177,7 @@ export default function Slider({ children }: { children: ReactNode }) {
             className="deco bg-angel-blue relative grid place-items-center w-full h-full opacity-0"
           ></div>
         </div>
-        { children }
+        {children}
       </SelectedSlideContext.Provider>
     </>
   );

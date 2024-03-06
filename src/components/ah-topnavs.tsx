@@ -1,3 +1,4 @@
+"use client";
 import Link from "next/link";
 import BrandLogo from "./ah-brand-logo";
 import HamburgerButton from "./ah-hamburger-button";
@@ -14,9 +15,7 @@ export default function Topnavs() {
             href="/"
             className="flex items-center text-white space-x-2 border rounded-lg px-6 py-2"
           >
-            <span>
-              Book a Demo
-            </span>
+            <span>Book a Demo</span>
             <svg
               className="motion-safe:animate-pulse"
               width="16"

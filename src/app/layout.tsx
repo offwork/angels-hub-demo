@@ -1,7 +1,7 @@
+import Topnavs from "@/components/ah-topnavs";
 import type { Metadata } from "next";
 import "./globals.css";
 // import { FKGrotesk } from "./styles/fonts";
-import Topnavs from "./components/ah-topnavs";
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -17,9 +17,7 @@ export default function RootLayout({
     <html lang="en">
       <body className="font-sans relative bg-angel-blue w-full">
         <Topnavs />
-        <main>
-          {children}
-        </main>
+        <main>{children}</main>
       </body>
     </html>
   );

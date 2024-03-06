@@ -1,3 +1,4 @@
+"use client";
 import { classNames } from "@/utils";
 import Link from "next/link";
 

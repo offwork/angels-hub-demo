@@ -1,9 +1,9 @@
 "use client";
-import Image from "next/image";
-import EVENT_PIC from "../../../../public/images/event-pic.png";
-import { useRef } from "react";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
+import Image from "next/image";
+import { useRef } from "react";
+import EVENT_PIC from "../../../public/images/event-pic.png";
 
 const NEXT = 1;
 const PREV = -1;
@@ -50,15 +50,11 @@ export default function BannerController() {
           duration: 1.2,
         },
         onStart: () => {
-          slidesCtrlRef.current[slideCtrl.current].classList.add(
-            "opacity-0",
-          );
+          slidesCtrlRef.current[slideCtrl.current].classList.add("opacity-0");
           gsap.set(upcomingSlide, { zIndex: 39, opacity: 0 });
         },
         onComplete: () => {
-          slidesCtrlRef.current[previous].classList.remove(
-            "opacity-0",
-          );
+          slidesCtrlRef.current[previous].classList.remove("opacity-0");
           gsap.set(upcomingSlide, { zIndex: 1, opacity: 1 });
           isCtrlAnimating.current = false;
         },
@@ -100,7 +96,7 @@ export default function BannerController() {
           stagger: {
             each: 0.1,
             amount: 0.3,
-            ease: "circle.out"
+            ease: "circle.out",
           },
         },
         {
@@ -110,7 +106,7 @@ export default function BannerController() {
           stagger: {
             each: 0.3,
             amount: 0.9,
-            ease: "circle.in"
+            ease: "circle.in",
           },
         },
         "ctrl+=0.17"
@@ -121,7 +117,8 @@ export default function BannerController() {
     () => {
       slidesCtrlRef.current =
         gsap.utils.toArray<HTMLDivElement>(".controller ");
-      slidesCtrlTexts.current = controllerRef.current.querySelectorAll(".text-white")
+      slidesCtrlTexts.current =
+        controllerRef.current.querySelectorAll(".text-white");
       slidesCtrlRef.current[slideCtrl.current].classList.add("opacity-100");
       slidesCtrlTotal.current = gsap.utils.toArray(".controller ").length;
 
@@ -166,8 +163,14 @@ export default function BannerController() {
           </button>
         </div>
       </div>
-      <div ref={controllerRef} className="absolute z-20 grid place-items-center -top-[68px] h-[320px] overflow-hidden">
-        <div style={{ gridArea: "1 / 1 / -1 / -1" }} className="controller relative grid place-items-center grid-flow-col gap-32 opacity-0 ">
+      <div
+        ref={controllerRef}
+        className="absolute z-20 grid place-items-center -top-[68px] h-[320px] overflow-hidden"
+      >
+        <div
+          style={{ gridArea: "1 / 1 / -1 / -1" }}
+          className="controller relative grid place-items-center grid-flow-col gap-32 opacity-0 "
+        >
           <div className="relative w-[316px] h-[200px] rounded-3xl border-8 border-angel-blue-600 overflow-hidden -ml-[1px]">
             <Image
               className="absolute object-cover -translate-y-11 object-center"
@@ -190,7 +193,10 @@ export default function BannerController() {
             </p>
           </div>
         </div>
-        <div style={{ gridArea: "1 / 1 / -1 / -1" }} className="controller relative grid place-items-center grid-flow-col gap-32 opacity-0 ">
+        <div
+          style={{ gridArea: "1 / 1 / -1 / -1" }}
+          className="controller relative grid place-items-center grid-flow-col gap-32 opacity-0 "
+        >
           <div className="relative w-[316px] h-[200px] rounded-3xl border-8 border-angel-blue-600 overflow-hidden -ml-[1px]">
             <Image
               className="absolute object-cover -translate-y-11 object-center"
@@ -213,7 +219,10 @@ export default function BannerController() {
             </p>
           </div>
         </div>
-        <div style={{ gridArea: "1 / 1 / -1 / -1" }} className="controller relative grid place-items-center grid-flow-col gap-32 opacity-0 ">
+        <div
+          style={{ gridArea: "1 / 1 / -1 / -1" }}
+          className="controller relative grid place-items-center grid-flow-col gap-32 opacity-0 "
+        >
           <div className="relative w-[316px] h-[200px] rounded-3xl border-8 border-angel-blue-600 overflow-hidden -ml-[1px]">
             <Image
               className="absolute object-cover -translate-y-11 object-center"
