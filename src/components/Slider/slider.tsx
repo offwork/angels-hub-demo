@@ -20,9 +20,9 @@ export default function Slider({ children }: { children: ReactNode }) {
   const slidesTotal = useRef(0);
   const { context, contextSafe } = useGSAP({ scope: sliderRef });
 
-  /* useInterval(() => {
+  useInterval(() => {
     navigateSlider(1);
-  }, 7000); */
+  }, 7000);
 
   const navigateSlider = contextSafe((direction: number) => {
     if (isAnimating.current) return false;
