@@ -1,7 +1,0 @@
-[build.environment]
-  PNPM_FLAGS = "--shamefully-hoist"
-  NEXT_FORCE_EDGE_IMAGES = true
-
-[build]
-  command = "pnpm run build"
-  publish = ".next"
