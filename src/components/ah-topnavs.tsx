@@ -6,7 +6,7 @@ import HamburgerButton from "./ah-hamburger-button";
 export default function Topnavs() {
   return (
     <>
-      <div className="absolute z-10 left-24 top-14">
+      <div className="absolute z-50 left-24 top-14">
         <BrandLogo />
       </div>
       <div className="fixed z-30 top-10 right-24">

@@ -51,8 +51,13 @@ const config: Config = {
           "950": "#461404",
         },
       },
+      padding: {},
       screens: {
         xs: "375px",
+        "3xl": "1440px",
+        "4xl": "1600px",
+        "5xl": "1760px",
+        "6xl": "1920px",
         ...screens,
       },
     },

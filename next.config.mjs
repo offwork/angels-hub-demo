@@ -6,6 +6,7 @@ const nextConfig = {
   httpAgentOptions: {
     keepAlive: true,
   },
+  generateBuildId: () => `build-${new Date().getTime()}`,
   images: {
     formats: ["image/webp"],
   },

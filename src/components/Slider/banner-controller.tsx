@@ -75,14 +75,14 @@ export default function BannerController() {
           autoAlpha: 0,
           opacity: 0,
           yPercent: direction * 100,
-          ease: "back.in(0.8)",
+          ease: "back.in",
           stagger: 0.3,
         },
         {
           autoAlpha: 1,
           opacity: 1,
           yPercent: 0,
-          ease: "back.inOut(1.2)",
+          ease: "back.inOut(5)",
           stagger: 0.3,
         },
         "ctrl+=0.2"
@@ -93,23 +93,17 @@ export default function BannerController() {
           autoAlpha: 0,
           opacity: 0,
           y: -direction * 65,
-          stagger: {
-            each: 0.1,
-            amount: 0.3,
-            ease: "circle.out",
-          },
+          ease: "back",
+          stagger: 0.1
         },
         {
           autoAlpha: 1,
           opacity: 1,
           y: 0,
-          stagger: {
-            each: 0.3,
-            amount: 0.9,
-            ease: "circle.in",
-          },
+          ease: "back(3)",
+          stagger: 0.2,
         },
-        "ctrl+=0.17"
+        "<"
       );
   });
 
