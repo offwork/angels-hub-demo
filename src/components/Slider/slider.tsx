@@ -22,7 +22,7 @@ export default function Slider({ children }: { children: ReactNode }) {
 
   useInterval(() => {
     navigateSlider(1);
-  }, 7000);
+  }, 20000);
 
   const navigateSlider = contextSafe((direction: number) => {
     if (isAnimating.current) return false;
