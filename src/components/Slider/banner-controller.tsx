@@ -8,17 +8,20 @@ import EVENT_PIC from "../../../public/images/event-pic.png";
 const NEXT = 1;
 const PREV = -1;
 
+gsap.registerPlugin(useGSAP)
+
 export default function BannerController() {
   const tl = useRef<GSAPTimeline>(null!);
   const prevButtonRef = useRef<HTMLButtonElement>(null!);
   const nextButtonRef = useRef<HTMLButtonElement>(null!);
   const controllerRef = useRef<HTMLDivElement>(null!);
+  const controllerContentRef = useRef<HTMLDivElement>(null!);
   const slidesCtrlRef = useRef<HTMLDivElement[]>(null!);
   const slidesCtrlTexts = useRef<NodeList>(null!);
   const isCtrlAnimating = useRef(false);
   const slideCtrl = useRef(0);
   const slidesCtrlTotal = useRef(0);
-  const { contextSafe } = useGSAP({ scope: controllerRef });
+  const { contextSafe } = useGSAP({ scope: controllerContentRef });
 
   const onNext = () => {
     navigateSlider(NEXT);
@@ -47,7 +50,7 @@ export default function BannerController() {
     tl.current = gsap
       .timeline({
         defaults: {
-          duration: 1.2,
+          
         },
         onStart: () => {
           slidesCtrlRef.current[slideCtrl.current].classList.add("opacity-0");
@@ -75,17 +78,17 @@ export default function BannerController() {
           autoAlpha: 0,
           opacity: 0,
           yPercent: direction * 100,
-          ease: "back.in",
-          stagger: 0.3,
+          ease: "back.inOut(1.7)",
+          stagger: 0.1,
         },
         {
           autoAlpha: 1,
           opacity: 1,
           yPercent: 0,
-          ease: "back.inOut(5)",
+          ease: "elas.inOut(5)",
           stagger: 0.3,
         },
-        "ctrl+=0.2"
+        "ctrl+=0.1"
       )
       .fromTo(
         slidesCtrlTexts.current,
@@ -94,7 +97,8 @@ export default function BannerController() {
           opacity: 0,
           y: -direction * 65,
           ease: "back",
-          stagger: 0.1
+          stagger: 0.1,
+          duration: .8,
         },
         {
           autoAlpha: 1,
@@ -102,17 +106,31 @@ export default function BannerController() {
           y: 0,
           ease: "back(3)",
           stagger: 0.2,
+          duration: .4,
         },
-        "<"
+        "ctrl<0.1"
       );
   });
+
+  useGSAP(
+    (context) => {
+      const bar = controllerRef.current.querySelector<HTMLDivElement>(".bar");
+      const content = controllerRef.current.querySelector<HTMLDivElement>(".content");
+      gsap
+        .timeline({ defaults: { duration: 1, ease: "power3.inOut", delay: 0.5} })
+        .fromTo(bar, {autoAlpha: 0, opacity: 0, scale: 0.5, yPercent: 20}, {autoAlpha: 1, opacity: 1, scale: 1, yPercent: 0})
+        .fromTo(content, {autoAlpha: 0, opacity: 0, scale: 0.5, yPercent: 20}, {autoAlpha: 1, opacity: 1, scale: 1, yPercent: 0},"<")
+      console.log(context)
+    },
+    { scope: controllerRef }
+  );
 
   useGSAP(
     () => {
       slidesCtrlRef.current =
         gsap.utils.toArray<HTMLDivElement>(".controller ");
       slidesCtrlTexts.current =
-        controllerRef.current.querySelectorAll(".text-white");
+        controllerContentRef.current.querySelectorAll(".text-white");
       slidesCtrlRef.current[slideCtrl.current].classList.add("opacity-100");
       slidesCtrlTotal.current = gsap.utils.toArray(".controller ").length;
 
@@ -121,12 +139,12 @@ export default function BannerController() {
         nextButtonRef.current.removeEventListener("click", onNext);
       };
     },
-    { scope: controllerRef }
+    { scope: controllerContentRef }
   );
 
   return (
-    <div className="container absolute left-1/2 -translate-x-1/2 z-20 bottom-32 mx-auto px-44">
-      <div className="grid place-items-center w-full rounded-3xl bg-black h-[186px] shadow-[0_18px_103px_-15px_rgba(0,0,0,0.36)]">
+    <div ref={controllerRef} className="container absolute left-1/2 -translate-x-1/2 z-20 bottom-32 mx-auto px-44">
+      <div className="bar grid place-items-center w-full rounded-3xl bg-black h-[186px] opacity-0 shadow-[0_18px_103px_-15px_rgba(0,0,0,0.36)]">
         <div className="flex gap-x-16 items-center ml-auto mr-12">
           <button ref={prevButtonRef} onClick={onPrev}>
             <svg
@@ -158,8 +176,8 @@ export default function BannerController() {
         </div>
       </div>
       <div
-        ref={controllerRef}
-        className="absolute z-20 grid place-items-center -top-[68px] h-[320px] overflow-hidden"
+        ref={controllerContentRef}
+        className="content absolute z-20 grid place-items-center -top-[68px] h-[320px] opacity-0 overflow-hidden"
       >
         <div
           style={{ gridArea: "1 / 1 / -1 / -1" }}

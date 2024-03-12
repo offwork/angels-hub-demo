@@ -9,6 +9,10 @@ import CARD_2 from "../../../public/images/slide-card-2.png";
 import CIP_2 from "../../../public/images/slider-cip-2.png";
 import CIP_BLUR_2 from "../../../public/images/slider-cip-blur-2.png";
 import SLIDER_PIC_2 from "../../../public/images/slider-main-2.png";
+import BlueShape from "./blue-shape";
+import OrangeShape from "./orange-spahe";
+
+gsap.registerPlugin(useGSAP);
 
 export default function Slide2({ slide }: { slide: number }) {
   const { selected } = useContext(SelectedSlideContext);
@@ -27,74 +31,512 @@ export default function Slide2({ slide }: { slide: number }) {
 
   useGSAP(
     () => {
-      gsap
-        .timeline({ defaults: { duration: 0.6, ease: "power1.inOut" } })
-        .paused(Number(selected) !== 1)
-        .fromTo(
-          orangeRef.current,
-          { xPercent: -20, yPercent: -20, opacity: 0, autoAlpha: 0 },
-          { xPercent: 0, yPercent: 0, opacity: 1, autoAlpha: 1 }
-        )
-        .fromTo(
-          blueRef.current,
-          { xPercent: 20, yPercent: 20, opacity: 0, autoAlpha: 0 },
-          { xPercent: 0, yPercent: 0, opacity: 1, autoAlpha: 1 },
-          "<0.2"
-        )
-        .fromTo(
-          imageRef.current,
-          { xPercent: 20, yPercent: 20, opacity: 0, autoAlpha: 0 },
-          { xPercent: 0, yPercent: 0, opacity: 1, autoAlpha: 1 },
-          "<0.1"
-        )
-        .fromTo(
-          titleRef1.current,
-          { yPercent: 20, opacity: 0, autoAlpha: 0 },
-          { yPercent: 0, opacity: 1, autoAlpha: 1 },
-          "<"
-        )
-        .fromTo(
-          titleRef2.current,
-          { yPercent: 30, opacity: 0, autoAlpha: 0 },
-          { yPercent: 0, opacity: 1, autoAlpha: 1 },
-          "<0.1"
-        )
-        .fromTo(
-          titleRef3.current,
-          { yPercent: 40, opacity: 0, autoAlpha: 0 },
-          { yPercent: 0, opacity: 1, autoAlpha: 1 },
-          "<0.1"
-        )
-        .fromTo(
-          describeRef.current,
-          { yPercent: 50, opacity: 0, autoAlpha: 0 },
-          { yPercent: 0, opacity: 1, autoAlpha: 1 },
-          "<0.1"
-        )
-        .fromTo(
-          linkRef.current,
-          { yPercent: 60, opacity: 0, autoAlpha: 0 },
-          { yPercent: 0, opacity: 1, autoAlpha: 1 },
-          "<0.1"
-        )
-        .fromTo(
-          imageRef1.current,
-          { xPercent: 20, yPercent: 20, opacity: 0, autoAlpha: 0 },
-          { xPercent: 0, yPercent: 0, opacity: 1, autoAlpha: 1 },
-          "<0.1"
-        )
-        .fromTo(
-          imageRef2.current,
-          { xPercent: 20, yPercent: 20, opacity: 0, autoAlpha: 0 },
-          { xPercent: 0, yPercent: 0, opacity: 1, autoAlpha: 1 },
-          "<0.1"
-        )
-        .fromTo(
-          imageRef3.current,
-          { xPercent: 20, yPercent: 20, opacity: 0, autoAlpha: 0 },
-          { xPercent: 0, yPercent: 0, opacity: 1, autoAlpha: 1 },
-          "<0.1"
-        );
+      const mediaMatcher = gsap.matchMedia();
+      mediaMatcher.add(
+        {
+          desktopXl: "(max-width: 1280px)",
+          desktop2Xl: "(max-width: 1441px)",
+          desktop3Xl: "(max-width: 1601px)",
+          desktop4Xl: "(max-width: 1761px)",
+          desktop5Xl: "(max-width: 1921px)",
+        },
+        (context) => {
+          const { desktopXl, desktop2Xl, desktop3Xl, desktop4Xl, desktop5Xl } =
+            context.conditions!;
+
+          if (desktopXl) {
+            gsap
+              .timeline({ defaults: { duration: 0.6, ease: "power1.inOut" } })
+              .paused(Number(selected) !== 1)
+              .fromTo(
+                orangeRef.current,
+                { left: "-50%", top: "-80%", opacity: 0, autoAlpha: 0 },
+                { left: "-25%", top: "-55%", opacity: 1, autoAlpha: 1 }
+              )
+              .fromTo(
+                blueRef.current,
+                { right: "-45%", top: "55%", opacity: 0, autoAlpha: 0 },
+                { right: "-20%", top: "10%", opacity: 1, autoAlpha: 1 },
+                "<0.2"
+              )
+              .fromTo(
+                imageRef.current,
+                {
+                  scale: 1.8,
+                  right: "-25%",
+                  bottom: "-30%",
+                  opacity: 0,
+                  autoAlpha: 0,
+                },
+                {
+                  scale: 1,
+                  right: "0%",
+                  bottom: "-5%",
+                  opacity: 1,
+                  autoAlpha: 1,
+                },
+                "<0.1"
+              )
+              .fromTo(
+                titleRef1.current,
+                { yPercent: 20, opacity: 0, autoAlpha: 0 },
+                { yPercent: 0, opacity: 1, autoAlpha: 1 },
+                "<"
+              )
+              .fromTo(
+                titleRef2.current,
+                { yPercent: 30, opacity: 0, autoAlpha: 0 },
+                { yPercent: 0, opacity: 1, autoAlpha: 1 },
+                "<0.1"
+              )
+              .fromTo(
+                titleRef3.current,
+                { yPercent: 40, opacity: 0, autoAlpha: 0 },
+                { yPercent: 0, opacity: 1, autoAlpha: 1 },
+                "<0.1"
+              )
+              .fromTo(
+                describeRef.current,
+                { yPercent: 50, opacity: 0, autoAlpha: 0 },
+                { yPercent: 0, opacity: 1, autoAlpha: 1 },
+                "<0.1"
+              )
+              .fromTo(
+                linkRef.current,
+                { yPercent: 60, opacity: 0, autoAlpha: 0 },
+                { yPercent: 0, opacity: 1, autoAlpha: 1 },
+                "<0.1"
+              )
+              .fromTo(
+                imageRef1.current,
+                { right: "45%", bottom: "23%", opacity: 0, autoAlpha: 0 },
+                {
+                  right: "55%",
+                  bottom: "33%",
+                  rotationY: -180,
+                  opacity: 1,
+                  autoAlpha: 1,
+                },
+                "<0.1"
+              )
+              .fromTo(
+                imageRef2.current,
+                {
+                  top: "8%",
+                  right: "20%",
+                  rotationY: -180,
+                  opacity: 0,
+                  autoAlpha: 0,
+                },
+                {
+                  top: "8%",
+                  right: "33%",
+                  opacity: 1,
+                  autoAlpha: 1,
+                },
+                "<0.1"
+              )
+              .fromTo(
+                imageRef3.current,
+                { top: "35%", right: "-5%", opacity: 0, autoAlpha: 0 },
+                { top: "35%", right: "5%", opacity: 1, autoAlpha: 1 },
+                "<0.1"
+              );
+          } else if (desktop2Xl) {
+            gsap
+              .timeline({ defaults: { duration: 0.6, ease: "power1.inOut" } })
+              .paused(Number(selected) !== 1)
+              .fromTo(
+                orangeRef.current,
+                { left: "-45%", top: "-75%", opacity: 0, autoAlpha: 0 },
+                { left: "-20%", top: "-50%", opacity: 1, autoAlpha: 1 }
+              )
+              .fromTo(
+                blueRef.current,
+                { right: "-40%", top: "35%", opacity: 0, autoAlpha: 0 },
+                { right: "-15%", top: "10%", opacity: 1, autoAlpha: 1 },
+                "<0.2"
+              )
+              .fromTo(
+                imageRef.current,
+                {
+                  scale: 1.8,
+                  right: "-20%",
+                  bottom: "-25%",
+                  opacity: 0,
+                  autoAlpha: 0,
+                },
+                {
+                  scale: 1,
+                  right: "0%",
+                  bottom: "0%",
+                  opacity: 1,
+                  autoAlpha: 1,
+                },
+                "<0.1"
+              )
+              .fromTo(
+                titleRef1.current,
+                { yPercent: 20, opacity: 0, autoAlpha: 0 },
+                { yPercent: 0, opacity: 1, autoAlpha: 1 },
+                "<"
+              )
+              .fromTo(
+                titleRef2.current,
+                { yPercent: 30, opacity: 0, autoAlpha: 0 },
+                { yPercent: 0, opacity: 1, autoAlpha: 1 },
+                "<0.1"
+              )
+              .fromTo(
+                titleRef3.current,
+                { yPercent: 40, opacity: 0, autoAlpha: 0 },
+                { yPercent: 0, opacity: 1, autoAlpha: 1 },
+                "<0.1"
+              )
+              .fromTo(
+                describeRef.current,
+                { yPercent: 50, opacity: 0, autoAlpha: 0 },
+                { yPercent: 0, opacity: 1, autoAlpha: 1 },
+                "<0.1"
+              )
+              .fromTo(
+                linkRef.current,
+                { yPercent: 60, opacity: 0, autoAlpha: 0 },
+                { yPercent: 0, opacity: 1, autoAlpha: 1 },
+                "<0.1"
+              )
+              .fromTo(
+                imageRef1.current,
+                { right: "50%", bottom: "23%", opacity: 0, autoAlpha: 0 },
+                {
+                  right: "60%",
+                  bottom: "33%",
+                  rotationY: -180,
+                  opacity: 1,
+                  autoAlpha: 1,
+                },
+                "<0.1"
+              )
+              .fromTo(
+                imageRef2.current,
+                {
+                  top: "8%",
+                  right: "25%",
+                  rotationY: -180,
+                  opacity: 0,
+                  autoAlpha: 0,
+                },
+                {
+                  top: "8%",
+                  right: "35%",
+                  opacity: 1,
+                  autoAlpha: 1,
+                },
+                "<0.1"
+              )
+              .fromTo(
+                imageRef3.current,
+                { top: "33%", right: "-2%", opacity: 0, autoAlpha: 0 },
+                { top: "33%", right: "7%", opacity: 1, autoAlpha: 1 },
+                "<0.1"
+              );
+          } else if (desktop3Xl) {
+            gsap
+              .timeline({ defaults: { duration: 0.6, ease: "power1.inOut" } })
+              .paused(Number(selected) !== 1)
+              .fromTo(
+                orangeRef.current,
+                { left: "-40%", top: "-70%", opacity: 0, autoAlpha: 0 },
+                { left: "-15%", top: "-50%", opacity: 1, autoAlpha: 1 }
+              )
+              .fromTo(
+                blueRef.current,
+                { right: "-35%", top: "28%", opacity: 0, autoAlpha: 0 },
+                { right: "-12%", top: "3%", opacity: 1, autoAlpha: 1 },
+                "<0.2"
+              )
+              .fromTo(
+                imageRef.current,
+                {
+                  scale: 1.8,
+                  right: "-20%",
+                  bottom: "-25%",
+                  opacity: 0,
+                  autoAlpha: 0,
+                },
+                {
+                  scale: 1,
+                  right: "0%",
+                  bottom: "0%",
+                  opacity: 1,
+                  autoAlpha: 1,
+                },
+                "<0.1"
+              )
+              .fromTo(
+                titleRef1.current,
+                { yPercent: 20, opacity: 0, autoAlpha: 0 },
+                { yPercent: 0, opacity: 1, autoAlpha: 1 },
+                "<"
+              )
+              .fromTo(
+                titleRef2.current,
+                { yPercent: 30, opacity: 0, autoAlpha: 0 },
+                { yPercent: 0, opacity: 1, autoAlpha: 1 },
+                "<0.1"
+              )
+              .fromTo(
+                titleRef3.current,
+                { yPercent: 40, opacity: 0, autoAlpha: 0 },
+                { yPercent: 0, opacity: 1, autoAlpha: 1 },
+                "<0.1"
+              )
+              .fromTo(
+                describeRef.current,
+                { yPercent: 50, opacity: 0, autoAlpha: 0 },
+                { yPercent: 0, opacity: 1, autoAlpha: 1 },
+                "<0.1"
+              )
+              .fromTo(
+                linkRef.current,
+                { yPercent: 60, opacity: 0, autoAlpha: 0 },
+                { yPercent: 0, opacity: 1, autoAlpha: 1 },
+                "<0.1"
+              )
+              .fromTo(
+                imageRef1.current,
+                { right: "50%", bottom: "23%", opacity: 0, autoAlpha: 0 },
+                {
+                  right: "60%",
+                  bottom: "33%",
+                  rotationY: -180,
+                  opacity: 1,
+                  autoAlpha: 1,
+                },
+                "<0.1"
+              )
+              .fromTo(
+                imageRef2.current,
+                {
+                  top: "8%",
+                  right: "20%",
+                  rotationY: -180,
+                  opacity: 0,
+                  autoAlpha: 0,
+                },
+                {
+                  top: "8%",
+                  right: "30%",
+                  opacity: 1,
+                  autoAlpha: 1,
+                },
+                "<0.1"
+              )
+              .fromTo(
+                imageRef3.current,
+                { top: "30%", right: "-8%", opacity: 0, autoAlpha: 0 },
+                { top: "30%", right: "3%", opacity: 1, autoAlpha: 1 },
+                "<0.1"
+              );
+          } else if (desktop4Xl) {
+            gsap
+              .timeline({ defaults: { duration: 0.6, ease: "power1.inOut" } })
+              .paused(Number(selected) !== 1)
+              .fromTo(
+                orangeRef.current,
+                { left: "-35%", top: "-60%", opacity: 0, autoAlpha: 0 },
+                { left: "-10%", top: "-45%", opacity: 1, autoAlpha: 1 }
+              )
+              .fromTo(
+                blueRef.current,
+                { right: "-33%", top: "18%", opacity: 0, autoAlpha: 0 },
+                { right: "-12%", top: "2%", opacity: 1, autoAlpha: 1 },
+                "<0.2"
+              )
+              .fromTo(
+                imageRef.current,
+                {
+                  scale: 1.8,
+                  right: "-20%",
+                  bottom: "-25%",
+                  opacity: 0,
+                  autoAlpha: 0,
+                },
+                {
+                  scale: 1,
+                  right: "0%",
+                  bottom: "0%",
+                  opacity: 1,
+                  autoAlpha: 1,
+                },
+                "<0.1"
+              )
+              .fromTo(
+                titleRef1.current,
+                { yPercent: 20, opacity: 0, autoAlpha: 0 },
+                { yPercent: 0, opacity: 1, autoAlpha: 1 },
+                "<"
+              )
+              .fromTo(
+                titleRef2.current,
+                { yPercent: 30, opacity: 0, autoAlpha: 0 },
+                { yPercent: 0, opacity: 1, autoAlpha: 1 },
+                "<0.1"
+              )
+              .fromTo(
+                titleRef3.current,
+                { yPercent: 40, opacity: 0, autoAlpha: 0 },
+                { yPercent: 0, opacity: 1, autoAlpha: 1 },
+                "<0.1"
+              )
+              .fromTo(
+                describeRef.current,
+                { yPercent: 50, opacity: 0, autoAlpha: 0 },
+                { yPercent: 0, opacity: 1, autoAlpha: 1 },
+                "<0.1"
+              )
+              .fromTo(
+                linkRef.current,
+                { yPercent: 60, opacity: 0, autoAlpha: 0 },
+                { yPercent: 0, opacity: 1, autoAlpha: 1 },
+                "<0.1"
+              )
+              .fromTo(
+                imageRef1.current,
+                { right: "46%", bottom: "21%", opacity: 0, autoAlpha: 0 },
+                {
+                  right: "56%",
+                  bottom: "31%",
+                  rotationY: -180,
+                  opacity: 1,
+                  autoAlpha: 1,
+                },
+                "<0.1"
+              )
+              .fromTo(
+                imageRef2.current,
+                {
+                  top: "8%",
+                  right: "20%",
+                  rotationY: -180,
+                  opacity: 0,
+                  autoAlpha: 0,
+                },
+                {
+                  top: "8%",
+                  right: "27%",
+                  opacity: 1,
+                  autoAlpha: 1,
+                },
+                "<0.1"
+              )
+              .fromTo(
+                imageRef3.current,
+                { top: "30%", right: "-8%", opacity: 0, autoAlpha: 0 },
+                { top: "30%", right: "3%", opacity: 1, autoAlpha: 1 },
+                "<0.1"
+              );
+          } else if (desktop5Xl) {
+            gsap
+              .timeline({ defaults: { duration: 0.6, ease: "power1.inOut" } })
+              .paused(Number(selected) !== 1)
+              .fromTo(
+                orangeRef.current,
+                { left: "-25%", top: "-55%", opacity: 0, autoAlpha: 0 },
+                { left: "-5%", top: "-45%", opacity: 1, autoAlpha: 1 }
+              )
+              .fromTo(
+                blueRef.current,
+                { right: "-30%", top: "18%", opacity: 0, autoAlpha: 0 },
+                { right: "-10%", top: "2%", opacity: 1, autoAlpha: 1 },
+                "<0.2"
+              )
+              .fromTo(
+                imageRef.current,
+                {
+                  scale: 1.8,
+                  right: "-20%",
+                  bottom: "-25%",
+                  opacity: 0,
+                  autoAlpha: 0,
+                },
+                {
+                  scale: 1,
+                  right: "0%",
+                  bottom: "0%",
+                  opacity: 1,
+                  autoAlpha: 1,
+                },
+                "<0.1"
+              )
+              .fromTo(
+                titleRef1.current,
+                { yPercent: 20, opacity: 0, autoAlpha: 0 },
+                { yPercent: 0, opacity: 1, autoAlpha: 1 },
+                "<"
+              )
+              .fromTo(
+                titleRef2.current,
+                { yPercent: 30, opacity: 0, autoAlpha: 0 },
+                { yPercent: 0, opacity: 1, autoAlpha: 1 },
+                "<0.1"
+              )
+              .fromTo(
+                titleRef3.current,
+                { yPercent: 40, opacity: 0, autoAlpha: 0 },
+                { yPercent: 0, opacity: 1, autoAlpha: 1 },
+                "<0.1"
+              )
+              .fromTo(
+                describeRef.current,
+                { yPercent: 50, opacity: 0, autoAlpha: 0 },
+                { yPercent: 0, opacity: 1, autoAlpha: 1 },
+                "<0.1"
+              )
+              .fromTo(
+                linkRef.current,
+                { yPercent: 60, opacity: 0, autoAlpha: 0 },
+                { yPercent: 0, opacity: 1, autoAlpha: 1 },
+                "<0.1"
+              )
+              .fromTo(
+                imageRef1.current,
+                { right: "42%", bottom: "21%", opacity: 0, autoAlpha: 0 },
+                {
+                  right: "52%",
+                  bottom: "31%",
+                  rotationY: -180,
+                  opacity: 1,
+                  autoAlpha: 1,
+                },
+                "<0.1"
+              )
+              .fromTo(
+                imageRef2.current,
+                {
+                  top: "8%",
+                  right: "20%",
+                  rotationY: -180,
+                  opacity: 0,
+                  autoAlpha: 0,
+                },
+                {
+                  top: "8%",
+                  right: "25%",
+                  opacity: 1,
+                  autoAlpha: 1,
+                },
+                "<0.1"
+              )
+              .fromTo(
+                imageRef3.current,
+                { top: "30%", right: "-8%", opacity: 0, autoAlpha: 0 },
+                { top: "30%", right: "2%", opacity: 1, autoAlpha: 1 },
+                "<0.1"
+              );
+          }
+        }
+      );
     },
     { scope: slideRef, dependencies: [slide] }
   );
@@ -110,37 +552,15 @@ export default function Slide2({ slide }: { slide: number }) {
         height={SLIDER_PIC_2.height}
         alt="Slider picture 1"
       />
-      <svg
-        ref={blueRef}
-        className="absolute z-10 -right-[12%] -bottom-[25%]"
-        width="1332"
-        height="1386"
-        viewBox="0 0 1332 1386"
-        fill="none"
-        xmlns="http://www.w3.org/2000/svg"
-      >
-        <path
-          d="M1302.01 414.401L1159.57 128.112C1099.99 8.34829 970.267 -34.5383 870.263 32.4634L448.435 315.084C428.778 328.254 411.852 346.188 399.007 367.458L217.585 667.854L41.1386 960.013C39.0178 963.437 37.1122 966.718 35.1493 969.98C-8.86424 1047.28 -12.3693 1155.83 33.4995 1248.03C96.0537 1373.76 226.954 1422.38 325.523 1356.34L987.11 914.23L1228.67 752.957C1328.79 686.17 1361.53 534.146 1301.95 414.382L1302.01 414.401Z"
-          fill="#1253df"
-        />
-      </svg>
-      <svg
-        ref={orangeRef}
-        className="absolute z-30 -left-[10%] -top-[40%]"
-        width="1431"
-        height="1116"
-        viewBox="0 0 1431 1116"
-        fill="none"
-        xmlns="http://www.w3.org/2000/svg"
-      >
-        <path
-          d="M6.80627 603.621L76.452 924.168C105.587 1058.26 220.282 1140.63 332.253 1107.87L801.704 970.51C825.555 963.532 847.748 950.705 866.341 933.155L1109.65 703.477L1348.14 478.343C1350.99 475.721 1353.6 473.169 1356.25 470.653C1416.78 410.244 1445.7 306.925 1423.27 203.698C1392.69 62.9204 1278.21 -25.3387 1167.84 6.95305L427.359 222.589L157.024 301.176C45.0013 333.697 -22.2782 469.564 6.8567 603.658L6.80627 603.621Z"
-          fill="#FE5F00"
-        />
-      </svg>
+      <BlueShape
+        elRef={blueRef}
+        bg="#125ffe"
+        className="absolute z-10 -right-full"
+      />
+      <OrangeShape elRef={orangeRef} className="absolute z-10 -left-full" />
       <Image
         ref={imageRef1}
-        className="absolute z-30 object-contain top-[650px] left-[700px] -rotate-45"
+        className="absolute z-30 object-contain -right-full drop-shadow-[0_35px_15px_rgba(0,0,0,0.35)]"
         src={CIP_2.src}
         priority
         width={106}
@@ -149,7 +569,7 @@ export default function Slide2({ slide }: { slide: number }) {
       />
       <Image
         ref={imageRef2}
-        className="absolute z-30 object-contain top-10 right-[470px] rotate-45"
+        className="absolute z-30 object-contain -right-full"
         src={CIP_BLUR_2.src}
         priority
         width={114}
@@ -158,7 +578,7 @@ export default function Slide2({ slide }: { slide: number }) {
       />
       <Image
         ref={imageRef3}
-        className="absolute z-30 object-contain top-80 right-12"
+        className="absolute z-30 object-contain -right-full drop-shadow-[0_90px_10px_rgba(0,0,0,0.35)]"
         src={CARD_2.src}
         priority
         width={188}
@@ -166,24 +586,28 @@ export default function Slide2({ slide }: { slide: number }) {
         alt="Slider picture 1"
       />
       <div className="absolute z-20 bottom-0 left-0 w-full h-2/3 bg-gradient-to-t from-angel-blue via-angel-blue via-15%"></div>
+
       <div className="container absolute z-30 top-48 px-44 left-1/2 -translate-x-1/2">
-        <div className="grid max-w-3xl gap-10 text-white">
+        <div className="grid max-w-3xl gap-9 2xl:gap-10 text-white">
           <h1
             ref={titleRef1}
-            className="text-8xl font-light drop-shadow-[0_4px_3px_rgba(0,0,0,0.65)]"
+            className="text-7xl 2xl:text-8xl font-light drop-shadow-[0_4px_3px_rgba(0,0,0,0.65)]"
           >
             Home for NextGen
           </h1>
           <h2
             ref={titleRef2}
-            className="text-8xl font-semibold -mt-9 drop-shadow-[0_4px_3px_rgba(0,0,0,0.65)]"
+            className="text-7xl 2xl:text-8xl font-semibold -mt-9 drop-shadow-[0_4px_3px_rgba(0,0,0,0.65)]"
           >
             iGaming Platform
           </h2>
-          <h3 ref={titleRef3} className="text-4xl font-bold">
+          <h3 ref={titleRef3} className="text-3xl 2xl:text-4xl font-bold">
             Everything under one roof.
           </h3>
-          <p ref={describeRef} className="text-lg max-w-xl">
+          <p
+            ref={describeRef}
+            className="text-base 2xl:text-lg max-w-lg 2xl:max-w-xl"
+          >
             AngelsHub is a technology and service provider for online gaming
             industry. We offer white label, turnkey, SAAS solutions, crypto
             solutions and much much more!
