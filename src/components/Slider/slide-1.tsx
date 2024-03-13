@@ -329,7 +329,7 @@ export default function Slide1({ slide }: { slide: number }) {
         className="absolute z-10 mix-blend-color -left-full"
       />
 
-      <div className="container absolute z-30 top-48 px-44 left-1/2 -translate-x-1/2">
+      <div className="container absolute z-30 top-48 left-1/2 -translate-x-1/2">
         <div className="grid max-w-3xl gap-9 2xl:gap-10 text-white">
           <h1
             ref={titleRef1}

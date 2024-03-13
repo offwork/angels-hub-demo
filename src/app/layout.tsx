@@ -1,6 +1,7 @@
 import Topnavs from "@/components/ah-topnavs";
 import type { Metadata } from "next";
 import "./globals.css";
+import Footer from "@/components/Layout/ah-footer";
 // import { FKGrotesk } from "./styles/fonts";
 
 export const metadata: Metadata = {
@@ -18,6 +19,7 @@ export default function RootLayout({
       <body className="font-sans relative bg-angel-blue w-full">
         <Topnavs />
         <main>{children}</main>
+        <Footer />
       </body>
     </html>
   );
