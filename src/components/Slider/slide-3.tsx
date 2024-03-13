@@ -563,7 +563,7 @@ export default function Slide3({ slide }: { slide: number }) {
         alt="Slider picture 1"
       />
       <div className="absolute z-20 bottom-0 left-0 w-full h-2/3 bg-gradient-to-t from-angel-blue via-angel-blue via-15%"></div>
-      <div className="container absolute z-30 top-48 px-44 left-1/2 -translate-x-1/2">
+      <div className="container absolute z-30 top-48 left-1/2 -translate-x-1/2">
         <div className="grid max-w-3xl gap-10 text-white">
           <h1
             ref={titleRef1}

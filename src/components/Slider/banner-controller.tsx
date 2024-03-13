@@ -120,7 +120,6 @@ export default function BannerController() {
         .timeline({ defaults: { duration: 1, ease: "power3.inOut", delay: 0.5} })
         .fromTo(bar, {autoAlpha: 0, opacity: 0, scale: 0.5, yPercent: 20}, {autoAlpha: 1, opacity: 1, scale: 1, yPercent: 0})
         .fromTo(content, {autoAlpha: 0, opacity: 0, scale: 0.5, yPercent: 20}, {autoAlpha: 1, opacity: 1, scale: 1, yPercent: 0},"<")
-      console.log(context)
     },
     { scope: controllerRef }
   );
@@ -143,7 +142,7 @@ export default function BannerController() {
   );
 
   return (
-    <div ref={controllerRef} className="container absolute left-1/2 -translate-x-1/2 z-20 bottom-32 mx-auto px-44">
+    <div ref={controllerRef} className="container absolute left-1/2 -translate-x-1/2 z-20 bottom-4 mx-auto">
       <div className="bar grid place-items-center w-full rounded-3xl bg-black h-[186px] opacity-0 shadow-[0_18px_103px_-15px_rgba(0,0,0,0.36)]">
         <div className="flex gap-x-16 items-center ml-auto mr-12">
           <button ref={prevButtonRef} onClick={onPrev}>

@@ -22,7 +22,7 @@ export default function Slider({ children }: { children: ReactNode }) {
 
   useInterval(() => {
     navigateSlider(1);
-  }, 20000);
+  }, 12000);
 
   const navigateSlider = contextSafe((direction: number) => {
     if (isAnimating.current) return false;
@@ -125,8 +125,8 @@ export default function Slider({ children }: { children: ReactNode }) {
     <>
       <SelectedSlideContext.Provider value={{ selected, setSelected }}>
         <div className="absolute z-30 w-full h-2">
-          <div className="container mx-auto px-44 pt-36">
-            <div className="flex space-x-2 items-center mb-9">
+          <div className="container mx-auto pt-36">
+            <div className="flex items-center mb-9">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="162"

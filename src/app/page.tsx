@@ -1,13 +1,25 @@
+import Platform from "@/components/Platform/ah-platform";
+import Products from "@/components/Products/ah-products";
 import BannerController from "@/components/Slider/banner-controller";
 import Slider from "@/components/Slider/slider";
+import Solutions from "@/components/Solutions/ah-solutions";
+import Team from "@/components/Team/ah-team";
 
 export default function Home() {
   return (
     <>
-      <Slider>
-        <BannerController />
-      </Slider>
-      <button className="fixed flex space-x-2 items-center bottom-4 right-24">
+      <div className="relative z-10 w-full h-screen">
+        <Slider>
+          <BannerController />
+        </Slider>
+      </div>
+      <div className="relative z-10 container mx-auto mt-32">
+        <Solutions />
+      </div>
+      <Products />
+      <Platform />
+      <Team />
+      <button className="fixed z-20 flex space-x-2 items-center bottom-4 right-24">
         <span className="text-white text-lg">Scroll</span>
         <svg
           className="motion-safe:animate-bounce"
