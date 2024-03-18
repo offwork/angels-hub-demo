@@ -8,9 +8,14 @@ import EVENT_PIC from "../../../public/images/event-pic.png";
 const NEXT = 1;
 const PREV = -1;
 
+type BannerControllerProps = {
+  onPrevSlide?: () => void;
+  onNextSlide?: () => void;
+};
+
 gsap.registerPlugin(useGSAP)
 
-export default function BannerController() {
+export default function BannerController({ onNextSlide, onPrevSlide }: BannerControllerProps) {
   const tl = useRef<GSAPTimeline>(null!);
   const prevButtonRef = useRef<HTMLButtonElement>(null!);
   const nextButtonRef = useRef<HTMLButtonElement>(null!);
@@ -24,10 +29,12 @@ export default function BannerController() {
   const { contextSafe } = useGSAP({ scope: controllerContentRef });
 
   const onNext = () => {
+    if( typeof onNextSlide === "function" ) onNextSlide();
     navigateSlider(NEXT);
   };
 
   const onPrev = () => {
+    if (typeof onPrevSlide === "function") onPrevSlide(); 
     navigateSlider(PREV);
   };
 
