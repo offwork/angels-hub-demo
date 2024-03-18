@@ -9,9 +9,10 @@ export default function Home() {
   return (
     <>
       <div className="relative z-10 w-full h-screen">
-        <Slider>
+        {/* <Slider>
           <BannerController />
-        </Slider>
+        </Slider> */}
+        <Slider />
       </div>
       <div className="relative z-10 container mx-auto mt-32">
         <Solutions />

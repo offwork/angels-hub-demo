@@ -7,8 +7,12 @@ import Slide1 from "./slide-1";
 import Slide2 from "./slide-2";
 import Slide3 from "./slide-3";
 import useInterval from "./use-interval";
+import BannerController from "./banner-controller";
 
-export default function Slider({ children }: { children: ReactNode }) {
+const NEXT = 1;
+const PREV = -1;
+
+export default function Slider(/* { children }: { children: ReactNode } */) {
   const [selected, setSelected] = useState("0");
   const tl = useRef<GSAPTimeline>(null!);
   const sliderRef = useRef<HTMLDivElement>(null!);
@@ -20,9 +24,18 @@ export default function Slider({ children }: { children: ReactNode }) {
   const slidesTotal = useRef(0);
   const { context, contextSafe } = useGSAP({ scope: sliderRef });
 
-  useInterval(() => {
+  /* useInterval(() => {
     navigateSlider(1);
-  }, 12000);
+  }, 12000); */
+
+
+  const onNextSlide = () => {
+    navigateSlider(NEXT);
+  };
+
+  const onPrevSlide = () => {
+    navigateSlider(PREV);
+  };
 
   const navigateSlider = contextSafe((direction: number) => {
     if (isAnimating.current) return false;
@@ -177,7 +190,8 @@ export default function Slider({ children }: { children: ReactNode }) {
             className="deco bg-angel-blue relative grid place-items-center w-full h-full opacity-0"
           ></div>
         </div>
-        {children}
+        {/* {children} */}
+        <BannerController onNextSlide={onNextSlide} onPrevSlide={onPrevSlide} />
       </SelectedSlideContext.Provider>
     </>
   );
