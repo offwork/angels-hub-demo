@@ -137,8 +137,8 @@ export default function Slider(/* { children }: { children: ReactNode } */) {
   return (
     <>
       <SelectedSlideContext.Provider value={{ selected, setSelected }}>
-        <div className="absolute z-30 w-full h-2">
-          <div className="container mx-auto pt-36">
+        <div className="absolute z-30 top-28 w-full h-2">
+          <div className="container">
             <div className="flex items-center mb-9">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -191,6 +191,7 @@ export default function Slider(/* { children }: { children: ReactNode } */) {
           ></div>
         </div>
         {/* {children} */}
+        <div className="relative"></div>
         <BannerController onNextSlide={onNextSlide} onPrevSlide={onPrevSlide} />
       </SelectedSlideContext.Provider>
     </>

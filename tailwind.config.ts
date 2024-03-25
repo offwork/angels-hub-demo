@@ -28,6 +28,7 @@ const config: Config = {
           "3xl": "13rem",
           "4xl": "18rem",
           "5xl": "23rem",
+          "6xl": "43rem",
         },
       },
       colors: {
@@ -92,6 +93,7 @@ const config: Config = {
         "3xl": "1600px",
         "4xl": "1760px",
         "5xl": "1920px",
+        "6xl": "2560px",
       },
     },
   },
