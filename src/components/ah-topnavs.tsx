@@ -5,12 +5,12 @@ import HamburgerButton from "./ah-hamburger-button";
 
 export default function Topnavs() {
   return (
-    <div className="absolute container flex items-center justify-between top-0 pt-10 w-full z-50">
+    <div className="absolute container flex items-center justify-between top-0 pt-10 w-full inset-x-0 z-50">
       <div className="relative">
         <BrandLogo />
       </div>
-      <div className="relative h-[60px] min-w-[236px]">
-        <div className="fixed">
+      <div className="relative min-w-[236px]">
+        <div className="fixed -translate-y-1/2">
           <div className="grid grid-flow-col gap-1 items-center bg-black rounded-lg p-2">
             <Link
               href="/"
