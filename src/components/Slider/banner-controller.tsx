@@ -149,7 +149,7 @@ export default function BannerController({ onNextSlide, onPrevSlide }: BannerCon
   );
 
   return (
-    <div ref={controllerRef} className="container absolute left-1/2 -translate-x-1/2 z-20 bottom-4 mx-auto">
+    <div ref={controllerRef} className="container absolute left-1/2 -translate-x-1/2 -translate-y-full z-20 bottom-0 mx-auto">
       <div className="bar grid place-items-center w-full rounded-3xl bg-black h-[186px] opacity-0 shadow-[0_18px_103px_-15px_rgba(0,0,0,0.36)]">
         <div className="flex gap-x-16 items-center ml-auto mr-12">
           <button ref={prevButtonRef} onClick={onPrev}>

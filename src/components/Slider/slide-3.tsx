@@ -564,23 +564,26 @@ export default function Slide3({ slide }: { slide: number }) {
       />
       <div className="absolute z-20 bottom-0 left-0 w-full h-2/3 bg-gradient-to-t from-angel-blue via-angel-blue via-15%"></div>
       <div className="container absolute z-30 top-48 left-1/2 -translate-x-1/2">
-        <div className="grid max-w-3xl gap-10 text-white">
+        <div className="grid max-w-3xl gap-9 2xl:gap-10 text-white">
           <h1
             ref={titleRef1}
-            className="text-8xl font-light drop-shadow-[0_4px_3px_rgba(0,0,0,0.65)]"
+            className="text-7xl 2xl:text-8xl font-light drop-shadow-[0_4px_3px_rgba(0,0,0,0.65)]"
           >
             Home for NextGen
           </h1>
           <h2
             ref={titleRef2}
-            className="text-8xl font-semibold -mt-9 drop-shadow-[0_4px_3px_rgba(0,0,0,0.65)]"
+            className="text-7xl 2xl:text-8xl font-semibold -mt-9 drop-shadow-[0_4px_3px_rgba(0,0,0,0.65)]"
           >
             iGaming Platform
           </h2>
-          <h3 ref={titleRef3} className="text-4xl font-bold">
+          <h3 ref={titleRef3} className="text-3xl 2xl:text-4xl font-bold">
             Everything under one roof.
           </h3>
-          <p ref={describeRef} className="text-lg max-w-xl">
+          <p
+            ref={describeRef}
+            className="text-base 2xl:text-lg max-w-lg 2xl:max-w-xl"
+          >
             AngelsHub is a technology and service provider for online gaming
             industry. We offer white label, turnkey, SAAS solutions, crypto
             solutions and much much more!

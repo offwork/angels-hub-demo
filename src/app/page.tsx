@@ -8,10 +8,13 @@ import Team from "@/components/Team/ah-team";
 export default function Home() {
   return (
     <>
-      <div className="relative z-10 w-full h-screen">
+      <div className="relative z-10 w-full">
         {/* <Slider>
           <BannerController />
         </Slider> */}
+        <div className="absolute z-30 w-full top-28 bottom-96">
+          <div className="mx-auto w-[1184px] h-full border border-white"></div>
+        </div>
         <Slider />
       </div>
       <div className="relative z-10 container mx-auto mt-32">
