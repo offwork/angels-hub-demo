@@ -1,3 +1,5 @@
+"use client"
+
 import Image from "next/image";
 import WAVE from "../../../public/images/abstract-wave.png";
 import AngelsHubSVG from "./ah-svg";

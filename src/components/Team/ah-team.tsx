@@ -1,3 +1,5 @@
+"use client"
+
 import Image from "next/image";
 import TEAM_MEMBER_1 from "../../../public/images/team-member-1.png";
 import TEAM_MEMBER_2 from "../../../public/images/team-member-2.png";

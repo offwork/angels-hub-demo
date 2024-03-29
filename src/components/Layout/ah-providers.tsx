@@ -1,3 +1,5 @@
+"use client"
+
 import { PROVIDERS } from "@/constant";
 import Image from "next/image";
 
