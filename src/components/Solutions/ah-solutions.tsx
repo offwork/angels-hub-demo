@@ -1,14 +1,15 @@
+"use client"
 import CircleBtn from "./ah-circle-btn";
 
 export default function Solutions() {
   return (
-    <div className="grid gap-9">
+    <div className="container grid gap-9">
       <div className="text-center text-6xl leading-tight">
         <h2 className="text-white">Complete Solutions for</h2>
         <h2 className="text-spray">Everything Gaming</h2>
       </div>
       <div className="grid grid-flow-col gap-8">
-        <div className="grid content-start border-y border-white/20 gap-8 py-8">
+        <div className="solution grid content-start border-y border-white/20 gap-8 py-8">
           <h3 className="text-2xl font-bold text-white">Website API</h3>
           <div className="relative w-full h-[464px] bg-angel-blue-950 rounded-xl">
             <CircleBtn />
@@ -18,7 +19,7 @@ export default function Solutions() {
             website as like now.
           </p>
         </div>
-        <div className="grid content-start border-y border-white/20 gap-8 py-8">
+        <div className="solution grid content-start border-y border-white/20 gap-8 py-8">
           <h3 className="text-2xl font-bold text-white">Turnkey System</h3>
           <div className="relative w-full h-[464px] bg-angel-blue-950 rounded-xl">
             <CircleBtn />
@@ -29,7 +30,7 @@ export default function Solutions() {
             and gaming products.
           </p>
         </div>
-        <div className="grid content-start border-y border-white/20 gap-8 py-8">
+        <div className="solution grid content-start border-y border-white/20 gap-8 py-8">
           <h3 className="text-2xl font-bold text-white">White Label</h3>
           <div className="relative w-full h-[464px] bg-angel-blue-950 rounded-xl">
             <CircleBtn />

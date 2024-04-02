@@ -1,3 +1,5 @@
+"use client"
+
 import { MutableRefObject } from "react";
 
 export default function BlueShape({ elRef, className, bg }: { elRef: MutableRefObject<SVGSVGElement>, className: string, bg: string }) {

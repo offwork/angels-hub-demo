@@ -1,3 +1,5 @@
+"use client"
+
 export default function Platform() {
   return (
     <div className="relative w-full mt-80">

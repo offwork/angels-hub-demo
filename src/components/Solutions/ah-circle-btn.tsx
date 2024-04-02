@@ -1,3 +1,5 @@
+"use client"
+
 export default function CircleBtn() {
   return (
     <div className="absolute bottom-3 right-3 cursor-pointer rounded-full p-3 bg-angel-orange inline-flex items-center">

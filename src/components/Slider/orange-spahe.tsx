@@ -1,3 +1,5 @@
+"use client"
+
 import { MutableRefObject } from "react";
 
 export default function OrangeShape({ elRef, className }: { elRef: MutableRefObject<SVGSVGElement>, className: string }) {

@@ -1,3 +1,5 @@
+"use client"
+
 import AngelsHubSVG from "../Products/ah-svg";
 import SocailIcon from "../Team/ah-social-icon";
 import AngelsHubFlatSVG from "./ah-flat-svg";
