@@ -11,7 +11,7 @@ export default function ProductCard({
   image: string;
 }) {
   return (
-    <div className="relative bg-black w-[818px] h-[412px] rounded-[30px] py-14 drop-shadow-4xl">
+    <div className="horizontal-item relative bg-black min-w-[818px] h-[412px] rounded-[30px] py-14 drop-shadow-4xl">
       <div className="flex items-center mb-11">
         <span className="w-2.5 h-12 bg-angel-orange-500 mr-8"></span>
         <h3 className="text-white font-bold text-[54px]">{title}</h3>

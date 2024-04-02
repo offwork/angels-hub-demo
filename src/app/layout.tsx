@@ -12,7 +12,7 @@ export const metadata: Metadata = {
 export default function RootLayout({children}: {children: ReactNode}) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className="font-sans relative bg-angel-blue w-full" suppressHydrationWarning>
+      <body className="font-sans relative bg-angel-blue w-full overflow-x-hidden overflow-y-scroll overscroll-none" suppressHydrationWarning>
         {/* <Topnavs /> */}
         <main>{children}</main>
         {/* <Footer /> */}
