@@ -2,7 +2,7 @@
 
 export default function Platform() {
   return (
-    <div className="relative w-full mt-80">
+    <div className="relative w-full mt-48">
       <div className="relative z-10 grid mx-auto gap-5 text-center max-w-2xl">
         <h2 className="text-6xl text-white leading-tight">
           Why AngelsHub Platform

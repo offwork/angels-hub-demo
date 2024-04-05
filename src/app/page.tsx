@@ -1,5 +1,4 @@
 "use client";
-import Platform from "@/components/Platform/ah-platform";
 import ProductCard from "@/components/Products/ah-product-card";
 import AngelsHubSVG from "@/components/Products/ah-svg";
 import Slider from "@/components/Slider/slider";
@@ -9,13 +8,16 @@ import { PRODUCTS } from "@/constant";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/dist/ScrollTrigger";
+import { Draggable } from "gsap/dist/Draggable";
+import { InertiaPlugin } from "gsap-trial/InertiaPlugin";
 import Image from "next/image";
 import { useEffect, useRef } from "react";
 import Scrollbar from "smooth-scrollbar";
 import WAVE from "../../public/images/abstract-wave.png";
+import Footer from "@/components/Layout/ah-footer";
 
 if (typeof window !== "undefined") {
-  gsap.registerPlugin(useGSAP, ScrollTrigger);
+  gsap.registerPlugin(useGSAP, ScrollTrigger, Draggable, InertiaPlugin);
 }
 
 export default function Home() {
@@ -23,7 +25,10 @@ export default function Home() {
   const solutionsRef = useRef<NodeListOf<HTMLDivElement>>(null!);
   const solutionsTitleRef = useRef<HTMLDivElement>(null!);
   const productsRef = useRef<HTMLDivElement>(null!);
+  const platformRef = useRef<HTMLDivElement>(null!);
   const hPinRef = useRef<HTMLDivElement>(null!);
+  const pickerRef = useRef<HTMLDivElement>(null!);
+  const cellsRef = useRef<HTMLDivElement[]>([]);
   const { context, contextSafe } = useGSAP({ scope: scrollContainerRef });
 
   const initSmoothScrolling = () => {
@@ -52,7 +57,7 @@ export default function Home() {
       xPercent: 7,
       opacity: 0,
       duration: 0.7,
-      ease: "sine.in" /* back.inOut(1.6) */,
+      ease: "sine.in",
       scrollTrigger: {
         trigger: solutionsTitleRef.current,
         start: "top bottom",
@@ -69,7 +74,7 @@ export default function Home() {
       xPercent: 10,
       opacity: 0,
       duration: 0.7,
-      ease: "sine.in" /* back.inOut(0.8) */,
+      ease: "sine.in",
       scrollTrigger: {
         trigger: solutionsTitleRef.current,
         start: "top bottom",
@@ -109,15 +114,15 @@ export default function Home() {
         pin: true,
         scrub: 1,
         snap: 1 / (sections.length - 1),
-        end: `+=${hPinRef.current.scrollWidth}`,
+        end: `+=${hPinRef.current.scrollWidth / 2}`,
       },
     });
 
     gsap.from(productsRef.current.querySelector(".text-angel-orange-500"), {
       xPercent: 5,
       opacity: 0,
-      duration: 0.6,
-      ease: "sine.in" /* back.inOut(1.6) */,
+      duration: 0.8,
+      ease: "sine.in",
       scrollTrigger: {
         trigger: productsRef.current,
         start: "top bottom",
@@ -134,7 +139,7 @@ export default function Home() {
       xPercent: 5,
       opacity: 0,
       duration: 0.6,
-      ease: "sine.in" /* back.inOut(1.6) */,
+      ease: "sine.in",
       scrollTrigger: {
         trigger: productsRef.current,
         start: "top bottom",
@@ -150,7 +155,7 @@ export default function Home() {
       xPercent: 5,
       opacity: 0,
       duration: 0.6,
-      ease: "sine.in" /* back.inOut(1.6) */,
+      ease: "sine.in",
       scrollTrigger: {
         trigger: productsRef.current,
         start: "top bottom",
@@ -166,12 +171,143 @@ export default function Home() {
       xPercent: 10,
       opacity: 0,
       duration: 1.6,
-      ease: "sine.in" /* back.inOut(1.6) */,
+      ease: "sine.in",
       scrollTrigger: {
         trigger: productsRef.current,
         start: "top bottom",
         scrub: 2,
         end: () => hPinRef.current.offsetHeight,
+        toggleActions: "play none none reset",
+      },
+    });
+
+    gsap.defaults({ ease: "none" });
+    const picker = pickerRef.current;
+    const cells = cellsRef.current;
+    const proxy = document.createElement("div");
+    const myWrapper = gsap.utils.wrap(0, 1);
+    const cellWidth = 360;
+    const numCells = cells.length;
+    const cellStep = 1 / numCells;
+    const wrapWidth = cellWidth * numCells;
+    const baseTl = gsap.timeline({ paused: true });
+
+    gsap.set(picker, {
+      width: wrapWidth - cellWidth,
+    });
+
+    cells.forEach((cell, i) => {
+      initCell(cell, i);
+    });
+
+    const animation = gsap
+      .timeline({ repeat: -1, paused: true })
+      .add(baseTl.tweenFromTo(1, 2));
+
+    const draggable = Draggable.create(proxy, {
+      type: "x",
+      trigger: picker,
+      inertia: true,
+      onDrag: updateProgress,
+      onThrowUpdate: updateProgress,
+      snap: {
+        x: snapX,
+      },
+      onThrowComplete: () => {
+        console.log("onThrowComplete");
+        // TODO: animation that injects selected card title
+      },
+    })[0];
+
+    function snapX(x: number) {
+      return Math.round(x / cellWidth) * cellWidth;
+    }
+
+    function updateProgress() {
+      animation.progress(myWrapper(draggable.x / wrapWidth));
+    }
+
+    function initCell(element: HTMLDivElement, index: number) {
+      gsap.set(element, {
+        width: cellWidth,
+        scale: 0.8,
+        x: -cellWidth,
+      });
+
+      const tl = gsap
+        .timeline({ repeat: 1 })
+        .to(element, { duration: 1, x: `+=${wrapWidth}` }, 0)
+        .to(
+          element,
+          {
+            duration: cellStep,
+            color: "#009688",
+            scale: 1,
+            repeat: 1,
+            yoyo: true,
+          },
+          0.5 - cellStep
+        );
+
+      baseTl.add(tl, index * -cellStep);
+    }
+
+    gsap.from(platformRef.current.querySelector(".text-6xl"), {
+      xPercent: 7,
+      opacity: 0,
+      duration: 0.7,
+      ease: "sine.in",
+      scrollTrigger: {
+        trigger: platformRef.current,
+        start: "top bottom",
+        scrub: 1.2,
+        end: () =>
+          platformRef.current.querySelector<HTMLHeadingElement>(".text-6xl")
+            ?.offsetHeight!,
+        toggleActions: "play none none reset",
+      },
+    });
+
+    gsap.from(platformRef.current.querySelector(".text-lg"), {
+      xPercent: 10,
+      opacity: 0,
+      duration: 0.7,
+      ease: "sine.in",
+      scrollTrigger: {
+        trigger: platformRef.current,
+        start: "top bottom",
+        scrub: 1.6,
+        end: () =>
+          platformRef.current.querySelector<HTMLHeadingElement>(".text-lg")
+            ?.offsetHeight!,
+        toggleActions: "play none none reset",
+      },
+    });
+
+    gsap.from(pickerRef.current, {
+      xPercent: 10,
+      opacity: 0,
+      duration: 0.7,
+      ease: "sine.in",
+      scrollTrigger: {
+        trigger: platformRef.current,
+        start: "top bottom",
+        scrub: 1.6,
+        end: () => pickerRef.current.offsetHeight,
+        toggleActions: "play none none reset",
+      },
+    });
+    //bg-angel-blue
+    gsap.from(platformRef.current.querySelector(".bg-angel-blue"), {
+      xPercent: -20,
+      opacity: 0,
+      duration: 0.7,
+      ease: "sine.in",
+      scrollTrigger: {
+        trigger: platformRef.current,
+        start: "top bottom",
+        scrub: 1.2,
+        end: () => "+=80%",
         toggleActions: "play none none reset",
       },
     });
@@ -187,6 +323,7 @@ export default function Home() {
     return () => {
       context.kill();
       context.revert();
+      ScrollTrigger.killAll();
     };
   }, [context, scroll]);
 
@@ -207,7 +344,7 @@ export default function Home() {
           <div className="solutions grid grid-flow-col gap-8">
             <div className="solution grid content-start border-y border-white/20 gap-8 py-8">
               <h3 className="text-2xl font-bold text-white">Website API</h3>
-              <div className="relative w-full h-[464px] bg-angel-blue-950 rounded-xl">
+              <div className="relative w-full h-[360px] bg-angel-blue-950 rounded-xl">
                 <CircleBtn />
               </div>
               <p className="text-white">
@@ -217,7 +354,7 @@ export default function Home() {
             </div>
             <div className="solution grid content-start border-y border-white/20 gap-8 py-8">
               <h3 className="text-2xl font-bold text-white">Turnkey System</h3>
-              <div className="relative w-full h-[464px] bg-angel-blue-950 rounded-xl">
+              <div className="relative w-full h-[360px] bg-angel-blue-950 rounded-xl">
                 <CircleBtn />
               </div>
               <p className="text-white">
@@ -228,7 +365,7 @@ export default function Home() {
             </div>
             <div className="solution grid content-start border-y border-white/20 gap-8 py-8">
               <h3 className="text-2xl font-bold text-white">White Label</h3>
-              <div className="relative w-full h-[464px] bg-angel-blue-950 rounded-xl">
+              <div className="relative w-full h-[360px] bg-angel-blue-950 rounded-xl">
                 <CircleBtn />
               </div>
               <p className="text-white">
@@ -242,8 +379,13 @@ export default function Home() {
 
         <div
           ref={productsRef}
-          className="horizontal-scroll relative z-10 w-full h-[1050px] mt-28 overflow-x-hidden"
+          className="horizontal-scroll relative z-10 w-full h-[980px] mt-48 overflow-hidden"
         >
+          <Image
+            className="absolute top-20 z-0 w-full mix-blend-lighten bg-angel-blue opacity-10"
+            src={WAVE}
+            alt="Products wave"
+          />
           <div className="relative z-10 grid gap-5 text-center">
             <h3 className="text-3xl text-angel-orange-500 font-medium">
               Products
@@ -255,7 +397,7 @@ export default function Home() {
           </div>
           <div
             ref={hPinRef}
-            className="relative z-10 w-full flex justify-start items-start py-24 px-6 gap-16 overflow-x-hidden overscroll-none"
+            className="relative z-10 snap-x snap-mandatory w-full grid grid-flow-col py-24 px-6 gap-16 overflow-x-hidden overscroll-none"
           >
             {PRODUCTS.map((product) => (
               <ProductCard
@@ -266,20 +408,67 @@ export default function Home() {
               />
             ))}
           </div>
-          <div className="absolute z-0 w-full -top-4 overflow-hidden">
-            <Image
-              className="relative z-10 mix-blend-lighten bg-angel-blue opacity-10"
-              src={WAVE}
-              alt="Products wave"
-            />
-            <AngelsHubSVG />
+          <AngelsHubSVG className="absolute z-0 -bottom-28 w-full" />
+        </div>
+
+        <div
+          ref={platformRef}
+          className="relative w-full mt-48 overflow-hidden pb-10"
+        >
+          <div className="relative z-10 grid mx-auto gap-5 text-center max-w-2xl">
+            <h2 className="text-6xl text-white leading-tight">
+              Why AngelsHub Platform
+            </h2>
+            <p className="text-center text-lg text-white">
+              The complete betting offer from Angelshub provides your business
+              with the tools to compete against the very best in the industry
+              and come out ahead.
+            </p>
+          </div>
+
+          <div
+            ref={pickerRef}
+            className="relative z-10 w-screen h-80 overflow-hidden my-12"
+          >
+            {[
+              "All-in-one Solution",
+              "Constant Updates",
+              "Customizable Software",
+              "Integrated Anti-Fraud solution",
+              "Extreme Security",
+              "Customer-First Orientated",
+            ].map((item, idx) => (
+              <div
+                key={item}
+                ref={(el: HTMLDivElement) => {
+                  if (el) {
+                    cellsRef.current[idx] = el;
+                  }
+                }}
+                className="absolute w-full h-full grid grid-flow-col gap-6 overflow-hidden p-6 rounded-[20px]"
+              >
+                <h3 className="relative z-10 text-4xl text-white font-medium max-w-64">
+                  {item}
+                </h3>
+                <div className="absolute top-0 left-0 z-0 w-full h-full bg-[#0164B7] mix-blend-luminosity"></div>
+              </div>
+            ))}
+          </div>
+          <div className="container w-full flex justify-end">
+            <a
+              href="#"
+              className="relative bg-angel-blue rounded-full border border-white px-20 py-7 drop-shadow-xl"
+            >
+              <span className="text-sm text-white">
+                Get good service from experts
+              </span>
+            </a>
           </div>
         </div>
 
-        <Platform />
         <Team />
       </div>
-
+      <Footer />
       <button className="fixed z-20 flex space-x-2 items-center bottom-4 right-24">
         <span className="text-white text-lg">Scroll</span>
         <svg

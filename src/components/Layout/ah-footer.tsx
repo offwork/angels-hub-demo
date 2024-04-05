@@ -10,10 +10,9 @@ import Amblem from "./ah-amblem";
 
 export default function Footer() {
   return (
-    <div className="relative w-full py-60">
-      <div className="absolute z-0 w-full top-[300px] overflow-hidden">
-        <AngelsHubSVG />
-      </div>
+    <div className="relative w-full py-60 overflow-hidden">
+
+        <AngelsHubSVG className="absolute top-80 z-0 w-full" />
       <Providers />
       <div className="relative grid place-items-center gap-20 w-full mt-72">
         <AngelsHubFlatSVG />

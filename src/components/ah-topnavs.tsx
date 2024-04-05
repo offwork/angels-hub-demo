@@ -9,7 +9,7 @@ export default function Topnavs() {
       <div className="relative">
         <BrandLogo />
       </div>
-      <div className="relative min-w-[236px]">
+      <div className="relative ml-auto min-w-[236px]">
         <div className="fixed -translate-y-1/2">
           <div className="grid grid-flow-col gap-1 items-center bg-black rounded-lg p-2">
             <Link
