@@ -19,7 +19,7 @@ const config: Config = {
       container: {
         center: true,
         padding: {
-          "sx": "0.675rem",
+          "xs": "1rem",
           "sm": "1rem",
           "md": "2rem",
           "lg": "3rem",
@@ -37,6 +37,7 @@ const config: Config = {
         white: colors.white,
         black: colors.black,
         gray: colors.gray,
+        "solid-blue": "#1B45C2",
         "angel-blue": {
           DEFAULT: "#0f38b4",
           "50": "#edf6ff",

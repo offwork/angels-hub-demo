@@ -252,7 +252,7 @@ export default function Home() {
       baseTl.add(tl, index * -cellStep);
     }
 
-    gsap.from(platformRef.current.querySelector(".text-6xl"), {
+    gsap.from(platformRef.current.querySelector(".title"), {
       xPercent: 7,
       opacity: 0,
       duration: 0.7,
@@ -262,13 +262,13 @@ export default function Home() {
         start: "top bottom",
         scrub: 1.2,
         end: () =>
-          platformRef.current.querySelector<HTMLHeadingElement>(".text-6xl")
+          platformRef.current.querySelector<HTMLHeadingElement>(".title")
             ?.offsetHeight!,
         toggleActions: "play none none reset",
       },
     });
 
-    gsap.from(platformRef.current.querySelector(".text-lg"), {
+    gsap.from(platformRef.current.querySelector(".caption"), {
       xPercent: 10,
       opacity: 0,
       duration: 0.7,
@@ -278,7 +278,7 @@ export default function Home() {
         start: "top bottom",
         scrub: 1.6,
         end: () =>
-          platformRef.current.querySelector<HTMLHeadingElement>(".text-lg")
+          platformRef.current.querySelector<HTMLHeadingElement>(".caption")
             ?.offsetHeight!,
         toggleActions: "play none none reset",
       },
@@ -329,8 +329,8 @@ export default function Home() {
 
   return (
     <div ref={scrollContainerRef} className="h-screen w-full overflow-hidden">
-      <div className="relative z-10 w-full">
-        <Slider />
+      <div className="relative z-10 w-full h-[1123px]">
+        {/* <Slider /> */}
       </div>
       <div className="scoller">
         <div className="container grid gap-9">
@@ -415,11 +415,11 @@ export default function Home() {
           ref={platformRef}
           className="relative w-full mt-48 overflow-hidden pb-10"
         >
-          <div className="relative z-10 grid mx-auto gap-5 text-center max-w-2xl">
-            <h2 className="text-6xl text-white leading-tight">
+          <div className="relative z-10 grid gap-5 text-center">
+            <h2 className="title text-3xl text-white leading-tight xl:text-6xl">
               Why AngelsHub Platform
             </h2>
-            <p className="text-center text-lg text-white">
+            <p className="caption text-white mx-auto text-sm max-w-[345px] md:max-w-lg lg:text-lg lg:max-w-2xl">
               The complete betting offer from Angelshub provides your business
               with the tools to compete against the very best in the industry
               and come out ahead.
@@ -454,12 +454,12 @@ export default function Home() {
               </div>
             ))}
           </div>
-          <div className="container w-full flex justify-end">
+          <div className="container w-full flex justify-center lg:justify-end">
             <a
               href="#"
-              className="relative bg-angel-blue rounded-full border border-white px-20 py-7 drop-shadow-xl"
+              className="relative bg-angel-blue rounded-full border border-white px-10 py-7 drop-shadow-xl lg:px-20"
             >
-              <span className="text-sm text-white">
+              <span className="text-sm text-white uppercase">
                 Get good service from experts
               </span>
             </a>
@@ -469,7 +469,7 @@ export default function Home() {
         <Team />
       </div>
       <Footer />
-      <button className="fixed z-20 flex space-x-2 items-center bottom-4 right-24">
+      <button className="fixed z-20 hidden space-x-2 items-center bottom-4 right-24 xl:flex">
         <span className="text-white text-lg">Scroll</span>
         <svg
           className="motion-safe:animate-bounce"
