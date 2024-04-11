@@ -10,7 +10,7 @@ dependencies:
     version: 2.1.0
   gsap:
     specifier: npm:@gsap/shockingly@^3.12.5
-    version: npm.greensock.com/@gsap/shockingly@3.12.5
+    version: /@gsap/shockingly@3.12.5
   next:
     specifier: 14.1.4
     version: 14.1.4(react-dom@18.2.0)(react@18.2.0)
@@ -125,6 +125,10 @@ packages:
     dependencies:
       gsap: 3.12.5
       react: 18.2.0
+    dev: false
+
+  /@gsap/shockingly@3.12.5:
+    resolution: {integrity: sha512-JoZp6iYvOC+wkwl8zfXSqSrYCcuzTntaULCL08YMa1vonrYcr9D0K3EUe9PNpw7FYK1chjSwjjgcw3zS/O2SWg==}
     dev: false
 
   /@humanwhocodes/config-array@0.11.14:
@@ -3163,9 +3167,3 @@ packages:
     resolution: {integrity: sha512-rVksvsnNCdJ/ohGc6xgPwyN8eheCxsiLM8mxuE/t/mOVqJewPuO1miLpTHQiRgTKCLexL4MeAFVagts7HmNZ2Q==}
     engines: {node: '>=10'}
     dev: true
-
-  npm.greensock.com/@gsap/shockingly@3.12.5:
-    resolution: {integrity: sha512-JoZp6iYvOC+wkwl8zfXSqSrYCcuzTntaULCL08YMa1vonrYcr9D0K3EUe9PNpw7FYK1chjSwjjgcw3zS/O2SWg==, tarball: https://npm.greensock.com/@gsap/shockingly/-/shockingly-3.12.5.tgz}
-    name: gsap
-    version: 3.12.5
-    dev: false
