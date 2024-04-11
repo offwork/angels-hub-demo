@@ -11,10 +11,8 @@ import Amblem from "./ah-amblem";
 export default function Footer() {
   return (
     <div className="relative w-full overflow-hidden pb-16 xl:pb-40">
-      <AngelsHubSVG className="absolute top-80 z-0 w-full md:top-2 lg:top-11 xl:top-80" />
-      <Providers />
       <div className="relative grid place-items-center gap-12 xl:gap-20 w-full mt-56">
-        <AngelsHubFlatSVG className="relative w-full hidden xl:block" />
+        <AngelsHubFlatSVG className="relative w-full" />
         <div className="container text-center w-full text-white">
           <div className="grid grid-flow-row justify-items-stretch gap-4 lg:place-items-center lg:gap-8 lg:grid-flow-col">
             <h2 className="font-bold text-2xl lg:justify-self-end xl:text-4xl">ARE YOU READY TO START?</h2>

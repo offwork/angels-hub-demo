@@ -9,12 +9,13 @@ import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/dist/ScrollTrigger";
 import { Draggable } from "gsap/dist/Draggable";
-import { InertiaPlugin } from "gsap-trial/InertiaPlugin";
 import Image from "next/image";
+import { InertiaPlugin } from "gsap/InertiaPlugin";
 import { useEffect, useRef } from "react";
 import Scrollbar from "smooth-scrollbar";
 import WAVE from "../../public/images/abstract-wave.png";
 import Footer from "@/components/Layout/ah-footer";
+import Providers from "@/components/Layout/ah-providers";
 
 if (typeof window !== "undefined") {
   gsap.registerPlugin(useGSAP, ScrollTrigger, Draggable, InertiaPlugin);
@@ -26,6 +27,7 @@ export default function Home() {
   const solutionsTitleRef = useRef<HTMLDivElement>(null!);
   const productsRef = useRef<HTMLDivElement>(null!);
   const platformRef = useRef<HTMLDivElement>(null!);
+  const providersRef = useRef<HTMLDivElement>(null!);
   const hPinRef = useRef<HTMLDivElement>(null!);
   const pickerRef = useRef<HTMLDivElement>(null!);
   const cellsRef = useRef<HTMLDivElement[]>([]);
@@ -284,6 +286,38 @@ export default function Home() {
       },
     });
 
+    gsap.from(providersRef.current.querySelector(".title"), {
+      xPercent: 7,
+      opacity: 0,
+      duration: 0.7,
+      ease: "sine.in",
+      scrollTrigger: {
+        trigger: providersRef.current,
+        start: "top bottom",
+        scrub: 1.2,
+        end: () =>
+          providersRef.current.querySelector<HTMLHeadingElement>(".title")
+            ?.offsetHeight!,
+        toggleActions: "play none none reset",
+      },
+    });
+
+    gsap.from(providersRef.current.querySelector(".caption"), {
+      xPercent: 10,
+      opacity: 0,
+      duration: 0.7,
+      ease: "sine.in",
+      scrollTrigger: {
+        trigger: providersRef.current,
+        start: "top bottom",
+        scrub: 1.6,
+        end: () =>
+          providersRef.current.querySelector<HTMLHeadingElement>(".caption")
+            ?.offsetHeight!,
+        toggleActions: "play none none reset",
+      },
+    });
+
     gsap.from(pickerRef.current, {
       xPercent: 10,
       opacity: 0,
@@ -329,9 +363,7 @@ export default function Home() {
 
   return (
     <div ref={scrollContainerRef} className="h-screen w-full overflow-hidden">
-      <div className="relative z-10 w-full h-[1123px]">
-        {/* <Slider /> */}
-      </div>
+      <div className="relative z-10 w-full h-[1123px]">{/* <Slider /> */}</div>
       <div className="scoller">
         <div className="container grid gap-9">
           <div
@@ -467,6 +499,24 @@ export default function Home() {
         </div>
 
         <Team />
+
+        <div ref={providersRef} className="relative w-full">
+          <AngelsHubSVG className="absolute z-0 w-full top-1/2 -translate-y-1/2 2xl:-translate-y-1/3" />
+          <div className="relative container grid gap-16 mx-auto w-full mt-56">
+            <div className="relative z-10 grid gap-5 text-center">
+              <h2 className="text-3xl title text-white leading-tight xl:text-6xl">
+                Gaming Providers
+              </h2>
+              <p className="text-white caption mx-auto text-sm max-w-[345px] md:max-w-lg lg:text-lg lg:max-w-2xl">
+                Lorem ipsum dolor sit amet consectetur. Sed sed varius ut sed
+                sit sed commodo a ornare. Tellus viverra adipiscing volutpat
+                habitasse quam fringilla tortor diam.
+              </p>
+            </div>
+          </div>
+          <Providers />
+        </div>
+
       </div>
       <Footer />
       <button className="fixed z-20 hidden space-x-2 items-center bottom-4 right-24 xl:flex">
