@@ -1,10 +1,14 @@
 import { ImageLoaderProps } from "next/image";
+import { useEffect, useLayoutEffect } from 'react';
 
 //////////////////////////////////////////////////////////////////////
 ///////////////////////                        ///////////////////////
 /////////////////          HELPER METHODS          ///////////////////
 ///////////////////////                        ///////////////////////
 //////////////////////////////////////////////////////////////////////
+const useIsomorphicLayoutEffect =
+  typeof window !== 'undefined' ? useLayoutEffect : useEffect;
+
 function classNames(...classes: string[]) {
   return classes.filter(Boolean).join(" ");
 }
@@ -63,4 +67,5 @@ export {
   isEmptyObject,
   graphAssetsLoader,
   transformObjectToParams,
+  useIsomorphicLayoutEffect,
 };

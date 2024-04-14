@@ -11,13 +11,13 @@ export default function ProductCard({
   image: string;
 }) {
   return (
-    <div className="horizontal-item snap-always snap-center relative bg-black min-w-[818px] h-[412px] rounded-[30px] py-14 drop-shadow-4xl">
-      <div className="flex items-center mb-11">
+    <div className="horizontal-item snap-always snap-center relative bg-black py-10 drop-shadow-4xl xl:py-14 md:max-w-xl lg:max-w-2xl xl:min-w-[818px] xl:h-[412px] rounded-[30px]">
+      <div className="flex items-baseline mb-10 mt-8 xl:mb-11 xl:mt-0">
         <span className="w-2.5 h-12 bg-angel-orange-500 mr-8"></span>
-        <h3 className="text-white font-bold text-[54px]">{title}</h3>
+        <h3 className="text-white font-bold text-4xl xl:text-5xl xl:max-w-lg xl:leading-tight">{title}</h3>
       </div>
-      <div className="grid gap-11 text-white ml-11 max-w-[472px]">
-        <p className="font-medium">{description}</p>
+      <div className="grid gap-10 text-white px-11 xl:px-0 xl:gap-11 xl:ml-11 xl:max-w-[472px]">
+        <p className="font-medium text-base xl:max-w-md">{description}</p>
         <a href="#" className="flex items-center text-sm">
           <span>Learn More</span>
           <svg
@@ -49,7 +49,14 @@ export default function ProductCard({
         </a>
       </div>
       <Image
-        className="absolute object-contain object-center top-1/2 -translate-y-1/2 translate-x-8 right-0"
+        className="absolute object-contain object-center w-28 h-28 top-0 -translate-y-1/2 left-1/2 -translate-x-1/2 xl:hidden"
+        src={image}
+        width={255}
+        height={243}
+        alt="Sportsbook"
+      />
+      <Image
+        className="absolute object-contain object-center top-1/2 -translate-y-1/2 translate-x-8 right-0 hidden xl:block xl:w-56 xl:h-56 4xl:w-64 4xl:h-auto"
         src={image}
         width={255}
         height={243}

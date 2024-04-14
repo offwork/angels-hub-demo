@@ -8,7 +8,7 @@ import SocailIcon from "./ah-social-icon";
 
 export default function Team() {
   return (
-    <div className="relative container grid mx-auto w-full mt-56">
+    <div className="relative container grid mx-auto w-full mt-56 overflow-hidden">
       <div className="grid border-y border-white/20 py-24">
         <div className="relative z-10 grid gap-5 text-center">
           <h2 className="text-3xl text-white leading-tight xl:text-6xl">
