@@ -1,9 +1,9 @@
 "use client"
 
-export default function AngelsHubSVG() {
+export default function AngelsHubSVG({className}: { className: string }) {
   return (
     <svg
-      className="relative -left-20 top-0 scale-95"
+      className={className}
       width="1920"
       height="676"
       viewBox="0 0 1920 676"

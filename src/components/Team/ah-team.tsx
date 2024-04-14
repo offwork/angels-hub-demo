@@ -1,35 +1,33 @@
-"use client"
+"use client";
 
 import Image from "next/image";
-import TEAM_MEMBER_1 from "../../../public/images/team-member-1.png";
-import TEAM_MEMBER_2 from "../../../public/images/team-member-2.png";
-import TEAM_MEMBER_3 from "../../../public/images/team-member-3.png";
+import TEAM_MEMBER_1 from "../../../public/images/Jane-Cooper.png";
+import TEAM_MEMBER_2 from "../../../public/images/Kristen-Watson.png";
+import TEAM_MEMBER_3 from "../../../public/images/Stephen-Osmond.png";
 import SocailIcon from "./ah-social-icon";
 
 export default function Team() {
   return (
-    <div className="relative container grid mx-auto w-full mt-56">
+    <div className="relative container grid mx-auto w-full mt-56 overflow-hidden">
       <div className="grid border-y border-white/20 py-24">
-        <div className="relative z-10 grid mx-auto gap-5 text-center max-w-2xl">
-          <h2 className="text-6xl text-white leading-tight">
+        <div className="relative z-10 grid gap-5 text-center">
+          <h2 className="text-3xl text-white leading-tight xl:text-6xl">
             Meet the leadership team
           </h2>
-          <p className="text-center text-lg text-white">
+          <p className="text-white mx-auto text-sm max-w-[345px] md:max-w-lg lg:text-lg lg:max-w-2xl">
             Lorem ipsum dolor sit amet consectetur. Sed sed varius ut sed sit
             sed commodo a ornare. Tellus viverra adipiscing volutpat habitasse
-            quam fringilla tortor diam. Sit arcu.
+            quam fringilla tortor diam.
           </p>
         </div>
-
-        <div className="relative z-10 w-full h-full">
-          <div className="relative grid grid-flow-col w-full pt-24 gap-8 overflow-hidden">
-            <div className="grid gap-7">
-              <div className="relative w-[370px] h-[360px]">
-                <div className="absolute z-10 bg-angel-blue mix-blend-color w-full h-full"></div>
+        <div className="relative z-10 w-full h-full overflow-hidden">
+          <div className="relative z-0 grid grid-flow-col pt-24 gap-16 px-12 md:gap-6 md:px-0">
+            <div className="grid gap-7 place-items-center xl:place-items-start">
+              <div className="relative w-60 h-full md:w-52 lg:w-72 xl:w-[370px] xl:h-[360px]">
                 <svg
-                  className="absolute z-0 top-0 left-0 opacity-10"
-                  width="370"
-                  height="360"
+                  className="relative w-full z-0 top-0 left-0 opacity-10"
+                  width="100%"
+                  height="100%"
                   viewBox="0 0 370 360"
                   fill="none"
                   xmlns="http://www.w3.org/2000/svg"
@@ -39,31 +37,32 @@ export default function Team() {
                     fill="#FF5F00"
                   />
                 </svg>
-                <Image
-                  className="absolute z-0 bottom-0 object-contain object-center left-1/2 -translate-x-1/2"
-                  src={TEAM_MEMBER_1}
-                  alt="team member 1"
-                />
+                <div className="absolute z-0 w-36 h-36 left-1/2 -translate-x-1/2 top-1/2 -translate-y-1/2 xl:w-52 xl:h-52">
+                  <div className="absolute bottom-0 scale-x-[105%] scale-y-[101%] w-full h-full z-0 bg-solid-blue rounded-full"></div>
+                  <Image
+                    className="absolute w-full bottom-0 h-auto z-10"
+                    src={TEAM_MEMBER_1}
+                    alt="team member 1"
+                  />
+                </div>
               </div>
-              <div className="grid gap-7 text-white">
+              <div className="grid gap-7 text-center text-white xl:text-left">
                 <div>
                   <h3 className="font-bold text-2xl">Jane Cooper</h3>
                   <span className="text-lg">Chief Technology Officer</span>
                 </div>
-                <div className="inline-flex space-x-3">
+                <div className="flex items-center justify-center xl:justify-start">
                   <SocailIcon name="linkedin" />
-                  <SocailIcon name="instegram" />
-                  <SocailIcon name="twitter" />
                 </div>
               </div>
             </div>
-            <div className="grid gap-7">
-              <div className="relative w-[370px] h-[360px]">
-                <div className="absolute z-10 bg-angel-blue mix-blend-color w-full h-full opacity-0"></div>
+
+            <div className="grid gap-7 place-items-center xl:place-items-start">
+              <div className="relative w-60 h-full md:w-52 lg:w-72 xl:w-[370px] xl:h-[360px]">
                 <svg
-                  className="absolute z-0 top-0 left-0 opacity-100"
-                  width="370"
-                  height="360"
+                  className="relative w-full z-0 top-0 left-0 opacity-10"
+                  width="100%"
+                  height="100%"
                   viewBox="0 0 370 360"
                   fill="none"
                   xmlns="http://www.w3.org/2000/svg"
@@ -73,31 +72,32 @@ export default function Team() {
                     fill="#FF5F00"
                   />
                 </svg>
-                <Image
-                  className="absolute z-0 bottom-0 object-contain object-center left-1/2 -translate-x-1/2"
-                  src={TEAM_MEMBER_2}
-                  alt="team member 1"
-                />
+                <div className="absolute z-0 w-36 h-36 left-1/2 -translate-x-1/2 top-1/2 -translate-y-1/2 xl:w-52 xl:h-52">
+                  <div className="absolute bottom-0 scale-x-[105%] scale-y-[101%] w-full h-full z-0 bg-solid-blue rounded-full"></div>
+                  <Image
+                    className="absolute w-full bottom-0 h-auto z-10"
+                    src={TEAM_MEMBER_2}
+                    alt="team member 1"
+                  />
+                </div>
               </div>
-              <div className="grid gap-7 text-white">
+              <div className="grid gap-7 text-center text-white xl:text-left">
                 <div>
                   <h3 className="font-bold text-2xl">Kristen Watson</h3>
                   <span className="text-lg">Manager</span>
                 </div>
-                <div className="inline-flex space-x-3">
+                <div className="flex items-center justify-center xl:justify-start">
                   <SocailIcon name="linkedin" />
-                  <SocailIcon name="instegram" />
-                  <SocailIcon name="twitter" />
                 </div>
               </div>
             </div>
-            <div className="grid gap-7">
-              <div className="relative w-[370px] h-[360px]">
-                <div className="absolute z-10 bg-angel-blue mix-blend-color w-full h-full"></div>
+
+            <div className="grid gap-7 place-items-center xl:place-items-start">
+              <div className="relative w-60 h-full md:w-52 lg:w-72 xl:w-[370px] xl:h-[360px]">
                 <svg
-                  className="absolute z-0 top-0 left-0 opacity-10"
-                  width="370"
-                  height="360"
+                  className="relative w-full z-0 top-0 left-0 opacity-10"
+                  width="100%"
+                  height="100%"
                   viewBox="0 0 370 360"
                   fill="none"
                   xmlns="http://www.w3.org/2000/svg"
@@ -107,29 +107,29 @@ export default function Team() {
                     fill="#FF5F00"
                   />
                 </svg>
-                <Image
-                  className="absolute z-0 bottom-0 object-contain object-center left-1/2 -translate-x-1/2"
-                  src={TEAM_MEMBER_3}
-                  alt="team member 1"
-                />
+                <div className="absolute z-0 w-36 h-36 left-1/2 -translate-x-1/2 top-1/2 -translate-y-1/2 xl:w-52 xl:h-52">
+                  <div className="absolute bottom-0 scale-x-[105%] scale-y-[101%] w-full h-full z-0 bg-solid-blue rounded-full"></div>
+                  <Image
+                    className="absolute w-full bottom-0 h-auto z-10"
+                    src={TEAM_MEMBER_3}
+                    alt="team member 1"
+                  />
+                </div>
               </div>
-              <div className="grid gap-7 text-white">
+              <div className="grid gap-7 text-center text-white xl:text-left">
                 <div>
                   <h3 className="font-bold text-2xl">Stephen Osmond</h3>
                   <span className="text-lg">Chief Finance Officer</span>
                 </div>
-                <div className="inline-flex space-x-3">
+                <div className="flex items-center justify-center xl:justify-start">
                   <SocailIcon name="linkedin" />
-                  <SocailIcon name="instegram" />
-                  <SocailIcon name="twitter" />
                 </div>
               </div>
             </div>
           </div>
-
           {/* SLIDE CONTROLLER */}
-          <div className="absolute z-0 w-full flex justify-between items-center ml-auto mr-12 top-1/2 -translate-y-full">
-            <button className="relative -translate-x-full xl:-ml-0 2xl:-ml-8">
+          <div className="absolute z-10 w-full flex justify-between items-center ml-auto mr-12 top-1/2 -translate-y-full md:hidden">
+            <button className="relative xl:-ml-0 2xl:-ml-8">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="30"
@@ -140,7 +140,7 @@ export default function Team() {
                 <path d="M29 1L2 28L29 55" stroke="#939393" strokeWidth="1.5" />
               </svg>
             </button>
-            <button className="relative translate-x-full xl:-mr-0 2xl:-mr-8">
+            <button className="relative xl:-mr-0 2xl:-mr-8">
               <svg
                 width="30"
                 height="56"

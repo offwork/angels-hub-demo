@@ -1,7 +1,7 @@
 import "./globals.css";
-// import Topnavs from "@/components/ah-topnavs";
+import Topnavs from "@/components/ah-topnavs";
 import type { Metadata } from "next";
-// import Footer from "@/components/Layout/ah-footer";
+import Footer from "@/components/Layout/ah-footer";
 import { ReactNode } from "react";
 
 export const metadata: Metadata = {
@@ -12,10 +12,10 @@ export const metadata: Metadata = {
 export default function RootLayout({children}: {children: ReactNode}) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className="font-sans relative bg-angel-blue w-full overflow-x-hidden overflow-y-scroll overscroll-none" suppressHydrationWarning>
+      {/* overflow-x-hidden overflow-y-scroll */}
+      <body className="font-sans relative bg-angel-blue w-full" suppressHydrationWarning>
         {/* <Topnavs /> */}
-        <main>{children}</main>
-        {/* <Footer /> */}
+        <main className="">{children}</main>
       </body>
     </html>
   );

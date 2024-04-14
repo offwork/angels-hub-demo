@@ -1,5 +1,4 @@
 "use client";
-import Platform from "@/components/Platform/ah-platform";
 import ProductCard from "@/components/Products/ah-product-card";
 import AngelsHubSVG from "@/components/Products/ah-svg";
 import Slider from "@/components/Slider/slider";
@@ -9,13 +8,17 @@ import { PRODUCTS } from "@/constant";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/dist/ScrollTrigger";
+import { Draggable } from "gsap/dist/Draggable";
 import Image from "next/image";
+import { InertiaPlugin } from "gsap/InertiaPlugin";
 import { useEffect, useRef } from "react";
 import Scrollbar from "smooth-scrollbar";
 import WAVE from "../../public/images/abstract-wave.png";
+import Footer from "@/components/Layout/ah-footer";
+import Providers from "@/components/Layout/ah-providers";
 
 if (typeof window !== "undefined") {
-  gsap.registerPlugin(useGSAP, ScrollTrigger);
+  gsap.registerPlugin(useGSAP, ScrollTrigger, Draggable, InertiaPlugin);
 }
 
 export default function Home() {
@@ -23,13 +26,17 @@ export default function Home() {
   const solutionsRef = useRef<NodeListOf<HTMLDivElement>>(null!);
   const solutionsTitleRef = useRef<HTMLDivElement>(null!);
   const productsRef = useRef<HTMLDivElement>(null!);
+  const platformRef = useRef<HTMLDivElement>(null!);
+  const providersRef = useRef<HTMLDivElement>(null!);
   const hPinRef = useRef<HTMLDivElement>(null!);
+  const pickerRef = useRef<HTMLDivElement>(null!);
+  const cellsRef = useRef<HTMLDivElement[]>([]);
+  const footerRef = useRef<HTMLDivElement>(null!);
   const { context, contextSafe } = useGSAP({ scope: scrollContainerRef });
 
   const initSmoothScrolling = () => {
     const bodyScrollBar = Scrollbar.init(scrollContainerRef.current, {
       damping: 0.1,
-      delegateTo: document,
       alwaysShowTracks: true,
     });
 
@@ -52,7 +59,7 @@ export default function Home() {
       xPercent: 7,
       opacity: 0,
       duration: 0.7,
-      ease: "sine.in" /* back.inOut(1.6) */,
+      ease: "sine.in",
       scrollTrigger: {
         trigger: solutionsTitleRef.current,
         start: "top bottom",
@@ -69,7 +76,7 @@ export default function Home() {
       xPercent: 10,
       opacity: 0,
       duration: 0.7,
-      ease: "sine.in" /* back.inOut(0.8) */,
+      ease: "sine.in",
       scrollTrigger: {
         trigger: solutionsTitleRef.current,
         start: "top bottom",
@@ -99,25 +106,44 @@ export default function Home() {
       });
     });
 
-    const sections = gsap.utils.toArray<HTMLDivElement>(".horizontal-item");
+    const hItems =
+      productsRef.current.querySelector<HTMLDivElement>(".horizontal-items")!;
 
-    gsap.to(sections, {
-      xPercent: -100 * (sections.length - 1),
-      ease: "none",
-      scrollTrigger: {
-        trigger: ".horizontal-scroll",
-        pin: true,
-        scrub: 1,
-        snap: 1 / (sections.length - 1),
-        end: `+=${hPinRef.current.scrollWidth}`,
+    function getHorizontalScrollAmount() {
+      let hItemsWidth = hItems.scrollWidth;
+      return -(hItemsWidth - window.innerWidth);
+    }
+
+    const mediaMatcher = gsap.matchMedia();
+    mediaMatcher.add(
+      {
+        isDesktop: `(min-width: 1280px) and (prefers-reduced-motion: no-preference)`,
       },
-    });
+      (context) => {
+        const { isDesktop } = context.conditions!;
+        if (isDesktop) {
+          gsap.to(hItems, {
+            x: getHorizontalScrollAmount,
+            ease: "none",
+            duration: 2,
+            scrollTrigger: {
+              trigger: ".horizontal-scroll",
+              start: "top top",
+              end: () => `+=${getHorizontalScrollAmount() * -1}`,
+              pin: true,
+              scrub: 1,
+              invalidateOnRefresh: true,
+            },
+          });
+        }
+      }
+    );
 
     gsap.from(productsRef.current.querySelector(".text-angel-orange-500"), {
       xPercent: 5,
       opacity: 0,
-      duration: 0.6,
-      ease: "sine.in" /* back.inOut(1.6) */,
+      duration: 0.8,
+      ease: "sine.in",
       scrollTrigger: {
         trigger: productsRef.current,
         start: "top bottom",
@@ -134,7 +160,7 @@ export default function Home() {
       xPercent: 5,
       opacity: 0,
       duration: 0.6,
-      ease: "sine.in" /* back.inOut(1.6) */,
+      ease: "sine.in",
       scrollTrigger: {
         trigger: productsRef.current,
         start: "top bottom",
@@ -150,7 +176,7 @@ export default function Home() {
       xPercent: 5,
       opacity: 0,
       duration: 0.6,
-      ease: "sine.in" /* back.inOut(1.6) */,
+      ease: "sine.in",
       scrollTrigger: {
         trigger: productsRef.current,
         start: "top bottom",
@@ -166,7 +192,7 @@ export default function Home() {
       xPercent: 10,
       opacity: 0,
       duration: 1.6,
-      ease: "sine.in" /* back.inOut(1.6) */,
+      ease: "sine.in",
       scrollTrigger: {
         trigger: productsRef.current,
         start: "top bottom",
@@ -175,9 +201,327 @@ export default function Home() {
         toggleActions: "play none none reset",
       },
     });
+
+    gsap.defaults({ ease: "none" });
+    const picker = pickerRef.current;
+    const cells = cellsRef.current;
+    const proxy = document.createElement("div");
+    const myWrapper = gsap.utils.wrap(0, 1);
+    const cellWidth = 360;
+    const numCells = cells.length;
+    const cellStep = 1 / numCells;
+    const wrapWidth = cellWidth * numCells;
+    const baseTl = gsap.timeline({ paused: true });
+
+    gsap.set(picker, {
+      width: wrapWidth - cellWidth,
+    });
+
+    cells.forEach((cell, i) => {
+      initCell(cell, i);
+    });
+
+    const animation = gsap
+      .timeline({ repeat: -1, paused: true })
+      .add(baseTl.tweenFromTo(1, 2));
+
+    const draggable = Draggable.create(proxy, {
+      type: "x",
+      trigger: picker,
+      inertia: true,
+      onDrag: updateProgress,
+      onThrowUpdate: updateProgress,
+      snap: {
+        x: snapX,
+      },
+      onThrowComplete: () => {
+        console.log("onThrowComplete");
+        // TODO: animation that injects selected card title
+      },
+    })[0];
+
+    function snapX(x: number) {
+      return Math.round(x / cellWidth) * cellWidth;
+    }
+
+    function updateProgress() {
+      animation.progress(myWrapper(draggable.x / wrapWidth));
+    }
+
+    function initCell(element: HTMLDivElement, index: number) {
+      gsap.set(element, {
+        width: cellWidth,
+        scale: 0.9,
+        x: -cellWidth,
+      });
+
+      const tl = gsap
+        .timeline({ repeat: 1 })
+        .to(element, { duration: 1, x: `+=${wrapWidth}` }, 0)
+        .to(
+          element,
+          {
+            duration: cellStep,
+            scale: 1,
+            repeat: 1,
+            yoyo: true,
+          },
+          0.5 - cellStep
+        );
+
+      baseTl.add(tl, index * -cellStep);
+    }
+
+    gsap.from(platformRef.current.querySelector(".title"), {
+      xPercent: 7,
+      opacity: 0,
+      duration: 0.7,
+      ease: "sine.in",
+      scrollTrigger: {
+        trigger: platformRef.current,
+        start: "top bottom",
+        scrub: 1.2,
+        end: () =>
+          platformRef.current.querySelector<HTMLHeadingElement>(".title")
+            ?.offsetHeight!,
+        toggleActions: "play none none reset",
+      },
+    });
+
+    gsap.from(platformRef.current.querySelector(".caption"), {
+      xPercent: 10,
+      opacity: 0,
+      duration: 0.7,
+      ease: "sine.in",
+      scrollTrigger: {
+        trigger: platformRef.current,
+        start: "top bottom",
+        scrub: 1.6,
+        end: () =>
+          platformRef.current.querySelector<HTMLHeadingElement>(".caption")
+            ?.offsetHeight!,
+        toggleActions: "play none none reset",
+      },
+    });
+
+    gsap.from(providersRef.current.querySelector(".title"), {
+      xPercent: 7,
+      opacity: 0,
+      duration: 0.7,
+      ease: "sine.in",
+      scrollTrigger: {
+        trigger: providersRef.current,
+        start: "top bottom",
+        scrub: 1.2,
+        end: () =>
+          providersRef.current.querySelector<HTMLHeadingElement>(".title")
+            ?.offsetHeight!,
+        toggleActions: "play none none reset",
+      },
+    });
+
+    gsap.from(providersRef.current.querySelector(".caption"), {
+      xPercent: 10,
+      opacity: 0,
+      duration: 0.7,
+      ease: "sine.in",
+      scrollTrigger: {
+        trigger: providersRef.current,
+        start: "top bottom",
+        scrub: 1.6,
+        end: () =>
+          providersRef.current.querySelector<HTMLHeadingElement>(".caption")
+            ?.offsetHeight!,
+        toggleActions: "play none none reset",
+      },
+    });
+
+    gsap.from(pickerRef.current, {
+      xPercent: 10,
+      opacity: 0,
+      duration: 0.7,
+      ease: "sine.in",
+      scrollTrigger: {
+        trigger: platformRef.current,
+        start: "top bottom",
+        scrub: 1.6,
+        end: () => pickerRef.current.offsetHeight,
+        toggleActions: "play none none reset",
+      },
+    });
+
+    gsap.from(platformRef.current.querySelector(".bg-angel-blue"), {
+      xPercent: -20,
+      opacity: 0,
+      duration: 0.7,
+      ease: "sine.in",
+      scrollTrigger: {
+        trigger: platformRef.current,
+        start: "top bottom",
+        scrub: 1.2,
+        end: () => "+=80%",
+        toggleActions: "play none none reset",
+      },
+    });
+
+    const inputs = footerRef.current.querySelectorAll(".form-element");
+    inputs.forEach((input) => {
+      gsap.from(input, {
+        xPercent: -10,
+        opacity: 0,
+        duration: 0.7,
+        ease: "sine.in",
+        scrollTrigger: {
+          trigger: input,
+          start: "bottom bottom",
+          end: () => "+=10%",
+          scrub: 1.2,
+          toggleActions: "play none none reset",
+        },
+      });
+    });
+
+    gsap.from(footerRef.current.querySelector(".title"), {
+      xPercent: 7,
+      opacity: 0,
+      duration: 0.7,
+      ease: "sine.in",
+      scrollTrigger: {
+        trigger: footerRef.current.querySelector(".title"),
+        start: "top bottom",
+        scrub: 1.2,
+        end: () =>
+          footerRef.current.querySelector<HTMLHeadingElement>(".title")
+            ?.offsetHeight!,
+        toggleActions: "play none none reset",
+      },
+    });
+
+    gsap.from(footerRef.current.querySelector(".caption"), {
+      xPercent: 10,
+      opacity: 0,
+      duration: 0.7,
+      ease: "sine.in",
+      scrollTrigger: {
+        trigger: footerRef.current.querySelector(".caption"),
+        start: "top bottom",
+        scrub: 1.6,
+        end: () =>
+          footerRef.current.querySelector<HTMLHeadingElement>(".caption")
+            ?.offsetHeight!,
+        toggleActions: "play none none reset",
+      },
+    });
+
+    gsap.from(footerRef.current.querySelector(".word-logo"), {
+      yPercent: 10,
+      opacity: 0,
+      duration: 0.7,
+      ease: "sine.in",
+      scrollTrigger: {
+        trigger: footerRef.current.querySelector(".word-logo"),
+        start: "bottom bottom",
+        scrub: 1.2,
+        end: () => footerRef.current.querySelector<SVGElement>(".word-logo")?.clientWidth!,
+        toggleActions: "play none none reset",
+      },
+    });
+
+    const socialIcons = footerRef.current.querySelector<HTMLDivElement>(".social-icons")
+    gsap.from(socialIcons, {
+      xPercent: 10,
+      opacity: 0,
+      duration: 0.7,
+      ease: "sine.in",
+      scrollTrigger: {
+        trigger: socialIcons,
+        start: "bottom bottom",
+        scrub: 1,
+        end: () => socialIcons?.offsetHeight!,
+        toggleActions: "play none none reset",
+      },
+    });
+
+    const footerMenuİtems = footerRef.current.querySelectorAll(".footer-menu");
+    footerMenuİtems.forEach((menu) => {
+      gsap.from(menu, {
+        xPercent: 10,
+        opacity: 0,
+        duration: 0.7,
+        ease: "sine.in",
+        stagger: 0.1,
+        scrollTrigger: {
+          trigger: menu,
+          start: "bottom bottom",
+          end: () => "+=20%",
+          scrub: 1.2,
+          toggleActions: "play none none reset",
+        },
+      });
+    });
+
+    const privacyPolicy = footerRef.current.querySelector<HTMLAnchorElement>(".privacy-policy")
+    gsap.from(privacyPolicy, {
+      xPercent: 5,
+      opacity: 0,
+      duration: 0.7,
+      ease: "sine.in",
+      scrollTrigger: {
+        trigger: privacyPolicy,
+        start: "bottom bottom",
+        scrub: 1.2,
+        end: () => privacyPolicy?.offsetHeight!,
+        toggleActions: "play none none reset",
+      },
+    });
+
+    const websiteContent = footerRef.current.querySelector<HTMLAnchorElement>(".website-content")
+    gsap.from(websiteContent, {
+      xPercent: 5,
+      opacity: 0,
+      duration: 0.7,
+      ease: "sine.in",
+      scrollTrigger: {
+        trigger: websiteContent,
+        start: "bottom bottom",
+        scrub: 1.2,
+        end: () => websiteContent?.offsetHeight!,
+        toggleActions: "play none none reset",
+      },
+    });
+
+    const copyright = footerRef.current.querySelector<HTMLAnchorElement>(".copyright")
+    gsap.from(copyright, {
+      xPercent: 5,
+      opacity: 0,
+      duration: 0.7,
+      ease: "sine.in",
+      scrollTrigger: {
+        trigger: copyright,
+        start: "bottom bottom",
+        scrub: 1.2,
+        end: () => copyright?.offsetHeight!,
+        toggleActions: "play none none reset",
+      },
+    });
+
+    gsap.from(footerRef.current.querySelector(".amblem"), {
+      yPercent: 20,
+      opacity: 0,
+      duration: 0.7,
+      ease: "sine.in",
+      scrollTrigger: {
+        trigger: footerRef.current.querySelector(".amblem"),
+        start: "top bottom",
+        scrub: 1.2,
+        end: () => footerRef.current.querySelector<SVGElement>(".amblem")?.clientHeight!,
+        toggleActions: "play none none reset",
+      },
+    });
   });
 
   useEffect(() => {
+    ScrollTrigger.config({ limitCallbacks: true });
     ScrollTrigger.defaults({ toggleActions: "restart pause resume pause" });
     solutionsRef.current =
       scrollContainerRef.current.querySelectorAll(".solution");
@@ -187,27 +531,32 @@ export default function Home() {
     return () => {
       context.kill();
       context.revert();
+      ScrollTrigger.killAll();
     };
   }, [context, scroll]);
 
   return (
-    <div ref={scrollContainerRef} className="h-screen w-full overflow-hidden">
-      <div className="relative z-10 w-full">
+    <div
+      ref={scrollContainerRef}
+      className="relative h-screen w-full overflow-x-hidden"
+    >
+      <div className="relative z-10 w-full hidden xl:block">
         <Slider />
       </div>
+      <div className="relative z-10 w-full h-[1123px] xl:hidden"></div>
       <div className="scoller">
         <div className="container grid gap-9">
           <div
             ref={solutionsTitleRef}
-            className="relative text-center text-6xl leading-tight"
+            className="relative text-center text-3xl leading-tight xl:text-6xl"
           >
             <h2 className="relative text-white">Complete Solutions for</h2>
             <h2 className="relative text-spray">Everything Gaming</h2>
           </div>
-          <div className="solutions grid grid-flow-col gap-8">
+          <div className="solutions grid grid-flow-row gap-0 mx-auto md:max-w-sm lg:max-w-max lg:gap-8 lg:grid-flow-col">
             <div className="solution grid content-start border-y border-white/20 gap-8 py-8">
               <h3 className="text-2xl font-bold text-white">Website API</h3>
-              <div className="relative w-full h-[464px] bg-angel-blue-950 rounded-xl">
+              <div className="relative w-full h-[460px] bg-angel-blue-950 rounded-xl lg:h-[360px]">
                 <CircleBtn />
               </div>
               <p className="text-white">
@@ -215,9 +564,9 @@ export default function Home() {
                 your website as like now.
               </p>
             </div>
-            <div className="solution grid content-start border-y border-white/20 gap-8 py-8">
+            <div className="solution grid content-start border-y-0 border-white/20 gap-8 py-8 lg:border-y">
               <h3 className="text-2xl font-bold text-white">Turnkey System</h3>
-              <div className="relative w-full h-[464px] bg-angel-blue-950 rounded-xl">
+              <div className="relative w-full h-[460px] bg-angel-blue-950 rounded-xl lg:h-[360px]">
                 <CircleBtn />
               </div>
               <p className="text-white">
@@ -228,7 +577,7 @@ export default function Home() {
             </div>
             <div className="solution grid content-start border-y border-white/20 gap-8 py-8">
               <h3 className="text-2xl font-bold text-white">White Label</h3>
-              <div className="relative w-full h-[464px] bg-angel-blue-950 rounded-xl">
+              <div className="relative w-full h-[460px] bg-angel-blue-950 rounded-xl lg:h-[360px]">
                 <CircleBtn />
               </div>
               <p className="text-white">
@@ -242,20 +591,25 @@ export default function Home() {
 
         <div
           ref={productsRef}
-          className="horizontal-scroll relative z-10 w-full h-[1050px] mt-28 overflow-x-hidden"
+          className="horizontal-scroll relative z-10 w-full mt-48 h-full overflow-x-hidden xl:h-[980px]"
         >
-          <div className="relative z-10 grid gap-5 text-center">
+          <Image
+            className="absolute top-20 z-0 mix-blend-lighten bg-angel-blue opacity-10 max-w-max lg:w-full lg:max-w-full"
+            src={WAVE}
+            alt="Products wave"
+          />
+          <div className="relative z-10 grid gap-5 w-full text-center">
             <h3 className="text-3xl text-angel-orange-500 font-medium">
               Products
             </h3>
-            <h2 className="text-6xl text-spray leading-tight">
-              Do you have a good idea but <br /> still not sure{" "}
-              <span className="text-white">where to start?</span>
+            <h2 className="text-3xl text-spray mx-auto leading-tight max-w-[315px] md:max-w-none xl:text-6xl">
+              Do you have a good idea but <br className="hidden md:block" />{" "}
+              still not sure <span className="text-white">where to start?</span>
             </h2>
           </div>
           <div
             ref={hPinRef}
-            className="relative z-10 w-full flex justify-start items-start py-24 px-6 gap-16 overflow-x-hidden overscroll-none"
+            className="horizontal-items relative z-10 snap-x snap-mandatory w-full grid grid-flow-row place-items-center py-40 px-6 gap-20 -mt-20 xl:mt-0 xl:grid-flow-col"
           >
             {PRODUCTS.map((product) => (
               <ProductCard
@@ -266,21 +620,92 @@ export default function Home() {
               />
             ))}
           </div>
-          <div className="absolute z-0 w-full -top-4 overflow-hidden">
-            <Image
-              className="relative z-10 mix-blend-lighten bg-angel-blue opacity-10"
-              src={WAVE}
-              alt="Products wave"
-            />
-            <AngelsHubSVG />
+          <AngelsHubSVG className="absolute z-0 w-full lg:-bottom-52 xl:-bottom-28 hidden md:block" />
+          <AngelsHubSVG className="absolute z-0 w-auto scale-[0.45] -bottom-[7%] left-[90%] -translate-x-1/2 md:hidden" />
+        </div>
+
+        <div
+          ref={platformRef}
+          className="relative w-full mt-48 pb-10 overflow-hidden"
+        >
+          <div className="relative z-10 grid gap-5 w-full text-center">
+            <h2 className="title text-3xl text-white leading-tight xl:text-6xl">
+              Why AngelsHub Platform
+            </h2>
+            <p className="caption text-white mx-auto text-sm max-w-[345px] md:max-w-lg lg:text-lg lg:max-w-2xl">
+              The complete betting offer from Angelshub provides your business
+              with the tools to compete against the very best in the industry
+              and come out ahead.
+            </p>
+          </div>
+
+          <div
+            ref={pickerRef}
+            className="relative z-10 w-screen h-80 my-12 overflow-x-hidden"
+          >
+            {[
+              "All-in-one Solution",
+              "Constant Updates",
+              "Customizable Software",
+              "Integrated Anti-Fraud solution",
+              "Extreme Security",
+              "Customer-First Orientated",
+              "All-in-one Solution",
+              "Constant Updates",
+              "Customizable Software",
+              "Integrated Anti-Fraud solution",
+              "Extreme Security",
+              "Customer-First Orientated",
+            ].map((item, idx) => (
+              <div
+                key={`${idx}-${item}`}
+                ref={(el: HTMLDivElement) => {
+                  if (el) {
+                    cellsRef.current[idx] = el;
+                  }
+                }}
+                className="absolute w-full h-full p-6 rounded-[20px] top-0 left-0 overflow-hidden flex items-center justify-center origin-center"
+              >
+                <h3 className="relative z-10 text-4xl text-white font-medium max-w-64">
+                  {item}
+                </h3>
+                <div className="absolute top-0 left-0 z-0 w-full h-full bg-[#0164B7] mix-blend-luminosity"></div>
+              </div>
+            ))}
+          </div>
+          <div className="container w-full flex justify-center lg:justify-end">
+            <a
+              href="#"
+              className="relative bg-angel-blue rounded-full border border-white px-10 py-7 drop-shadow-xl lg:px-20"
+            >
+              <span className="text-sm text-white uppercase">
+                Get good service from experts
+              </span>
+            </a>
           </div>
         </div>
 
-        <Platform />
         <Team />
-      </div>
 
-      <button className="fixed z-20 flex space-x-2 items-center bottom-4 right-24">
+        <div ref={providersRef} className="relative w-full">
+          <AngelsHubSVG className="absolute z-0 w-full top-1/2 -translate-y-1/2 2xl:-translate-y-1/3" />
+          <div className="relative container grid gap-16 mx-auto w-full mt-56">
+            <div className="relative z-10 grid gap-5 text-center">
+              <h2 className="text-3xl title text-white leading-tight xl:text-6xl">
+                Gaming Providers
+              </h2>
+              <p className="text-white caption mx-auto text-sm max-w-[345px] md:max-w-lg lg:text-lg lg:max-w-2xl">
+                Lorem ipsum dolor sit amet consectetur. Sed sed varius ut sed
+                sit sed commodo a ornare. Tellus viverra adipiscing volutpat
+                habitasse quam fringilla tortor diam.
+              </p>
+            </div>
+          </div>
+          <Providers />
+        </div>
+      </div>
+      <Footer ref={footerRef} />
+      <button className="fixed z-20 hidden space-x-2 items-center bottom-4 right-24 xl:flex">
         <span className="text-white text-lg">Scroll</span>
         <svg
           className="motion-safe:animate-bounce"

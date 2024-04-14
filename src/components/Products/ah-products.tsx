@@ -29,7 +29,7 @@ export default function Products() {
           src={WAVE}
           alt="Products wave"
         />
-        <AngelsHubSVG />
+        <AngelsHubSVG className="absolute z-0 bottom-0 w-full" />
       </div>
     </div>
   );

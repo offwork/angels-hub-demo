@@ -1,9 +1,9 @@
 "use client"
 
-export default function AngelsHubFlatSVG() {
+export default function AngelsHubFlatSVG({ className }: {className: string}) {
   return (
     <svg
-      className="relative w-full"
+      className={className}
       width="1920"
       height="376"
       viewBox="0 0 1920 376"
