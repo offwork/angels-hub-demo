@@ -249,8 +249,6 @@ export default function Providers({}: {}) {
             </div>
           ))}
         </div>
-        <div className="absolute top-0 left-0 w-full bg-gradient-to-b from-angel-blue h-56"></div>
-        <div className="absolute bottom-0 left-0 w-full bg-gradient-to-t from-angel-blue h-48"></div>
       </div>
 
       <div
@@ -406,8 +404,6 @@ export default function Providers({}: {}) {
             </div>
           ))}
         </div>
-        <div className="absolute top-0 left-0 w-full bg-gradient-to-b from-angel-blue h-56"></div>
-        <div className="absolute bottom-0 left-0 w-full bg-gradient-to-t from-angel-blue h-48"></div>
       </div>
 
       <div
@@ -543,9 +539,9 @@ export default function Providers({}: {}) {
             </div>
           ))}
         </div>
-        <div className="absolute top-0 left-0 w-full bg-gradient-to-b from-angel-blue h-56"></div>
-        <div className="absolute bottom-0 left-0 w-full bg-gradient-to-t from-angel-blue h-48"></div>
       </div>
+      <div className="absolute -top-1 left-0 w-full bg-gradient-to-b from-angel-blue h-56"></div>
+      <div className="absolute -bottom-1 left-0 w-full bg-gradient-to-t from-angel-blue h-48"></div>
     </div>
   );
 }
