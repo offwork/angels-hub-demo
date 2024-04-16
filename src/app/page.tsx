@@ -35,6 +35,8 @@ export default function Home() {
   const { context, contextSafe } = useGSAP({ scope: scrollContainerRef });
 
   const initSmoothScrolling = () => {
+    ScrollTrigger.config({ limitCallbacks: true, ignoreMobileResize: true });
+    ScrollTrigger.normalizeScroll(true);
     const bodyScrollBar = Scrollbar.init(scrollContainerRef.current, {
       damping: 0.1,
       alwaysShowTracks: true,
@@ -51,6 +53,7 @@ export default function Home() {
       },
     });
 
+    ScrollTrigger.defaults({ toggleActions: "restart pause resume pause" });
     ScrollTrigger.defaults({ scroller: scrollContainerRef.current });
   };
 
@@ -521,8 +524,6 @@ export default function Home() {
   });
 
   useEffect(() => {
-    ScrollTrigger.config({ limitCallbacks: true });
-    ScrollTrigger.defaults({ toggleActions: "restart pause resume pause" });
     solutionsRef.current =
       scrollContainerRef.current.querySelectorAll(".solution");
     initSmoothScrolling();
@@ -538,7 +539,7 @@ export default function Home() {
   return (
     <div
       ref={scrollContainerRef}
-      className="relative h-screen w-full overflow-x-hidden"
+      className="relative h-screen w-full overflow-x-hidden overscroll-none"
     >
       <div className="relative z-10 w-full hidden xl:block">
         <Slider />
