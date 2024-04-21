@@ -1,4 +1,7 @@
 "use client";
+import AngelsHubFlatSVG from "@/components/Layout/ah-flat-svg";
+import Footer from "@/components/Layout/ah-footer";
+import Providers from "@/components/Layout/ah-providers";
 import ProductCard from "@/components/Products/ah-product-card";
 import AngelsHubSVG from "@/components/Products/ah-svg";
 import Slider from "@/components/Slider/slider";
@@ -7,15 +10,13 @@ import Team from "@/components/Team/ah-team";
 import { PRODUCTS } from "@/constant";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
-import { ScrollTrigger } from "gsap/dist/ScrollTrigger";
-import { Draggable } from "gsap/dist/Draggable";
-import Image from "next/image";
 import { InertiaPlugin } from "gsap/InertiaPlugin";
+import { Draggable } from "gsap/dist/Draggable";
+import { ScrollTrigger } from "gsap/dist/ScrollTrigger";
+import Image from "next/image";
 import { useEffect, useRef } from "react";
 import Scrollbar from "smooth-scrollbar";
 import WAVE from "../../public/images/abstract-wave.png";
-import Footer from "@/components/Layout/ah-footer";
-import Providers from "@/components/Layout/ah-providers";
 
 if (typeof window !== "undefined") {
   gsap.registerPlugin(useGSAP, ScrollTrigger, Draggable, InertiaPlugin);
@@ -23,8 +24,7 @@ if (typeof window !== "undefined") {
 
 export default function Home() {
   const scrollContainerRef = useRef<HTMLDivElement>(null!);
-  const solutionsRef = useRef<NodeListOf<HTMLDivElement>>(null!);
-  const solutionsTitleRef = useRef<HTMLDivElement>(null!);
+  const solutionsRef = useRef<HTMLDivElement>(null!);
   const productsRef = useRef<HTMLDivElement>(null!);
   const platformRef = useRef<HTMLDivElement>(null!);
   const providersRef = useRef<HTMLDivElement>(null!);
@@ -32,11 +32,12 @@ export default function Home() {
   const pickerRef = useRef<HTMLDivElement>(null!);
   const cellsRef = useRef<HTMLDivElement[]>([]);
   const footerRef = useRef<HTMLDivElement>(null!);
+  const angelshubRef = useRef<HTMLDivElement>(null!);
   const { context, contextSafe } = useGSAP({ scope: scrollContainerRef });
 
   const initSmoothScrolling = () => {
-    ScrollTrigger.config({ limitCallbacks: true, ignoreMobileResize: true });
     ScrollTrigger.normalizeScroll(true);
+    ScrollTrigger.config({ limitCallbacks: true, ignoreMobileResize: true });
     const bodyScrollBar = Scrollbar.init(scrollContainerRef.current, {
       damping: 0.1,
       alwaysShowTracks: true,
@@ -53,46 +54,50 @@ export default function Home() {
       },
     });
 
-    ScrollTrigger.defaults({ toggleActions: "restart pause resume pause" });
-    ScrollTrigger.defaults({ scroller: scrollContainerRef.current });
+    ScrollTrigger.defaults({
+      toggleActions: "restart pause resume pause",
+      scroller: scrollContainerRef.current,
+    });
   };
 
   const scroll = contextSafe(() => {
-    gsap.from(solutionsTitleRef.current.querySelector(".text-white"), {
+    /*===========================     SOLUTIONS SCROLL     =========================*/
+    const solutions =
+      solutionsRef.current.querySelectorAll<HTMLDivElement>(".solution");
+
+    gsap.from(solutionsRef.current.querySelector(".text-white"), {
       xPercent: 7,
       opacity: 0,
       duration: 0.7,
       ease: "sine.in",
       scrollTrigger: {
-        trigger: solutionsTitleRef.current,
+        trigger: solutionsRef.current,
         start: "top bottom",
         scrub: 1.2,
         end: () =>
-          solutionsTitleRef.current.querySelector<HTMLHeadingElement>(
-            ".text-white"
-          )?.offsetHeight!,
-        toggleActions: "play none none reset",
+          solutionsRef.current.querySelector<HTMLHeadingElement>(".text-white")
+            ?.offsetHeight!,
+        /* toggleActions: "play none none reset", */
       },
     });
 
-    gsap.from(solutionsTitleRef.current.querySelector(".text-spray"), {
+    gsap.from(solutionsRef.current.querySelector(".text-spray"), {
       xPercent: 10,
       opacity: 0,
       duration: 0.7,
       ease: "sine.in",
       scrollTrigger: {
-        trigger: solutionsTitleRef.current,
+        trigger: solutionsRef.current,
         start: "top bottom",
         scrub: 1.2,
         end: () =>
-          solutionsTitleRef.current.querySelector<HTMLHeadingElement>(
-            ".text-spray"
-          )?.offsetHeight!,
-        toggleActions: "play none none reset",
+          solutionsRef.current.querySelector<HTMLHeadingElement>(".text-spray")
+            ?.offsetHeight!,
+        /* toggleActions: "play none none reset", */
       },
     });
 
-    solutionsRef.current.forEach((_, pos, arr) => {
+    solutions.forEach((solution, pos, arr) => {
       gsap.from(arr[arr.length - 1 - pos], {
         ease: "sine.in",
         yPercent: 10,
@@ -100,15 +105,19 @@ export default function Home() {
         delay: pos * 0.2,
         stagger: 0.4,
         scrollTrigger: {
-          trigger: scrollContainerRef.current.querySelector(".solutions"),
+          trigger: arr[arr.length - 1 - pos],
           start: "top bottom",
           scrub: pos * 0.8,
           end: () => arr[pos].offsetHeight,
-          toggleActions: "play none none reset",
+          /* toggleActions: "play none none reset", */
         },
       });
     });
-
+    /*============================     SOLUTIONS END     ===========================*/
+    //////////////////////////////////////////////////////////////////////////////////
+    //////////////////////////////////////////////////////////////////////////////////
+    //////////////////////////////////////////////////////////////////////////////////
+    /*===========================     PRODUCTS SCROLL     ==========================*/
     const hItems =
       productsRef.current.querySelector<HTMLDivElement>(".horizontal-items")!;
 
@@ -155,7 +164,7 @@ export default function Home() {
           productsRef.current.querySelector<HTMLHeadingElement>(
             ".text-angel-orange-500"
           )?.offsetHeight!,
-        toggleActions: "play none none reset",
+        /* toggleActions: "play none none reset", */
       },
     });
 
@@ -171,7 +180,7 @@ export default function Home() {
         end: () =>
           productsRef.current.querySelector<HTMLHeadingElement>(".text-spray")
             ?.offsetHeight!,
-        toggleActions: "play none none reset",
+        /* toggleActions: "play none none reset", */
       },
     });
 
@@ -187,7 +196,7 @@ export default function Home() {
         end: () =>
           productsRef.current.querySelector<HTMLHeadingElement>(".text-white")
             ?.offsetHeight!,
-        toggleActions: "play none none reset",
+        /* toggleActions: "play none none reset", */
       },
     });
 
@@ -201,10 +210,14 @@ export default function Home() {
         start: "top bottom",
         scrub: 2,
         end: () => hPinRef.current.offsetHeight,
-        toggleActions: "play none none reset",
+        /* toggleActions: "play none none reset", */
       },
     });
-
+    /*============================     PRODUCTS END     ============================*/
+    //////////////////////////////////////////////////////////////////////////////////
+    //////////////////////////////////////////////////////////////////////////////////
+    //////////////////////////////////////////////////////////////////////////////////
+    /*===========================     PLATFORM SCROLL     ==========================*/
     gsap.defaults({ ease: "none" });
     const picker = pickerRef.current;
     const cells = cellsRef.current;
@@ -287,7 +300,7 @@ export default function Home() {
         end: () =>
           platformRef.current.querySelector<HTMLHeadingElement>(".title")
             ?.offsetHeight!,
-        toggleActions: "play none none reset",
+        /* toggleActions: "play none none reset", */
       },
     });
 
@@ -303,10 +316,87 @@ export default function Home() {
         end: () =>
           platformRef.current.querySelector<HTMLHeadingElement>(".caption")
             ?.offsetHeight!,
-        toggleActions: "play none none reset",
+        /* toggleActions: "play none none reset", */
       },
     });
 
+    gsap.from(pickerRef.current, {
+      xPercent: 10,
+      opacity: 0,
+      duration: 0.7,
+      ease: "sine.in",
+      scrollTrigger: {
+        trigger: platformRef.current,
+        start: "top bottom",
+        scrub: 1.6,
+        end: () => pickerRef.current.offsetHeight,
+        /* toggleActions: "play none none reset", */
+      },
+    });
+
+    gsap.from(platformRef.current.querySelector(".bg-angel-blue"), {
+      xPercent: -20,
+      opacity: 0,
+      duration: 0.7,
+      ease: "sine.in",
+      scrollTrigger: {
+        trigger: platformRef.current,
+        start: "top bottom",
+        scrub: 1.2,
+        end: () => "+=80%",
+        /* toggleActions: "play none none reset", */
+      },
+    });
+    /*============================     PLATFORM END     ============================*/
+    //////////////////////////////////////////////////////////////////////////////////
+    //////////////////////////////////////////////////////////////////////////////////
+    //////////////////////////////////////////////////////////////////////////////////
+    /*=============================     TEAM SCROLL     ============================*/
+    gsap.set(angelshubRef.current.querySelector(".scale-pin"), {
+      autoAlpha: 1,
+      transformOrigin: "50% 50%",
+    });
+    gsap.set(angelshubRef.current.querySelector(".team"), {
+      autoAlpha: 0,
+      scale: 0.3,
+      transformOrigin: "50% 50%",
+    });
+    const teamTl = gsap.timeline({
+      scrollTrigger: {
+        trigger: angelshubRef.current.querySelector(".scale-pin"),
+        pin: true,
+        pinType: "transform",
+        pinSpacing: true,
+        start: "top bottom",
+        scrub: 1.2,
+        end: () => "+=100%",
+        /* toggleActions: "play none none reset", */
+      },
+    });
+    teamTl
+      .addLabel("teamscaling", 0)
+      .to(
+        angelshubRef.current.querySelector(".scale-pin"),
+        {
+          scale: 70,
+          autoAlpha: 0,
+          duration: 5,
+          ease: "sine.in",
+        },
+        "teamscaling+=1"
+      )
+      .to(angelshubRef.current.querySelector(".team"), {
+        autoAlpha: 1,
+        scale: 1,
+        duration: 0.7,
+        yPercent: 5,
+        ease: "sine.in",
+      });
+    /*==============================     TEAM END     ==============================*/
+    //////////////////////////////////////////////////////////////////////////////////
+    //////////////////////////////////////////////////////////////////////////////////
+    //////////////////////////////////////////////////////////////////////////////////
+    /*===========================     PROVIDERS SCROLL     =========================*/
     gsap.from(providersRef.current.querySelector(".title"), {
       xPercent: 7,
       opacity: 0,
@@ -319,7 +409,7 @@ export default function Home() {
         end: () =>
           providersRef.current.querySelector<HTMLHeadingElement>(".title")
             ?.offsetHeight!,
-        toggleActions: "play none none reset",
+        /* toggleActions: "play none none reset", */
       },
     });
 
@@ -335,39 +425,73 @@ export default function Home() {
         end: () =>
           providersRef.current.querySelector<HTMLHeadingElement>(".caption")
             ?.offsetHeight!,
-        toggleActions: "play none none reset",
+        /* toggleActions: "play none none reset", */
+      },
+    });
+    /*===========================     PROVIDERS END     ============================*/
+    //////////////////////////////////////////////////////////////////////////////////
+    //////////////////////////////////////////////////////////////////////////////////
+    //////////////////////////////////////////////////////////////////////////////////
+    /*============================     FOOTER SCROLL     ===========================*/
+    const inputs = footerRef.current.querySelectorAll(".form-element");
+    const wordLogo = footerRef.current.querySelector<SVGElement>(".word-logo");
+    const footerTitle =
+      footerRef.current.querySelector<HTMLHeadingElement>(".title");
+    const footerCaption =
+      footerRef.current.querySelector<HTMLHeadingElement>(".caption");
+    const socialIcons =
+      footerRef.current.querySelector<HTMLDivElement>(".social-icons");
+    const footerMenuItems = footerRef.current.querySelectorAll(".footer-menu");
+    const privacyPolicy =
+      footerRef.current.querySelector<HTMLAnchorElement>(".privacy-policy");
+    const websiteContent =
+      footerRef.current.querySelector<HTMLAnchorElement>(".website-content");
+    const copyright =
+      footerRef.current.querySelector<HTMLAnchorElement>(".copyright");
+    const amblem = footerRef.current.querySelector<SVGElement>(".amblem");
+
+    gsap.from(wordLogo, {
+      yPercent: 10,
+      opacity: 0,
+      duration: 0.7,
+      ease: "sine.in",
+      scrollTrigger: {
+        trigger: wordLogo,
+        start: "bottom bottom",
+        scrub: 1.2,
+        end: () => wordLogo?.clientWidth!,
+        /* toggleActions: "play none none reset", */
       },
     });
 
-    gsap.from(pickerRef.current, {
+    gsap.from(footerTitle, {
+      xPercent: 7,
+      opacity: 0,
+      duration: 0.7,
+      ease: "sine.in",
+      scrollTrigger: {
+        trigger: footerTitle,
+        start: "top bottom",
+        scrub: 1.2,
+        end: () => footerTitle?.offsetHeight!,
+        /* toggleActions: "play none none reset", */
+      },
+    });
+
+    gsap.from(footerCaption, {
       xPercent: 10,
       opacity: 0,
       duration: 0.7,
       ease: "sine.in",
       scrollTrigger: {
-        trigger: platformRef.current,
+        trigger: footerCaption,
         start: "top bottom",
         scrub: 1.6,
-        end: () => pickerRef.current.offsetHeight,
-        toggleActions: "play none none reset",
+        end: () => footerCaption?.offsetHeight!,
+        /* toggleActions: "play none none reset", */
       },
     });
 
-    gsap.from(platformRef.current.querySelector(".bg-angel-blue"), {
-      xPercent: -20,
-      opacity: 0,
-      duration: 0.7,
-      ease: "sine.in",
-      scrollTrigger: {
-        trigger: platformRef.current,
-        start: "top bottom",
-        scrub: 1.2,
-        end: () => "+=80%",
-        toggleActions: "play none none reset",
-      },
-    });
-
-    const inputs = footerRef.current.querySelectorAll(".form-element");
     inputs.forEach((input) => {
       gsap.from(input, {
         xPercent: -10,
@@ -379,58 +503,11 @@ export default function Home() {
           start: "bottom bottom",
           end: () => "+=10%",
           scrub: 1.2,
-          toggleActions: "play none none reset",
+          /* toggleActions: "play none none reset", */
         },
       });
     });
 
-    gsap.from(footerRef.current.querySelector(".title"), {
-      xPercent: 7,
-      opacity: 0,
-      duration: 0.7,
-      ease: "sine.in",
-      scrollTrigger: {
-        trigger: footerRef.current.querySelector(".title"),
-        start: "top bottom",
-        scrub: 1.2,
-        end: () =>
-          footerRef.current.querySelector<HTMLHeadingElement>(".title")
-            ?.offsetHeight!,
-        toggleActions: "play none none reset",
-      },
-    });
-
-    gsap.from(footerRef.current.querySelector(".caption"), {
-      xPercent: 10,
-      opacity: 0,
-      duration: 0.7,
-      ease: "sine.in",
-      scrollTrigger: {
-        trigger: footerRef.current.querySelector(".caption"),
-        start: "top bottom",
-        scrub: 1.6,
-        end: () =>
-          footerRef.current.querySelector<HTMLHeadingElement>(".caption")
-            ?.offsetHeight!,
-        toggleActions: "play none none reset",
-      },
-    });
-
-    gsap.from(footerRef.current.querySelector(".word-logo"), {
-      yPercent: 10,
-      opacity: 0,
-      duration: 0.7,
-      ease: "sine.in",
-      scrollTrigger: {
-        trigger: footerRef.current.querySelector(".word-logo"),
-        start: "bottom bottom",
-        scrub: 1.2,
-        end: () => footerRef.current.querySelector<SVGElement>(".word-logo")?.clientWidth!,
-        toggleActions: "play none none reset",
-      },
-    });
-
-    const socialIcons = footerRef.current.querySelector<HTMLDivElement>(".social-icons")
     gsap.from(socialIcons, {
       xPercent: 10,
       opacity: 0,
@@ -441,12 +518,11 @@ export default function Home() {
         start: "bottom bottom",
         scrub: 1,
         end: () => socialIcons?.offsetHeight!,
-        toggleActions: "play none none reset",
+        /* toggleActions: "play none none reset", */
       },
     });
 
-    const footerMenuİtems = footerRef.current.querySelectorAll(".footer-menu");
-    footerMenuİtems.forEach((menu) => {
+    footerMenuItems.forEach((menu) => {
       gsap.from(menu, {
         xPercent: 10,
         opacity: 0,
@@ -458,12 +534,11 @@ export default function Home() {
           start: "bottom bottom",
           end: () => "+=20%",
           scrub: 1.2,
-          toggleActions: "play none none reset",
+          /* toggleActions: "play none none reset", */
         },
       });
     });
 
-    const privacyPolicy = footerRef.current.querySelector<HTMLAnchorElement>(".privacy-policy")
     gsap.from(privacyPolicy, {
       xPercent: 5,
       opacity: 0,
@@ -474,11 +549,10 @@ export default function Home() {
         start: "bottom bottom",
         scrub: 1.2,
         end: () => privacyPolicy?.offsetHeight!,
-        toggleActions: "play none none reset",
+        /* toggleActions: "play none none reset", */
       },
     });
 
-    const websiteContent = footerRef.current.querySelector<HTMLAnchorElement>(".website-content")
     gsap.from(websiteContent, {
       xPercent: 5,
       opacity: 0,
@@ -489,11 +563,10 @@ export default function Home() {
         start: "bottom bottom",
         scrub: 1.2,
         end: () => websiteContent?.offsetHeight!,
-        toggleActions: "play none none reset",
+        /* toggleActions: "play none none reset", */
       },
     });
 
-    const copyright = footerRef.current.querySelector<HTMLAnchorElement>(".copyright")
     gsap.from(copyright, {
       xPercent: 5,
       opacity: 0,
@@ -504,28 +577,27 @@ export default function Home() {
         start: "bottom bottom",
         scrub: 1.2,
         end: () => copyright?.offsetHeight!,
-        toggleActions: "play none none reset",
+        /* toggleActions: "play none none reset", */
       },
     });
 
-    gsap.from(footerRef.current.querySelector(".amblem"), {
+    gsap.from(amblem, {
       yPercent: 20,
       opacity: 0,
       duration: 0.7,
       ease: "sine.in",
       scrollTrigger: {
-        trigger: footerRef.current.querySelector(".amblem"),
+        trigger: amblem,
         start: "top bottom",
         scrub: 1.2,
-        end: () => footerRef.current.querySelector<SVGElement>(".amblem")?.clientHeight!,
-        toggleActions: "play none none reset",
+        end: () => amblem?.clientHeight!,
+        /* toggleActions: "play none none reset", */
       },
     });
+    /*=============================     FOOTER END     =============================*/
   });
 
   useEffect(() => {
-    solutionsRef.current =
-      scrollContainerRef.current.querySelectorAll(".solution");
     initSmoothScrolling();
     scroll();
 
@@ -546,15 +618,12 @@ export default function Home() {
       </div>
       <div className="relative z-10 w-full h-[1123px] xl:hidden"></div>
       <div className="scoller">
-        <div className="container grid gap-9">
-          <div
-            ref={solutionsTitleRef}
-            className="relative text-center text-3xl leading-tight xl:text-6xl"
-          >
+        <div ref={solutionsRef} className="container grid gap-9">
+          <div className="relative text-center text-3xl leading-tight xl:text-6xl">
             <h2 className="relative text-white">Complete Solutions for</h2>
             <h2 className="relative text-spray">Everything Gaming</h2>
           </div>
-          <div className="solutions grid grid-flow-row gap-0 mx-auto md:max-w-sm lg:max-w-max lg:gap-8 lg:grid-flow-col">
+          <div className="grid grid-flow-row gap-0 mx-auto md:max-w-sm lg:max-w-max lg:gap-8 lg:grid-flow-col">
             <div className="solution grid content-start border-y border-white/20 gap-8 py-8">
               <h3 className="text-2xl font-bold text-white">Website API</h3>
               <div className="relative w-full h-[460px] bg-angel-blue-950 rounded-xl lg:h-[360px]">
@@ -592,7 +661,7 @@ export default function Home() {
 
         <div
           ref={productsRef}
-          className="horizontal-scroll relative z-10 w-full mt-48 h-full overflow-x-hidden xl:h-[980px]"
+          className="horizontal-scroll relative z-10 w-full mt-56 h-full overflow-x-hidden xl:h-[980px]"
         >
           <Image
             className="absolute top-20 z-0 mix-blend-lighten bg-angel-blue opacity-10 max-w-max lg:w-full lg:max-w-full"
@@ -627,7 +696,7 @@ export default function Home() {
 
         <div
           ref={platformRef}
-          className="relative w-full mt-48 pb-10 overflow-hidden"
+          className="relative w-full my-56 pb-10 overflow-hidden"
         >
           <div className="relative z-10 grid gap-5 w-full text-center">
             <h2 className="title text-3xl text-white leading-tight xl:text-6xl">
@@ -642,19 +711,13 @@ export default function Home() {
 
           <div
             ref={pickerRef}
-            className="relative z-10 w-screen h-80 my-12 overflow-x-hidden"
+            className="relative z-10 min-w-full w-screen h-80 my-12 overflow-x-hidden"
           >
             {[
               "All-in-one Solution",
               "Constant Updates",
-              "Customizable Software",
               "Integrated Anti-Fraud solution",
-              "Extreme Security",
-              "Customer-First Orientated",
-              "All-in-one Solution",
-              "Constant Updates",
               "Customizable Software",
-              "Integrated Anti-Fraud solution",
               "Extreme Security",
               "Customer-First Orientated",
             ].map((item, idx) => (
@@ -665,7 +728,7 @@ export default function Home() {
                     cellsRef.current[idx] = el;
                   }
                 }}
-                className="absolute w-full h-full p-6 rounded-[20px] top-0 left-0 overflow-hidden flex items-center justify-center origin-center"
+                className="absolute w-full h-full p-6 rounded-[20px] top-0 left-0 overflow-hidden flex items-baseline justify-center origin-center"
               >
                 <h3 className="relative z-10 text-4xl text-white font-medium max-w-64">
                   {item}
@@ -686,7 +749,13 @@ export default function Home() {
           </div>
         </div>
 
-        <Team />
+        <div
+          ref={angelshubRef}
+          className="relative w-full flex min-h-dvh max-h-full justify-center items-center overflow-x-hidden"
+        >
+          <AngelsHubFlatSVG className="scale-pin relative w-full top-0" />
+          <Team />
+        </div>
 
         <div ref={providersRef} className="relative w-full">
           <AngelsHubSVG className="absolute z-0 w-full top-1/2 -translate-y-1/2 2xl:-translate-y-1/3" />

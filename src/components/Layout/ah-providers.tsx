@@ -4,7 +4,7 @@ import gsap from "gsap";
 import Image from "next/image";
 import { useRef } from "react";
 
-export default function Providers({}: {}) {
+export default function Providers() {
   const containerRef = useRef<HTMLDivElement>(null!);
   const desktopSliderRef = useRef<HTMLDivElement>(null!);
   const tabletSliderRef = useRef<HTMLDivElement>(null!);
