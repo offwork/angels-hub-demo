@@ -14,7 +14,7 @@ const config: Config = {
         "gradient-radial":
           "radial-gradient(120% 160% at 70% 20%, rgba(252, 253, 255, 0) 0%, var(--tw-gradient-stops))",
         "gradient-conic":
-          "conic-gradient(from 180deg at 70% 50%, var(--tw-gradient-stops))",
+          "radial-gradient(130% 100% at 50% 0%, rgba(252, 253, 255, 0) 0%, var(--tw-gradient-stops))",
       },
       container: {
         center: true,

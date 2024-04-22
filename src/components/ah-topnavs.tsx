@@ -9,12 +9,12 @@ export default function Topnavs() {
       <div className="relative">
         <BrandLogo />
       </div>
-      <div className="relative ml-auto min-w-[236px]">
-        <div className="fixed -translate-y-1/2">
-          <div className="grid grid-flow-col gap-1 items-center bg-black rounded-lg p-2">
+      <div className="relative contents ml-auto lg:block lg:min-w-[236px]">
+        <div className="fixed right-8 lg:-translate-y-1/2">
+          <div className="grid lg:grid-flow-col lg:gap-1 lg:items-center lg:bg-black rounded-lg lg:p-2">
             <Link
               href="/"
-              className="flex items-center text-white space-x-2 border rounded-lg px-6 py-2"
+              className="hidden lg:flex items-center text-white space-x-2 border rounded-lg px-6 py-2"
             >
               <span>Book a Demo</span>
               <svg

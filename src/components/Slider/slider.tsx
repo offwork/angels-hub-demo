@@ -157,7 +157,7 @@ export default function Slider(/* { children }: { children: ReactNode } */) {
         <div
           ref={sliderRef}
           style={{ perspective: 1000 }}
-          className="grid place-items-center w-full h-[1123px] overflow-hidden"
+          className="grid place-items-center w-full min-h-svh xl:h-[1123px] overflow-hidden"
         >
           <div
             style={{ gridArea: "1 / 1 / -1 / -1" }}

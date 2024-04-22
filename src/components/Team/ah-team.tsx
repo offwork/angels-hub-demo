@@ -122,8 +122,9 @@ export default function Team() {
           width: itemWidth.current,
         });
       });
+
+      navigate();
     }
-    navigate();
 
     window.addEventListener("resize", resetStyles);
     return () => {
