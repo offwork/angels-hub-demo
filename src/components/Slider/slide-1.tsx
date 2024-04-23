@@ -20,8 +20,8 @@ export default function Slide1({ slide }: { slide: number }) {
   const titleRef3 = useRef<HTMLHeadingElement>(null!);
   const describeRef = useRef<HTMLParagraphElement>(null!);
   const linkRef = useRef<HTMLAnchorElement>(null!);
-  const orangeRef = useRef<SVGSVGElement>(null!);
-  const blueRef = useRef<SVGSVGElement>(null!);
+  const orangeRef = useRef<HTMLDivElement>(null!);
+  const blueRef = useRef<HTMLDivElement>(null!);
 
   useGSAP(
     () => {
@@ -1226,8 +1226,7 @@ export default function Slide1({ slide }: { slide: number }) {
       />
       <BlueShape
         elRef={blueRef}
-        bg="#0F38B4"
-        className="absolute z-10 mix-blend-hard-light scale-50 -top-1/3 -right-full md:scale-100 md:top-[5%] md:-right-1/3 lg:top-[10%] lg:right-0 6xl:scale-125 xl:right-[10%] 2xl:right-0"
+        className="absolute z-10 scale-50 -top-1/3 -right-full md:scale-100 md:top-[5%] md:-right-1/3 lg:top-[10%] lg:right-0 6xl:scale-125 xl:right-[10%] 2xl:right-0"
       />
       <div className="absolute z-10 -left-[10%] lg:left-0 top-0 w-1/2 h-full bg-gradient-to-r from-angel-blue via-angel-blue via-25% xl:via-40%"></div>
       <div className="absolute z-10 -right-1/4 top-0 w-3/5 h-full bg-gradient-to-l from-angel-blue via-angel-blue via-30%"></div>

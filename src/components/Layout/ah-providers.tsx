@@ -107,7 +107,14 @@ export default function Providers() {
   );
 
   return (
-    <div ref={containerRef} className="relative container grid gap-16 mx-auto w-full mt-16">
+    <div
+      style={{
+        maskImage:
+          "linear-gradient(180deg,transparent,#0f38b4 20%,#0f38b4 80%,transparent 100%)",
+      }}
+      ref={containerRef}
+      className="relative container grid gap-16 mx-auto w-full mt-16"
+    >
       <div
         ref={mobileSliderRef}
         className="relative grid justify-items-center gap-3 w-full min-h-[548px] overflow-hidden md:hidden"
@@ -540,8 +547,6 @@ export default function Providers() {
           ))}
         </div>
       </div>
-      <div className="absolute -top-1 left-0 w-full bg-gradient-to-b from-angel-blue h-56"></div>
-      <div className="absolute -bottom-1 left-0 w-full bg-gradient-to-t from-angel-blue h-48"></div>
     </div>
   );
 }

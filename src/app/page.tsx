@@ -78,7 +78,6 @@ export default function Home() {
         end: () =>
           solutionsRef.current.querySelector<HTMLHeadingElement>(".text-white")
             ?.offsetHeight!,
-        /* toggleActions: "play none none reset", */
       },
     });
 
@@ -94,7 +93,6 @@ export default function Home() {
         end: () =>
           solutionsRef.current.querySelector<HTMLHeadingElement>(".text-spray")
             ?.offsetHeight!,
-        /* toggleActions: "play none none reset", */
       },
     });
 
@@ -110,7 +108,6 @@ export default function Home() {
           start: "top bottom",
           scrub: pos * 0.8,
           end: () => arr[pos].offsetHeight,
-          /* toggleActions: "play none none reset", */
         },
       });
     });
@@ -165,7 +162,6 @@ export default function Home() {
           productsRef.current.querySelector<HTMLHeadingElement>(
             ".text-angel-orange-500"
           )?.offsetHeight!,
-        /* toggleActions: "play none none reset", */
       },
     });
 
@@ -181,7 +177,6 @@ export default function Home() {
         end: () =>
           productsRef.current.querySelector<HTMLHeadingElement>(".text-spray")
             ?.offsetHeight!,
-        /* toggleActions: "play none none reset", */
       },
     });
 
@@ -197,7 +192,6 @@ export default function Home() {
         end: () =>
           productsRef.current.querySelector<HTMLHeadingElement>(".text-white")
             ?.offsetHeight!,
-        /* toggleActions: "play none none reset", */
       },
     });
 
@@ -211,7 +205,6 @@ export default function Home() {
         start: "top bottom",
         scrub: 2,
         end: () => hPinRef.current.offsetHeight,
-        /* toggleActions: "play none none reset", */
       },
     });
     /*============================     PRODUCTS END     ============================*/
@@ -219,75 +212,36 @@ export default function Home() {
     //////////////////////////////////////////////////////////////////////////////////
     //////////////////////////////////////////////////////////////////////////////////
     /*===========================     PLATFORM SCROLL     ==========================*/
-    gsap.defaults({ ease: "none" });
-    const picker = pickerRef.current;
-    const cells = cellsRef.current;
-    const proxy = document.createElement("div");
-    const myWrapper = gsap.utils.wrap(0, 1);
-    const cellWidth = 360;
-    const numCells = cells.length;
-    const cellStep = 1 / numCells;
-    const wrapWidth = cellWidth * numCells;
-    const baseTl = gsap.timeline({ paused: true });
+    const platformItems = platformRef.current.querySelector<HTMLDivElement>(".platform-items")!;
 
-    gsap.set(picker, {
-      width: wrapWidth - cellWidth,
-    });
+    function getHorizontalPlatformScrollAmount() {
+      const hItemsWidth = platformItems.scrollWidth;
+      return -(hItemsWidth - window.innerWidth);
+    }
 
-    cells.forEach((cell, i) => {
-      initCell(cell, i);
-    });
-
-    const animation = gsap
-      .timeline({ repeat: -1, paused: true })
-      .add(baseTl.tweenFromTo(1, 2));
-
-    const draggable = Draggable.create(proxy, {
-      type: "x",
-      trigger: picker,
-      inertia: true,
-      onDrag: updateProgress,
-      onThrowUpdate: updateProgress,
-      snap: {
-        x: snapX,
+    mediaMatcher.add(
+      {
+        isDesktop: `(min-width: 1024px) and (prefers-reduced-motion: no-preference)`,
       },
-      onThrowComplete: () => {
-        console.log("onThrowComplete");
-        // TODO: animation that injects selected card title
-      },
-    })[0];
-
-    function snapX(x: number) {
-      return Math.round(x / cellWidth) * cellWidth;
-    }
-
-    function updateProgress() {
-      animation.progress(myWrapper(draggable.x / wrapWidth));
-    }
-
-    function initCell(element: HTMLDivElement, index: number) {
-      gsap.set(element, {
-        width: cellWidth,
-        scale: 0.9,
-        x: -cellWidth,
-      });
-
-      const tl = gsap
-        .timeline({ repeat: 1 })
-        .to(element, { duration: 1, x: `+=${wrapWidth}` }, 0)
-        .to(
-          element,
-          {
-            duration: cellStep,
-            scale: 1,
-            repeat: 1,
-            yoyo: true,
-          },
-          0.5 - cellStep
-        );
-
-      baseTl.add(tl, index * -cellStep);
-    }
+      (context) => {
+        const { isDesktop } = context.conditions!;
+        if (isDesktop) {
+          gsap.to(platformItems, {
+            x: getHorizontalPlatformScrollAmount,
+            ease: "none",
+            duration: 2,
+            scrollTrigger: {
+              trigger: ".platform-scroll",
+              start: "top top",
+              end: () => `+=${getHorizontalPlatformScrollAmount() * -1}`,
+              pin: true,
+              scrub: 1,
+              invalidateOnRefresh: true,
+            },
+          });
+        }
+      }
+    );
 
     gsap.from(platformRef.current.querySelector(".title"), {
       xPercent: -7,
@@ -301,7 +255,6 @@ export default function Home() {
         end: () =>
           platformRef.current.querySelector<HTMLHeadingElement>(".title")
             ?.offsetHeight!,
-        /* toggleActions: "play none none reset", */
       },
     });
 
@@ -317,21 +270,19 @@ export default function Home() {
         end: () =>
           platformRef.current.querySelector<HTMLHeadingElement>(".caption")
             ?.offsetHeight!,
-        /* toggleActions: "play none none reset", */
       },
     });
 
     gsap.from(pickerRef.current, {
       xPercent: -10,
       opacity: 0,
-      duration: 0.7,
+      duration: 1.6,
       ease: "sine.in",
       scrollTrigger: {
         trigger: platformRef.current,
         start: "top bottom",
-        scrub: 1.6,
+        scrub: 2,
         end: () => pickerRef.current.offsetHeight,
-        /* toggleActions: "play none none reset", */
       },
     });
 
@@ -345,7 +296,6 @@ export default function Home() {
         start: "top bottom",
         scrub: 1.2,
         end: () => "+=80%",
-        /* toggleActions: "play none none reset", */
       },
     });
     /*============================     PLATFORM END     ============================*/
@@ -371,7 +321,6 @@ export default function Home() {
         start: "top bottom",
         scrub: 1.2,
         end: () => "+=100%",
-        /* toggleActions: "play none none reset", */
       },
     });
     teamTl
@@ -410,7 +359,6 @@ export default function Home() {
         end: () =>
           providersRef.current.querySelector<HTMLHeadingElement>(".title")
             ?.offsetHeight!,
-        /* toggleActions: "play none none reset", */
       },
     });
 
@@ -426,7 +374,6 @@ export default function Home() {
         end: () =>
           providersRef.current.querySelector<HTMLHeadingElement>(".caption")
             ?.offsetHeight!,
-        /* toggleActions: "play none none reset", */
       },
     });
     /*===========================     PROVIDERS END     ============================*/
@@ -461,7 +408,6 @@ export default function Home() {
         start: "bottom bottom",
         scrub: 1.2,
         end: () => wordLogo?.clientWidth!,
-        /* toggleActions: "play none none reset", */
       },
     });
 
@@ -475,7 +421,6 @@ export default function Home() {
         start: "top bottom",
         scrub: 1.2,
         end: () => footerTitle?.offsetHeight!,
-        /* toggleActions: "play none none reset", */
       },
     });
 
@@ -489,7 +434,6 @@ export default function Home() {
         start: "top bottom",
         scrub: 1.6,
         end: () => footerCaption?.offsetHeight!,
-        /* toggleActions: "play none none reset", */
       },
     });
 
@@ -504,7 +448,6 @@ export default function Home() {
           start: "bottom bottom",
           end: () => "+=10%",
           scrub: 1.2,
-          /* toggleActions: "play none none reset", */
         },
       });
     });
@@ -519,7 +462,6 @@ export default function Home() {
         start: "bottom bottom",
         scrub: 1,
         end: () => socialIcons?.offsetHeight!,
-        /* toggleActions: "play none none reset", */
       },
     });
 
@@ -535,7 +477,6 @@ export default function Home() {
           start: "bottom bottom",
           end: () => "+=20%",
           scrub: 1.2,
-          /* toggleActions: "play none none reset", */
         },
       });
     });
@@ -550,7 +491,6 @@ export default function Home() {
         start: "bottom bottom",
         scrub: 1.2,
         end: () => privacyPolicy?.offsetHeight!,
-        /* toggleActions: "play none none reset", */
       },
     });
 
@@ -564,7 +504,6 @@ export default function Home() {
         start: "bottom bottom",
         scrub: 1.2,
         end: () => websiteContent?.offsetHeight!,
-        /* toggleActions: "play none none reset", */
       },
     });
 
@@ -578,7 +517,6 @@ export default function Home() {
         start: "bottom bottom",
         scrub: 1.2,
         end: () => copyright?.offsetHeight!,
-        /* toggleActions: "play none none reset", */
       },
     });
 
@@ -592,7 +530,6 @@ export default function Home() {
         start: "top bottom",
         scrub: 1.2,
         end: () => amblem?.clientHeight!,
-        /* toggleActions: "play none none reset", */
       },
     });
     /*=============================     FOOTER END     =============================*/
@@ -696,7 +633,7 @@ export default function Home() {
 
       <div
         ref={platformRef}
-        className="relative w-full my-56 pb-10 overflow-hidden"
+        className="platform-scroll relative w-full my-56 pb-10 overflow-x-hidden"
       >
         <div className="relative z-10 grid gap-5 w-full text-center">
           <h2 className="title text-3xl text-white leading-tight xl:text-6xl">
@@ -711,7 +648,7 @@ export default function Home() {
 
         <div
           ref={pickerRef}
-          className="relative z-10 min-w-full w-screen h-80 my-12 overflow-x-hidden"
+          className="platform-items relative z-10 snap-x snap-mandatory w-full grid grid-flow-row place-items-center py-40 px-6 gap-10 -mt-20 xl:mt-0 lg:grid-flow-col"
         >
           {[
             "All-in-one Solution",
@@ -728,12 +665,12 @@ export default function Home() {
                   cellsRef.current[idx] = el;
                 }
               }}
-              className="absolute w-full h-full p-6 rounded-[20px] top-0 left-0 overflow-hidden flex items-baseline justify-center origin-center"
+              className="platform-item snap-always snap-center relative p-6 drop-shadow-2xl origin-center min-w-80 min-h-72 md:min-w-96 md:min-h-80 xl:min-w-[420px] 6xl:min-w-[484px]"
             >
               <h3 className="relative z-10 text-4xl text-white font-medium max-w-64">
                 {item}
               </h3>
-              <div className="absolute top-0 left-0 z-0 w-full h-full bg-[#0164B7] mix-blend-luminosity"></div>
+              <div className="absolute top-0 left-0 z-0 w-full h-full rounded-[20px] bg-[#0164B7] mix-blend-luminosity"></div>
             </div>
           ))}
         </div>

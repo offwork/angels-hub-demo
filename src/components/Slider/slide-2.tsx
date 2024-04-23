@@ -26,8 +26,8 @@ export default function Slide2({ slide }: { slide: number }) {
   const titleRef3 = useRef<HTMLHeadingElement>(null!);
   const describeRef = useRef<HTMLParagraphElement>(null!);
   const linkRef = useRef<HTMLAnchorElement>(null!);
-  const orangeRef = useRef<SVGSVGElement>(null!);
-  const blueRef = useRef<SVGSVGElement>(null!);
+  const orangeRef = useRef<HTMLDivElement>(null!);
+  const blueRef = useRef<HTMLDivElement>(null!);
 
   useGSAP(
     () => {
@@ -1253,7 +1253,6 @@ export default function Slide2({ slide }: { slide: number }) {
       />
       <BlueShape
         elRef={blueRef}
-        bg="#125ffe"
         className="absolute z-10 scale-50 md:scale-100 6xl:scale-125"
       />
       <OrangeShape
