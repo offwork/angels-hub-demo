@@ -28,7 +28,7 @@ export default function Slide1({ slide }: { slide: number }) {
       const mediaMatcher = gsap.matchMedia();
       mediaMatcher.add(
         {
-          mobile: `(max-width: 641px) and (prefers-reduced-motion: no-preference)`,
+          mobile: `(max-width: 640px) and (prefers-reduced-motion: no-preference)`,
           tablet: "(max-width: 1023px) and (min-width: 641px)",
           desktopLg: "(max-width: 1024px)",
           desktopXl: "(max-width: 1280px)",
@@ -230,8 +230,8 @@ export default function Slide1({ slide }: { slide: number }) {
               )
               .fromTo(
                 orangeRef.current,
-                { left: "-90%", top: "-40%", opacity: 0, autoAlpha: 0 },
-                { left: "-110%", top: "-60%", opacity: 1, autoAlpha: 1 },
+                { left: "-70%", top: "-40%", opacity: 0, autoAlpha: 0 },
+                { left: "-75%", top: "-70%", opacity: 1, autoAlpha: 1 },
                 "<"
               )
               .fromTo(
@@ -242,8 +242,8 @@ export default function Slide1({ slide }: { slide: number }) {
               )
               .fromTo(
                 blueRef.current,
-                { right: "-100%", top: "-30%", opacity: 0, autoAlpha: 0 },
-                { right: "-80%", top: "-10%", opacity: 1, autoAlpha: 1 },
+                { right: "-90%", top: "-35%", opacity: 0, autoAlpha: 0 },
+                { right: "-70%", top: "-15%", opacity: 1, autoAlpha: 1 },
                 "<"
               );
           } else if (desktopLg) {

@@ -3,7 +3,7 @@ import Link from "next/link";
 
 export default function BrandLogo() {
   return (
-    <Link href="/" className="cursor-pointer">
+    <Link href="/" className="cursor-pointer absolute container top-6 z-30">
       <svg
         width="147"
         height="29"

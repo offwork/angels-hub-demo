@@ -34,6 +34,9 @@ export default function Slide2({ slide }: { slide: number }) {
       const mediaMatcher = gsap.matchMedia();
       mediaMatcher.add(
         {
+          mobile: `(max-width: 640px) and (prefers-reduced-motion: no-preference)`,
+          tablet: "(max-width: 1023px) and (min-width: 641px)",
+          desktopLg: "(max-width: 1024px)",
           desktopXl: "(max-width: 1280px)",
           desktop2Xl: "(max-width: 1441px)",
           desktop3Xl: "(max-width: 1601px)",
@@ -43,6 +46,9 @@ export default function Slide2({ slide }: { slide: number }) {
         },
         (context) => {
           const {
+            mobile,
+            tablet,
+            desktopLg,
             desktopXl,
             desktop2Xl,
             desktop3Xl,
@@ -51,7 +57,325 @@ export default function Slide2({ slide }: { slide: number }) {
             desktop6Xl,
           } = context.conditions!;
 
-          if (desktopXl) {
+          if (mobile) {
+            gsap
+              .timeline()
+              .paused(Number(selected) !== 1)
+              .fromTo(
+                titleRef1.current,
+                {
+                  yPercent: 20,
+                  opacity: 0,
+                  autoAlpha: 0,
+                  ease: "back.inOut(1.7)",
+                },
+                { yPercent: 0, opacity: 1, autoAlpha: 1, ease: "elas.inOut(5)" }
+              )
+              .fromTo(
+                titleRef2.current,
+                {
+                  yPercent: 30,
+                  opacity: 0,
+                  autoAlpha: 0,
+                  ease: "back.inOut(1.7)",
+                },
+                {
+                  yPercent: 0,
+                  opacity: 1,
+                  autoAlpha: 1,
+                  ease: "elas.inOut(5)",
+                },
+                "<0.1"
+              )
+              .fromTo(
+                titleRef3.current,
+                {
+                  yPercent: 40,
+                  opacity: 0,
+                  autoAlpha: 0,
+                  ease: "back.inOut(1.7)",
+                },
+                {
+                  yPercent: 0,
+                  opacity: 1,
+                  autoAlpha: 1,
+                  ease: "elas.inOut(5)",
+                },
+                "<0.1"
+              )
+              .fromTo(
+                describeRef.current,
+                {
+                  yPercent: 50,
+                  opacity: 0,
+                  autoAlpha: 0,
+                  ease: "back.inOut(1.7)",
+                },
+                {
+                  yPercent: 0,
+                  opacity: 1,
+                  autoAlpha: 1,
+                  ease: "elas.inOut(5)",
+                },
+                "<0.1"
+              )
+              .fromTo(
+                linkRef.current,
+                {
+                  yPercent: 60,
+                  opacity: 0,
+                  autoAlpha: 0,
+                  ease: "back.inOut(1.7)",
+                },
+                {
+                  yPercent: 0,
+                  opacity: 1,
+                  autoAlpha: 1,
+                  ease: "elas.inOut(5)",
+                },
+                "<0.1"
+              )
+              .fromTo(
+                orangeRef.current,
+                { left: "-80%", top: "-70%", opacity: 0, autoAlpha: 0 },
+                { left: "-100%", top: "-50%", opacity: 1, autoAlpha: 1 },
+                "<"
+              )
+              .fromTo(
+                imageRef.current,
+                {
+                  scale: 1.8,
+                  right: "-20%",
+                  opacity: 0,
+                  autoAlpha: 0,
+                },
+                {
+                  scale: 1,
+                  right: "0%",
+                  opacity: 1,
+                  autoAlpha: 1,
+                },
+                "<0.2"
+              )
+              .fromTo(
+                blueRef.current,
+                { right: "-90%", top: "-10%", opacity: 0, autoAlpha: 0 },
+                { right: "-110%", top: "-30%", opacity: 1, autoAlpha: 1 },
+                "<"
+              );
+          } else if (tablet) {
+            gsap
+              .timeline()
+              .paused(Number(selected) !== 1)
+              .fromTo(
+                titleRef1.current,
+                {
+                  yPercent: 20,
+                  opacity: 0,
+                  autoAlpha: 0,
+                  ease: "back.inOut(1.7)",
+                },
+                { yPercent: 0, opacity: 1, autoAlpha: 1, ease: "elas.inOut(5)" }
+              )
+              .fromTo(
+                titleRef2.current,
+                {
+                  yPercent: 30,
+                  opacity: 0,
+                  autoAlpha: 0,
+                  ease: "back.inOut(1.7)",
+                },
+                {
+                  yPercent: 0,
+                  opacity: 1,
+                  autoAlpha: 1,
+                  ease: "elas.inOut(5)",
+                },
+                "<0.1"
+              )
+              .fromTo(
+                titleRef3.current,
+                {
+                  yPercent: 40,
+                  opacity: 0,
+                  autoAlpha: 0,
+                  ease: "back.inOut(1.7)",
+                },
+                {
+                  yPercent: 0,
+                  opacity: 1,
+                  autoAlpha: 1,
+                  ease: "elas.inOut(5)",
+                },
+                "<0.1"
+              )
+              .fromTo(
+                describeRef.current,
+                {
+                  yPercent: 50,
+                  opacity: 0,
+                  autoAlpha: 0,
+                  ease: "back.inOut(1.7)",
+                },
+                {
+                  yPercent: 0,
+                  opacity: 1,
+                  autoAlpha: 1,
+                  ease: "elas.inOut(5)",
+                },
+                "<0.1"
+              )
+              .fromTo(
+                linkRef.current,
+                {
+                  yPercent: 60,
+                  opacity: 0,
+                  autoAlpha: 0,
+                  ease: "back.inOut(1.7)",
+                },
+                {
+                  yPercent: 0,
+                  opacity: 1,
+                  autoAlpha: 1,
+                  ease: "elas.inOut(5)",
+                },
+                "<0.1"
+              )
+              .fromTo(
+                orangeRef.current,
+                { left: "-105%", top: "-70%", opacity: 0, autoAlpha: 0 },
+                { left: "-85%", top: "-50%", opacity: 1, autoAlpha: 1 },
+                "<"
+              )
+              .fromTo(
+                imageRef.current,
+                {
+                  scale: 1.8,
+                  right: "-20%",
+                  opacity: 0,
+                  autoAlpha: 0,
+                },
+                {
+                  scale: 1,
+                  right: "0%",
+                  opacity: 1,
+                  autoAlpha: 1,
+                },
+                "<0.2"
+              )
+              .fromTo(
+                blueRef.current,
+                { right: "-90%", top: "-20%", opacity: 0, autoAlpha: 0 },
+                { right: "-70%", top: "0%", opacity: 1, autoAlpha: 1 },
+                "<"
+              );
+          } else if (desktopLg) {
+            gsap
+              .timeline()
+              .paused(Number(selected) !== 1)
+              .fromTo(
+                titleRef1.current,
+                {
+                  yPercent: 20,
+                  opacity: 0,
+                  autoAlpha: 0,
+                  ease: "back.inOut(1.7)",
+                },
+                { yPercent: 0, opacity: 1, autoAlpha: 1, ease: "elas.inOut(5)" }
+              )
+              .fromTo(
+                titleRef2.current,
+                {
+                  yPercent: 30,
+                  opacity: 0,
+                  autoAlpha: 0,
+                  ease: "back.inOut(1.7)",
+                },
+                {
+                  yPercent: 0,
+                  opacity: 1,
+                  autoAlpha: 1,
+                  ease: "elas.inOut(5)",
+                },
+                "<0.1"
+              )
+              .fromTo(
+                titleRef3.current,
+                {
+                  yPercent: 40,
+                  opacity: 0,
+                  autoAlpha: 0,
+                  ease: "back.inOut(1.7)",
+                },
+                {
+                  yPercent: 0,
+                  opacity: 1,
+                  autoAlpha: 1,
+                  ease: "elas.inOut(5)",
+                },
+                "<0.1"
+              )
+              .fromTo(
+                describeRef.current,
+                {
+                  yPercent: 50,
+                  opacity: 0,
+                  autoAlpha: 0,
+                  ease: "back.inOut(1.7)",
+                },
+                {
+                  yPercent: 0,
+                  opacity: 1,
+                  autoAlpha: 1,
+                  ease: "elas.inOut(5)",
+                },
+                "<0.1"
+              )
+              .fromTo(
+                linkRef.current,
+                {
+                  yPercent: 60,
+                  opacity: 0,
+                  autoAlpha: 0,
+                  ease: "back.inOut(1.7)",
+                },
+                {
+                  yPercent: 0,
+                  opacity: 1,
+                  autoAlpha: 1,
+                  ease: "elas.inOut(5)",
+                },
+                "<0.1"
+              )
+              .fromTo(
+                orangeRef.current,
+                { left: "-70%", top: "-80%", opacity: 0, autoAlpha: 0 },
+                { left: "-60%", top: "-60%", opacity: 1, autoAlpha: 1 },
+                "<"
+              )
+              .fromTo(
+                imageRef.current,
+                {
+                  scale: 1.8,
+                  right: "-20%",
+                  opacity: 0,
+                  autoAlpha: 0,
+                },
+                {
+                  scale: 1,
+                  right: "0%",
+                  opacity: 1,
+                  autoAlpha: 1,
+                },
+                "<0.2"
+              )
+              .fromTo(
+                blueRef.current,
+                { right: "-50%", top: "-20%", opacity: 0, autoAlpha: 0 },
+                { right: "-30%", top: "0%", opacity: 1, autoAlpha: 1 },
+                "<"
+              );
+          } else if (desktopXl) {
             gsap
               .timeline()
               .paused(Number(selected) !== 1)
@@ -920,7 +1244,7 @@ export default function Slide2({ slide }: { slide: number }) {
     <div ref={slideRef} className="static w-full h-full">
       <Image
         ref={imageRef}
-        className="absolute z-20 object-cover right-0 bottom-0"
+        className="absolute z-20 object-cover top-1/3 -translate-y-1/2 md:top-1/2 xl:top-auto xl:translate-y-0 xl:right-0 xl:bottom-0"
         src={SLIDER_PIC_2.src}
         priority
         width={SLIDER_PIC_2.width}
@@ -930,12 +1254,15 @@ export default function Slide2({ slide }: { slide: number }) {
       <BlueShape
         elRef={blueRef}
         bg="#125ffe"
-        className="absolute z-10 -right-full 6xl:scale-125"
+        className="absolute z-10 scale-50 md:scale-100 6xl:scale-125"
       />
-      <OrangeShape elRef={orangeRef} className="absolute z-10 -left-full 6xl:scale-125" />
+      <OrangeShape
+        elRef={orangeRef}
+        className="absolute z-10 scale-50 md:scale-100 6xl:scale-125"
+      />
       <Image
         ref={imageRef1}
-        className="absolute z-30 object-contain -right-full drop-shadow-[0_35px_15px_rgba(0,0,0,0.35)]"
+        className="absolute z-30 object-contain -right-full hidden xl:block drop-shadow-[0_35px_15px_rgba(0,0,0,0.35)]"
         src={CIP_2.src}
         priority
         width={106}
@@ -944,7 +1271,7 @@ export default function Slide2({ slide }: { slide: number }) {
       />
       <Image
         ref={imageRef2}
-        className="absolute z-30 object-contain -right-full"
+        className="absolute z-30 object-contain -right-full hidden xl:block"
         src={CIP_BLUR_2.src}
         priority
         width={114}
@@ -953,37 +1280,43 @@ export default function Slide2({ slide }: { slide: number }) {
       />
       <Image
         ref={imageRef3}
-        className="absolute z-30 object-contain -right-full drop-shadow-[0_90px_10px_rgba(0,0,0,0.35)]"
+        className="absolute z-30 object-contain -right-full hidden xl:block  drop-shadow-[0_90px_10px_rgba(0,0,0,0.35)]"
         src={CARD_2.src}
         priority
         width={188}
         height={170}
         alt="Slider picture 1"
       />
-      <div className="absolute z-20 bottom-0 left-0 w-full h-2/3 bg-gradient-to-t from-angel-blue via-angel-blue via-15%"></div>
+      <div className="absolute z-20 bottom-0 left-0 w-full h-2/3 top-1/4 md:top-auto bg-gradient-to-t from-angel-blue via-angel-blue via-50% xl:via-15% xl:top-auto"></div>
 
-      <div className="container absolute z-30 top-40 left-1/2 -translate-x-1/2">
-        <div className="grid max-w-3xl gap-10 text-white 4xl:gap-11 5xl:gap-14">
-          <h1
-            ref={titleRef1}
-            className="text-8xl font-light drop-shadow-[0_4px_3px_rgba(0,0,0,0.65)]"
+      <div className="container absolute z-30 top-40 left-1/2 -translate-x-1/2 text-center lg:text-left">
+        <div className="grid max-w-3xl gap-10 text-white justify-items-center lg:justify-items-start lg:gap-10 4xl:gap-11 5xl:gap-14">
+          <div>
+            <h1
+              ref={titleRef1}
+              className="text-4xl font-light md:text-5xl lg:text-6xl xl:text-8xl drop-shadow-[0_4px_3px_rgba(0,0,0,0.65)]"
+            >
+              Home for NextGen
+            </h1>
+            <h2
+              ref={titleRef2}
+              className="font-semibold text-4xl md:text-5xl lg:text-6xl xl:text-8xl drop-shadow-[0_4px_3px_rgba(0,0,0,0.65)]"
+            >
+              iGaming Platform
+            </h2>
+            <h3
+              ref={titleRef3}
+              className="font-bold text-xl tracking-[.07em] mt-8 md:text-2xl md:tracking-[.13em] lg:text-3xl lg:tracking-[.12em] xl:tracking-[.2em] xl:text-4xl"
+            >
+              Everything under one roof.
+            </h3>
+          </div>
+          <p
+            ref={describeRef}
+            className="text-sm max-w-72 md:max-w-96 lg:text-lg lg:max-w-md xl:max-w-xl 4xl:text-xl"
           >
-            Home for NextGen
-          </h1>
-          <h2
-            ref={titleRef2}
-            className="text-8xl font-semibold -mt-9 drop-shadow-[0_4px_3px_rgba(0,0,0,0.65)]"
-          >
-            iGaming Platform
-          </h2>
-          <h3 ref={titleRef3} className="text-4xl tracking-[.2em] font-bold">
-            Everything under one roof.
-          </h3>
-          <p ref={describeRef} className="text-lg 4xl:text-xl">
-            AngelsHub is a technology and service provider for online gaming{" "}
-            <br />
-            industry. We offer white label, turnkey, SAAS solutions, crypto{" "}
-            <br />
+            AngelsHub is a technology and service provider for online gaming
+            industry. We offer white label, turnkey, SAAS solutions, crypto
             solutions and much much more!
           </p>
           <Link

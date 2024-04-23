@@ -2,7 +2,7 @@
 import { SelectedSlideContext } from "@/contexts/banner-context";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
-import { ReactNode, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import Slide1 from "./slide-1";
 import Slide2 from "./slide-2";
 import Slide3 from "./slide-3";
@@ -12,7 +12,7 @@ import BannerController from "./banner-controller";
 const NEXT = 1;
 const PREV = -1;
 
-export default function Slider(/* { children }: { children: ReactNode } */) {
+export default function Slider() {
   const [selected, setSelected] = useState("0");
   const tl = useRef<GSAPTimeline>(null!);
   const sliderRef = useRef<HTMLDivElement>(null!);
@@ -24,9 +24,9 @@ export default function Slider(/* { children }: { children: ReactNode } */) {
   const slidesTotal = useRef(0);
   const { context, contextSafe } = useGSAP({ scope: sliderRef });
 
-  /* useInterval(() => {
+  useInterval(() => {
     navigateSlider(1);
-  }, 12000); */
+  }, 12000);
 
 
   const onNextSlide = () => {
@@ -137,8 +137,8 @@ export default function Slider(/* { children }: { children: ReactNode } */) {
   return (
     <>
       <SelectedSlideContext.Provider value={{ selected, setSelected }}>
-        <div className="absolute z-30 top-28 w-full h-2">
-          <div className="container">
+        <div className="absolute z-30 top-[60%] w-full h-2 lg:top-28">
+          <div className="container flex justify-center lg:block">
             <div className="flex items-center mb-9">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -157,7 +157,7 @@ export default function Slider(/* { children }: { children: ReactNode } */) {
         <div
           ref={sliderRef}
           style={{ perspective: 1000 }}
-          className="grid place-items-center w-full min-h-svh xl:h-[1123px] overflow-hidden"
+          className="grid place-items-center w-full min-h-[940px] xl:h-[1123px] overflow-hidden"
         >
           <div
             style={{ gridArea: "1 / 1 / -1 / -1" }}
@@ -190,7 +190,6 @@ export default function Slider(/* { children }: { children: ReactNode } */) {
             className="deco bg-angel-blue relative grid place-items-center w-full h-full opacity-0"
           ></div>
         </div>
-        {/* {children} */}
         <div className="relative"></div>
         <BannerController onNextSlide={onNextSlide} onPrevSlide={onPrevSlide} />
       </SelectedSlideContext.Provider>

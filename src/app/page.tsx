@@ -17,6 +17,7 @@ import Image from "next/image";
 import { useEffect, useRef } from "react";
 import Scrollbar from "smooth-scrollbar";
 import WAVE from "../../public/images/abstract-wave.png";
+import BrandLogo from "@/components/ah-brand-logo";
 
 if (typeof window !== "undefined") {
   gsap.registerPlugin(useGSAP, ScrollTrigger, Draggable, InertiaPlugin);
@@ -613,6 +614,7 @@ export default function Home() {
       ref={scrollContainerRef}
       className="relative h-screen w-full overflow-x-hidden"
     >
+      <BrandLogo />
       <div className="relative z-10 w-full">
         <Slider />
       </div>
@@ -621,7 +623,7 @@ export default function Home() {
           <h2 className="relative text-white">Complete Solutions for</h2>
           <h2 className="relative text-spray">Everything Gaming</h2>
         </div>
-        <div className="grid grid-flow-row gap-0 mx-auto md:max-w-sm lg:max-w-max lg:gap-8 lg:grid-flow-col">
+        <div className="grid grid-flow-row gap-0 mx-auto max-w-sm lg:max-w-max lg:gap-8 lg:grid-flow-col">
           <div className="solution grid content-start border-y border-white/20 gap-8 py-8">
             <h3 className="text-2xl font-bold text-white">Website API</h3>
             <div className="relative w-full h-[460px] bg-angel-blue-950 rounded-xl lg:h-[360px]">

@@ -1,14 +1,10 @@
 "use client";
 import Link from "next/link";
-import BrandLogo from "./ah-brand-logo";
 import HamburgerButton from "./ah-hamburger-button";
 
 export default function Topnavs() {
   return (
     <div className="absolute container flex items-center justify-between top-0 pt-10 w-full inset-x-0 z-50">
-      <div className="relative">
-        <BrandLogo />
-      </div>
       <div className="relative contents ml-auto lg:block lg:min-w-[236px]">
         <div className="fixed right-8 lg:-translate-y-1/2">
           <div className="grid lg:grid-flow-col lg:gap-1 lg:items-center lg:bg-black rounded-lg lg:p-2">
