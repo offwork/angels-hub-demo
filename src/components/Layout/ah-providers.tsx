@@ -4,7 +4,7 @@ import gsap from "gsap";
 import Image from "next/image";
 import { useRef } from "react";
 
-export default function Providers({}: {}) {
+export default function Providers() {
   const containerRef = useRef<HTMLDivElement>(null!);
   const desktopSliderRef = useRef<HTMLDivElement>(null!);
   const tabletSliderRef = useRef<HTMLDivElement>(null!);
@@ -110,7 +110,7 @@ export default function Providers({}: {}) {
     <div ref={containerRef} className="relative container grid gap-16 mx-auto w-full mt-16">
       <div
         ref={mobileSliderRef}
-        className="relative grid gap-3 w-full min-h-[548px] overflow-hidden md:hidden"
+        className="relative grid justify-items-center gap-3 w-full min-h-[548px] overflow-hidden md:hidden"
       >
         <div className="provider-row top-0 absolute grid grid-cols-3 gap-3 place-items-center">
           {[

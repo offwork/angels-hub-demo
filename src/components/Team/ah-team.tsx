@@ -5,10 +5,136 @@ import TEAM_MEMBER_1 from "../../../public/images/Jane-Cooper.png";
 import TEAM_MEMBER_2 from "../../../public/images/Kristen-Watson.png";
 import TEAM_MEMBER_3 from "../../../public/images/Stephen-Osmond.png";
 import SocailIcon from "./ah-social-icon";
+import { useGSAP } from "@gsap/react";
+import gsap from "gsap";
+import { useRef } from "react";
+import { useIsomorphicLayoutEffect } from "@/utils";
+
+const NEXT = 1;
+const PREV = -1;
 
 export default function Team() {
+  const teamContentRef = useRef<HTMLDivElement>(null!);
+  const teamTl = useRef<GSAPTimeline>(null!);
+  const teamItems = useRef<HTMLDivElement[]>(null!);
+  const totalItems = useRef(0);
+  const currentItems = useRef(0);
+  const itemWidth = useRef(0);
+  const isAnimating = useRef(false);
+  const { context, contextSafe } = useGSAP({ scope: teamContentRef });
+
+  const onNext = () => {
+    navigate(NEXT);
+  };
+
+  const onPrev = () => {
+    navigate(PREV);
+  };
+
+  const navigate = contextSafe((direction?: number) => {
+    if (direction) {
+      if (isAnimating.current) return false;
+      isAnimating.current = true;
+      const previous = currentItems.current;
+      currentItems.current =
+        direction === 1
+          ? currentItems.current < totalItems.current - 1
+            ? ++currentItems.current
+            : 0
+          : currentItems.current > 0
+          ? --currentItems.current
+          : totalItems.current - 1;
+
+      const currentSlide = teamItems.current[previous];
+      const upcomingSlide = teamItems.current[currentItems.current];
+      teamTl.current = gsap
+        .timeline({
+          defaults: {
+            duration: 0.9,
+            ease: "back.in",
+          },
+          onStart: () => {
+          },
+          onComplete: () => {
+            isAnimating.current = false;
+          },
+        })
+        .addLabel("start", 0)
+        .to(
+          currentSlide,
+          {
+            xPercent: -direction * 100,
+            scale: 1.3,
+            opacity: 0,
+          },
+          "start"
+        )
+        .fromTo(
+          upcomingSlide,
+          {
+            xPercent: direction * 100,
+            scale: 1.3,
+            opacity: 0,
+          },
+          {
+            xPercent: 0,
+            scale: 1,
+            opacity: 1,
+          },
+          "start"
+        );
+    }
+  });
+
+  const resetStyles = () => {
+    if (teamContentRef.current.offsetWidth < 641) {
+      teamItems.current.forEach((elm, index) => {
+        gsap.set(elm, {
+          xPercent: 100 * index,
+          opacity: index !== 0 ? 0 : 1,
+          width: itemWidth.current,
+        });
+      });
+    } else {
+      teamItems.current.forEach((elm, index) => {
+        gsap.set(elm, {
+          xPercent: 0,
+          opacity: 1,
+          scale: 1,
+          width: "100%",
+        });
+      });
+    }
+  };
+
+  useIsomorphicLayoutEffect(() => {
+    gsap.registerPlugin(useGSAP);
+    teamTl.current = gsap.timeline({ paused: true });
+    teamItems.current = gsap.utils.toArray<HTMLDivElement>(".team-item");
+    totalItems.current = teamItems.current.length;
+    itemWidth.current = teamItems.current[0].offsetWidth + 64;
+
+    if (teamContentRef.current.offsetWidth < 641) {
+      teamItems.current.forEach((elm, index) => {
+        gsap.set(elm, {
+          xPercent: 100 * index,
+          opacity: index !== 0 ? 0 : 1,
+          width: itemWidth.current,
+        });
+      });
+
+      navigate();
+    }
+
+    window.addEventListener("resize", resetStyles);
+    return () => {
+      context.revert();
+      window.removeEventListener("resize", resetStyles);
+    };
+  }, []);
+
   return (
-    <div className="relative container grid mx-auto w-full mt-56 overflow-hidden">
+    <div className="team absolute container grid mx-auto mt-56 overflow-hidden">
       <div className="grid border-y border-white/20 py-24">
         <div className="relative z-10 grid gap-5 text-center">
           <h2 className="text-3xl text-white leading-tight xl:text-6xl">
@@ -21,11 +147,14 @@ export default function Team() {
           </p>
         </div>
         <div className="relative z-10 w-full h-full overflow-hidden">
-          <div className="relative z-0 grid grid-flow-col pt-24 gap-16 px-12 md:gap-6 md:px-0">
-            <div className="grid gap-7 place-items-center xl:place-items-start">
+          <div
+            ref={teamContentRef}
+            className="relative z-0 w-full grid justify-items-center min-h-[392px] mt-24 md:grid-flow-col md:gap-6"
+          >
+            <div className="team-item absolute grid gap-7 place-items-center md:relative xl:place-items-start">
               <div className="relative w-60 h-full md:w-52 lg:w-72 xl:w-[370px] xl:h-[360px]">
                 <svg
-                  className="relative w-full z-0 top-0 left-0 opacity-10"
+                  className="relative w-full z-0 top-0 left-0"
                   width="100%"
                   height="100%"
                   viewBox="0 0 370 360"
@@ -38,7 +167,6 @@ export default function Team() {
                   />
                 </svg>
                 <div className="absolute z-0 w-36 h-36 left-1/2 -translate-x-1/2 top-1/2 -translate-y-1/2 xl:w-52 xl:h-52">
-                  <div className="absolute bottom-0 scale-x-[105%] scale-y-[101%] w-full h-full z-0 bg-solid-blue rounded-full"></div>
                   <Image
                     className="absolute w-full bottom-0 h-auto z-10"
                     src={TEAM_MEMBER_1}
@@ -57,10 +185,10 @@ export default function Team() {
               </div>
             </div>
 
-            <div className="grid gap-7 place-items-center xl:place-items-start">
+            <div className="team-item absolute grid gap-7 place-items-center md:relative xl:place-items-start">
               <div className="relative w-60 h-full md:w-52 lg:w-72 xl:w-[370px] xl:h-[360px]">
                 <svg
-                  className="relative w-full z-0 top-0 left-0 opacity-10"
+                  className="relative w-full z-0 top-0 left-0"
                   width="100%"
                   height="100%"
                   viewBox="0 0 370 360"
@@ -73,7 +201,6 @@ export default function Team() {
                   />
                 </svg>
                 <div className="absolute z-0 w-36 h-36 left-1/2 -translate-x-1/2 top-1/2 -translate-y-1/2 xl:w-52 xl:h-52">
-                  <div className="absolute bottom-0 scale-x-[105%] scale-y-[101%] w-full h-full z-0 bg-solid-blue rounded-full"></div>
                   <Image
                     className="absolute w-full bottom-0 h-auto z-10"
                     src={TEAM_MEMBER_2}
@@ -92,10 +219,10 @@ export default function Team() {
               </div>
             </div>
 
-            <div className="grid gap-7 place-items-center xl:place-items-start">
+            <div className="team-item absolute grid gap-7 place-items-center md:relative xl:place-items-start">
               <div className="relative w-60 h-full md:w-52 lg:w-72 xl:w-[370px] xl:h-[360px]">
                 <svg
-                  className="relative w-full z-0 top-0 left-0 opacity-10"
+                  className="relative w-full z-0 top-0 left-0"
                   width="100%"
                   height="100%"
                   viewBox="0 0 370 360"
@@ -108,7 +235,6 @@ export default function Team() {
                   />
                 </svg>
                 <div className="absolute z-0 w-36 h-36 left-1/2 -translate-x-1/2 top-1/2 -translate-y-1/2 xl:w-52 xl:h-52">
-                  <div className="absolute bottom-0 scale-x-[105%] scale-y-[101%] w-full h-full z-0 bg-solid-blue rounded-full"></div>
                   <Image
                     className="absolute w-full bottom-0 h-auto z-10"
                     src={TEAM_MEMBER_3}
@@ -129,7 +255,7 @@ export default function Team() {
           </div>
           {/* SLIDE CONTROLLER */}
           <div className="absolute z-10 w-full flex justify-between items-center ml-auto mr-12 top-1/2 -translate-y-full md:hidden">
-            <button className="relative xl:-ml-0 2xl:-ml-8">
+            <button className="relative xl:-ml-0 2xl:-ml-8" onClick={onPrev}>
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="30"
@@ -140,7 +266,7 @@ export default function Team() {
                 <path d="M29 1L2 28L29 55" stroke="#939393" strokeWidth="1.5" />
               </svg>
             </button>
-            <button className="relative xl:-mr-0 2xl:-mr-8">
+            <button className="relative xl:-mr-0 2xl:-mr-8" onClick={onNext}>
               <svg
                 width="30"
                 height="56"
