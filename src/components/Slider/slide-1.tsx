@@ -1233,7 +1233,7 @@ export default function Slide1({ slide }: { slide: number }) {
       <div className="absolute z-10 bottom-0 w-full h-2/3 bg-gradient-to-t from-angel-blue via-angel-blue via-50%"></div>
       <OrangeShape
         elRef={orangeRef}
-        className="absolute z-10 mix-blend-color scale-50 -top-1/2 -left-1/2 md:scale-100 md:-left-1/4 lg:-left-[10%] lg:-top-3/4 xl:-left-1/4 xl:-top-1/4 2xl:-left-[10%] 2xl:-top-1/3 5xl:-left-[15%] 6xl:scale-125"
+        className="absolute z-10 scale-50 -top-1/2 -left-1/2 md:scale-100 md:-left-1/4 lg:-left-[10%] lg:-top-3/4 xl:-left-1/4 xl:-top-1/4 2xl:-left-[10%] 2xl:-top-1/3 5xl:-left-[15%] 6xl:scale-125"
       />
 
       <div className="container absolute z-30 top-40 left-1/2 -translate-x-1/2 text-center lg:text-left">

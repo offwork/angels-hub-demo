@@ -20,7 +20,7 @@ export default function OrangeShape({
         className={`${className}`}
       >
         <img
-          className={classNames(bg ? "opacity-100" : "saturate-200 opacity-50")}
+          className={classNames(bg ? "opacity-100" : "contrast-200 opacity-30")}
           src="/images/orange-shape.svg"
           alt=""
         />

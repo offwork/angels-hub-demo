@@ -20,7 +20,7 @@ export default function BlueShape({
         className={`${className}`}
       >
         <img
-          className={classNames(bg ? "brightness-150 opacity-100" : "contrast-200 opacity-50")}
+          className={classNames(bg ? "brightness-150 opacity-100" : "saturate-200 opacity-40")}
           src="/images/blue-shape.svg"
           alt=""
         />

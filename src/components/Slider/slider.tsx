@@ -24,10 +24,9 @@ export default function Slider() {
   const slidesTotal = useRef(0);
   const { context, contextSafe } = useGSAP({ scope: sliderRef });
 
-  /* useInterval(() => {
+  useInterval(() => {
     navigateSlider(1);
-  }, 12000); */
-
+  }, 12000);
 
   const onNextSlide = () => {
     navigateSlider(NEXT);
@@ -191,7 +190,8 @@ export default function Slider() {
           ></div>
         </div>
         <div className="relative"></div>
-        <BannerController /* onNextSlide={onNextSlide} onPrevSlide={onPrevSlide} */ />
+        <BannerController /* onNextSlide={onNextSlide} onPrevSlide={onPrevSlide} */
+        />
       </SelectedSlideContext.Provider>
     </>
   );
