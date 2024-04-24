@@ -1,13 +1,16 @@
 "use client";
 
+import { classNames } from "@/utils";
 import { MutableRefObject } from "react";
 
 export default function BlueShape({
   elRef,
   className,
+  bg,
 }: {
   elRef: MutableRefObject<HTMLDivElement>;
   className: string;
+  bg?: string;
 }) {
   return (
     <>
@@ -17,7 +20,7 @@ export default function BlueShape({
         className={`${className}`}
       >
         <img
-          className="contrast-200 opacity-50"
+          className={classNames(bg ? "brightness-150 opacity-100" : "contrast-200 opacity-50")}
           src="/images/blue-shape.svg"
           alt=""
         />

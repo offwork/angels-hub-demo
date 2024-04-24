@@ -38,10 +38,10 @@ export default function Slide2({ slide }: { slide: number }) {
           tablet: "(max-width: 1023px) and (min-width: 641px)",
           desktopLg: "(max-width: 1024px)",
           desktopXl: "(max-width: 1280px)",
-          desktop2Xl: "(max-width: 1441px)",
-          desktop3Xl: "(max-width: 1601px)",
-          desktop4Xl: "(max-width: 1761px)",
-          desktop5Xl: "(max-width: 1921px)",
+          desktop2Xl: "(max-width: 1440px)",
+          desktop3Xl: "(max-width: 1600px)",
+          desktop4Xl: "(max-width: 1760px)",
+          desktop5Xl: "(max-width: 1920px)",
           desktop6Xl: "(max-width: 2560px)",
         },
         (context) => {
@@ -137,21 +137,33 @@ export default function Slide2({ slide }: { slide: number }) {
               )
               .fromTo(
                 orangeRef.current,
-                { left: "-80%", top: "-70%", opacity: 0, autoAlpha: 0 },
-                { left: "-100%", top: "-50%", opacity: 1, autoAlpha: 1 },
+                {
+                  xPercent: 10,
+                  transformOrigin: "center center",
+                  opacity: 0,
+                  autoAlpha: 0,
+                },
+                {
+                  xPercent: -30,
+                  transformOrigin: "center center",
+                  opacity: 1,
+                  autoAlpha: 1,
+                },
                 "<"
               )
               .fromTo(
                 imageRef.current,
                 {
                   scale: 1.8,
-                  right: "-20%",
+                  transformOrigin: "center center",
+                  xPercent: -10,
                   opacity: 0,
                   autoAlpha: 0,
                 },
                 {
                   scale: 1,
-                  right: "0%",
+                  transformOrigin: "center center",
+                  xPercent: 0,
                   opacity: 1,
                   autoAlpha: 1,
                 },
@@ -159,8 +171,18 @@ export default function Slide2({ slide }: { slide: number }) {
               )
               .fromTo(
                 blueRef.current,
-                { right: "-90%", top: "-10%", opacity: 0, autoAlpha: 0 },
-                { right: "-110%", top: "-30%", opacity: 1, autoAlpha: 1 },
+                {
+                  transformOrigin: "center center",
+                  xPercent: -15,
+                  opacity: 0,
+                  autoAlpha: 0,
+                },
+                {
+                  transformOrigin: "center center",
+                  xPercent: 5,
+                  opacity: 1,
+                  autoAlpha: 1,
+                },
                 "<"
               );
           } else if (tablet) {
@@ -243,21 +265,33 @@ export default function Slide2({ slide }: { slide: number }) {
               )
               .fromTo(
                 orangeRef.current,
-                { left: "-105%", top: "-70%", opacity: 0, autoAlpha: 0 },
-                { left: "-85%", top: "-50%", opacity: 1, autoAlpha: 1 },
+                {
+                  xPercent: -20,
+                  transformOrigin: "center center",
+                  opacity: 0,
+                  autoAlpha: 0,
+                },
+                {
+                  xPercent: -40,
+                  transformOrigin: "center center",
+                  opacity: 1,
+                  autoAlpha: 1,
+                },
                 "<"
               )
               .fromTo(
                 imageRef.current,
                 {
                   scale: 1.8,
-                  right: "-20%",
+                  transformOrigin: "center center",
+                  xPercent: -10,
                   opacity: 0,
                   autoAlpha: 0,
                 },
                 {
                   scale: 1,
-                  right: "0%",
+                  transformOrigin: "center center",
+                  xPercent: 0,
                   opacity: 1,
                   autoAlpha: 1,
                 },
@@ -265,8 +299,18 @@ export default function Slide2({ slide }: { slide: number }) {
               )
               .fromTo(
                 blueRef.current,
-                { right: "-90%", top: "-20%", opacity: 0, autoAlpha: 0 },
-                { right: "-70%", top: "0%", opacity: 1, autoAlpha: 1 },
+                {
+                  transformOrigin: "center center",
+                  xPercent: -10,
+                  opacity: 0,
+                  autoAlpha: 0,
+                },
+                {
+                  transformOrigin: "center center",
+                  xPercent: 10,
+                  opacity: 1,
+                  autoAlpha: 1,
+                },
                 "<"
               );
           } else if (desktopLg) {
@@ -349,21 +393,33 @@ export default function Slide2({ slide }: { slide: number }) {
               )
               .fromTo(
                 orangeRef.current,
-                { left: "-70%", top: "-80%", opacity: 0, autoAlpha: 0 },
-                { left: "-60%", top: "-60%", opacity: 1, autoAlpha: 1 },
+                {
+                  xPercent: -5,
+                  transformOrigin: "center center",
+                  opacity: 0,
+                  autoAlpha: 0,
+                },
+                {
+                  xPercent: -25,
+                  transformOrigin: "center center",
+                  opacity: 1,
+                  autoAlpha: 1,
+                },
                 "<"
               )
               .fromTo(
                 imageRef.current,
                 {
                   scale: 1.8,
-                  right: "-20%",
+                  transformOrigin: "center center",
+                  xPercent: -10,
                   opacity: 0,
                   autoAlpha: 0,
                 },
                 {
                   scale: 1,
-                  right: "0%",
+                  transformOrigin: "center center",
+                  xPercent: 0,
                   opacity: 1,
                   autoAlpha: 1,
                 },
@@ -371,8 +427,18 @@ export default function Slide2({ slide }: { slide: number }) {
               )
               .fromTo(
                 blueRef.current,
-                { right: "-50%", top: "-20%", opacity: 0, autoAlpha: 0 },
-                { right: "-30%", top: "0%", opacity: 1, autoAlpha: 1 },
+                {
+                  transformOrigin: "center center",
+                  xPercent: -10,
+                  opacity: 0,
+                  autoAlpha: 0,
+                },
+                {
+                  transformOrigin: "center center",
+                  xPercent: 10,
+                  opacity: 1,
+                  autoAlpha: 1,
+                },
                 "<"
               );
           } else if (desktopXl) {
@@ -455,23 +521,33 @@ export default function Slide2({ slide }: { slide: number }) {
               )
               .fromTo(
                 orangeRef.current,
-                { left: "-50%", top: "-80%", opacity: 0, autoAlpha: 0 },
-                { left: "-25%", top: "-55%", opacity: 1, autoAlpha: 1 },
+                {
+                  xPercent: -5,
+                  transformOrigin: "center center",
+                  opacity: 0,
+                  autoAlpha: 0,
+                },
+                {
+                  xPercent: -25,
+                  transformOrigin: "center center",
+                  opacity: 1,
+                  autoAlpha: 1,
+                },
                 "<"
               )
               .fromTo(
                 imageRef.current,
                 {
                   scale: 1.8,
-                  right: "-30%",
-                  bottom: "-25%",
+                  transformOrigin: "center center",
+                  xPercent: -10,
                   opacity: 0,
                   autoAlpha: 0,
                 },
                 {
                   scale: 1,
-                  right: "-5%",
-                  bottom: "0%",
+                  transformOrigin: "center center",
+                  xPercent: 0,
                   opacity: 1,
                   autoAlpha: 1,
                 },
@@ -479,8 +555,18 @@ export default function Slide2({ slide }: { slide: number }) {
               )
               .fromTo(
                 blueRef.current,
-                { right: "-45%", top: "-15%", opacity: 0, autoAlpha: 0 },
-                { right: "-20%", top: "10%", opacity: 1, autoAlpha: 1 },
+                {
+                  transformOrigin: "center center",
+                  xPercent: -10,
+                  opacity: 0,
+                  autoAlpha: 0,
+                },
+                {
+                  transformOrigin: "center center",
+                  xPercent: 10,
+                  opacity: 1,
+                  autoAlpha: 1,
+                },
                 "<"
               )
               .fromTo(
@@ -598,23 +684,33 @@ export default function Slide2({ slide }: { slide: number }) {
               )
               .fromTo(
                 orangeRef.current,
-                { left: "-45%", top: "-75%", opacity: 0, autoAlpha: 0 },
-                { left: "-20%", top: "-50%", opacity: 1, autoAlpha: 1 },
+                {
+                  xPercent: -30,
+                  transformOrigin: "center center",
+                  opacity: 0,
+                  autoAlpha: 0,
+                },
+                {
+                  xPercent: -10,
+                  transformOrigin: "center center",
+                  opacity: 1,
+                  autoAlpha: 1,
+                },
                 "<"
               )
               .fromTo(
                 imageRef.current,
                 {
                   scale: 1.8,
-                  right: "-20%",
-                  bottom: "-25%",
+                  transformOrigin: "center center",
+                  xPercent: -10,
                   opacity: 0,
                   autoAlpha: 0,
                 },
                 {
                   scale: 1,
-                  right: "-5%",
-                  bottom: "0%",
+                  transformOrigin: "center center",
+                  xPercent: 0,
                   opacity: 1,
                   autoAlpha: 1,
                 },
@@ -622,8 +718,18 @@ export default function Slide2({ slide }: { slide: number }) {
               )
               .fromTo(
                 blueRef.current,
-                { right: "-40%", top: "35%", opacity: 0, autoAlpha: 0 },
-                { right: "-15%", top: "10%", opacity: 1, autoAlpha: 1 },
+                {
+                  transformOrigin: "center center",
+                  xPercent: -15,
+                  opacity: 0,
+                  autoAlpha: 0,
+                },
+                {
+                  transformOrigin: "center center",
+                  xPercent: 5,
+                  opacity: 1,
+                  autoAlpha: 1,
+                },
                 "<"
               )
               .fromTo(
@@ -741,23 +847,33 @@ export default function Slide2({ slide }: { slide: number }) {
               )
               .fromTo(
                 orangeRef.current,
-                { left: "-40%", top: "-70%", opacity: 0, autoAlpha: 0 },
-                { left: "-15%", top: "-50%", opacity: 1, autoAlpha: 1 },
+                {
+                  xPercent: -20,
+                  transformOrigin: "center center",
+                  opacity: 0,
+                  autoAlpha: 0,
+                },
+                {
+                  xPercent: 0,
+                  transformOrigin: "center center",
+                  opacity: 1,
+                  autoAlpha: 1,
+                },
                 "<"
               )
               .fromTo(
                 imageRef.current,
                 {
                   scale: 1.8,
-                  right: "-20%",
-                  bottom: "-25%",
+                  transformOrigin: "center center",
+                  xPercent: -10,
                   opacity: 0,
                   autoAlpha: 0,
                 },
                 {
                   scale: 1,
-                  right: "0%",
-                  bottom: "0%",
+                  transformOrigin: "center center",
+                  xPercent: 0,
                   opacity: 1,
                   autoAlpha: 1,
                 },
@@ -765,8 +881,18 @@ export default function Slide2({ slide }: { slide: number }) {
               )
               .fromTo(
                 blueRef.current,
-                { right: "-35%", top: "28%", opacity: 0, autoAlpha: 0 },
-                { right: "-12%", top: "3%", opacity: 1, autoAlpha: 1 },
+                {
+                  transformOrigin: "center center",
+                  xPercent: -15,
+                  opacity: 0,
+                  autoAlpha: 0,
+                },
+                {
+                  transformOrigin: "center center",
+                  xPercent: 5,
+                  opacity: 1,
+                  autoAlpha: 1,
+                },
                 "<"
               )
               .fromTo(
@@ -884,23 +1010,33 @@ export default function Slide2({ slide }: { slide: number }) {
               )
               .fromTo(
                 orangeRef.current,
-                { left: "-35%", top: "-60%", opacity: 0, autoAlpha: 0 },
-                { left: "-10%", top: "-45%", opacity: 1, autoAlpha: 1 },
+                {
+                  xPercent: -15,
+                  transformOrigin: "center center",
+                  opacity: 0,
+                  autoAlpha: 0,
+                },
+                {
+                  xPercent: 5,
+                  transformOrigin: "center center",
+                  opacity: 1,
+                  autoAlpha: 1,
+                },
                 "<"
               )
               .fromTo(
                 imageRef.current,
                 {
                   scale: 1.8,
-                  right: "-20%",
-                  bottom: "-25%",
+                  transformOrigin: "center center",
+                  xPercent: -10,
                   opacity: 0,
                   autoAlpha: 0,
                 },
                 {
                   scale: 1,
-                  right: "0%",
-                  bottom: "0%",
+                  transformOrigin: "center center",
+                  xPercent: 0,
                   opacity: 1,
                   autoAlpha: 1,
                 },
@@ -908,8 +1044,18 @@ export default function Slide2({ slide }: { slide: number }) {
               )
               .fromTo(
                 blueRef.current,
-                { right: "-33%", top: "18%", opacity: 0, autoAlpha: 0 },
-                { right: "-12%", top: "2%", opacity: 1, autoAlpha: 1 },
+                {
+                  transformOrigin: "center center",
+                  xPercent: -20,
+                  opacity: 0,
+                  autoAlpha: 0,
+                },
+                {
+                  transformOrigin: "center center",
+                  xPercent: 0,
+                  opacity: 1,
+                  autoAlpha: 1,
+                },
                 "<"
               )
               .fromTo(
@@ -1027,23 +1173,33 @@ export default function Slide2({ slide }: { slide: number }) {
               )
               .fromTo(
                 orangeRef.current,
-                { left: "-25%", top: "-55%", opacity: 0, autoAlpha: 0 },
-                { left: "-5%", top: "-45%", opacity: 1, autoAlpha: 1 },
+                {
+                  xPercent: -15,
+                  transformOrigin: "center center",
+                  opacity: 0,
+                  autoAlpha: 0,
+                },
+                {
+                  xPercent: 5,
+                  transformOrigin: "center center",
+                  opacity: 1,
+                  autoAlpha: 1,
+                },
                 "<"
               )
               .fromTo(
                 imageRef.current,
                 {
                   scale: 1.8,
-                  right: "-20%",
-                  bottom: "-25%",
+                  transformOrigin: "center center",
+                  xPercent: -10,
                   opacity: 0,
                   autoAlpha: 0,
                 },
                 {
                   scale: 1,
-                  right: "0%",
-                  bottom: "0%",
+                  transformOrigin: "center center",
+                  xPercent: 0,
                   opacity: 1,
                   autoAlpha: 1,
                 },
@@ -1051,8 +1207,18 @@ export default function Slide2({ slide }: { slide: number }) {
               )
               .fromTo(
                 blueRef.current,
-                { right: "-30%", top: "18%", opacity: 0, autoAlpha: 0 },
-                { right: "-10%", top: "2%", opacity: 1, autoAlpha: 1 },
+                {
+                  transformOrigin: "center center",
+                  xPercent: -20,
+                  opacity: 0,
+                  autoAlpha: 0,
+                },
+                {
+                  transformOrigin: "center center",
+                  xPercent: 0,
+                  opacity: 1,
+                  autoAlpha: 1,
+                },
                 "<"
               )
               .fromTo(
@@ -1093,7 +1259,6 @@ export default function Slide2({ slide }: { slide: number }) {
           } else if (desktop6Xl) {
             gsap
               .timeline()
-              .paused(Number(selected) !== 1)
               .paused(Number(selected) !== 1)
               .fromTo(
                 titleRef1.current,
@@ -1171,22 +1336,33 @@ export default function Slide2({ slide }: { slide: number }) {
               )
               .fromTo(
                 orangeRef.current,
-                { left: "-25%", top: "-65%", opacity: 0, autoAlpha: 0 },
-                { left: "0%", top: "-40%", opacity: 1, autoAlpha: 1 }
+                {
+                  xPercent: 0,
+                  transformOrigin: "center center",
+                  opacity: 0,
+                  autoAlpha: 0,
+                },
+                {
+                  xPercent: 20,
+                  transformOrigin: "center center",
+                  opacity: 1,
+                  autoAlpha: 1,
+                },
+                "<"
               )
               .fromTo(
                 imageRef.current,
                 {
                   scale: 1.8,
-                  right: "-15%",
-                  bottom: "-25%",
+                  transformOrigin: "center center",
+                  xPercent: 0,
                   opacity: 0,
                   autoAlpha: 0,
                 },
                 {
                   scale: 1,
-                  right: "10%",
-                  bottom: "0%",
+                  transformOrigin: "center center",
+                  xPercent: -30,
                   opacity: 1,
                   autoAlpha: 1,
                 },
@@ -1194,9 +1370,19 @@ export default function Slide2({ slide }: { slide: number }) {
               )
               .fromTo(
                 blueRef.current,
-                { right: "-23%", top: "-5%", opacity: 0, autoAlpha: 0 },
-                { right: "2%", top: "20%", opacity: 1, autoAlpha: 1 },
-                "<0"
+                {
+                  transformOrigin: "center center",
+                  xPercent: 0,
+                  opacity: 0,
+                  autoAlpha: 0,
+                },
+                {
+                  transformOrigin: "center center",
+                  xPercent: -20,
+                  opacity: 1,
+                  autoAlpha: 1,
+                },
+                "<"
               )
               .fromTo(
                 imageRef1.current,
@@ -1244,7 +1430,7 @@ export default function Slide2({ slide }: { slide: number }) {
     <div ref={slideRef} className="static w-full h-full">
       <Image
         ref={imageRef}
-        className="absolute z-20 object-cover top-1/3 -translate-y-1/2 md:top-1/2 xl:top-auto xl:translate-y-0 xl:right-0 xl:bottom-0"
+        className="absolute z-20 object-cover top-1/3 -translate-y-1/2 md:top-1/2 right-0 xl:bottom-0"
         src={SLIDER_PIC_2.src}
         priority
         width={SLIDER_PIC_2.width}
@@ -1253,11 +1439,13 @@ export default function Slide2({ slide }: { slide: number }) {
       />
       <BlueShape
         elRef={blueRef}
-        className="absolute z-10 scale-50 md:scale-100 6xl:scale-125"
+        bg="#0f38b4"
+        className="absolute z-10 scale-50 -top-1/3 -right-full md:scale-100 md:top-[5%] md:-right-1/3 lg:top-0 lg:-right-[10%] 6xl:scale-125"
       />
       <OrangeShape
         elRef={orangeRef}
-        className="absolute z-10 scale-50 md:scale-100 6xl:scale-125"
+        bg="#fe5f00"
+        className="absolute z-10 scale-50 -top-1/2 -left-1/2 md:scale-100 md:-left-1/4 lg:-left-[10%] lg:-top-2/3 xl:-top-1/3 xl:-left-1/4 4xl:-top-1/4 5xl:-left-[10%] 5xl:-top-[30%] 6xl:-top-1/3 6xl:scale-125"
       />
       <Image
         ref={imageRef1}

@@ -1,13 +1,16 @@
 "use client";
 
+import { classNames } from "@/utils";
 import { MutableRefObject } from "react";
 
 export default function OrangeShape({
   elRef,
   className,
+  bg,
 }: {
   elRef: MutableRefObject<HTMLDivElement>;
-  className: string;
+    className: string;
+    bg?: string;
 }) {
   return (
     <>
@@ -17,7 +20,7 @@ export default function OrangeShape({
         className={`${className}`}
       >
         <img
-          className="saturate-200 opacity-50"
+          className={classNames(bg ? "opacity-100" : "saturate-200 opacity-50")}
           src="/images/orange-shape.svg"
           alt=""
         />
