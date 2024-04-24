@@ -28,7 +28,6 @@ export default function Slider() {
     navigateSlider(1);
   }, 12000);
 
-
   const onNextSlide = () => {
     navigateSlider(NEXT);
   };
@@ -191,7 +190,8 @@ export default function Slider() {
           ></div>
         </div>
         <div className="relative"></div>
-        <BannerController onNextSlide={onNextSlide} onPrevSlide={onPrevSlide} />
+        <BannerController /* onNextSlide={onNextSlide} onPrevSlide={onPrevSlide} */
+        />
       </SelectedSlideContext.Provider>
     </>
   );
