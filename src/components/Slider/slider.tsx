@@ -24,9 +24,9 @@ export default function Slider() {
   const slidesTotal = useRef(0);
   const { context, contextSafe } = useGSAP({ scope: sliderRef });
 
-  useInterval(() => {
+  /* useInterval(() => {
     navigateSlider(1);
-  }, 12000);
+  }, 12000); */
 
   const onNextSlide = () => {
     navigateSlider(NEXT);

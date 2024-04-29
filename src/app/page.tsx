@@ -14,10 +14,11 @@ import { InertiaPlugin } from "gsap/InertiaPlugin";
 import { Draggable } from "gsap/dist/Draggable";
 import { ScrollTrigger } from "gsap/dist/ScrollTrigger";
 import Image from "next/image";
-import { useEffect, useRef } from "react";
+import { useRef } from "react";
 import Scrollbar from "smooth-scrollbar";
 import WAVE from "../../public/images/abstract-wave.png";
 import BrandLogo from "@/components/ah-brand-logo";
+import { useIsomorphicLayoutEffect } from "@/utils";
 
 if (typeof window !== "undefined") {
   gsap.registerPlugin(useGSAP, ScrollTrigger, Draggable, InertiaPlugin);
@@ -37,8 +38,8 @@ export default function Home() {
   const { context, contextSafe } = useGSAP({ scope: scrollContainerRef });
 
   const initSmoothScrolling = () => {
-    ScrollTrigger.normalizeScroll(true);
     ScrollTrigger.config({ limitCallbacks: true, ignoreMobileResize: true });
+
     const bodyScrollBar = Scrollbar.init(scrollContainerRef.current, {
       damping: 0.1,
       alwaysShowTracks: true,
@@ -529,13 +530,13 @@ export default function Home() {
         trigger: amblem,
         start: "top bottom",
         scrub: 1.2,
-        end: () => amblem?.clientHeight!,
+        end: () => footerRef.current.offsetHeight,
       },
     });
     /*=============================     FOOTER END     =============================*/
   });
 
-  useEffect(() => {
+  useIsomorphicLayoutEffect(() => {
     initSmoothScrolling();
     scroll();
 

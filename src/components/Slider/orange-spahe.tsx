@@ -1,5 +1,5 @@
 "use client";
-
+import Image from "next/image"
 import { classNames } from "@/utils";
 import { MutableRefObject } from "react";
 
@@ -19,9 +19,10 @@ export default function OrangeShape({
         style={{ width: "1431px", height: "1116px" }}
         className={`${className}`}
       >
-        <img
+        <Image
           className={classNames(bg ? "opacity-100" : "contrast-200 opacity-30")}
           src="/images/orange-shape.svg"
+          fill
           alt=""
         />
       </div>
