@@ -1,12 +1,12 @@
 "use client"
 
-export default function SocailIcon({ name }: { name: string }) {
+export default function SocailIcon({ name, bg }: { name: string, bg:string }) {
   return (
     <>
       {
         {
           linkedin: (
-            <span className="cursor-pointer rounded-full p-3 border border-white/30 bg-angel-blue inline-flex items-center">
+            <span className={`${bg} cursor-pointer rounded-full p-3 border border-white/30 inline-flex items-center`}>
               <svg
                 width="16"
                 height="16"
@@ -34,7 +34,7 @@ export default function SocailIcon({ name }: { name: string }) {
             </span>
           ),
           instegram: (
-            <span className="cursor-pointer rounded-full p-3 border border-white/30 bg-angel-blue inline-flex items-center">
+            <span className={`${bg} cursor-pointer rounded-full p-3 border border-white/30 inline-flex items-center`}>
               <svg
                 width="16"
                 height="16"
@@ -62,7 +62,7 @@ export default function SocailIcon({ name }: { name: string }) {
             </span>
           ),
           twitter: (
-            <span className="cursor-pointer rounded-full p-3 border border-white/30 bg-angel-blue inline-flex items-center">
+            <span className={`${bg} cursor-pointer rounded-full p-3 border border-white/30 inline-flex items-center`}>
               <svg
                 width="16"
                 height="16"

@@ -61,9 +61,9 @@ const Footer = forwardRef<HTMLDivElement, {}>(
       <div className="relative container grid gap-16 w-full mt-40">
         <div className="social-icons flex flex-col items-center gap-6 md:flex-row">
           <div className="grid grid-flow-col gap-3">
-            <SocailIcon name="linkedin" />
-            <SocailIcon name="instegram" />
-            <SocailIcon name="twitter" />
+            <SocailIcon name="linkedin" bg="bg-angel-blue" />
+            <SocailIcon name="instegram" bg="bg-angel-blue" />
+            <SocailIcon name="twitter" bg="bg-angel-blue" />
           </div>
           <a
             href="mailto:info@angelshub.com"

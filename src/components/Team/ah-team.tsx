@@ -180,7 +180,7 @@ export default function Team() {
                   <span className="text-lg">Chief Technology Officer</span>
                 </div>
                 <div className="flex items-center justify-center xl:justify-start">
-                  <SocailIcon name="linkedin" />
+                  <SocailIcon name="linkedin" bg="bg-angel-blue" />
                 </div>
               </div>
             </div>
@@ -214,7 +214,7 @@ export default function Team() {
                   <span className="text-lg">Manager</span>
                 </div>
                 <div className="flex items-center justify-center xl:justify-start">
-                  <SocailIcon name="linkedin" />
+                  <SocailIcon name="linkedin" bg="bg-angel-blue" />
                 </div>
               </div>
             </div>
@@ -248,7 +248,7 @@ export default function Team() {
                   <span className="text-lg">Chief Finance Officer</span>
                 </div>
                 <div className="flex items-center justify-center xl:justify-start">
-                  <SocailIcon name="linkedin" />
+                  <SocailIcon name="linkedin" bg="bg-angel-blue" />
                 </div>
               </div>
             </div>
