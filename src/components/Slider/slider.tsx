@@ -8,6 +8,7 @@ import Slide2 from "./slide-2";
 import Slide3 from "./slide-3";
 import useInterval from "./use-interval";
 import BannerController from "./banner-controller";
+import { useIsomorphicLayoutEffect } from "@/utils";
 
 const NEXT = 1;
 const PREV = -1;
@@ -18,6 +19,7 @@ export default function Slider() {
   const sliderRef = useRef<HTMLDivElement>(null!);
   const slidesRef = useRef<HTMLDivElement[]>(null!);
   const decoRef = useRef<NodeList>(null!);
+  const dotsRef = useRef<HTMLSpanElement[]>(null!);
   const slideChildrenRef = useRef<HTMLDivElement[]>(null!);
   const isAnimating = useRef(false);
   const slide = useRef(0);
@@ -26,7 +28,7 @@ export default function Slider() {
 
   /* useInterval(() => {
     navigateSlider(1);
-  }, 12000); */
+  }, 5000); */
 
   const onNextSlide = () => {
     navigateSlider(NEXT);
@@ -51,6 +53,27 @@ export default function Slider() {
 
     const currentSlide = slidesRef.current[previous];
     const upcomingSlide = slidesRef.current[slide.current];
+
+    dotsRef.current.forEach((_, idx, arr) => {
+      const dotsTl = gsap
+        .timeline({
+          paused: true,
+          defaults: { duration: 0.4, ease: "expo.inOut" },
+        })
+        .fromTo(
+          arr[idx],
+          {
+            width: "56px",
+            backgroundColor: "#D2D2D2",
+          },
+          {
+            width: "100%",
+            backgroundColor: "#fe5f00",
+          }
+        );
+
+      slide.current === idx ? dotsTl.play() : dotsTl.reverse();
+    });
 
     tl.current = gsap
       .timeline({
@@ -114,42 +137,32 @@ export default function Slider() {
     );
   });
 
-  useGSAP(
-    () => {
-      slidesRef.current = gsap.utils.toArray<HTMLDivElement>(".slide");
-      decoRef.current =
-        sliderRef.current.querySelectorAll<HTMLDivElement>(".deco");
-      slideChildrenRef.current = slidesRef.current.map(
-        (child) => child.querySelector<HTMLDivElement>(".static")!
-      );
-      slidesRef.current[slide.current].classList.add("opacity-100");
-      slidesTotal.current = gsap.utils.toArray(".slide").length;
+  useIsomorphicLayoutEffect(() => {
+    slidesRef.current = gsap.utils.toArray<HTMLDivElement>(".slide");
+    dotsRef.current = gsap.utils.toArray<HTMLSpanElement>(".dot");
+    decoRef.current =
+      sliderRef.current.querySelectorAll<HTMLDivElement>(".deco");
+    slideChildrenRef.current = slidesRef.current.map(
+      (child) => child.querySelector<HTMLDivElement>(".static")!
+    );
+    slidesRef.current[slide.current].classList.add("opacity-100");
+    slidesTotal.current = gsap.utils.toArray(".slide").length;
 
-      return () => {
-        context.kill();
-        context.revert();
-      };
-    },
-    { scope: sliderRef }
-  );
+    return () => {
+      context.kill();
+      context.revert();
+    };
+  }, []);
 
   return (
     <>
       <SelectedSlideContext.Provider value={{ selected, setSelected }}>
         <div className="absolute z-30 top-[60%] w-full h-2 lg:top-28">
           <div className="container flex justify-center lg:block">
-            <div className="flex items-center mb-9">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="162"
-                height="4"
-                viewBox="0 0 162 4"
-                fill="none"
-              >
-                <rect width="46" height="4" rx="2" fill="#D2D2D2" />
-                <rect x="58" width="46" height="4" rx="2" fill="#D2D2D2" />
-                <rect x="116" width="46" height="4" rx="2" fill="#D2D2D2" />
-              </svg>
+            <div className="flex flex-row space-x-2 items-center mb-9 w-44">
+              <span className="dot h-1.5 w-full border border-white rounded-sm bg-angel-orange"></span>
+              <span className="dot h-1.5 w-14 border border-white rounded-sm bg-[#D2D2D2]"></span>
+              <span className="dot h-1.5 w-14 border border-white rounded-sm bg-[#D2D2D2]"></span>
             </div>
           </div>
         </div>
@@ -190,7 +203,7 @@ export default function Slider() {
           ></div>
         </div>
         <div className="relative"></div>
-        <BannerController /* onNextSlide={onNextSlide} onPrevSlide={onPrevSlide} */
+        <BannerController onNextSlide={onNextSlide} onPrevSlide={onPrevSlide}
         />
       </SelectedSlideContext.Provider>
     </>

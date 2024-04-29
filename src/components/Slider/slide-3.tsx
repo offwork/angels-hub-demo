@@ -1300,7 +1300,7 @@ export default function Slide3({ slide }: { slide: number }) {
   );
 
   return (
-    <div ref={slideRef} className="static w-full h-full">
+    <div ref={slideRef} className="relative w-full h-full">
       <Image
         ref={imageRef}
         className="absolute z-20 object-cover top-2/3 -translate-y-1/2 xl:top-1/2 xl:-translate-y-1/3"

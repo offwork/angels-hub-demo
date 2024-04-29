@@ -1216,7 +1216,7 @@ export default function Slide1({ slide }: { slide: number }) {
   );
 
   return (
-    <div ref={slideRef} className="static w-full h-full">
+    <div ref={slideRef} className="relative w-full h-full">
       <Image
         ref={imageRef}
         className="main-item absolute object-cover -top-[5%] h-3/4 lg:top-auto lg:h-4/5 xl:h-auto 4xl:-top-[5%] 5xl:-top-[15%]"
