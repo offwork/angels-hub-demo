@@ -151,7 +151,7 @@ const Footer = forwardRef<HTMLDivElement, {}>(
           </p>
         </div>
       </div>
-      <Amblem className="amblem absolute z-0 -bottom-[9%] w-full left-1/2 -translate-x-1/2 xl:bottom-0 lg:w-auto" />
+      <Amblem className="amblem absolute z-0 -bottom-[9%] left-0 w-full xl:bottom-0" />
       </div>
     );
   }
