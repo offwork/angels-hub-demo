@@ -1,10 +1,12 @@
 "use client";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
+import { SplitText } from "gsap/SplitText";
 import Image from "next/image";
-import { useRef } from "react";
+import { useCallback, useRef } from "react";
 import EVENT_PIC from "../../../public/images/event-pic.png";
 import { useIsomorphicLayoutEffect } from "@/utils";
+import Link from "next/link";
 
 const NEXT = 1;
 const PREV = -1;
@@ -14,7 +16,7 @@ type BannerControllerProps = {
   onNextSlide?: () => void;
 };
 
-gsap.registerPlugin(useGSAP);
+gsap.registerPlugin(useGSAP, SplitText);
 
 export default function BannerController({
   onNextSlide,
@@ -30,7 +32,7 @@ export default function BannerController({
   const isCtrlAnimating = useRef(false);
   const slideCtrl = useRef(0);
   const slidesCtrlTotal = useRef(0);
-  const { contextSafe } = useGSAP({ scope: controllerContentRef });
+  const { context, contextSafe } = useGSAP({ scope: controllerContentRef });
 
   const onNext = () => {
     if (typeof onNextSlide === "function") onNextSlide();
@@ -75,7 +77,8 @@ export default function BannerController({
       .to(
         currentSlide,
         {
-          yPercent: direction * 100,
+          rotationX: -90,
+          scale: 0.3,
           ease: "back.in(1.7)",
           opacity: 0,
         },
@@ -86,26 +89,26 @@ export default function BannerController({
         {
           autoAlpha: 0,
           opacity: 0,
-          yPercent: direction * 100,
+          rotationX: -90,
+          scale: 0.3,
           ease: "back.inOut(1.7)",
-          stagger: 0.1,
         },
         {
           autoAlpha: 1,
           opacity: 1,
-          yPercent: 0,
+          rotationX: 0,
+          scale: 1,
           ease: "elas.inOut(5)",
-          stagger: 0.3,
         },
-        "ctrl+=0.1"
+        "ctrl+=0.3"
       )
       .fromTo(
         slidesCtrlTexts.current,
         {
           autoAlpha: 0,
           opacity: 0,
-          y: -direction * 65,
-          ease: "back",
+          y: direction * 50,
+          ease: "back(1.7)",
           stagger: 0.1,
           duration: 0.8,
         },
@@ -113,11 +116,11 @@ export default function BannerController({
           autoAlpha: 1,
           opacity: 1,
           y: 0,
-          ease: "back(3)",
+          ease: "back(1.7)",
           stagger: 0.2,
           duration: 0.4,
         },
-        "ctrl<0.1"
+        "ctrl<"
       );
   });
 
@@ -145,14 +148,36 @@ export default function BannerController({
     { scope: controllerRef }
   );
 
+
+  const autoPlay = () => {
+    navigateSlider(NEXT);
+    gsap.delayedCall(5, autoPlay);
+  };
+
+
+  const handleWindowResize = useCallback(() => {
+    if (window.innerWidth < 1024) {
+      gsap.delayedCall(5, autoPlay);
+    } else {
+      gsap.killTweensOf(autoPlay);
+    }
+  }, []);
+
   useIsomorphicLayoutEffect(() => {
     slidesCtrlRef.current = gsap.utils.toArray<HTMLDivElement>(".controller ");
     slidesCtrlTexts.current =
-      controllerContentRef.current.querySelectorAll(".text-white");
+      controllerContentRef.current.querySelectorAll(".text-line");
     slidesCtrlRef.current[slideCtrl.current].classList.add("opacity-100");
     slidesCtrlTotal.current = gsap.utils.toArray(".controller ").length;
 
+    if (window.innerWidth < 1024) {
+      gsap.delayedCall(5, autoPlay);
+    }
+
+    window.addEventListener("resize", handleWindowResize);
+
     return () => {
+      window.removeEventListener("resize", handleWindowResize);
       prevButtonRef.current.removeEventListener("click", onPrev);
       nextButtonRef.current.removeEventListener("click", onNext);
     };
@@ -163,7 +188,7 @@ export default function BannerController({
       ref={controllerRef}
       className="container absolute left-1/2 -translate-x-1/2 -translate-y-full z-20 mx-auto -bottom-10 lg:-bottom-20 xl:bottom-0"
     >
-      <div className="bar grid place-items-center w-full rounded-3xl bg-black h-[186px] opacity-0 shadow-[0_18px_103px_-15px_rgba(0,0,0,0.36)]">
+      <div className="bar relative grid place-items-center w-full rounded-3xl bg-black h-[186px] opacity-0 shadow-[0_18px_103px_-15px_rgba(0,0,0,0.36)]">
         <div className="hidden lg:flex gap-x-16 items-center ml-auto mr-12">
           <button ref={prevButtonRef} onClick={onPrev}>
             <svg
@@ -193,87 +218,120 @@ export default function BannerController({
             </svg>
           </button>
         </div>
-      </div>
-      <div
-        ref={controllerContentRef}
-        className="content hidden lg:grid place-items-center -top-[68px] h-[320px] absolute z-20 opacity-0 overflow-hidden"
-      >
         <div
-          style={{ gridArea: "1 / 1 / -1 / -1" }}
-          className="controller relative grid place-items-center grid-flow-col gap-32 opacity-0 "
+          ref={controllerContentRef}
+          className="content grid place-items-center w-full md:w-auto absolute left-0 z-20 opacity-0 overflow-hidden"
         >
-          <div className="relative w-[316px] h-[200px] rounded-3xl border-8 border-angel-blue-600 overflow-hidden -ml-[1px]">
-            <Image
-              className="absolute object-cover -translate-y-11 object-center"
-              src={EVENT_PIC.src}
-              alt="BEGE 2023 Sofia"
-              width={EVENT_PIC.width}
-              height={EVENT_PIC.height}
-            />
+          <div
+            style={{ gridArea: "1 / 1 / -1 / -1" }}
+            className="controller relative grid place-items-center grid-flow-col md:gap-12 lg:gap-16 xl:gap-32 opacity-0"
+          >
+            <div className="hidden md:block relative w-[316px] h-[200px] rounded-3xl border-8 border-angel-blue-600 overflow-hidden -ml-[1px]">
+              <Image
+                className="absolute object-cover -translate-y-11 object-center"
+                src={EVENT_PIC.src}
+                alt="BEGE 2023 Sofia"
+                width={EVENT_PIC.width}
+                height={EVENT_PIC.height}
+              />
+            </div>
+            <div className="text-lines relative">
+              <div className="text-line">
+                <p className="text-white lg:text-xl text-nowrap">
+                  We are so excited to meet so many
+                </p>
+                <p className="text-white lg:text-xl text-nowrap">
+                  partners and friends there!
+                </p>
+                <p className="text-white lg:text-xl text-nowrap">
+                  Booth 38 -{" "}
+                  <span className="text-angel-orange">14-18 JUNE 2021 </span>
+                </p>
+              </div>
+              <span className="text-line block border-t border-white/35 w-full my-4"></span>
+              <div className="text-line flex items-center justify-between">
+                <Link href="" className="text-white text-base">
+                  Detail
+                </Link>
+                <Link href="" className="text-angel-orange text-base">
+                  View All Events
+                </Link>
+              </div>
+            </div>
           </div>
-          <div className="relative">
-            <p className="text-white text-xl text-nowrap">
-              We are so excited to meet so many
-            </p>
-            <p className="text-white text-xl text-nowrap">
-              partners and friends there!
-            </p>
-            <p className="text-white text-xl text-nowrap">
-              Booth 38 -{" "}
-              <span className="text-angel-orange">14-18 JUNE 2021 </span>
-            </p>
+          <div
+            style={{ gridArea: "1 / 1 / -1 / -1" }}
+            className="controller relative grid place-items-center grid-flow-col md:gap-12 lg:gap-16 xl:gap-32 opacity-0"
+          >
+            <div className="hidden md:block relative w-[316px] h-[200px] rounded-3xl border-8 border-angel-blue-600 overflow-hidden -ml-[1px]">
+              <Image
+                className="absolute object-cover -translate-y-11 object-center"
+                src={EVENT_PIC.src}
+                alt="BEGE 2023 Sofia"
+                width={EVENT_PIC.width}
+                height={EVENT_PIC.height}
+              />
+            </div>
+            <div className="text-lines relative">
+              <div className="text-line">
+                <p className="text-white lg:text-xl text-nowrap">
+                  We are so excited to meet so many
+                </p>
+                <p className="text-white lg:text-xl text-nowrap">
+                  partners and friends there!
+                </p>
+                <p className="text-white lg:text-xl text-nowrap">
+                  Booth 38 -{" "}
+                  <span className="text-angel-orange">14-18 JUNE 2022 </span>
+                </p>
+              </div>
+              <span className="text-line block border-t border-white/35 w-full my-4"></span>
+              <div className="text-line flex items-center justify-between">
+                <Link href="" className="text-white">
+                  Detail
+                </Link>
+                <Link href="" className="text-angel-orange">
+                  View All Events
+                </Link>
+              </div>
+            </div>
           </div>
-        </div>
-        <div
-          style={{ gridArea: "1 / 1 / -1 / -1" }}
-          className="controller relative grid place-items-center grid-flow-col gap-32 opacity-0 "
-        >
-          <div className="relative w-[316px] h-[200px] rounded-3xl border-8 border-angel-blue-600 overflow-hidden -ml-[1px]">
-            <Image
-              className="absolute object-cover -translate-y-11 object-center"
-              src={EVENT_PIC.src}
-              alt="BEGE 2023 Sofia"
-              width={EVENT_PIC.width}
-              height={EVENT_PIC.height}
-            />
-          </div>
-          <div className="relative">
-            <p className="text-white text-xl text-nowrap">
-              We are so excited to meet so many
-            </p>
-            <p className="text-white text-xl text-nowrap">
-              partners and friends there!
-            </p>
-            <p className="text-white text-xl text-nowrap">
-              Booth 38 -{" "}
-              <span className="text-angel-orange">14-18 JUNE 2022 </span>
-            </p>
-          </div>
-        </div>
-        <div
-          style={{ gridArea: "1 / 1 / -1 / -1" }}
-          className="controller relative grid place-items-center grid-flow-col gap-32 opacity-0 "
-        >
-          <div className="relative w-[316px] h-[200px] rounded-3xl border-8 border-angel-blue-600 overflow-hidden -ml-[1px]">
-            <Image
-              className="absolute object-cover -translate-y-11 object-center"
-              src={EVENT_PIC.src}
-              alt="BEGE 2023 Sofia"
-              width={EVENT_PIC.width}
-              height={EVENT_PIC.height}
-            />
-          </div>
-          <div className="relative">
-            <p className="text-white text-xl text-nowrap">
-              We are so excited to meet so many
-            </p>
-            <p className="text-white text-xl text-nowrap">
-              partners and friends there!
-            </p>
-            <p className="text-white text-xl text-nowrap">
-              Booth 38 -{" "}
-              <span className="text-angel-orange">14-18 JUNE 2023 </span>
-            </p>
+          <div
+            style={{ gridArea: "1 / 1 / -1 / -1" }}
+            className="controller relative grid place-items-center grid-flow-col md:gap-12 lg:gap-16 xl:gap-32 opacity-0"
+          >
+            <div className="hidden md:block relative w-[316px] h-[200px] rounded-3xl border-8 border-angel-blue-600 overflow-hidden -ml-[1px]">
+              <Image
+                className="absolute object-cover -translate-y-11 object-center"
+                src={EVENT_PIC.src}
+                alt="BEGE 2023 Sofia"
+                width={EVENT_PIC.width}
+                height={EVENT_PIC.height}
+              />
+            </div>
+            <div className="text-lines relative">
+              <div className="text-line">
+                <p className="text-white lg:text-xl text-nowrap">
+                  We are so excited to meet so many
+                </p>
+                <p className="text-white lg:text-xl text-nowrap">
+                  partners and friends there!
+                </p>
+                <p className="text-white lg:text-xl text-nowrap">
+                  Booth 38 -{" "}
+                  <span className="text-angel-orange">14-18 JUNE 2023 </span>
+                </p>
+              </div>
+              <span className="text-line block border-t border-white/35 w-full my-4"></span>
+              <div className="text-line flex items-center justify-between">
+                <Link href="" className="text-white">
+                  Detail
+                </Link>
+                <Link href="" className="text-angel-orange">
+                  View All Events
+                </Link>
+              </div>
+            </div>
           </div>
         </div>
       </div>

@@ -4,10 +4,11 @@ import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import Image from "next/image";
 import Link from "next/link";
-import { useContext, useRef } from "react";
+import { useCallback, useContext, useRef } from "react";
 import SLIDER_PIC_1 from "../../../public/images/slider-main-2-copy.png";
 import OrangeShape from "./orange-spahe";
 import BlueShape from "./blue-shape";
+import { useIsomorphicLayoutEffect } from "@/utils";
 
 gsap.registerPlugin(useGSAP);
 
@@ -22,10 +23,10 @@ export default function Slide1({ slide }: { slide: number }) {
   const linkRef = useRef<HTMLAnchorElement>(null!);
   const orangeRef = useRef<HTMLDivElement>(null!);
   const blueRef = useRef<HTMLDivElement>(null!);
+  const mediaMatcher = gsap.matchMedia();
 
   useGSAP(
     () => {
-      const mediaMatcher = gsap.matchMedia();
       mediaMatcher.add(
         {
           mobile: `(max-width: 640px) and (prefers-reduced-motion: no-preference)`,
@@ -1215,8 +1216,19 @@ export default function Slide1({ slide }: { slide: number }) {
     { scope: slideRef, dependencies: [slide] }
   );
 
+  const onResizeHandle = useCallback(() => {
+    gsap.matchMediaRefresh;
+  }, []);
+
+  useIsomorphicLayoutEffect(() => {
+    window.addEventListener("resize", onResizeHandle);
+    return () => {
+      window.removeEventListener("resize", onResizeHandle);
+    };
+  }, []);
+
   return (
-    <div ref={slideRef} className="static w-full h-full">
+    <div ref={slideRef} className="relative w-full h-full">
       <Image
         ref={imageRef}
         className="main-item absolute object-cover -top-[5%] h-3/4 lg:top-auto lg:h-4/5 xl:h-auto 4xl:-top-[5%] 5xl:-top-[15%]"
