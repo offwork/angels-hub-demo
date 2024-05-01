@@ -6,7 +6,6 @@ import { useRef, useState } from "react";
 import Slide1 from "./slide-1";
 import Slide2 from "./slide-2";
 import Slide3 from "./slide-3";
-import useInterval from "./use-interval";
 import BannerController from "./banner-controller";
 import { useIsomorphicLayoutEffect } from "@/utils";
 
@@ -15,7 +14,7 @@ const PREV = -1;
 
 export default function Slider() {
   const [selected, setSelected] = useState("0");
-  const tl = useRef<GSAPTimeline>(null!);
+  const carouselTL = useRef<GSAPTimeline>(null!);
   const sliderRef = useRef<HTMLDivElement>(null!);
   const slidesRef = useRef<HTMLDivElement[]>(null!);
   const decoRef = useRef<NodeList>(null!);
@@ -25,18 +24,6 @@ export default function Slider() {
   const slide = useRef(0);
   const slidesTotal = useRef(0);
   const { context, contextSafe } = useGSAP({ scope: sliderRef });
-
-  /* useInterval(() => {
-    navigateSlider(1);
-  }, 5000); */
-
-  const onNextSlide = () => {
-    navigateSlider(NEXT);
-  };
-
-  const onPrevSlide = () => {
-    navigateSlider(PREV);
-  };
 
   const navigateSlider = contextSafe((direction: number) => {
     if (isAnimating.current) return false;
@@ -75,7 +62,7 @@ export default function Slider() {
       slide.current === idx ? dotsTl.play() : dotsTl.reverse();
     });
 
-    tl.current = gsap
+    carouselTL.current = gsap
       .timeline({
         defaults: {
           duration: 1.2,
@@ -114,7 +101,7 @@ export default function Slider() {
         "start"
       );
     decoRef.current.forEach((_, pos, arr) => {
-      tl.current.to(
+      carouselTL.current.to(
         arr[arr.length - 1 - pos],
         {
           ease: "power4",
@@ -123,7 +110,7 @@ export default function Slider() {
         `start+=${(pos + 1) * 0.2}`
       );
     });
-    tl.current.addLabel("middle", "<").fromTo(
+    carouselTL.current.addLabel("middle", "<").fromTo(
       upcomingSlide,
       {
         autoAlpha: 1,
@@ -137,6 +124,11 @@ export default function Slider() {
     );
   });
 
+  const autoPlay = () => {
+    navigateSlider(NEXT);
+    gsap.delayedCall(5, autoPlay);
+  };
+
   useIsomorphicLayoutEffect(() => {
     slidesRef.current = gsap.utils.toArray<HTMLDivElement>(".slide");
     dotsRef.current = gsap.utils.toArray<HTMLSpanElement>(".dot");
@@ -147,6 +139,8 @@ export default function Slider() {
     );
     slidesRef.current[slide.current].classList.add("opacity-100");
     slidesTotal.current = gsap.utils.toArray(".slide").length;
+
+    gsap.delayedCall(5, autoPlay);
 
     return () => {
       context.kill();
@@ -203,8 +197,7 @@ export default function Slider() {
           ></div>
         </div>
         <div className="relative"></div>
-        <BannerController onNextSlide={onNextSlide} onPrevSlide={onPrevSlide}
-        />
+        <BannerController />
       </SelectedSlideContext.Provider>
     </>
   );
