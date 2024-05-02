@@ -16,13 +16,13 @@ export default function OrangeShape({
     <>
       <div
         ref={elRef}
-        style={{ width: "1431px", height: "1116px" }}
         className={`${className}`}
       >
         <Image
-          className={classNames(bg ? "opacity-100" : "contrast-200 opacity-30")}
+          className={classNames(bg ? "opacity-100" : "contrast-200 opacity-30", "object-center")}
           src="/images/orange-shape.svg"
-          fill
+          width={1431}
+          height={1116}
           alt=""
         />
       </div>

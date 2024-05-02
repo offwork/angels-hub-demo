@@ -10,7 +10,6 @@ import BannerController from "./banner-controller";
 import { useIsomorphicLayoutEffect } from "@/utils";
 
 const NEXT = 1;
-const PREV = -1;
 
 export default function Slider() {
   const [selected, setSelected] = useState("0");
@@ -126,7 +125,7 @@ export default function Slider() {
 
   const autoPlay = () => {
     navigateSlider(NEXT);
-    gsap.delayedCall(5, autoPlay);
+    gsap.delayedCall(10, autoPlay);
   };
 
   useIsomorphicLayoutEffect(() => {
@@ -140,7 +139,7 @@ export default function Slider() {
     slidesRef.current[slide.current].classList.add("opacity-100");
     slidesTotal.current = gsap.utils.toArray(".slide").length;
 
-    gsap.delayedCall(5, autoPlay);
+    gsap.delayedCall(10, autoPlay);
 
     return () => {
       context.kill();
