@@ -7,8 +7,10 @@ import Link from "next/link";
 import { useContext, useRef } from "react";
 import BALL_3 from "../../../public/images/slider-ball-3.png";
 import SLIDER_PIC_3 from "../../../public/images/slider-main-3.png";
-import OrangeShape from "./orange-spahe";
-import BlueShape from "./blue-shape";
+import ORANGE_SHAPE from "../../../public/images/orange-shape.svg";
+import BLUE_SHAPE from "../../../public/images/blue-shape.svg";
+
+gsap.registerPlugin(useGSAP);
 
 export default function Slide3({ slide }: { slide: number }) {
   const { selected } = useContext(SelectedSlideContext);
@@ -22,1321 +24,196 @@ export default function Slide3({ slide }: { slide: number }) {
   const linkRef = useRef<HTMLAnchorElement>(null!);
   const orangeRef = useRef<HTMLDivElement>(null!);
   const blueRef = useRef<HTMLDivElement>(null!);
+  const imageOrangeRef = useRef<HTMLImageElement>(null!);
+  const imageBlueRef = useRef<HTMLImageElement>(null!);
+  const slideTL = useRef<GSAPTimeline>(null!);
 
   useGSAP(
     () => {
-      const mediaMatcher = gsap.matchMedia();
-      mediaMatcher.add(
-        {
-          mobile: `(max-width: 640px) and (prefers-reduced-motion: no-preference)`,
-          tablet: "(max-width: 1023px) and (min-width: 641px)",
-          desktopLg: "(max-width: 1024px)",
-          desktopXl: "(max-width: 1280px)",
-          desktop2Xl: "(max-width: 1440px)",
-          desktop3Xl: "(max-width: 1600px)",
-          desktop4Xl: "(max-width: 1760px)",
-          desktop5Xl: "(max-width: 1920px)",
-          desktop6Xl: "(max-width: 2560px)",
-        },
-        (context) => {
-          const {
-            mobile,
-            tablet,
-            desktopLg,
-            desktopXl,
-            desktop2Xl,
-            desktop3Xl,
-            desktop4Xl,
-            desktop5Xl,
-            desktop6Xl,
-          } = context.conditions!;
-          if (mobile) {
-            gsap
-              .timeline()
-              .paused(Number(selected) !== 2)
-              .fromTo(
-                titleRef1.current,
-                {
-                  yPercent: 20,
-                  opacity: 0,
-                  autoAlpha: 0,
-                  ease: "back.inOut(1.7)",
-                },
-                { yPercent: 0, opacity: 1, autoAlpha: 1, ease: "elas.inOut(5)" }
-              )
-              .fromTo(
-                titleRef2.current,
-                {
-                  yPercent: 30,
-                  opacity: 0,
-                  autoAlpha: 0,
-                  ease: "back.inOut(1.7)",
-                },
-                {
-                  yPercent: 0,
-                  opacity: 1,
-                  autoAlpha: 1,
-                  ease: "elas.inOut(5)",
-                },
-                "<0.1"
-              )
-              .fromTo(
-                titleRef3.current,
-                {
-                  yPercent: 40,
-                  opacity: 0,
-                  autoAlpha: 0,
-                  ease: "back.inOut(1.7)",
-                },
-                {
-                  yPercent: 0,
-                  opacity: 1,
-                  autoAlpha: 1,
-                  ease: "elas.inOut(5)",
-                },
-                "<0.1"
-              )
-              .fromTo(
-                describeRef.current,
-                {
-                  yPercent: 50,
-                  opacity: 0,
-                  autoAlpha: 0,
-                  ease: "back.inOut(1.7)",
-                },
-                {
-                  yPercent: 0,
-                  opacity: 1,
-                  autoAlpha: 1,
-                  ease: "elas.inOut(5)",
-                },
-                "<0.1"
-              )
-              .fromTo(
-                linkRef.current,
-                {
-                  yPercent: 60,
-                  opacity: 0,
-                  autoAlpha: 0,
-                  ease: "back.inOut(1.7)",
-                },
-                {
-                  yPercent: 0,
-                  opacity: 1,
-                  autoAlpha: 1,
-                  ease: "elas.inOut(5)",
-                },
-                "<0.1"
-              )
-              .fromTo(
-                orangeRef.current,
-                {
-                  xPercent: -5,
-                  transformOrigin: "center center",
-                  opacity: 0,
-                  autoAlpha: 0,
-                },
-                {
-                  xPercent: -25,
-                  transformOrigin: "center center",
-                  opacity: 1,
-                  autoAlpha: 1,
-                },
-                "<"
-              )
-              .fromTo(
-                blueRef.current,
-                {
-                  xPercent: -20,
-                  transformOrigin: "center center",
-                  opacity: 0,
-                  autoAlpha: 0,
-                },
-                {
-                  xPercent: 5,
-                  transformOrigin: "center center",
-                  opacity: 1,
-                  autoAlpha: 1,
-                },
-                "<0.2"
-              )
-              .fromTo(
-                imageRef.current,
-                {
-                  scale: 1.8,
-                  xPercent: -10,
-                  transformOrigin: "center center",
-                  opacity: 0,
-                  autoAlpha: 0,
-                  ease: "back.out(1.7)",
-                },
-                {
-                  scale: 1,
-                  opacity: 1,
-                  xPercent: 0,
-                  transformOrigin: "center center",
-                  autoAlpha: 1,
-                  ease: "back.out(1.7)",
-                },
-                "<"
-              );
-          } else if (tablet) {
-            gsap
-              .timeline()
-              .paused(Number(selected) !== 2)
-              .fromTo(
-                titleRef1.current,
-                {
-                  yPercent: 20,
-                  opacity: 0,
-                  autoAlpha: 0,
-                  ease: "back.inOut(1.7)",
-                },
-                { yPercent: 0, opacity: 1, autoAlpha: 1, ease: "elas.inOut(5)" }
-              )
-              .fromTo(
-                titleRef2.current,
-                {
-                  yPercent: 30,
-                  opacity: 0,
-                  autoAlpha: 0,
-                  ease: "back.inOut(1.7)",
-                },
-                {
-                  yPercent: 0,
-                  opacity: 1,
-                  autoAlpha: 1,
-                  ease: "elas.inOut(5)",
-                },
-                "<0.1"
-              )
-              .fromTo(
-                titleRef3.current,
-                {
-                  yPercent: 40,
-                  opacity: 0,
-                  autoAlpha: 0,
-                  ease: "back.inOut(1.7)",
-                },
-                {
-                  yPercent: 0,
-                  opacity: 1,
-                  autoAlpha: 1,
-                  ease: "elas.inOut(5)",
-                },
-                "<0.1"
-              )
-              .fromTo(
-                describeRef.current,
-                {
-                  yPercent: 50,
-                  opacity: 0,
-                  autoAlpha: 0,
-                  ease: "back.inOut(1.7)",
-                },
-                {
-                  yPercent: 0,
-                  opacity: 1,
-                  autoAlpha: 1,
-                  ease: "elas.inOut(5)",
-                },
-                "<0.1"
-              )
-              .fromTo(
-                linkRef.current,
-                {
-                  yPercent: 60,
-                  opacity: 0,
-                  autoAlpha: 0,
-                  ease: "back.inOut(1.7)",
-                },
-                {
-                  yPercent: 0,
-                  opacity: 1,
-                  autoAlpha: 1,
-                  ease: "elas.inOut(5)",
-                },
-                "<0.1"
-              )
-              .fromTo(
-                orangeRef.current,
-                {
-                  xPercent: -50,
-                  transformOrigin: "center center",
-                  opacity: 0,
-                  autoAlpha: 0,
-                },
-                {
-                  xPercent: -25,
-                  transformOrigin: "center center",
-                  opacity: 1,
-                  autoAlpha: 1,
-                },
-                "<"
-              )
-              .fromTo(
-                blueRef.current,
-                {
-                  xPercent: -15,
-                  transformOrigin: "center center",
-                  opacity: 0,
-                  autoAlpha: 0,
-                },
-                {
-                  xPercent: -5,
-                  transformOrigin: "center center",
-                  opacity: 1,
-                  autoAlpha: 1,
-                },
-                "<0.2"
-              )
-              .fromTo(
-                imageRef.current,
-                {
-                  scale: 1.8,
-                  xPercent: -10,
-                  transformOrigin: "center center",
-                  opacity: 0,
-                  autoAlpha: 0,
-                  ease: "back.out(1.7)",
-                },
-                {
-                  scale: 1,
-                  opacity: 1,
-                  xPercent: 5,
-                  transformOrigin: "center center",
-                  autoAlpha: 1,
-                  ease: "back.out(1.7)",
-                },
-                "<"
-              );
-          } else if (desktopLg) {
-            gsap
-              .timeline()
-              .paused(Number(selected) !== 2)
-              .fromTo(
-                titleRef1.current,
-                {
-                  yPercent: 20,
-                  opacity: 0,
-                  autoAlpha: 0,
-                  ease: "back.inOut(1.7)",
-                },
-                { yPercent: 0, opacity: 1, autoAlpha: 1, ease: "elas.inOut(5)" }
-              )
-              .fromTo(
-                titleRef2.current,
-                {
-                  yPercent: 30,
-                  opacity: 0,
-                  autoAlpha: 0,
-                  ease: "back.inOut(1.7)",
-                },
-                {
-                  yPercent: 0,
-                  opacity: 1,
-                  autoAlpha: 1,
-                  ease: "elas.inOut(5)",
-                },
-                "<0.1"
-              )
-              .fromTo(
-                titleRef3.current,
-                {
-                  yPercent: 40,
-                  opacity: 0,
-                  autoAlpha: 0,
-                  ease: "back.inOut(1.7)",
-                },
-                {
-                  yPercent: 0,
-                  opacity: 1,
-                  autoAlpha: 1,
-                  ease: "elas.inOut(5)",
-                },
-                "<0.1"
-              )
-              .fromTo(
-                describeRef.current,
-                {
-                  yPercent: 50,
-                  opacity: 0,
-                  autoAlpha: 0,
-                  ease: "back.inOut(1.7)",
-                },
-                {
-                  yPercent: 0,
-                  opacity: 1,
-                  autoAlpha: 1,
-                  ease: "elas.inOut(5)",
-                },
-                "<0.1"
-              )
-              .fromTo(
-                linkRef.current,
-                {
-                  yPercent: 60,
-                  opacity: 0,
-                  autoAlpha: 0,
-                  ease: "back.inOut(1.7)",
-                },
-                {
-                  yPercent: 0,
-                  opacity: 1,
-                  autoAlpha: 1,
-                  ease: "elas.inOut(5)",
-                },
-                "<0.1"
-              )
-              .fromTo(
-                orangeRef.current,
-                {
-                  xPercent: -20,
-                  transformOrigin: "center center",
-                  opacity: 0,
-                  autoAlpha: 0,
-                },
-                {
-                  xPercent: 0,
-                  transformOrigin: "center center",
-                  opacity: 1,
-                  autoAlpha: 1,
-                },
-                "<"
-              )
-              .fromTo(
-                blueRef.current,
-                {
-                  xPercent: -15,
-                  transformOrigin: "center center",
-                  opacity: 0,
-                  autoAlpha: 0,
-                },
-                {
-                  xPercent: -45,
-                  transformOrigin: "center center",
-                  opacity: 1,
-                  autoAlpha: 1,
-                },
-                "<0.2"
-              )
-              .fromTo(
-                imageRef.current,
-                {
-                  scale: 1.8,
-                  xPercent: -10,
-                  transformOrigin: "center center",
-                  opacity: 0,
-                  autoAlpha: 0,
-                  ease: "back.out(1.7)",
-                },
-                {
-                  scale: 1,
-                  opacity: 1,
-                  xPercent: 40,
-                  transformOrigin: "center center",
-                  autoAlpha: 1,
-                  ease: "back.out(1.7)",
-                },
-                "<"
-              );
-          } else if (desktopXl) {
-            gsap
-              .timeline()
-              .paused(Number(selected) !== 2)
-              .fromTo(
-                titleRef1.current,
-                {
-                  yPercent: 20,
-                  opacity: 0,
-                  autoAlpha: 0,
-                  ease: "back.inOut(1.7)",
-                },
-                { yPercent: 0, opacity: 1, autoAlpha: 1, ease: "elas.inOut(5)" }
-              )
-              .fromTo(
-                titleRef2.current,
-                {
-                  yPercent: 30,
-                  opacity: 0,
-                  autoAlpha: 0,
-                  ease: "back.inOut(1.7)",
-                },
-                {
-                  yPercent: 0,
-                  opacity: 1,
-                  autoAlpha: 1,
-                  ease: "elas.inOut(5)",
-                },
-                "<0.1"
-              )
-              .fromTo(
-                titleRef3.current,
-                {
-                  yPercent: 40,
-                  opacity: 0,
-                  autoAlpha: 0,
-                  ease: "back.inOut(1.7)",
-                },
-                {
-                  yPercent: 0,
-                  opacity: 1,
-                  autoAlpha: 1,
-                  ease: "elas.inOut(5)",
-                },
-                "<0.1"
-              )
-              .fromTo(
-                describeRef.current,
-                {
-                  yPercent: 50,
-                  opacity: 0,
-                  autoAlpha: 0,
-                  ease: "back.inOut(1.7)",
-                },
-                {
-                  yPercent: 0,
-                  opacity: 1,
-                  autoAlpha: 1,
-                  ease: "elas.inOut(5)",
-                },
-                "<0.1"
-              )
-              .fromTo(
-                linkRef.current,
-                {
-                  yPercent: 60,
-                  opacity: 0,
-                  autoAlpha: 0,
-                  ease: "back.inOut(1.7)",
-                },
-                {
-                  yPercent: 0,
-                  opacity: 1,
-                  autoAlpha: 1,
-                  ease: "elas.inOut(5)",
-                },
-                "<0.1"
-              )
-              .fromTo(
-                orangeRef.current,
-                {
-                  xPercent: -10,
-                  transformOrigin: "center center",
-                  opacity: 0,
-                  autoAlpha: 0,
-                },
-                {
-                  xPercent: 10,
-                  transformOrigin: "center center",
-                  opacity: 1,
-                  autoAlpha: 1,
-                },
-                "<"
-              )
-              .fromTo(
-                blueRef.current,
-                {
-                  xPercent: -50,
-                  transformOrigin: "center center",
-                  opacity: 0,
-                  autoAlpha: 0,
-                },
-                {
-                  xPercent: -70,
-                  transformOrigin: "center center",
-                  opacity: 1,
-                  autoAlpha: 1,
-                },
-                "<0.2"
-              )
-              .fromTo(
-                imageRef1.current,
-                { top: "20%", right: "18%", opacity: 0, autoAlpha: 0 },
-                {
-                  top: "20%",
-                  right: "23%",
-                  rotationZ: 360,
-                  opacity: 1,
-                  autoAlpha: 1,
-                },
-                "<0.2"
-              )
-              .fromTo(
-                imageRef.current,
-                {
-                  scale: 1.8,
-                  xPercent: 50,
-                  transformOrigin: "center center",
-                  opacity: 0,
-                  autoAlpha: 0,
-                  ease: "back.out(1.7)",
-                },
-                {
-                  scale: 1,
-                  opacity: 1,
-                  xPercent: 70,
-                  transformOrigin: "center center",
-                  autoAlpha: 1,
-                  ease: "back.out(1.7)",
-                },
-                "<"
-              );
-          } else if (desktop2Xl) {
-            gsap
-              .timeline()
-              .paused(Number(selected) !== 2)
-              .fromTo(
-                titleRef1.current,
-                {
-                  yPercent: 20,
-                  opacity: 0,
-                  autoAlpha: 0,
-                  ease: "back.inOut(1.7)",
-                },
-                { yPercent: 0, opacity: 1, autoAlpha: 1, ease: "elas.inOut(5)" }
-              )
-              .fromTo(
-                titleRef2.current,
-                {
-                  yPercent: 30,
-                  opacity: 0,
-                  autoAlpha: 0,
-                  ease: "back.inOut(1.7)",
-                },
-                {
-                  yPercent: 0,
-                  opacity: 1,
-                  autoAlpha: 1,
-                  ease: "elas.inOut(5)",
-                },
-                "<0.1"
-              )
-              .fromTo(
-                titleRef3.current,
-                {
-                  yPercent: 40,
-                  opacity: 0,
-                  autoAlpha: 0,
-                  ease: "back.inOut(1.7)",
-                },
-                {
-                  yPercent: 0,
-                  opacity: 1,
-                  autoAlpha: 1,
-                  ease: "elas.inOut(5)",
-                },
-                "<0.1"
-              )
-              .fromTo(
-                describeRef.current,
-                {
-                  yPercent: 50,
-                  opacity: 0,
-                  autoAlpha: 0,
-                  ease: "back.inOut(1.7)",
-                },
-                {
-                  yPercent: 0,
-                  opacity: 1,
-                  autoAlpha: 1,
-                  ease: "elas.inOut(5)",
-                },
-                "<0.1"
-              )
-              .fromTo(
-                linkRef.current,
-                {
-                  yPercent: 60,
-                  opacity: 0,
-                  autoAlpha: 0,
-                  ease: "back.inOut(1.7)",
-                },
-                {
-                  yPercent: 0,
-                  opacity: 1,
-                  autoAlpha: 1,
-                  ease: "elas.inOut(5)",
-                },
-                "<0.1"
-              )
-              .fromTo(
-                orangeRef.current,
-                {
-                  xPercent: 0,
-                  transformOrigin: "center center",
-                  opacity: 0,
-                  autoAlpha: 0,
-                },
-                {
-                  xPercent: 20,
-                  transformOrigin: "center center",
-                  opacity: 1,
-                  autoAlpha: 1,
-                },
-                "<"
-              )
-              .fromTo(
-                blueRef.current,
-                {
-                  xPercent: -60,
-                  transformOrigin: "center center",
-                  opacity: 0,
-                  autoAlpha: 0,
-                },
-                {
-                  xPercent: -80,
-                  transformOrigin: "center center",
-                  opacity: 1,
-                  autoAlpha: 1,
-                },
-                "<0.2"
-              )
-              .fromTo(
-                imageRef1.current,
-                { top: "20%", right: "18%", opacity: 0, autoAlpha: 0 },
-                {
-                  top: "20%",
-                  right: "25%",
-                  rotationZ: 360,
-                  opacity: 1,
-                  autoAlpha: 1,
-                },
-                "<0.2"
-              )
-              .fromTo(
-                imageRef.current,
-                {
-                  scale: 1.8,
-                  xPercent: 60,
-                  transformOrigin: "center center",
-                  opacity: 0,
-                  autoAlpha: 0,
-                  ease: "back.out(1.7)",
-                },
-                {
-                  scale: 1,
-                  opacity: 1,
-                  xPercent: 80,
-                  transformOrigin: "center center",
-                  autoAlpha: 1,
-                  ease: "back.out(1.7)",
-                },
-                "<"
-              );
-          } else if (desktop3Xl) {
-            gsap
-              .timeline()
-              .paused(Number(selected) !== 2)
-              .fromTo(
-                titleRef1.current,
-                {
-                  yPercent: 20,
-                  opacity: 0,
-                  autoAlpha: 0,
-                  ease: "back.inOut(1.7)",
-                },
-                { yPercent: 0, opacity: 1, autoAlpha: 1, ease: "elas.inOut(5)" }
-              )
-              .fromTo(
-                titleRef2.current,
-                {
-                  yPercent: 30,
-                  opacity: 0,
-                  autoAlpha: 0,
-                  ease: "back.inOut(1.7)",
-                },
-                {
-                  yPercent: 0,
-                  opacity: 1,
-                  autoAlpha: 1,
-                  ease: "elas.inOut(5)",
-                },
-                "<0.1"
-              )
-              .fromTo(
-                titleRef3.current,
-                {
-                  yPercent: 40,
-                  opacity: 0,
-                  autoAlpha: 0,
-                  ease: "back.inOut(1.7)",
-                },
-                {
-                  yPercent: 0,
-                  opacity: 1,
-                  autoAlpha: 1,
-                  ease: "elas.inOut(5)",
-                },
-                "<0.1"
-              )
-              .fromTo(
-                describeRef.current,
-                {
-                  yPercent: 50,
-                  opacity: 0,
-                  autoAlpha: 0,
-                  ease: "back.inOut(1.7)",
-                },
-                {
-                  yPercent: 0,
-                  opacity: 1,
-                  autoAlpha: 1,
-                  ease: "elas.inOut(5)",
-                },
-                "<0.1"
-              )
-              .fromTo(
-                linkRef.current,
-                {
-                  yPercent: 60,
-                  opacity: 0,
-                  autoAlpha: 0,
-                  ease: "back.inOut(1.7)",
-                },
-                {
-                  yPercent: 0,
-                  opacity: 1,
-                  autoAlpha: 1,
-                  ease: "elas.inOut(5)",
-                },
-                "<0.1"
-              )
-              .fromTo(
-                orangeRef.current,
-                {
-                  xPercent: 15,
-                  transformOrigin: "center center",
-                  opacity: 0,
-                  autoAlpha: 0,
-                },
-                {
-                  xPercent: 35,
-                  transformOrigin: "center center",
-                  opacity: 1,
-                  autoAlpha: 1,
-                },
-                "<"
-              )
-              .fromTo(
-                blueRef.current,
-                {
-                  xPercent: -80,
-                  transformOrigin: "center center",
-                  opacity: 0,
-                  autoAlpha: 0,
-                },
-                {
-                  xPercent: -100,
-                  transformOrigin: "center center",
-                  opacity: 1,
-                  autoAlpha: 1,
-                },
-                "<0.2"
-              )
-              .fromTo(
-                imageRef1.current,
-                { top: "20%", right: "18%", opacity: 0, autoAlpha: 0 },
-                {
-                  top: "20%",
-                  right: "25%",
-                  rotationZ: 360,
-                  opacity: 1,
-                  autoAlpha: 1,
-                },
-                "<0.2"
-              )
-              .fromTo(
-                imageRef.current,
-                {
-                  scale: 1.8,
-                  xPercent: 75,
-                  transformOrigin: "center center",
-                  opacity: 0,
-                  autoAlpha: 0,
-                  ease: "back.out(1.7)",
-                },
-                {
-                  scale: 1,
-                  opacity: 1,
-                  xPercent: 95,
-                  transformOrigin: "center center",
-                  autoAlpha: 1,
-                  ease: "back.out(1.7)",
-                },
-                "<"
-              );
-          } else if (desktop4Xl) {
-            gsap
-              .timeline()
-              .paused(Number(selected) !== 2)
-              .fromTo(
-                titleRef1.current,
-                {
-                  yPercent: 20,
-                  opacity: 0,
-                  autoAlpha: 0,
-                  ease: "back.inOut(1.7)",
-                },
-                { yPercent: 0, opacity: 1, autoAlpha: 1, ease: "elas.inOut(5)" }
-              )
-              .fromTo(
-                titleRef2.current,
-                {
-                  yPercent: 30,
-                  opacity: 0,
-                  autoAlpha: 0,
-                  ease: "back.inOut(1.7)",
-                },
-                {
-                  yPercent: 0,
-                  opacity: 1,
-                  autoAlpha: 1,
-                  ease: "elas.inOut(5)",
-                },
-                "<0.1"
-              )
-              .fromTo(
-                titleRef3.current,
-                {
-                  yPercent: 40,
-                  opacity: 0,
-                  autoAlpha: 0,
-                  ease: "back.inOut(1.7)",
-                },
-                {
-                  yPercent: 0,
-                  opacity: 1,
-                  autoAlpha: 1,
-                  ease: "elas.inOut(5)",
-                },
-                "<0.1"
-              )
-              .fromTo(
-                describeRef.current,
-                {
-                  yPercent: 50,
-                  opacity: 0,
-                  autoAlpha: 0,
-                  ease: "back.inOut(1.7)",
-                },
-                {
-                  yPercent: 0,
-                  opacity: 1,
-                  autoAlpha: 1,
-                  ease: "elas.inOut(5)",
-                },
-                "<0.1"
-              )
-              .fromTo(
-                linkRef.current,
-                {
-                  yPercent: 60,
-                  opacity: 0,
-                  autoAlpha: 0,
-                  ease: "back.inOut(1.7)",
-                },
-                {
-                  yPercent: 0,
-                  opacity: 1,
-                  autoAlpha: 1,
-                  ease: "elas.inOut(5)",
-                },
-                "<0.1"
-              )
-              .fromTo(
-                orangeRef.current,
-                {
-                  xPercent: 30,
-                  transformOrigin: "center center",
-                  opacity: 0,
-                  autoAlpha: 0,
-                },
-                {
-                  xPercent: 50,
-                  transformOrigin: "center center",
-                  opacity: 1,
-                  autoAlpha: 1,
-                },
-                "<"
-              )
-              .fromTo(
-                blueRef.current,
-                {
-                  xPercent: -90,
-                  transformOrigin: "center center",
-                  opacity: 0,
-                  autoAlpha: 0,
-                },
-                {
-                  xPercent: -110,
-                  transformOrigin: "center center",
-                  opacity: 1,
-                  autoAlpha: 1,
-                },
-                "<0.2"
-              )
-              .fromTo(
-                imageRef1.current,
-                { top: "20%", right: "18%", opacity: 0, autoAlpha: 0 },
-                {
-                  top: "20%",
-                  right: "25%",
-                  rotationZ: 360,
-                  opacity: 1,
-                  autoAlpha: 1,
-                },
-                "<0.2"
-              )
-              .fromTo(
-                imageRef.current,
-                {
-                  scale: 1.8,
-                  xPercent: 90,
-                  transformOrigin: "center center",
-                  opacity: 0,
-                  autoAlpha: 0,
-                  ease: "back.out(1.7)",
-                },
-                {
-                  scale: 1,
-                  opacity: 1,
-                  xPercent: 110,
-                  transformOrigin: "center center",
-                  autoAlpha: 1,
-                  ease: "back.out(1.7)",
-                },
-                "<"
-              );
-          } else if (desktop5Xl) {
-            gsap
-              .timeline()
-              .paused(Number(selected) !== 2)
-              .fromTo(
-                titleRef1.current,
-                {
-                  yPercent: 20,
-                  opacity: 0,
-                  autoAlpha: 0,
-                  ease: "back.inOut(1.7)",
-                },
-                { yPercent: 0, opacity: 1, autoAlpha: 1, ease: "elas.inOut(5)" }
-              )
-              .fromTo(
-                titleRef2.current,
-                {
-                  yPercent: 30,
-                  opacity: 0,
-                  autoAlpha: 0,
-                  ease: "back.inOut(1.7)",
-                },
-                {
-                  yPercent: 0,
-                  opacity: 1,
-                  autoAlpha: 1,
-                  ease: "elas.inOut(5)",
-                },
-                "<0.1"
-              )
-              .fromTo(
-                titleRef3.current,
-                {
-                  yPercent: 40,
-                  opacity: 0,
-                  autoAlpha: 0,
-                  ease: "back.inOut(1.7)",
-                },
-                {
-                  yPercent: 0,
-                  opacity: 1,
-                  autoAlpha: 1,
-                  ease: "elas.inOut(5)",
-                },
-                "<0.1"
-              )
-              .fromTo(
-                describeRef.current,
-                {
-                  yPercent: 50,
-                  opacity: 0,
-                  autoAlpha: 0,
-                  ease: "back.inOut(1.7)",
-                },
-                {
-                  yPercent: 0,
-                  opacity: 1,
-                  autoAlpha: 1,
-                  ease: "elas.inOut(5)",
-                },
-                "<0.1"
-              )
-              .fromTo(
-                linkRef.current,
-                {
-                  yPercent: 60,
-                  opacity: 0,
-                  autoAlpha: 0,
-                  ease: "back.inOut(1.7)",
-                },
-                {
-                  yPercent: 0,
-                  opacity: 1,
-                  autoAlpha: 1,
-                  ease: "elas.inOut(5)",
-                },
-                "<0.1"
-              )
-              .fromTo(
-                orangeRef.current,
-                {
-                  xPercent: 40,
-                  transformOrigin: "center center",
-                  opacity: 0,
-                  autoAlpha: 0,
-                },
-                {
-                  xPercent: 60,
-                  transformOrigin: "center center",
-                  opacity: 1,
-                  autoAlpha: 1,
-                },
-                "<"
-              )
-              .fromTo(
-                blueRef.current,
-                {
-                  xPercent: -110,
-                  transformOrigin: "center center",
-                  opacity: 0,
-                  autoAlpha: 0,
-                },
-                {
-                  xPercent: -130,
-                  transformOrigin: "center center",
-                  opacity: 1,
-                  autoAlpha: 1,
-                },
-                "<0.2"
-              )
-              .fromTo(
-                imageRef1.current,
-                { top: "20%", right: "18%", opacity: 0, autoAlpha: 0 },
-                {
-                  top: "20%",
-                  right: "25%",
-                  rotationZ: 360,
-                  opacity: 1,
-                  autoAlpha: 1,
-                },
-                "<0.2"
-              )
-              .fromTo(
-                imageRef.current,
-                {
-                  scale: 1.8,
-                  xPercent: 105,
-                  transformOrigin: "center center",
-                  opacity: 0,
-                  autoAlpha: 0,
-                  ease: "back.out(1.7)",
-                },
-                {
-                  scale: 1,
-                  opacity: 1,
-                  xPercent: 125,
-                  transformOrigin: "center center",
-                  autoAlpha: 1,
-                  ease: "back.out(1.7)",
-                },
-                "<"
-              );
-          } else if (desktop6Xl) {
-            gsap
-              .timeline()
-              .paused(Number(selected) !== 2)
-              .fromTo(
-                titleRef1.current,
-                {
-                  yPercent: 20,
-                  opacity: 0,
-                  autoAlpha: 0,
-                  ease: "back.inOut(1.7)",
-                },
-                { yPercent: 0, opacity: 1, autoAlpha: 1, ease: "elas.inOut(5)" }
-              )
-              .fromTo(
-                titleRef2.current,
-                {
-                  yPercent: 30,
-                  opacity: 0,
-                  autoAlpha: 0,
-                  ease: "back.inOut(1.7)",
-                },
-                {
-                  yPercent: 0,
-                  opacity: 1,
-                  autoAlpha: 1,
-                  ease: "elas.inOut(5)",
-                },
-                "<0.1"
-              )
-              .fromTo(
-                titleRef3.current,
-                {
-                  yPercent: 40,
-                  opacity: 0,
-                  autoAlpha: 0,
-                  ease: "back.inOut(1.7)",
-                },
-                {
-                  yPercent: 0,
-                  opacity: 1,
-                  autoAlpha: 1,
-                  ease: "elas.inOut(5)",
-                },
-                "<0.1"
-              )
-              .fromTo(
-                describeRef.current,
-                {
-                  yPercent: 50,
-                  opacity: 0,
-                  autoAlpha: 0,
-                  ease: "back.inOut(1.7)",
-                },
-                {
-                  yPercent: 0,
-                  opacity: 1,
-                  autoAlpha: 1,
-                  ease: "elas.inOut(5)",
-                },
-                "<0.1"
-              )
-              .fromTo(
-                linkRef.current,
-                {
-                  yPercent: 60,
-                  opacity: 0,
-                  autoAlpha: 0,
-                  ease: "back.inOut(1.7)",
-                },
-                {
-                  yPercent: 0,
-                  opacity: 1,
-                  autoAlpha: 1,
-                  ease: "elas.inOut(5)",
-                },
-                "<0.1"
-              )
-              .fromTo(
-                orangeRef.current,
-                {
-                  xPercent: 80,
-                  transformOrigin: "center center",
-                  opacity: 0,
-                  autoAlpha: 0,
-                },
-                {
-                  xPercent: 100,
-                  transformOrigin: "center center",
-                  opacity: 1,
-                  autoAlpha: 1,
-                },
-                "<"
-              )
-              .fromTo(
-                blueRef.current,
-                {
-                  xPercent: -175,
-                  transformOrigin: "center center",
-                  opacity: 0,
-                  autoAlpha: 0,
-                },
-                {
-                  xPercent: -195,
-                  transformOrigin: "center center",
-                  opacity: 1,
-                  autoAlpha: 1,
-                },
-                "<0.2"
-              )
-              .fromTo(
-                imageRef1.current,
-                { top: "20%", right: "18%", opacity: 0, autoAlpha: 0 },
-                {
-                  top: "20%",
-                  right: "28%",
-                  rotationZ: 360,
-                  opacity: 1,
-                  autoAlpha: 1,
-                },
-                "<0.2"
-              )
-              .fromTo(
-                imageRef.current,
-                {
-                  scale: 1.8,
-                  xPercent: 155,
-                  transformOrigin: "center center",
-                  opacity: 0,
-                  autoAlpha: 0,
-                  ease: "back.out(1.7)",
-                },
-                {
-                  scale: 1,
-                  opacity: 1,
-                  xPercent: 175,
-                  transformOrigin: "center center",
-                  autoAlpha: 1,
-                  ease: "back.out(1.7)",
-                },
-                "<"
-              );
-          }
-        }
-      );
+      slideTL.current = gsap.timeline({ paused: Number(selected) !== 2 });
+      slideTL.current
+        .fromTo(
+          titleRef1.current,
+          {
+            yPercent: 20,
+            opacity: 0,
+            autoAlpha: 0,
+            ease: "back.inOut(1.7)",
+          },
+          { yPercent: 0, opacity: 1, autoAlpha: 1, ease: "back.inOut(1.7)" }
+        )
+        .fromTo(
+          titleRef2.current,
+          {
+            yPercent: 30,
+            opacity: 0,
+            autoAlpha: 0,
+            ease: "back.inOut(1.7)",
+          },
+          {
+            yPercent: 0,
+            opacity: 1,
+            autoAlpha: 1,
+            ease: "back.inOut(1.7)",
+          },
+          "<0.1"
+        )
+        .fromTo(
+          titleRef3.current,
+          {
+            yPercent: 40,
+            opacity: 0,
+            autoAlpha: 0,
+            ease: "back.inOut(1.7)",
+          },
+          {
+            yPercent: 0,
+            opacity: 1,
+            autoAlpha: 1,
+            ease: "back.inOut(1.7)",
+          },
+          "<0.1"
+        )
+        .fromTo(
+          describeRef.current,
+          {
+            yPercent: 50,
+            opacity: 0,
+            autoAlpha: 0,
+            ease: "back.inOut(1.7)",
+          },
+          {
+            yPercent: 0,
+            opacity: 1,
+            autoAlpha: 1,
+            ease: "back.inOut(1.7)",
+          },
+          "<0.1"
+        )
+        .fromTo(
+          linkRef.current,
+          {
+            yPercent: 60,
+            opacity: 0,
+            autoAlpha: 0,
+            ease: "back.inOut(1.7)",
+          },
+          {
+            yPercent: 0,
+            opacity: 1,
+            autoAlpha: 1,
+            ease: "back.inOut(1.7)",
+          },
+          "<0.1"
+        )
+        .fromTo(
+          imageOrangeRef.current,
+          {
+            scale: 1.8,
+            transformOrigin: "center center",
+            opacity: 0,
+            autoAlpha: 0,
+          },
+          {
+            scale: 1,
+            transformOrigin: "center center",
+            opacity: 0.3,
+            autoAlpha: 1,
+          },
+          ">"
+        )
+        .fromTo(
+          imageBlueRef.current,
+          {
+            scale: 1.8,
+            transformOrigin: "center center",
+            opacity: 0,
+            autoAlpha: 0,
+          },
+          {
+            scale: 1,
+            transformOrigin: "center center",
+            opacity: 0.25,
+            autoAlpha: 1,
+          },
+          "<"
+        )
+        .fromTo(
+          imageRef.current,
+          {
+            scale: 1.8,
+            transformOrigin: "center center",
+            opacity: 0,
+            autoAlpha: 0,
+          },
+          {
+            scale: 1,
+            opacity: 1,
+            transformOrigin: "center center",
+            autoAlpha: 1,
+          },
+          "<0.2"
+        )
+        .fromTo(
+          imageRef1.current,
+          { scale: 0.2, rotationZ: 0, opacity: 0, autoAlpha: 0 },
+          {
+            scale: 1,
+            rotationZ: 360,
+            opacity: 1,
+            autoAlpha: 1,
+          },
+          "<0.2"
+        );
     },
     { scope: slideRef, dependencies: [slide] }
   );
 
   return (
     <div ref={slideRef} className="relative w-full h-full">
-      <Image
-        ref={imageRef}
-        className="absolute z-20 object-cover top-2/3 -translate-y-1/2 xl:top-1/2 xl:-translate-y-1/3"
-        src={SLIDER_PIC_3.src}
-        priority
-        width={796}
-        height={778}
-        alt="Slider picture 1"
-      />
-      <video
-        loop
-        muted
-        autoPlay
-        playsInline
-        className="absolute object-cover object-center z-0 top-1/2 left-1/2 w-full h-full -translate-y-1/2 -translate-x-1/2"
-      >
-        <source src="/videos/slider-video-3.mp4" type="video/mp4" />
-      </video>
-      <OrangeShape
-        elRef={orangeRef}
-        className="absolute z-10 scale-50 -top-1/2 -left-1/2 md:scale-100 md:-top-[40%] lg:-top-1/2 xl:-top-1/3 6xl:scale-125 6xl:-top-[40%]"
-      />
-      <BlueShape
-        elRef={blueRef}
-        className="absolute z-10 scale-50 -top-1/4 -right-full md:scale-100 md:-top-[10%] lg:top-[10%] 3xl:top-[15%] 6xl:scale-125 6xl:top-1/4"
-      />
-      <Image
-        ref={imageRef1}
-        className="absolute z-10 object-contain hidden xl:block"
-        src={BALL_3.src}
-        priority
-        width={90}
-        height={90}
-        alt="Slider picture 1"
-      />
-      <div className="absolute z-20 bottom-0 left-0 w-full h-2/3 bg-gradient-to-t from-angel-blue via-angel-blue via-15%"></div>
+      <div className="absolute inset-0 w-full h-full overflow-hidden">
+        <Image
+          ref={imageRef}
+          className="absolute object-cover z-20 h-3/4 top-44 md:h-auto md:top-36 md:right-0 lg:-right-44 lg:top-48 lg:translate-x-0 xl:top-64 xl:-right-32 2xl:-right-14 3xl:right-6 4xl:right-28 5xl:right-48 6xl:right-[510px]"
+          src={SLIDER_PIC_3.src}
+          priority
+          width={796}
+          height={778}
+          alt="Slider picture 1"
+        />
+        <video
+          loop
+          muted
+          autoPlay
+          playsInline
+          className="absolute object-cover object-center z-0 top-1/2 left-1/2 w-full h-full -translate-y-1/2 -translate-x-1/2"
+        >
+          <source src="/videos/slider-video-3.mp4" type="video/mp4" />
+        </video>
+        <Image
+          ref={imageBlueRef}
+          className="absolute z-10 brightness-150 opacity-30 scale-150 top-64 -right-28 sm:scale-100 sm:top-44 sm:-right-36 md:-right-44 lg:-right-56 xl:-right-72 2xl:-right-60 3xl:-right-52 4xl:-right-64 5xl:-right-44 6xl:top-32 6xl:-right-12"
+          src={BLUE_SHAPE}
+          alt=""
+        />
+        <Image
+          ref={imageOrangeRef}
+          className="relative z-10 contrast-200 opacity-25  scale-150 -top-32 -left-40 sm:scale-100 sm:-top-36 sm:-left-32 md:-top-56 md:-left-48 lg:-left-80 xl:-top-80 xl:-left-96 2xl:-top-96 2xl:-left-[480px] 3xl:-left-96 4xl:-top-[480px] 4xl:-left-48 5xl:-top-[450px] 5xl:-left-36"
+          src={ORANGE_SHAPE}
+          alt=""
+        />
+        <Image
+          ref={imageRef1}
+          className="absolute z-10 object-contain hidden lg:block lg:top-32 lg:right-44 xl:top-44 xl:right-56 2xl:right-[300px] 3xl:right-96 4xl:right-[470px] 5xl:right-[550px] 6xl:right-[870px]"
+          src={BALL_3.src}
+          priority
+          width={90}
+          height={90}
+          alt="Slider picture 1"
+        />
+        <div className="absolute z-20 -bottom-10 w-full h-2/3 bg-gradient-to-t from-angel-blue via-angel-blue via-10%"></div>
+      </div>
+
       <div className="container absolute z-30 top-40 left-1/2 -translate-x-1/2 text-center lg:text-left">
         <div className="grid max-w-3xl gap-10 text-white justify-items-center lg:justify-items-start lg:gap-10 4xl:gap-11 5xl:gap-14">
           <div>
