@@ -135,7 +135,7 @@ export default function Team() {
 
   return (
     <div className="team absolute container grid mx-auto overflow-hidden">
-      <div className="grid border-y border-white/20 py-24">
+      <div className="grid border-y border-white/20 py-20">
         <div className="relative z-10 grid gap-5 text-center">
           <h2 className="text-3xl text-white leading-tight xl:text-6xl">
             Meet the leadership team

@@ -319,7 +319,7 @@ export default function Home() {
         pin: true,
         pinType: "transform",
         pinSpacing: true,
-        start: "top bottom",
+        start: "center 75%",
         scrub: 1.2,
         end: () => "+=100%",
       },
@@ -332,7 +332,7 @@ export default function Home() {
           scale: 70,
           autoAlpha: 0,
           duration: 5,
-          ease: "sine.in",
+          ease: "expo.out",
         },
         "teamscaling"
       )
@@ -341,7 +341,7 @@ export default function Home() {
         scale: 1,
         duration: 0.7,
         yPercent: 5,
-        ease: "expoScale(10,2.5,none)",
+        ease: "expoScale(70,4,none)",
       }, "teamscaling+=3").scrollTrigger?.refresh();
     /*==============================     TEAM END     ==============================*/
     //////////////////////////////////////////////////////////////////////////////////
@@ -689,7 +689,7 @@ export default function Home() {
 
       <div
         ref={angelshubRef}
-        className="relative w-full flex min-h-dvh max-h-full justify-center items-center overflow-x-hidden"
+        className="relative w-full flex justify-center items-center overflow-x-hidden"
       >
         <AngelsHubFlatSVG className="scale-pin relative w-full top-0" />
         <Team />

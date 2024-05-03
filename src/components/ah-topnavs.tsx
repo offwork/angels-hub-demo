@@ -2,14 +2,16 @@
 import Link from "next/link";
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import SocailIcon from "./Team/ah-social-icon";
+import { classNames } from "@/utils";
 
 if (typeof window !== "undefined") {
   gsap.registerPlugin(useGSAP);
 }
 
 export default function Topnavs() {
+  const [backdrop, setBackdrop] = useState(false);
   const isOpen = useRef<boolean>(true);
   const wrapMenuRef = useRef<HTMLDivElement>(null!);
   const btnRef = useRef<HTMLButtonElement>(null!);
@@ -106,9 +108,11 @@ export default function Topnavs() {
       const clickOnHamburger = contextSafe!(() => {
         if (isOpen.current) {
           hamburgerTl.current.play();
+          setBackdrop(true)
         } else {
           hamburgerTl.current.reverse();
           isOpen.current = true;
+          setBackdrop(false)
         }
       });
 
@@ -125,7 +129,7 @@ export default function Topnavs() {
     <>
       <div
         ref={wrapMenuRef}
-        className="fixed z-30 flex items-center pt-4 mr-8 lg:mr-16 top-0 right-0"
+        className="fixed z-40 flex items-center pt-4 mr-8 lg:mr-16 top-0 right-0"
       >
         <div className="relative hidden link-buttons z-10 lg:inline-block rounded-lg py-2 pl-2 lg:pr-[59px] lg:-mr-[59px] bg-black">
           <Link
@@ -180,7 +184,7 @@ export default function Topnavs() {
           ref={menuContainRef}
           className="absolute hidden z-0 overflow-hidden top-0 -right-8 lg:-right-16 min-w-max lg:min-w-[890px]"
         >
-          <div className="menu-contain bg-angel-orange pt-28 lg:pt-36 w-full h-full overflow-y-scroll">
+          <div className="menu-contain bg-angel-orange pt-28 lg:pt-36 w-screen lg:w-full h-full overflow-y-scroll">
             <div className="relative block mobile-link-buttons z-10 right-0 px-8 mb-10 lg:px-20 lg:hidden">
               <div className="grid grid-flow-col gap-2 rounded-lg p-2 w-full bg-black">
                 <Link
@@ -343,6 +347,10 @@ export default function Topnavs() {
           </div>
         </div>
       </div>
+      <div className={classNames(
+        backdrop ? "flex": "hidden",
+        "fixed z-30 top-0 left-0 bottom-0 right-0 inset-0 w-full h-full opacity-30 bg-black"
+      )}></div>
     </>
   );
 }
