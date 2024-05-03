@@ -100,5 +100,5 @@ const config: Config = {
   },
   plugins: [],
 };
-console.log(screens)
+
 export default config;
