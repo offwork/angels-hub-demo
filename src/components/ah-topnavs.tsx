@@ -229,9 +229,9 @@ export default function Topnavs() {
             </div>
             <ul className="grid w-full grid-flow-row divide-y px-8 lg:px-20 pb-16 divide-white/50 text-nowrap text-white text-xl lg:text-3xl font-semibold">
               <li className="main-nav-item py-4 lg:py-6">
-                <a href="" className="">
+                <Link href="/suportsbook" className="">
                   Products
-                </a>
+                </Link>
               </li>
               <li className="main-nav-item py-4 lg:py-6">
                 <a href="" className="">

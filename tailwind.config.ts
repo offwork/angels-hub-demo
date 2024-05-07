@@ -86,6 +86,10 @@ const config: Config = {
           "0 10px 35px rgba(0, 0, 0, 0.35)",
           "0 30px 25px rgba(0, 0, 0, 0.25)",
         ],
+        "5xl": [
+          "0 10px 35px rgba(0, 0, 0, 0.55)",
+          "0 30px 25px rgba(0, 0, 0, 0.35)",
+        ],
       },
       screens: {
         xs: "375px",
