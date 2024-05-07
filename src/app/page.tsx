@@ -11,7 +11,6 @@ import { PRODUCTS } from "@/constant";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import { InertiaPlugin } from "gsap/InertiaPlugin";
-import { Draggable } from "gsap/dist/Draggable";
 import { ScrollTrigger } from "gsap/dist/ScrollTrigger";
 import Image from "next/image";
 import { useRef } from "react";
@@ -21,7 +20,7 @@ import BrandLogo from "@/components/ah-brand-logo";
 import { useIsomorphicLayoutEffect } from "@/utils";
 
 if (typeof window !== "undefined") {
-  gsap.registerPlugin(useGSAP, ScrollTrigger, Draggable, InertiaPlugin);
+  gsap.registerPlugin(useGSAP, ScrollTrigger, InertiaPlugin);
 }
 
 export default function Home() {
