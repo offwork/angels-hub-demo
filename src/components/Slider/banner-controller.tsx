@@ -149,10 +149,10 @@ export default function BannerController({
   );
 
 
-  const autoPlay = () => {
+  const autoPlay = useCallback(() => {
     navigateSlider(NEXT);
     gsap.delayedCall(5, autoPlay);
-  };
+  }, [navigateSlider]);
 
 
   const handleWindowResize = useCallback(() => {
@@ -161,7 +161,7 @@ export default function BannerController({
     } else {
       gsap.killTweensOf(autoPlay);
     }
-  }, []);
+  }, [autoPlay]);
 
   useIsomorphicLayoutEffect(() => {
     slidesCtrlRef.current = gsap.utils.toArray<HTMLDivElement>(".controller ");
