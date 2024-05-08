@@ -21,7 +21,7 @@ export default function Team() {
   const currentItems = useRef(0);
   const itemWidth = useRef(0);
   const isAnimating = useRef(false);
-  const { context, contextSafe } = useGSAP({ scope: teamContentRef });
+  const { context, contextSafe } = useGSAP({ scope: teamContentRef.current });
 
   const onNext = () => {
     navigate(NEXT);

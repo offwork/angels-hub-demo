@@ -122,7 +122,7 @@ export default function Topnavs() {
         btnRef.current.removeEventListener("click", clickOnHamburger);
       };
     },
-    { scope: wrapMenuRef }
+    { scope: wrapMenuRef.current }
   );
 
   return (
@@ -300,9 +300,9 @@ export default function Topnavs() {
                   <a href="/" className="footer-menu">
                     Sportsbook
                   </a>
-                  <a href="/" className="footer-menu">
+                  <Link href="/online-casino" className="footer-menu">
                     Online Casino
-                  </a>
+                  </Link>
                   <a href="/" className="footer-menu">
                     Crypto Solutions
                   </a>

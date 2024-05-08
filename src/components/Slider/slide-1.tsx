@@ -155,7 +155,7 @@ export default function Slide1({ slide }: { slide: number }) {
         slideTL.current.revert();
       };
     },
-    { scope: slideRef, dependencies: [slide] }
+    { scope: slideRef.current, dependencies: [slide] }
   );
 
   return (
