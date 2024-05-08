@@ -33,8 +33,14 @@ export default function Home() {
   const cellsRef = useRef<HTMLDivElement[]>([]);
   const footerRef = useRef<HTMLDivElement>(null!);
   const angelshubRef = useRef<HTMLDivElement>(null!);
-  const scrollToBtnRef = useRef<HTMLButtonElement>(null!);
   const bodyScrollBar = useRef<Scrollbar>(null!);
+  const { context, contextSafe } = useGSAP({ scope: scrollContainerRef.current });
+
+  const onClickScrollTo = () => {
+    bodyScrollBar.current.scrollIntoView(solutionsRef.current, {
+      offsetTop: -bodyScrollBar.current.containerEl.scrollTop,
+    });
+  };
 
   const initSmoothScrolling = () => {
     ScrollTrigger.config({ limitCallbacks: true, ignoreMobileResize: true });
@@ -61,497 +67,475 @@ export default function Home() {
     });
   };
 
-  useGSAP(
-    (context, contextSafe) => {
-      /*===========================     SOLUTIONS SCROLL     =========================*/
-      const solutions = solutionsRef.current.querySelectorAll<HTMLDivElement>(".solution");
+  const scroll = contextSafe(() => {
+    /*===========================     SOLUTIONS SCROLL     =========================*/
+    const solutions = solutionsRef.current.querySelectorAll<HTMLDivElement>(".solution");
 
-      gsap.from(solutionsRef.current.querySelector(".text-white"), {
-        xPercent: -7,
-        opacity: 0,
-        duration: 0.7,
+    gsap.from(solutionsRef.current.querySelector(".text-white"), {
+      xPercent: -7,
+      opacity: 0,
+      duration: 0.7,
+      ease: "sine.in",
+      scrollTrigger: {
+        trigger: solutionsRef.current,
+        start: "top bottom",
+        scrub: 1.2,
+        end: () =>
+          solutionsRef.current.querySelector<HTMLHeadingElement>(".text-white")?.offsetHeight!,
+      },
+    });
+
+    gsap.from(solutionsRef.current.querySelector(".text-spray"), {
+      xPercent: -10,
+      opacity: 0,
+      duration: 0.7,
+      ease: "sine.in",
+      scrollTrigger: {
+        trigger: solutionsRef.current,
+        start: "top bottom",
+        scrub: 1.2,
+        end: () =>
+          solutionsRef.current.querySelector<HTMLHeadingElement>(".text-spray")?.offsetHeight!,
+      },
+    });
+
+    solutions.forEach((solution, pos, arr) => {
+      gsap.from(arr[arr.length - 1 - pos], {
         ease: "sine.in",
-        scrollTrigger: {
-          trigger: solutionsRef.current,
-          start: "top bottom",
-          scrub: 1.2,
-          end: () =>
-            solutionsRef.current.querySelector<HTMLHeadingElement>(".text-white")?.offsetHeight!,
-        },
-      });
-
-      gsap.from(solutionsRef.current.querySelector(".text-spray"), {
-        xPercent: -10,
-        opacity: 0,
-        duration: 0.7,
-        ease: "sine.in",
-        scrollTrigger: {
-          trigger: solutionsRef.current,
-          start: "top bottom",
-          scrub: 1.2,
-          end: () =>
-            solutionsRef.current.querySelector<HTMLHeadingElement>(".text-spray")?.offsetHeight!,
-        },
-      });
-
-      solutions.forEach((solution, pos, arr) => {
-        gsap.from(arr[arr.length - 1 - pos], {
-          ease: "sine.in",
-          yPercent: 10,
-          opacity: 0,
-          delay: pos * 0.2,
-          stagger: 0.4,
-          scrollTrigger: {
-            trigger: arr[arr.length - 1 - pos],
-            start: "top bottom",
-            scrub: pos * 0.8,
-            end: () => arr[pos].offsetHeight,
-          },
-        });
-      });
-      /*============================     SOLUTIONS END     ===========================*/
-      //////////////////////////////////////////////////////////////////////////////////
-      //////////////////////////////////////////////////////////////////////////////////
-      //////////////////////////////////////////////////////////////////////////////////
-      /*===========================     PRODUCTS SCROLL     ==========================*/
-      const hItems = productsRef.current.querySelector<HTMLDivElement>(".horizontal-items")!;
-
-      function getHorizontalScrollAmount() {
-        let hItemsWidth = hItems.scrollWidth;
-        return -(hItemsWidth - window.innerWidth);
-      }
-
-      const mediaMatcher = gsap.matchMedia();
-      mediaMatcher.add(
-        {
-          isDesktop: `(min-width: 1280px) and (prefers-reduced-motion: no-preference)`,
-        },
-        (context) => {
-          const { isDesktop } = context.conditions!;
-          if (isDesktop) {
-            gsap.to(hItems, {
-              x: getHorizontalScrollAmount,
-              ease: "none",
-              duration: 2,
-              scrollTrigger: {
-                trigger: ".horizontal-scroll",
-                start: "top top",
-                end: () => `+=${getHorizontalScrollAmount() * -1}`,
-                pin: true,
-                scrub: 1,
-                invalidateOnRefresh: true,
-              },
-            });
-          }
-        }
-      );
-
-      gsap.from(productsRef.current.querySelector(".text-angel-orange-500"), {
-        xPercent: -5,
-        opacity: 0,
-        duration: 0.8,
-        ease: "sine.in",
-        scrollTrigger: {
-          trigger: productsRef.current,
-          start: "top bottom",
-          scrub: 1.2,
-          end: () =>
-            productsRef.current.querySelector<HTMLHeadingElement>(".text-angel-orange-500")
-              ?.offsetHeight!,
-        },
-      });
-
-      gsap.from(productsRef.current.querySelector(".text-spray"), {
-        xPercent: -5,
-        opacity: 0,
-        duration: 0.6,
-        ease: "sine.in",
-        scrollTrigger: {
-          trigger: productsRef.current,
-          start: "top bottom",
-          scrub: 1.4,
-          end: () =>
-            productsRef.current.querySelector<HTMLHeadingElement>(".text-spray")?.offsetHeight!,
-        },
-      });
-
-      gsap.from(productsRef.current.querySelector(".text-white"), {
-        xPercent: -5,
-        opacity: 0,
-        duration: 0.6,
-        ease: "sine.in",
-        scrollTrigger: {
-          trigger: productsRef.current,
-          start: "top bottom",
-          scrub: 1.8,
-          end: () =>
-            productsRef.current.querySelector<HTMLHeadingElement>(".text-white")?.offsetHeight!,
-        },
-      });
-
-      gsap.from(hPinRef.current, {
-        xPercent: -10,
-        opacity: 0,
-        duration: 1.6,
-        ease: "sine.in",
-        scrollTrigger: {
-          trigger: productsRef.current,
-          start: "top bottom",
-          scrub: 2,
-          end: () => hPinRef.current.offsetHeight,
-        },
-      });
-      /*============================     PRODUCTS END     ============================*/
-      //////////////////////////////////////////////////////////////////////////////////
-      //////////////////////////////////////////////////////////////////////////////////
-      //////////////////////////////////////////////////////////////////////////////////
-      /*===========================     PLATFORM SCROLL     ==========================*/
-      const platformItems = platformRef.current.querySelector<HTMLDivElement>(".platform-items")!;
-
-      function getHorizontalPlatformScrollAmount() {
-        const hItemsWidth = platformItems.scrollWidth;
-        return -(hItemsWidth - window.innerWidth);
-      }
-
-      mediaMatcher.add(
-        {
-          isDesktop: `(min-width: 1024px) and (prefers-reduced-motion: no-preference)`,
-        },
-        (context) => {
-          const { isDesktop } = context.conditions!;
-          if (isDesktop) {
-            gsap.to(platformItems, {
-              x: getHorizontalPlatformScrollAmount,
-              ease: "none",
-              duration: 2,
-              scrollTrigger: {
-                trigger: ".platform-scroll",
-                start: "top top",
-                end: () => `+=${getHorizontalPlatformScrollAmount() * -1}`,
-                pin: true,
-                scrub: 1,
-                invalidateOnRefresh: true,
-              },
-            });
-          }
-        }
-      );
-
-      gsap.from(platformRef.current.querySelector(".title"), {
-        xPercent: -7,
-        opacity: 0,
-        duration: 0.7,
-        ease: "sine.in",
-        scrollTrigger: {
-          trigger: platformRef.current,
-          start: "top bottom",
-          scrub: 1.2,
-          end: () => platformRef.current.querySelector<HTMLHeadingElement>(".title")?.offsetHeight!,
-        },
-      });
-
-      gsap.from(platformRef.current.querySelector(".caption"), {
-        xPercent: -10,
-        opacity: 0,
-        duration: 0.7,
-        ease: "sine.in",
-        scrollTrigger: {
-          trigger: platformRef.current,
-          start: "top bottom",
-          scrub: 1.6,
-          end: () =>
-            platformRef.current.querySelector<HTMLHeadingElement>(".caption")?.offsetHeight!,
-        },
-      });
-
-      gsap.from(pickerRef.current, {
-        xPercent: -10,
-        opacity: 0,
-        duration: 1.6,
-        ease: "sine.in",
-        scrollTrigger: {
-          trigger: platformRef.current,
-          start: "top bottom",
-          scrub: 2,
-          end: () => pickerRef.current.offsetHeight,
-        },
-      });
-
-      gsap.from(platformRef.current.querySelector(".bg-angel-blue"), {
-        xPercent: -20,
-        opacity: 0,
-        duration: 0.7,
-        ease: "sine.in",
-        scrollTrigger: {
-          trigger: platformRef.current,
-          start: "top bottom",
-          scrub: 1.2,
-          end: () => "+=80%",
-        },
-      });
-      /*============================     PLATFORM END     ============================*/
-      //////////////////////////////////////////////////////////////////////////////////
-      //////////////////////////////////////////////////////////////////////////////////
-      //////////////////////////////////////////////////////////////////////////////////
-      /*=============================     TEAM SCROLL     ============================*/
-      gsap.set(angelshubRef.current.querySelector(".scale-pin"), {
-        autoAlpha: 1,
-        transformOrigin: "50% 50%",
-      });
-      gsap.set(angelshubRef.current.querySelector(".team"), {
-        autoAlpha: 0,
-        scale: 0.3,
-        transformOrigin: "50% 50%",
-      });
-      const teamTl = gsap.timeline({
-        scrollTrigger: {
-          trigger: angelshubRef.current.querySelector(".scale-pin"),
-          pin: true,
-          pinType: "transform",
-          pinSpacing: true,
-          start: "center 75%",
-          scrub: 1.2,
-          end: () => "+=100%",
-        },
-      });
-      teamTl
-        .addLabel("teamscaling", 0)
-        .to(
-          angelshubRef.current.querySelector(".scale-pin"),
-          {
-            scale: 70,
-            autoAlpha: 0,
-            duration: 5,
-            ease: "expo.out",
-          },
-          "teamscaling"
-        )
-        .to(
-          angelshubRef.current.querySelector(".team"),
-          {
-            autoAlpha: 1,
-            scale: 1,
-            duration: 0.7,
-            yPercent: 5,
-            ease: "expoScale(70,4,none)",
-          },
-          "teamscaling+=3"
-        )
-        .scrollTrigger?.refresh();
-      /*==============================     TEAM END     ==============================*/
-      //////////////////////////////////////////////////////////////////////////////////
-      //////////////////////////////////////////////////////////////////////////////////
-      //////////////////////////////////////////////////////////////////////////////////
-      /*===========================     PROVIDERS SCROLL     =========================*/
-      gsap.from(providersRef.current.querySelector(".title"), {
-        xPercent: -7,
-        opacity: 0,
-        duration: 0.7,
-        ease: "sine.in",
-        scrollTrigger: {
-          trigger: providersRef.current,
-          start: "top bottom",
-          scrub: 1.2,
-          end: () =>
-            providersRef.current.querySelector<HTMLHeadingElement>(".title")?.offsetHeight!,
-        },
-      });
-
-      gsap.from(providersRef.current.querySelector(".caption"), {
-        xPercent: -10,
-        opacity: 0,
-        duration: 0.7,
-        ease: "sine.in",
-        scrollTrigger: {
-          trigger: providersRef.current,
-          start: "top bottom",
-          scrub: 1.6,
-          end: () =>
-            providersRef.current.querySelector<HTMLHeadingElement>(".caption")?.offsetHeight!,
-        },
-      });
-      /*===========================     PROVIDERS END     ============================*/
-      //////////////////////////////////////////////////////////////////////////////////
-      //////////////////////////////////////////////////////////////////////////////////
-      //////////////////////////////////////////////////////////////////////////////////
-      /*============================     FOOTER SCROLL     ===========================*/
-      const inputs = footerRef.current.querySelectorAll(".form-element");
-      const wordLogo = footerRef.current.querySelector<SVGElement>(".word-logo");
-      const footerTitle = footerRef.current.querySelector<HTMLHeadingElement>(".title");
-      const footerCaption = footerRef.current.querySelector<HTMLHeadingElement>(".caption");
-      const socialIcons = footerRef.current.querySelector<HTMLDivElement>(".social-icons");
-      const footerMenuItems = footerRef.current.querySelectorAll(".footer-menu");
-      const privacyPolicy = footerRef.current.querySelector<HTMLAnchorElement>(".privacy-policy");
-      const websiteContent = footerRef.current.querySelector<HTMLAnchorElement>(".website-content");
-      const copyright = footerRef.current.querySelector<HTMLAnchorElement>(".copyright");
-      const amblem = footerRef.current.querySelector<SVGElement>(".amblem");
-
-      gsap.from(wordLogo, {
         yPercent: 10,
         opacity: 0,
-        duration: 0.7,
-        ease: "sine.in",
+        delay: pos * 0.2,
+        stagger: 0.4,
         scrollTrigger: {
-          trigger: wordLogo,
-          start: "bottom bottom",
-          scrub: 1.2,
-          end: () => wordLogo?.clientWidth!,
-        },
-      });
-
-      gsap.from(footerTitle, {
-        xPercent: -7,
-        opacity: 0,
-        duration: 0.7,
-        ease: "sine.in",
-        scrollTrigger: {
-          trigger: footerTitle,
+          trigger: arr[arr.length - 1 - pos],
           start: "top bottom",
-          scrub: 1.2,
-          end: () => footerTitle?.offsetHeight!,
+          scrub: pos * 0.8,
+          end: () => arr[pos].offsetHeight,
         },
       });
+    });
+    /*============================     SOLUTIONS END     ===========================*/
+    //////////////////////////////////////////////////////////////////////////////////
+    //////////////////////////////////////////////////////////////////////////////////
+    //////////////////////////////////////////////////////////////////////////////////
+    /*===========================     PRODUCTS SCROLL     ==========================*/
+    const hItems = productsRef.current.querySelector<HTMLDivElement>(".horizontal-items")!;
 
-      gsap.from(footerCaption, {
+    function getHorizontalScrollAmount() {
+      let hItemsWidth = hItems.scrollWidth;
+      return -(hItemsWidth - window.innerWidth);
+    }
+
+    const mediaMatcher = gsap.matchMedia();
+    mediaMatcher.add(
+      {
+        isDesktop: `(min-width: 1280px) and (prefers-reduced-motion: no-preference)`,
+      },
+      (context) => {
+        const { isDesktop } = context.conditions!;
+        if (isDesktop) {
+          gsap.to(hItems, {
+            x: getHorizontalScrollAmount,
+            ease: "none",
+            duration: 2,
+            scrollTrigger: {
+              trigger: ".horizontal-scroll",
+              start: "top top",
+              end: () => `+=${getHorizontalScrollAmount() * -1}`,
+              pin: true,
+              scrub: 1,
+              invalidateOnRefresh: true,
+            },
+          });
+        }
+      }
+    );
+
+    gsap.from(productsRef.current.querySelector(".text-angel-orange-500"), {
+      xPercent: -5,
+      opacity: 0,
+      duration: 0.8,
+      ease: "sine.in",
+      scrollTrigger: {
+        trigger: productsRef.current,
+        start: "top bottom",
+        scrub: 1.2,
+        end: () =>
+          productsRef.current.querySelector<HTMLHeadingElement>(".text-angel-orange-500")
+            ?.offsetHeight!,
+      },
+    });
+
+    gsap.from(productsRef.current.querySelector(".text-spray"), {
+      xPercent: -5,
+      opacity: 0,
+      duration: 0.6,
+      ease: "sine.in",
+      scrollTrigger: {
+        trigger: productsRef.current,
+        start: "top bottom",
+        scrub: 1.4,
+        end: () =>
+          productsRef.current.querySelector<HTMLHeadingElement>(".text-spray")?.offsetHeight!,
+      },
+    });
+
+    gsap.from(productsRef.current.querySelector(".text-white"), {
+      xPercent: -5,
+      opacity: 0,
+      duration: 0.6,
+      ease: "sine.in",
+      scrollTrigger: {
+        trigger: productsRef.current,
+        start: "top bottom",
+        scrub: 1.8,
+        end: () =>
+          productsRef.current.querySelector<HTMLHeadingElement>(".text-white")?.offsetHeight!,
+      },
+    });
+
+    gsap.from(hPinRef.current, {
+      xPercent: -10,
+      opacity: 0,
+      duration: 1.6,
+      ease: "sine.in",
+      scrollTrigger: {
+        trigger: productsRef.current,
+        start: "top bottom",
+        scrub: 2,
+        end: () => hPinRef.current.offsetHeight,
+      },
+    });
+    /*============================     PRODUCTS END     ============================*/
+    //////////////////////////////////////////////////////////////////////////////////
+    //////////////////////////////////////////////////////////////////////////////////
+    //////////////////////////////////////////////////////////////////////////////////
+    /*===========================     PLATFORM SCROLL     ==========================*/
+    const platformItems = platformRef.current.querySelector<HTMLDivElement>(".platform-items")!;
+
+    function getHorizontalPlatformScrollAmount() {
+      const hItemsWidth = platformItems.scrollWidth;
+      return -(hItemsWidth - window.innerWidth);
+    }
+
+    mediaMatcher.add(
+      {
+        isDesktop: `(min-width: 1024px) and (prefers-reduced-motion: no-preference)`,
+      },
+      (context) => {
+        const { isDesktop } = context.conditions!;
+        if (isDesktop) {
+          gsap.to(platformItems, {
+            x: getHorizontalPlatformScrollAmount,
+            ease: "none",
+            duration: 2,
+            scrollTrigger: {
+              trigger: ".platform-scroll",
+              start: "top top",
+              end: () => `+=${getHorizontalPlatformScrollAmount() * -1}`,
+              pin: true,
+              scrub: 1,
+              invalidateOnRefresh: true,
+            },
+          });
+        }
+      }
+    );
+
+    gsap.from(platformRef.current.querySelector(".title"), {
+      xPercent: -7,
+      opacity: 0,
+      duration: 0.7,
+      ease: "sine.in",
+      scrollTrigger: {
+        trigger: platformRef.current,
+        start: "top bottom",
+        scrub: 1.2,
+        end: () => platformRef.current.querySelector<HTMLHeadingElement>(".title")?.offsetHeight!,
+      },
+    });
+
+    gsap.from(platformRef.current.querySelector(".caption"), {
+      xPercent: -10,
+      opacity: 0,
+      duration: 0.7,
+      ease: "sine.in",
+      scrollTrigger: {
+        trigger: platformRef.current,
+        start: "top bottom",
+        scrub: 1.6,
+        end: () => platformRef.current.querySelector<HTMLHeadingElement>(".caption")?.offsetHeight!,
+      },
+    });
+
+    gsap.from(pickerRef.current, {
+      xPercent: -10,
+      opacity: 0,
+      duration: 1.6,
+      ease: "sine.in",
+      scrollTrigger: {
+        trigger: platformRef.current,
+        start: "top bottom",
+        scrub: 2,
+        end: () => pickerRef.current.offsetHeight,
+      },
+    });
+
+    gsap.from(platformRef.current.querySelector(".bg-angel-blue"), {
+      xPercent: -20,
+      opacity: 0,
+      duration: 0.7,
+      ease: "sine.in",
+      scrollTrigger: {
+        trigger: platformRef.current,
+        start: "top bottom",
+        scrub: 1.2,
+        end: () => "+=80%",
+      },
+    });
+    /*============================     PLATFORM END     ============================*/
+    //////////////////////////////////////////////////////////////////////////////////
+    //////////////////////////////////////////////////////////////////////////////////
+    //////////////////////////////////////////////////////////////////////////////////
+    /*=============================     TEAM SCROLL     ============================*/
+    gsap.set(angelshubRef.current.querySelector(".scale-pin"), {
+      autoAlpha: 1,
+      transformOrigin: "50% 50%",
+    });
+    gsap.set(angelshubRef.current.querySelector(".team"), {
+      autoAlpha: 0,
+      scale: 0.3,
+      transformOrigin: "50% 50%",
+    });
+    const teamTl = gsap.timeline({
+      scrollTrigger: {
+        trigger: angelshubRef.current.querySelector(".scale-pin"),
+        pin: true,
+        pinType: "transform",
+        pinSpacing: true,
+        start: "center 75%",
+        scrub: 1.2,
+        end: () => "+=100%",
+      },
+    });
+    teamTl
+      .addLabel("teamscaling", 0)
+      .to(
+        angelshubRef.current.querySelector(".scale-pin"),
+        {
+          scale: 70,
+          autoAlpha: 0,
+          duration: 5,
+          ease: "expo.out",
+        },
+        "teamscaling"
+      )
+      .to(
+        angelshubRef.current.querySelector(".team"),
+        {
+          autoAlpha: 1,
+          scale: 1,
+          duration: 0.7,
+          yPercent: 5,
+          ease: "expoScale(70,4,none)",
+        },
+        "teamscaling+=3"
+      )
+      .scrollTrigger?.refresh();
+    /*==============================     TEAM END     ==============================*/
+    //////////////////////////////////////////////////////////////////////////////////
+    //////////////////////////////////////////////////////////////////////////////////
+    //////////////////////////////////////////////////////////////////////////////////
+    /*===========================     PROVIDERS SCROLL     =========================*/
+    gsap.from(providersRef.current.querySelector(".title"), {
+      xPercent: -7,
+      opacity: 0,
+      duration: 0.7,
+      ease: "sine.in",
+      scrollTrigger: {
+        trigger: providersRef.current,
+        start: "top bottom",
+        scrub: 1.2,
+        end: () => providersRef.current.querySelector<HTMLHeadingElement>(".title")?.offsetHeight!,
+      },
+    });
+
+    gsap.from(providersRef.current.querySelector(".caption"), {
+      xPercent: -10,
+      opacity: 0,
+      duration: 0.7,
+      ease: "sine.in",
+      scrollTrigger: {
+        trigger: providersRef.current,
+        start: "top bottom",
+        scrub: 1.6,
+        end: () =>
+          providersRef.current.querySelector<HTMLHeadingElement>(".caption")?.offsetHeight!,
+      },
+    });
+    /*===========================     PROVIDERS END     ============================*/
+    //////////////////////////////////////////////////////////////////////////////////
+    //////////////////////////////////////////////////////////////////////////////////
+    //////////////////////////////////////////////////////////////////////////////////
+    /*============================     FOOTER SCROLL     ===========================*/
+    const inputs = footerRef.current.querySelectorAll(".form-element");
+    const wordLogo = footerRef.current.querySelector<SVGElement>(".word-logo");
+    const footerTitle = footerRef.current.querySelector<HTMLHeadingElement>(".title");
+    const footerCaption = footerRef.current.querySelector<HTMLHeadingElement>(".caption");
+    const socialIcons = footerRef.current.querySelector<HTMLDivElement>(".social-icons");
+    const footerMenuItems = footerRef.current.querySelectorAll(".footer-menu");
+    const privacyPolicy = footerRef.current.querySelector<HTMLAnchorElement>(".privacy-policy");
+    const websiteContent = footerRef.current.querySelector<HTMLAnchorElement>(".website-content");
+    const copyright = footerRef.current.querySelector<HTMLAnchorElement>(".copyright");
+    const amblem = footerRef.current.querySelector<SVGElement>(".amblem");
+
+    gsap.from(wordLogo, {
+      yPercent: 10,
+      opacity: 0,
+      duration: 0.7,
+      ease: "sine.in",
+      scrollTrigger: {
+        trigger: wordLogo,
+        start: "bottom bottom",
+        scrub: 1.2,
+        end: () => wordLogo?.clientWidth!,
+      },
+    });
+
+    gsap.from(footerTitle, {
+      xPercent: -7,
+      opacity: 0,
+      duration: 0.7,
+      ease: "sine.in",
+      scrollTrigger: {
+        trigger: footerTitle,
+        start: "top bottom",
+        scrub: 1.2,
+        end: () => footerTitle?.offsetHeight!,
+      },
+    });
+
+    gsap.from(footerCaption, {
+      xPercent: -10,
+      opacity: 0,
+      duration: 0.7,
+      ease: "sine.in",
+      scrollTrigger: {
+        trigger: footerCaption,
+        start: "top bottom",
+        scrub: 1.6,
+        end: () => footerCaption?.offsetHeight!,
+      },
+    });
+
+    inputs.forEach((input) => {
+      gsap.from(input, {
         xPercent: -10,
         opacity: 0,
         duration: 0.7,
         ease: "sine.in",
         scrollTrigger: {
-          trigger: footerCaption,
-          start: "top bottom",
-          scrub: 1.6,
-          end: () => footerCaption?.offsetHeight!,
+          trigger: input,
+          start: "bottom bottom",
+          end: () => "+=10%",
+          scrub: 1.2,
         },
       });
+    });
 
-      inputs.forEach((input) => {
-        gsap.from(input, {
-          xPercent: -10,
-          opacity: 0,
-          duration: 0.7,
-          ease: "sine.in",
-          scrollTrigger: {
-            trigger: input,
-            start: "bottom bottom",
-            end: () => "+=10%",
-            scrub: 1.2,
-          },
-        });
-      });
+    gsap.from(socialIcons, {
+      xPercent: -10,
+      opacity: 0,
+      duration: 0.7,
+      ease: "sine.in",
+      scrollTrigger: {
+        trigger: socialIcons,
+        start: "bottom bottom",
+        scrub: 1,
+        end: () => socialIcons?.offsetHeight!,
+      },
+    });
 
-      gsap.from(socialIcons, {
+    footerMenuItems.forEach((menu) => {
+      gsap.from(menu, {
         xPercent: -10,
         opacity: 0,
         duration: 0.7,
         ease: "sine.in",
+        stagger: 0.1,
         scrollTrigger: {
-          trigger: socialIcons,
+          trigger: menu,
           start: "bottom bottom",
-          scrub: 1,
-          end: () => socialIcons?.offsetHeight!,
-        },
-      });
-
-      footerMenuItems.forEach((menu) => {
-        gsap.from(menu, {
-          xPercent: -10,
-          opacity: 0,
-          duration: 0.7,
-          ease: "sine.in",
-          stagger: 0.1,
-          scrollTrigger: {
-            trigger: menu,
-            start: "bottom bottom",
-            end: () => "+=20%",
-            scrub: 1.2,
-          },
-        });
-      });
-
-      gsap.from(privacyPolicy, {
-        xPercent: -5,
-        opacity: 0,
-        duration: 0.7,
-        ease: "sine.in",
-        scrollTrigger: {
-          trigger: privacyPolicy,
-          start: "bottom bottom",
+          end: () => "+=20%",
           scrub: 1.2,
-          end: () => privacyPolicy?.offsetHeight!,
         },
       });
+    });
 
-      gsap.from(websiteContent, {
-        xPercent: -5,
-        opacity: 0,
-        duration: 0.7,
-        ease: "sine.in",
-        scrollTrigger: {
-          trigger: websiteContent,
-          start: "bottom bottom",
-          scrub: 1.2,
-          end: () => websiteContent?.offsetHeight!,
-        },
-      });
+    gsap.from(privacyPolicy, {
+      xPercent: -5,
+      opacity: 0,
+      duration: 0.7,
+      ease: "sine.in",
+      scrollTrigger: {
+        trigger: privacyPolicy,
+        start: "bottom bottom",
+        scrub: 1.2,
+        end: () => privacyPolicy?.offsetHeight!,
+      },
+    });
 
-      gsap.from(copyright, {
-        xPercent: -5,
-        opacity: 0,
-        duration: 0.7,
-        ease: "sine.in",
-        scrollTrigger: {
-          trigger: copyright,
-          start: "bottom bottom",
-          scrub: 1.2,
-          end: () => copyright?.offsetHeight!,
-        },
-      });
+    gsap.from(websiteContent, {
+      xPercent: -5,
+      opacity: 0,
+      duration: 0.7,
+      ease: "sine.in",
+      scrollTrigger: {
+        trigger: websiteContent,
+        start: "bottom bottom",
+        scrub: 1.2,
+        end: () => websiteContent?.offsetHeight!,
+      },
+    });
 
-      gsap.from(amblem, {
-        yPercent: 20,
-        opacity: 0,
-        duration: 0.7,
-        ease: "sine.in",
-        scrollTrigger: {
-          trigger: amblem,
-          start: "top bottom",
-          scrub: 1.2,
-          end: () => footerRef.current.offsetHeight,
-        },
-      });
-      /*=============================     FOOTER END     =============================*/
+    gsap.from(copyright, {
+      xPercent: -5,
+      opacity: 0,
+      duration: 0.7,
+      ease: "sine.in",
+      scrollTrigger: {
+        trigger: copyright,
+        start: "bottom bottom",
+        scrub: 1.2,
+        end: () => copyright?.offsetHeight!,
+      },
+    });
 
-      const onClickScrollTo = contextSafe!(() => {
-        bodyScrollBar.current.scrollIntoView(solutionsRef.current, {
-          offsetTop: -bodyScrollBar.current.containerEl.scrollTop,
-        });
-      });
+    gsap.from(amblem, {
+      yPercent: 20,
+      opacity: 0,
+      duration: 0.7,
+      ease: "sine.in",
+      scrollTrigger: {
+        trigger: amblem,
+        start: "top bottom",
+        scrub: 1.2,
+        end: () => footerRef.current.offsetHeight,
+      },
+    });
+    /*=============================     FOOTER END     =============================*/
+  });
 
-      scrollToBtnRef.current.addEventListener("click", onClickScrollTo);
+  useIsomorphicLayoutEffect(() => {
+    initSmoothScrolling();
+    scroll();
 
-      return () => {
-        scrollToBtnRef.current.removeEventListener("click", onClickScrollTo);
-      };
-    },
-    { scope: scrollContainerRef.current }
-  );
-
-  useIsomorphicLayoutEffect(
-    () => {
-      initSmoothScrolling();
-      // scroll();
-
-      return () => {
-        // context.kill();
-        // context.revert();
-        ScrollTrigger.killAll();
-      };
-    },
-    [
-      /* context, scroll */
-    ]
-  );
+    return () => {
+      context.kill();
+      context.revert();
+      ScrollTrigger.killAll();
+    };
+  }, [context, scroll]);
 
   return (
     <div ref={scrollContainerRef} className="relative h-screen w-full overflow-x-hidden">
@@ -559,7 +543,7 @@ export default function Home() {
       <div className="slider-ref relative z-10 w-full">
         <Slider />
         <button
-          ref={scrollToBtnRef}
+          onClick={onClickScrollTo}
           className="absolute z-20 hidden space-x-2 items-center bottom-56 right-24 xl:flex"
         >
           <span className="text-white text-lg">Scroll</span>
