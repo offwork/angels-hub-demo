@@ -82,6 +82,10 @@ const config: Config = {
         },
       },
       dropShadow: {
+        "3xl": [
+          "0 10px 30px rgba(0, 0, 0, 0.25)",
+          "0 25px 20px rgba(0, 0, 0, 0.25)",
+        ],
         "4xl": [
           "0 10px 35px rgba(0, 0, 0, 0.35)",
           "0 30px 25px rgba(0, 0, 0, 0.25)",

@@ -195,7 +195,7 @@ export default function Slide2({ slide }: { slide: number }) {
           "<"
         );
     },
-    { scope: slideRef, dependencies: [slide] }
+    { scope: slideRef.current, dependencies: [slide] }
   );
 
   return (

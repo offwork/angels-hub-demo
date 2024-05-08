@@ -1,7 +1,6 @@
 "use client";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
-import { SplitText } from "gsap/SplitText";
 import Image from "next/image";
 import { useCallback, useRef } from "react";
 import EVENT_PIC from "../../../public/images/event-pic.png";
@@ -16,7 +15,7 @@ type BannerControllerProps = {
   onNextSlide?: () => void;
 };
 
-gsap.registerPlugin(useGSAP, SplitText);
+gsap.registerPlugin(useGSAP);
 
 export default function BannerController({
   onNextSlide,
@@ -32,7 +31,7 @@ export default function BannerController({
   const isCtrlAnimating = useRef(false);
   const slideCtrl = useRef(0);
   const slidesCtrlTotal = useRef(0);
-  const { context, contextSafe } = useGSAP({ scope: controllerContentRef });
+  const { context, contextSafe } = useGSAP({ scope: controllerContentRef.current });
 
   const onNext = () => {
     if (typeof onNextSlide === "function") onNextSlide();
@@ -145,7 +144,7 @@ export default function BannerController({
           "<"
         );
     },
-    { scope: controllerRef }
+    { scope: controllerRef.current }
   );
 
 

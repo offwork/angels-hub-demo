@@ -103,7 +103,7 @@ export default function Providers() {
         mediaMatcher.kill();
       };
     },
-    { scope: containerRef }
+    { scope: containerRef.current }
   );
 
   return (

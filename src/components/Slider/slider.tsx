@@ -22,7 +22,7 @@ export default function Slider() {
   const isAnimating = useRef(false);
   const slide = useRef(0);
   const slidesTotal = useRef(0);
-  const { context, contextSafe } = useGSAP({ scope: sliderRef });
+  const { context, contextSafe } = useGSAP({ scope: sliderRef.current });
 
   const navigateSlider = contextSafe((direction: number) => {
     if (isAnimating.current) return false;
