@@ -263,7 +263,7 @@ export default function Supportsbook() {
   return (
     <div ref={scrollContainerRef} className="relative h-screen w-full overflow-x-hidden">
       <BrandLogo />
-      <div className="relative flex px-5 w-full h-[1000px] md:[960px] xl:h-[1200px] bg-angel-blue mix-blend-luminosity overflow-hidden">
+      <div className="relative flex px-5 w-full h-[1000px] xl:h-[1200px] bg-angel-blue mix-blend-luminosity overflow-hidden">
         <div className="absolute left-0 z-30 top-28 lg:top-16 xl:top-32 block mx-auto w-full">
           <div className="flex justify-center items-center">
             <span className="w-2.5 h-12 bg-angel-orange mr-8"></span>
