@@ -189,7 +189,7 @@ export default function Topnavs() {
               <div className="grid grid-flow-col gap-2 rounded-lg p-2 w-full bg-black">
                 <Link
                   href="/"
-                  className="min-h-11 text-white flex items-center justify-center text-sm text-nowrap space-x-2 border rounded-lg px-4 py-2"
+                  className="min-h-11 text-white flex items-center justify-center text-xs text-nowrap space-x-2 border rounded-lg px-2 py-2 sm:px-4 md:text-sm"
                 >
                   <span>Book a Demo</span>
                   <svg
@@ -221,7 +221,7 @@ export default function Topnavs() {
                 </Link>
                 <Link
                   href="/"
-                  className="text-nowrap text-angel-orange text-sm flex justify-center items-center bg-angel-blue rounded-lg px-4 py-2"
+                  className="text-nowrap text-angel-orange text-xs flex justify-center items-center bg-angel-blue rounded-lg px-2 py-2 sm:px-4 md:text-sm"
                 >
                   <span>Schedule a meeting</span>
                 </Link>
@@ -229,9 +229,9 @@ export default function Topnavs() {
             </div>
             <ul className="grid w-full grid-flow-row divide-y px-8 lg:px-20 pb-16 divide-white/50 text-nowrap text-white text-xl lg:text-3xl font-semibold">
               <li className="main-nav-item py-4 lg:py-6">
-                <Link href="/suportsbook" className="">
+                <a href="" className="">
                   Products
-                </Link>
+                </a>
               </li>
               <li className="main-nav-item py-4 lg:py-6">
                 <a href="" className="">
@@ -255,31 +255,31 @@ export default function Topnavs() {
               </li>
             </ul>
             <div className="grid gap-12 bg-[#0F0F0F] px-8 lg:px-20 py-12">
-              <div className="grid gap-9 place-self-start w-full md:justify-items-stretch md:grid-flow-col xl:gap-20">
-                <div className="grid gap-4 text-white md:justify-self-start">
-                  <a href="/" className="footer-menu font-bold text-xl">
+              <div className="flex items-baseline space-y-9 w-full flex-col md:justify-between md:flex-row xl:space-x-16">
+                <div className="grid gap-4 text-white">
+                  <span className="footer-menu font-bold text-xl place-self-auto">
                     Useful Links
-                  </a>
-                  <a href="/" className="footer-menu">
+                  </span>
+                  <a href="/" className="footer-menu place-self-auto">
                     Angel Investment
                   </a>
-                  <a href="/" className="footer-menu">
+                  <a href="/" className="footer-menu place-self-auto">
                     Events
                   </a>
-                  <a href="/" className="footer-menu">
+                  <a href="/" className="footer-menu place-self-auto">
                     Careers
                   </a>
-                  <a href="/" className="footer-menu">
+                  <a href="/" className="footer-menu place-self-auto">
                     Demo
                   </a>
-                  <a href="/" className="footer-menu">
+                  <a href="/" className="footer-menu place-self-auto">
                     Contact Us
                   </a>
                 </div>
-                <div className="grid gap-4 text-white md:justify-self-center">
-                  <a href="/" className="footer-menu font-bold text-xl">
+                <div className="grid gap-4 text-white">
+                  <span className="footer-menu font-bold text-xl">
                     Solutions
-                  </a>
+                  </span>
                   <a href="/" className="footer-menu">
                     White Label
                   </a>
@@ -293,24 +293,21 @@ export default function Topnavs() {
                     Angels Payments
                   </a>
                 </div>
-                <div className="grid gap-4 text-white md:justify-self-end">
-                  <a href="/" className="footer-menu font-bold text-xl">
+                <div className="grid gap-4 text-white">
+                  <span className="footer-menu font-bold text-xl">
                     Products
-                  </a>
-                  <a href="/" className="footer-menu">
+                  </span>
+                  <Link href="/suportsbook" className="footer-menu">
                     Sportsbook
-                  </a>
+                  </Link>
                   <Link href="/online-casino" className="footer-menu">
                     Online Casino
                   </Link>
-                  <a href="/" className="footer-menu">
+                  <Link href="/crypto-solutions" className="footer-menu">
                     Crypto Solutions
-                  </a>
+                  </Link>
                   <a href="/" className="footer-menu">
                     Affiliate and Agent System
-                  </a>
-                  <a href="/" className="footer-menu">
-                    CRM
                   </a>
                 </div>
               </div>

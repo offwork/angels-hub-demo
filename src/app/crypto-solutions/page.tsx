@@ -14,20 +14,21 @@ import Link from "next/link";
 import { useRef } from "react";
 import Scrollbar from "smooth-scrollbar";
 import WAVE from "../../../public/images/abstract-wave.png";
-import SUPPORTSBOOK_BIG_BALL from "../../../public/images/supports-big-black-ball.png";
-import SUPPORTSBOOK_BALL from "../../../public/images/supports-black-ball.png";
-import SUPPORTSBOOK_CASHBACK from "../../../public/images/supportsbook-cashback.png";
-import SUPPORTSBOOK_DEPOSIT from "../../../public/images/supportsbook-deposit.png";
-import SUPPORTSBOOK_FREEBET from "../../../public/images/supportsbook-freebet.png";
-import SUPPORTSBOOK_FREESPIN from "../../../public/images/supportsbook-freespin.png";
-import SUPPORTSBOOK_MAIN from "../../../public/images/supportsbook-main.png";
-import SUPPORTSBOOK_PLAYERS from "../../../public/images/supportsbook-players.png";
+import CRYPTO_SOLUTIONS_CURRENCY from "../../../public/images/crypto-solutions-currency.png";
+import CRYPTO_SOLUTIONS_MAIN_CHIPS from "../../../public/images/crypto-solutions-main-chips.png";
+import CRYPTO_SOLUTIONS_MAIN_SPIN from "../../../public/images/crypto-solutions-main-spin.png";
+import CRYPTO_SOLUTIONS_PLATFORM from "../../../public/images/crypto-solutions-platform.png";
+import CRYPTO_SOLUTIONS_INSTANT from "../../../public/images/crypto-sulionts-instant.svg";
+import CRYPTO_SOLUTIONS_POPULARITY from "../../../public/images/crypto-sulionts-popularity.png";
+import CRYPTO_SOLUTIONS_SECURITY from "../../../public/images/crypto-sulionts-security.svg";
+import CRYPTO_SOLUTIONS_UNLIMITED from "../../../public/images/crypto-sulionts-unlimited.svg";
+import CRYPTO_SOLUTIONS_VERIFICATION from "../../../public/images/crypto-sulionts-verification.svg";
 
 if (typeof window !== "undefined") {
   gsap.registerPlugin(useGSAP, ScrollTrigger);
 }
 
-export default function Supportsbook() {
+export default function CryptoSolutions() {
   const footerRef = useRef<HTMLDivElement>(null!);
   const hPinRef = useRef<HTMLDivElement>(null!);
   const productsRef = useRef<HTMLDivElement>(null!);
@@ -261,23 +262,21 @@ export default function Supportsbook() {
   return (
     <div ref={scrollContainerRef} className="relative h-screen w-full overflow-x-hidden">
       <BrandLogo />
-      <div className="relative flex px-5 w-full h-[1000px] xl:h-[1200px] bg-angel-blue mix-blend-luminosity overflow-hidden">
-        <div className="absolute left-0 z-30 top-28 lg:top-16 xl:top-40 block mx-auto w-full">
+      <div className="relative flex px-5 w-full h-[1000px] md:h-[820px] lg:h-[1050px] xl:h-[1200px] bg-angel-blue mix-blend-luminosity overflow-hidden">
+        <div className="absolute left-0 z-30 top-28 lg:top-16 xl:top-32 block mx-auto w-full">
           <div className="flex justify-center items-center">
             <span className="w-2.5 h-12 bg-angel-orange mr-8"></span>
-            <h1 className="text-white font-bold text-4xl xl:text-7xl">Supportsbook</h1>
+            <h1 className="text-white font-bold text-4xl xl:text-7xl">Crypto Solutions</h1>
           </div>
         </div>
-        <div className="relative container mx-auto top-64 z-30 lg:top-1/2 lg:-translate-y-1/2 w-full h-[670px] lg:w-[958px] lg:h-[597px] rounded-3xl bg-gradient-to-br from-angel-orange from-10% to-angel-blue-500 to-95% p-0.5 drop-shadow-2xl lg:drop-shadow-5xl">
+        <div className="relative container mx-auto top-64 z-30 lg:top-1/2 lg:-translate-y-1/2 w-full h-[670px] md:h-[480px] lg:w-[958px] lg:h-[597px] rounded-3xl bg-gradient-to-tr from-angel-orange from-10% to-angel-blue-500 to-95% p-0.5 drop-shadow-2xl lg:drop-shadow-5xl">
           <div className="flex bg-black w-full h-full rounded-3xl">
             <div className="relative z-10 text-center grid place-content-end gap-9 place-items-center mb-14">
-              <h2 className="text-3xl px-8 lg:text-4xl font-bold text-white lg:px-40">
-                Build your sports betting platform with AngelsHub.
+              <h2 className="text-2xl px-8 lg:text-4xl font-bold text-white lg:px-20 lg:leading-tight">
+                We are glad to introduce our Crypto Solutions that support all available
+                cryptocurrencies included Bitcoin, Ethereum, Litecoin, Dogecoin, Tether, Bitcoin
+                Cash, Ripple, Binance Coin, Cardano, TRON, and many more.
               </h2>
-              <p className="md:text-lg px-6 text-white/75 lg:px-32">
-                Due to the years of experience our team has in developing sportsbook software, we
-                can provide our clients with a complete sports betting solution and much more!
-              </p>
               <Link
                 href="/"
                 className="bg-angel-orange rounded-full max-w-fit px-11 py-4 text-white text-center"
@@ -287,188 +286,101 @@ export default function Supportsbook() {
             </div>
             <div className="absolute z-0 min-w-full h-full p-0.5">
               <Image
-                className="absolute z-0 left-1/2 -translate-x-1/2 translate-y-1/4 w-3/4 md:w-1/2 h-auto lg:w-[326px] lg:h-[305px]"
-                src={SUPPORTSBOOK_BALL}
-                alt="AngelsHub suportsbook ball"
-              />
-              <Image
-                className="absolute z-0 left-1/2 -translate-x-1/2 -translate-y-[14%] w-[90%] h-auto lg:w-[428px] lg:h-[534px]"
-                src={SUPPORTSBOOK_PLAYERS}
+                className="absolute z-0 left-1/2 -translate-x-1/2 -translate-y-[14%] w-3/5 md:w-1/2 h-auto"
+                src={CRYPTO_SOLUTIONS_CURRENCY}
                 alt="AngelsHub suportsbook players"
               />
-              <div className="absolute z-10 w-[90%] h-3/4 left-1/2 -translate-x-1/2 translate-y-1/4 bg-gradient-to-t from-black via-black via-35%"></div>
+              <div className="absolute z-10 w-[90%] h-1/2 left-1/2 -translate-x-1/2 md:h-3/4 lg:top-10 xl:top-14 bg-gradient-to-t from-black via-black via-35%"></div>
             </div>
           </div>
-        </div>
-        <div className="absolute flex w-full top-0 left-0 h-1/2 md:h-full md:-top-44 lg:-top-64 xl:top-0">
-          <Image
-            className="relative z-0 object-cover mix-blend-luminosity flex-grow"
-            src={SUPPORTSBOOK_MAIN}
-            alt="AngelsHub suportsbook"
-          />
-          <div className="absolute z-10 left-0 w-full h-1/2 bottom-0 lg:h-2/3 bg-gradient-to-t from-angel-blue via-angel-blue via-20% 3xl:h-1/2"></div>
         </div>
         <Image
           className="absolute w-full z-10 scale-125 mix-blend-lighten opacity-20 left-1/2 -translate-x-1/2 bottom-0 lg:bottom-10 xl:bottom-52"
           src={WAVE}
           alt="Products wave"
         />
-      </div>
-      <div className="relative w-full container text-center pb-28 pt-36 lg:pt-20 lg:text-left xl:pt-0">
-        <h2 className="text-4xl text-white mb-12 xl:text-7xl">Key Features</h2>
-        <div className="hidden lg:grid gap-7">
-          <div className="flex flex-row space-x-7">
-            <div className="flex-grow rounded-xl h-48 bg-angel-orange p-6">
-              <div className="grid h-full justify-items-stretch gap-4 max-w-64">
-                <h3 className="text-xl text-white min-h-16">Multi-currency and single wallet</h3>
-                <p className="text-sm text-white/75">
-                  Lorem ipsum dolor sit amet consectetur. Dolor sed diam.
-                </p>
-              </div>
-            </div>
-            <div className="flex-grow rounded-xl h-48 bg-angel-orange p-6">
-              <div className="grid h-full justify-items-stretch gap-4 max-w-64">
-                <h3 className="text-xl text-white min-h-16">Risk management tools</h3>
-                <p className="text-sm text-white/75">
-                  Lorem ipsum dolor sit amet consectetur. Dolor sed diam.
-                </p>
-              </div>
-            </div>
-            <div className="flex-grow rounded-xl h-48 bg-angel-orange p-6">
-              <div className="grid h-full justify-items-stretch gap-4 max-w-64">
-                <h3 className="text-xl text-white min-h-16">Mobile, web</h3>
-                <p className="text-sm text-white/75">
-                  Lorem ipsum dolor sit amet consectetur. Dolor sed diam.
-                </p>
-              </div>
-            </div>
-          </div>
-          <div className="flex flex-row space-x-7">
-            <div className="basis-3/5 rounded-xl h-52 bg-angel-orange p-6">
-              <div className="grid justify-items-stretch gap-4 max-w-72">
-                <h3 className="text-xl text-white min-h-[84px]">Customisable views</h3>
-                <p className="text-sm text-white/75">
-                  Lorem ipsum dolor sit amet consectetur. Dolor sed diam.
-                </p>
-              </div>
-            </div>
-            <div className="basis-2/5 rounded-xl h-52 bg-angel-orange p-6">
-              <div className="grid justify-items-stretch gap-4 max-w-72">
-                <h3 className="text-xl text-white min-h-[84px]">Cash-out</h3>
-                <p className="text-sm text-white/75">
-                  Lorem ipsum dolor sit amet consectetur. Dolor sed diam.
-                </p>
-              </div>
-            </div>
-          </div>
-          <div className="flex flex-row space-x-7">
-            <div className="flex-grow rounded-xl h-52 bg-angel-orange p-6">
-              <div className="grid justify-items-stretch gap-4 max-w-72">
-                <h3 className="text-xl text-white min-h-[84px]">
-                  Advanced Tagging system for personalized bonuses, content and much more
-                </h3>
-                <p className="text-sm text-white/75">
-                  Lorem ipsum dolor sit amet consectetur. Dolor sed diam.
-                </p>
-              </div>
-            </div>
-            <div className="flex-grow rounded-xl h-52 bg-angel-orange p-6">
-              <div className="grid justify-items-stretch gap-4 max-w-72">
-                <h3 className="text-xl text-white min-h-[84px]">
-                  Multiple feeds and ability to run more than one Sportsbook simultaneously
-                </h3>
-                <p className="text-sm text-white/75">
-                  Lorem ipsum dolor sit amet consectetur. Dolor sed diam.
-                </p>
-              </div>
-            </div>
+        <div className="absolute z-10 left-0 w-full h-[670px] lg:h-[597px]">
+          <div className="relative mx-auto xl:w-full 2xl:w-[1390px] h-full">
+            <Image
+              className="absolute object-cover mix-blend-luminosity h-auto w-80 top-32 -left-28 md:-left-24 md:w-96 lg:w-[600px] lg:top-24 xl:left-0 xl:top-60 3xl:-left-20 4xl:-left-28"
+              src={CRYPTO_SOLUTIONS_MAIN_SPIN}
+              alt="AngelsHub suportsbook"
+            />
+            <Image
+              className="absolute object-cover mix-blend-luminosity h-auto w-36 top-32 right-0 md:-right-9 md:w-44 lg:w-80 lg:top-24 xl:right-0 xl:top-60"
+              src={CRYPTO_SOLUTIONS_MAIN_CHIPS}
+              alt="AngelsHub suportsbook"
+            />
           </div>
         </div>
-        <ul className="lg:hidden list-disc list-outside text-left text-white xs:pl-3 sm:pl-0 md:px-16 grid divide-y divide-white/50">
-          <li className="text-xl py-8">Multi-currency and single wallet</li>
-          <li className="text-xl py-8">Risk management tools</li>
-          <li className="text-xl py-8">Mobile, web</li>
-          <li className="text-xl py-8">Customisable views</li>
-          <li className="text-xl py-8">Cash-out</li>
-          <li className="text-xl py-8">
-            Advanced Tagging system for personalized bonuses, content and much more
-          </li>
-          <li className="text-xl py-8">
-            Multiple feeds and ability to run more than one Sportsbook simultaneously
-          </li>
-        </ul>
+      </div>
+      <div className="relative w-full container grid gap-10 mx-auto overflow-hidden pt-28 pb-28 xl:pt-0 xl:gap-14">
+        <div className="grid grid-cols-1 place-content-center gap-28 sm:gap-96 md:gap-[480px] lg:grid-cols-2 lg:gap-14 xl:px-16">
+          <div className="ralative w-full min-h-80 lg:min-h-[440px]">
+            <Image
+              className="absolute object-cover object-center max-w-full h-auto -translate-x-6 lg:max-w-md xl:max-w-xl xl:-translate-x-16"
+              src={CRYPTO_SOLUTIONS_PLATFORM}
+              alt=""
+            />
+          </div>
+          <div className="ralative w-full place-self-center">
+            <p className="text-lg text-white/75">
+              Players in our Crypto Platform are at will to use cryptocurrencies to make deposits
+              and/ or withdrawals. They use cryptocurrencies to fund the games that they intend to
+              play at the casino of their choice. <br /> <br />
+              Providing customers anonymity and total control, among other things, digital
+              currencies are considered one of the safest forms. <br /> <br />
+              Crypto Platform has the same rules and terms like the regular casino. The only
+              difference is that with crypto platform a player is depositing and also winning
+              cryptocurrencies.
+            </p>
+          </div>
+        </div>
+        <div className="grid grid-cols-1 px-16 gap-5 sm:grid-cols-2 md:grid-cols-4 md:px-0 md:gap-3 lg:gap-5 xl:px-36">
+          <div className="relative w-full h-56 bg-angel-blue-500 rounded-xl flex flex-col p-5">
+            <h3 className="text-xl text-white">Instant Payouts</h3>
+            <Image className="ml-auto mt-auto" src={CRYPTO_SOLUTIONS_INSTANT} alt="" />
+          </div>
+          <div className="relative w-full h-56 bg-angel-blue-500 rounded-xl flex flex-col p-5">
+            <h3 className="text-xl text-white">Security of players&apos; funds and identities</h3>
+            <Image className="ml-auto mt-auto" src={CRYPTO_SOLUTIONS_SECURITY} alt="" />
+          </div>
+          <div className="relative w-full h-56 bg-angel-blue-500 rounded-xl flex flex-col p-5">
+            <h3 className="text-xl text-white">Unlimited free daily transactions</h3>
+            <Image className="ml-auto mt-auto" src={CRYPTO_SOLUTIONS_UNLIMITED} alt="" />
+          </div>
+          <div className="relative w-full h-56 bg-angel-blue-500 rounded-xl flex flex-col p-5">
+            <h3 className="text-xl text-white">No verification needed</h3>
+            <Image className="ml-auto mt-auto" src={CRYPTO_SOLUTIONS_VERIFICATION} alt="" />
+          </div>
+        </div>
       </div>
       <div className="relative container mx-auto w-full py-28">
         <div className="block w-full rounded-3xl bg-gradient-to-br from-angel-orange from-10% to-angel-blue-500 to-95% p-0.5 drop-shadow-2xl lg:drop-shadow-3xl">
-          <div className="relative grid gap-12 lg:gap-32 justify-items-center pt-9 pb-28 lg:pt-20 lg:pb-32 xl:pt-24 xl:pb-48 bg-black w-full h-full rounded-3xl overflow-hidden">
-            <div className="relative z-10 text-center grid place-content-start gap-9 place-items-center mb-14">
-              <h2 className="text-3xl px-8 lg:text-4xl font-bold text-white">
-                Sportsbook Gamification
+          <div className="relative grid gap-12 justify-items-center bg-black w-full h-full rounded-3xl overflow-hidden px-8 sm:px-16 pt-20 pb-9 md:px-10 lg:px-0 md:pt-24 md:pb-11">
+            <div className="relative z-10 text-center grid place-content-start gap-10 place-items-center">
+              <h2 className="text-2xl md:text-3xl lg:lg:text-3xl xl:text-4xl font-bold text-white">
+                Crypto Solution at AngelsHub <br /> Platform is always Stable and Secure
               </h2>
-              <p className="md:text-lg px-6 text-white/75 lg:max-w-3xl">
-                Advanced bonus engine to setup Sportsbook tournament & 4 types of automated bonuses
-                to target a specific audience effortlessly based on an abundance of filters & KPIs
-                through our sophisticated tagging system with the ability to enable cross product
-                bonus wagering as well as specific game setting for wager goals
+              <h3 className="text-2xl md:text-3xl lg:text-4xl text-white">
+                Popularity of crypto gambling raised in <br className="hidden md:block" /> year 2017 and 2018.
+              </h3>
+              <p className="text-base md:text-lg text-white/75 lg:max-w-3xl">
+                AngelsHub Platform offers to all customers cryptocurrency gaming, providing a fun,
+                quick and fair experience for the crypto gambling enthusiast. <br />
+                <br />
+                Our team permanently monitors, supports and exceed the expectations of our gamers.
+                We provide cryptocurrency-based casino that allows lightning-fast withdrawals
+                secured by the blockchain, anonymously and effortlessly.
               </p>
             </div>
-            <div className="relative mx-auto z-10 md:w-[90%] lg:w-[80%] grid gap-16 md:gap-3 lg:gap-6 grid-cols-1 md:grid-cols-2 xl:gap-10">
-              <div className="flex flex-row items-center space-x-2 px-2.5 md:px-0 xl:space-x-4">
-                <div className="flex-shrink relative bg-gray-800/60 w-32 h-28 rounded-xl">
-                  <Image
-                    className="absolute inset-0 m-auto w-2/4 h-auto"
-                    src={SUPPORTSBOOK_DEPOSIT}
-                    alt="AngelsHub suportsbook deposit"
-                  />
-                </div>
-                <div className="flex-1 grid gap-1">
-                  <p className="text-xs text-white/75 md:text-sm xl:text-base">
-                    Deposit Bonus (Strict & Regular) on both Sports & Casino
-                  </p>
-                </div>
-              </div>
-              <div className="flex flex-row items-center space-x-2 px-2.5 md:px-0 xl:space-x-4">
-                <div className="flex-shrink relative bg-gray-800/60 w-32 h-28 rounded-xl">
-                  <Image
-                    className="absolute inset-0 m-auto w-2/4 h-auto"
-                    src={SUPPORTSBOOK_FREESPIN}
-                    alt="AngelsHub suportsbook deposit"
-                  />
-                </div>
-                <div className="flex-1 grid gap-1">
-                  <p className="text-xs text-white/75 md:text-sm xl:text-base">Freespin</p>
-                </div>
-              </div>
-              <div className="flex flex-row items-center space-x-2 px-2.5 md:px-0 xl:space-x-4">
-                <div className="flex-shrink relative bg-gray-800/60 w-32 h-28 rounded-xl">
-                  <Image
-                    className="absolute inset-0 m-auto w-2/4 h-auto"
-                    src={SUPPORTSBOOK_FREEBET}
-                    alt="AngelsHub suportsbook deposit"
-                  />
-                </div>
-                <div className="flex-1 grid gap-1">
-                  <p className="text-xs text-white/75 md:text-sm xl:text-base">Freebet</p>
-                </div>
-              </div>
-              <div className="flex flex-row items-center space-x-2 px-2.5 md:px-0 xl:space-x-4">
-                <div className="flex-shrink relative bg-gray-800/60 w-32 h-28 rounded-xl">
-                  <Image
-                    className="absolute inset-0 m-auto w-2/4 h-auto"
-                    src={SUPPORTSBOOK_CASHBACK}
-                    alt="AngelsHub suportsbook deposit"
-                  />
-                </div>
-                <div className="flex-1 grid gap-1">
-                  <p className="text-xs text-white/75 md:text-sm xl:text-base">Cashback</p>
-                </div>
-              </div>
+            <div className="relative mx-auto w-10/12 sm:w-3/5 md:w-1/2 lg:w-2/5">
+              <Image
+                className="relative"
+                src={CRYPTO_SOLUTIONS_POPULARITY}
+                alt="AngelsHub suportsbook big ball"
+              />
             </div>
-            <Image
-              className="absolute opacity-40 z-0 left-1/2 -translate-x-1/2 w-3/4 -bottom-[10%] md:-bottom-1/4 xl:-bottom-[40%]"
-              src={SUPPORTSBOOK_BIG_BALL}
-              alt="AngelsHub suportsbook big ball"
-            />
           </div>
         </div>
       </div>
