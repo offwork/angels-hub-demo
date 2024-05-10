@@ -5,7 +5,7 @@ export default function BrandLogo() {
   return (
     <Link
       href="/"
-      className="cursor-pointer absolute container left-1/2 -translate-x-1/2 top-8 z-30"
+      className="cursor-pointer absolute ml-12 top-8 z-30"
     >
       <svg
         width="167"

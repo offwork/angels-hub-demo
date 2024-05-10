@@ -314,44 +314,47 @@ export default function CryptoSolutions() {
           </div>
         </div>
       </div>
-      <div className="relative w-full container grid gap-10 mx-auto overflow-hidden pt-28 pb-28 xl:pt-0 xl:gap-14">
-        <div className="grid grid-cols-1 place-content-center gap-28 sm:gap-96 md:gap-[480px] lg:grid-cols-2 lg:gap-14 xl:px-16">
-          <div className="ralative w-full min-h-80 lg:min-h-[440px]">
-            <Image
-              className="absolute object-cover object-center max-w-full h-auto -translate-x-6 lg:max-w-md xl:max-w-xl xl:-translate-x-16"
-              src={CRYPTO_SOLUTIONS_PLATFORM}
-              alt=""
-            />
+      <div className="relative w-full overflow-hidden pt-28 pb-28 xl:pt-0">
+        <AngelsHubSVG className="absolute z-0 w-[200%] h-auto -left-20 top-0 md:-top-28 lg:top-0 lg:left-0 lg:w-full" />
+        <div className="container grid gap-10 mx-auto xl:gap-14">
+          <div className="grid grid-cols-1 place-content-center gap-28 sm:gap-96 md:gap-[480px] lg:grid-cols-2 lg:gap-14 xl:px-16">
+            <div className="ralative w-full min-h-80 lg:min-h-[440px]">
+              <Image
+                className="absolute object-cover object-center max-w-full h-auto -translate-x-6 lg:max-w-md xl:max-w-xl xl:-translate-x-16"
+                src={CRYPTO_SOLUTIONS_PLATFORM}
+                alt=""
+              />
+            </div>
+            <div className="ralative w-full place-self-center">
+              <p className="text-lg text-white/75">
+                Players in our Crypto Platform are at will to use cryptocurrencies to make deposits
+                and/ or withdrawals. They use cryptocurrencies to fund the games that they intend to
+                play at the casino of their choice. <br /> <br />
+                Providing customers anonymity and total control, among other things, digital
+                currencies are considered one of the safest forms. <br /> <br />
+                Crypto Platform has the same rules and terms like the regular casino. The only
+                difference is that with crypto platform a player is depositing and also winning
+                cryptocurrencies.
+              </p>
+            </div>
           </div>
-          <div className="ralative w-full place-self-center">
-            <p className="text-lg text-white/75">
-              Players in our Crypto Platform are at will to use cryptocurrencies to make deposits
-              and/ or withdrawals. They use cryptocurrencies to fund the games that they intend to
-              play at the casino of their choice. <br /> <br />
-              Providing customers anonymity and total control, among other things, digital
-              currencies are considered one of the safest forms. <br /> <br />
-              Crypto Platform has the same rules and terms like the regular casino. The only
-              difference is that with crypto platform a player is depositing and also winning
-              cryptocurrencies.
-            </p>
-          </div>
-        </div>
-        <div className="grid grid-cols-1 px-16 gap-5 sm:grid-cols-2 md:grid-cols-4 md:px-0 md:gap-3 lg:gap-5 xl:px-36">
-          <div className="relative w-full h-56 bg-angel-blue-500 rounded-xl flex flex-col p-5">
-            <h3 className="text-xl text-white">Instant Payouts</h3>
-            <Image className="ml-auto mt-auto" src={CRYPTO_SOLUTIONS_INSTANT} alt="" />
-          </div>
-          <div className="relative w-full h-56 bg-angel-blue-500 rounded-xl flex flex-col p-5">
-            <h3 className="text-xl text-white">Security of players&apos; funds and identities</h3>
-            <Image className="ml-auto mt-auto" src={CRYPTO_SOLUTIONS_SECURITY} alt="" />
-          </div>
-          <div className="relative w-full h-56 bg-angel-blue-500 rounded-xl flex flex-col p-5">
-            <h3 className="text-xl text-white">Unlimited free daily transactions</h3>
-            <Image className="ml-auto mt-auto" src={CRYPTO_SOLUTIONS_UNLIMITED} alt="" />
-          </div>
-          <div className="relative w-full h-56 bg-angel-blue-500 rounded-xl flex flex-col p-5">
-            <h3 className="text-xl text-white">No verification needed</h3>
-            <Image className="ml-auto mt-auto" src={CRYPTO_SOLUTIONS_VERIFICATION} alt="" />
+          <div className="grid grid-cols-1 px-16 gap-5 sm:grid-cols-2 md:grid-cols-4 md:px-0 md:gap-3 lg:gap-5 xl:px-36">
+            <div className="relative w-full h-56 bg-angel-blue-500 rounded-xl flex flex-col p-5">
+              <h3 className="text-xl text-white">Instant Payouts</h3>
+              <Image className="ml-auto mt-auto" src={CRYPTO_SOLUTIONS_INSTANT} alt="" />
+            </div>
+            <div className="relative w-full h-56 bg-angel-blue-500 rounded-xl flex flex-col p-5">
+              <h3 className="text-xl text-white">Security of players&apos; funds and identities</h3>
+              <Image className="ml-auto mt-auto" src={CRYPTO_SOLUTIONS_SECURITY} alt="" />
+            </div>
+            <div className="relative w-full h-56 bg-angel-blue-500 rounded-xl flex flex-col p-5">
+              <h3 className="text-xl text-white">Unlimited free daily transactions</h3>
+              <Image className="ml-auto mt-auto" src={CRYPTO_SOLUTIONS_UNLIMITED} alt="" />
+            </div>
+            <div className="relative w-full h-56 bg-angel-blue-500 rounded-xl flex flex-col p-5">
+              <h3 className="text-xl text-white">No verification needed</h3>
+              <Image className="ml-auto mt-auto" src={CRYPTO_SOLUTIONS_VERIFICATION} alt="" />
+            </div>
           </div>
         </div>
       </div>

@@ -1,10 +1,10 @@
 "use client";
-import Link from "next/link";
-import gsap from "gsap";
+import { classNames } from "@/utils";
 import { useGSAP } from "@gsap/react";
+import gsap from "gsap";
+import Link from "next/link";
 import { useRef, useState } from "react";
 import SocailIcon from "./Team/ah-social-icon";
-import { classNames } from "@/utils";
 
 if (typeof window !== "undefined") {
   gsap.registerPlugin(useGSAP);
@@ -20,22 +20,17 @@ export default function Topnavs() {
 
   useGSAP(
     (context, contextSafe) => {
-      const hamburgerLines =
-        gsap.utils.toArray<HTMLSpanElement>(".hamburger-line");
-      const linkButtons =
-        wrapMenuRef.current.querySelector<HTMLAnchorElement>(".link-buttons");
-      const scheduleLink =
-        wrapMenuRef.current.querySelector<HTMLAnchorElement>(".schedule-link");
+      const hamburgerLines = gsap.utils.toArray<HTMLSpanElement>(".hamburger-line");
+      const linkButtons = wrapMenuRef.current.querySelector<HTMLAnchorElement>(".link-buttons");
+      const scheduleLink = wrapMenuRef.current.querySelector<HTMLAnchorElement>(".schedule-link");
       const hamburgerWraper =
-        wrapMenuRef.current.querySelector<HTMLAnchorElement>(
-          ".hamburger-wraper"
-        );
+        wrapMenuRef.current.querySelector<HTMLAnchorElement>(".hamburger-wraper");
       const mobileLinkButtons =
-        wrapMenuRef.current.querySelector<HTMLDivElement>(
-          ".mobile-link-buttons"
-        );
-      const menuItems =
-        menuContainRef.current.querySelectorAll(".main-nav-item");
+        wrapMenuRef.current.querySelector<HTMLDivElement>(".mobile-link-buttons");
+      const menuItems = menuContainRef.current.querySelectorAll(".main-nav-item");
+      const accordionGroups = gsap.utils.toArray<HTMLDivElement>(".accordion-group");
+      const accordionMenus = gsap.utils.toArray<HTMLDivElement>(".accordion-menu");
+      const menuToggles = accordionGroups.map(createAnimation);
       hamburgerTl.current = gsap.timeline({ paused: true });
 
       hamburgerTl.current
@@ -108,15 +103,45 @@ export default function Topnavs() {
       const clickOnHamburger = contextSafe!(() => {
         if (isOpen.current) {
           hamburgerTl.current.play();
-          setBackdrop(true)
+          setBackdrop(true);
         } else {
           hamburgerTl.current.reverse();
           isOpen.current = true;
-          setBackdrop(false)
+          setBackdrop(false);
         }
       });
 
       btnRef.current.addEventListener("click", clickOnHamburger);
+
+
+      accordionMenus.forEach((menu) => {
+        menu.addEventListener("click", (evt: MouseEvent) => {
+          toggleMenu(menu)
+          evt.stopPropagation();
+        });
+      });
+      
+      function toggleMenu(clickedMenu: HTMLDivElement) {    
+        menuToggles.forEach(toggleFn => toggleFn(clickedMenu))
+      }
+
+      function createAnimation(element: HTMLDivElement) {
+        const menu = element.querySelector(".accordion-menu");
+        const box  = element.querySelector(".accordion-content");
+        gsap.set(box, { height: "auto" });
+
+        const accordionTl = gsap.timeline({ paused: true });
+
+        accordionTl.from(box, { height: 0, duration: 0.7, ease: "back.in" }).reverse();
+        
+        return function(clickedMenu: HTMLDivElement) {
+          if (clickedMenu === menu) {
+            accordionTl.reversed(!accordionTl.reversed());
+          } else {
+            accordionTl.reverse();
+          }
+        }
+      }
 
       return () => {
         btnRef.current.removeEventListener("click", clickOnHamburger);
@@ -155,12 +180,7 @@ export default function Topnavs() {
                 </g>
                 <defs>
                   <clipPath id="clip0_697_1585">
-                    <rect
-                      width="16"
-                      height="13"
-                      fill="white"
-                      transform="translate(0 0.299805)"
-                    />
+                    <rect width="16" height="13" fill="white" transform="translate(0 0.299805)" />
                   </clipPath>
                 </defs>
               </svg>
@@ -185,76 +205,111 @@ export default function Topnavs() {
           className="absolute hidden z-0 overflow-hidden top-0 -right-8 lg:-right-16 min-w-max lg:min-w-[890px]"
         >
           <div className="menu-contain bg-angel-orange pt-28 lg:pt-36 w-screen lg:w-full h-full overflow-y-scroll">
-            <div className="relative block mobile-link-buttons z-10 right-0 px-8 mb-10 lg:px-20 lg:hidden">
-              <div className="grid grid-flow-col gap-2 rounded-lg p-2 w-full bg-black">
-                <Link
-                  href="/"
-                  className="min-h-11 text-white flex items-center justify-center text-xs text-nowrap space-x-2 border rounded-lg px-2 py-2 sm:px-4 md:text-sm"
-                >
-                  <span>Book a Demo</span>
-                  <svg
-                    className="motion-safe:animate-pulse"
-                    width="16"
-                    height="14"
-                    viewBox="0 0 16 14"
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <g id="svg" clipPath="url(#clip0_697_1585)">
-                      <path
-                        id="Vector"
-                        d="M15.5966 7.07958C15.596 6.95827 15.5709 6.83834 15.5228 6.72698C15.4747 6.61562 15.4046 6.51514 15.3166 6.43158L10.1816 1.29858C9.97964 1.10358 9.76964 1.01758 9.54964 1.01758C9.04964 1.01758 8.69064 1.36858 8.69064 1.84558C8.69064 2.09558 8.79264 2.30558 8.94864 2.46258L10.7066 4.24358L12.9716 6.31358L11.1596 6.20458H1.68964C1.16664 6.20458 0.806641 6.56458 0.806641 7.07958C0.806641 7.58758 1.16664 7.94658 1.68964 7.94658H11.1586L12.9706 7.83758L10.7056 9.90758L8.94764 11.6896C8.86561 11.77 8.80052 11.866 8.75621 11.972C8.7119 12.0779 8.68926 12.1917 8.68964 12.3066C8.68964 12.7826 9.04964 13.1346 9.54964 13.1346C9.78239 13.131 10.0043 13.0354 10.1666 12.8686L15.3146 7.72058C15.402 7.63817 15.4719 7.53905 15.5201 7.42911C15.5684 7.31917 15.5941 7.20064 15.5956 7.08058L15.5966 7.07958Z"
-                        fill="white"
-                      />
-                    </g>
-                    <defs>
-                      <clipPath id="clip0_697_1585">
-                        <rect
-                          width="16"
-                          height="13"
-                          fill="white"
-                          transform="translate(0 0.299805)"
-                        />
-                      </clipPath>
-                    </defs>
-                  </svg>
-                </Link>
-                <Link
-                  href="/"
-                  className="text-nowrap text-angel-orange text-xs flex justify-center items-center bg-angel-blue rounded-lg px-2 py-2 sm:px-4 md:text-sm"
-                >
-                  <span>Schedule a meeting</span>
-                </Link>
-              </div>
-            </div>
-            <ul className="grid w-full grid-flow-row divide-y px-8 lg:px-20 pb-16 divide-white/50 text-nowrap text-white text-xl lg:text-3xl font-semibold">
-              <li className="main-nav-item py-4 lg:py-6">
-                <a href="" className="">
-                  Products
-                </a>
+            <ul className="grid w-full grid-flow-row divide-y px-10 md:px-20 pb-16 divide-white/50 text-nowrap text-white text-xl lg:text-3xl font-semibold">
+              <li className="accordion-group cursor-pointer main-nav-item py-4 select-none lg:py-6">
+                <div className="accordion-menu flex items-center space-x-3">
+                  <span className="-ml-5">+</span>
+                  <span>Products</span>
+                </div>
+                <div className="accordion-content pl-5 grid gap-6 text-lg text-white h-0 overflow-hidden">
+                  <Link href="/suportsbook" className="footer-menu pt-5">
+                    Sportsbook
+                  </Link>
+                  <Link href="/online-casino" className="footer-menu">
+                    Online Casino
+                  </Link>
+                  <Link href="/crypto-solutions" className="footer-menu">
+                    Crypto Solutions
+                  </Link>
+                  <Link href="/affiliate-agent-system" className="footer-menu pb-2">
+                    Affiliate and Agent System
+                  </Link>
+                </div>
               </li>
-              <li className="main-nav-item py-4 lg:py-6">
-                <a href="" className="">
-                  Solutions
-                </a>
+              <li className="accordion-group cursor-pointer main-nav-item py-4 select-none lg:py-6">
+                <div className="accordion-menu flex items-center space-x-3">
+                  <span className="-ml-5">+</span>
+                  <span>Solutions</span>
+                </div>
+                <div className="accordion-content pl-5 grid gap-6 text-lg text-white h-0 overflow-hidden">
+                  <a href="/" className="footer-menu pt-5">
+                    White Label
+                  </a>
+                  <a href="/" className="footer-menu">
+                    Turnkey System
+                  </a>
+                  <a href="/" className="footer-menu">
+                    Managed Services
+                  </a>
+                  <a href="/" className="footer-menu pb-2">
+                    Angels Payments
+                  </a>
+                </div>
               </li>
-              <li className="main-nav-item py-4 lg:py-6">
-                <a href="" className="">
-                  Angel Investment
-                </a>
+              <li className="cursor-pointer main-nav-item py-4 select-none lg:py-6">
+                <div className="flex items-center space-x-3">
+                  <span>Angel Investment</span>
+                </div>
               </li>
-              <li className="main-nav-item py-4 lg:py-6">
-                <a href="" className="">
-                  About Us
-                </a>
+              <li className="cursor-pointer main-nav-item py-4 select-none lg:py-6">
+                <div className="flex items-center space-x-3">
+                  <span className="-ml-5">+</span>
+                  <span>About Us</span>
+                </div>
               </li>
-              <li className="main-nav-item py-4 lg:py-6">
-                <a href="" className="">
-                  Contact Us
-                </a>
+              <li className="cursor-pointer main-nav-item py-4 select-none lg:py-6">
+                <div className="flex items-center space-x-3">
+                  <span>Contact Us</span>
+                </div>
+              </li>
+              <li className="accordion-group cursor-pointer main-nav-item py-4 select-none lg:py-6 lg:hidden">
+                <div className="accordion-menu flex items-center space-x-3">
+                  <span className="-ml-5">+</span>
+                  <span>Useful Links</span>
+                </div>
+                <div className="accordion-content pl-5 grid gap-6 text-lg text-white h-0 overflow-hidden">
+                  <a href="/" className="footer-menu pt-5">
+                    Events
+                  </a>
+                  <a href="/" className="footer-menu">
+                    Careers
+                  </a>
+                  <a href="/" className="footer-menu pb-2">
+                    Demo
+                  </a>
+                </div>
               </li>
             </ul>
-            <div className="grid gap-12 bg-[#0F0F0F] px-8 lg:px-20 py-12">
+            <div className="flex mx-auto items-center justify-center flex-col space-y-8 max-w-80 sm:max-w-md lg:hidden">
+              <Link
+                href="/"
+                className="bg-white text-angel-orange rounded-full px-11 py-4 text-center w-full"
+              >
+                <span className="uppercase">BOOK A MEETING</span>
+              </Link>
+              <Link
+                href="/"
+                className="bg-black rounded-full px-11 py-4 text-white text-center w-full"
+              >
+                <span className="uppercase">Schedule a meeting</span>
+              </Link>
+              <div className="social-icons flex flex-col items-center gap-6 md:flex-row">
+                <div className="grid grid-flow-col gap-3">
+                  <SocailIcon name="linkedin" bg="bg-angel-orange" />
+                  <SocailIcon name="instegram" bg="bg-angel-orange" />
+                  <SocailIcon name="twitter" bg="bg-angel-orange" />
+                </div>
+                <a
+                  href="mailto:info@angelshub.com"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-white hover:underline"
+                >
+                  info@angelshub.com
+                </a>
+              </div>
+            </div>
+            <div className="hidden gap-12 bg-[#0F0F0F] px-20 py-12 lg:grid">
               <div className="flex items-baseline space-y-9 w-full flex-col md:justify-between md:flex-row xl:space-x-16">
                 <div className="grid gap-4 text-white">
                   <span className="footer-menu font-bold text-xl place-self-auto">
@@ -277,9 +332,7 @@ export default function Topnavs() {
                   </a>
                 </div>
                 <div className="grid gap-4 text-white">
-                  <span className="footer-menu font-bold text-xl">
-                    Solutions
-                  </span>
+                  <span className="footer-menu font-bold text-xl">Solutions</span>
                   <a href="/" className="footer-menu">
                     White Label
                   </a>
@@ -294,9 +347,7 @@ export default function Topnavs() {
                   </a>
                 </div>
                 <div className="grid gap-4 text-white">
-                  <span className="footer-menu font-bold text-xl">
-                    Products
-                  </span>
+                  <span className="footer-menu font-bold text-xl">Products</span>
                   <Link href="/suportsbook" className="footer-menu">
                     Sportsbook
                   </Link>
@@ -306,9 +357,9 @@ export default function Topnavs() {
                   <Link href="/crypto-solutions" className="footer-menu">
                     Crypto Solutions
                   </Link>
-                  <a href="/" className="footer-menu">
+                  <Link href="/affiliate-agent-system" className="footer-menu">
                     Affiliate and Agent System
-                  </a>
+                  </Link>
                 </div>
               </div>
               <div className="bg-[#2E2E2E] flex justify-center items-center rounded-3xl w-full h-80">
@@ -319,10 +370,7 @@ export default function Topnavs() {
                   fill="none"
                   xmlns="http://www.w3.org/2000/svg"
                 >
-                  <path
-                    d="M27 16.5L0.749998 32.5215L0.75 0.47853L27 16.5Z"
-                    fill="#D9D9D9"
-                  />
+                  <path d="M27 16.5L0.749998 32.5215L0.75 0.47853L27 16.5Z" fill="#D9D9D9" />
                 </svg>
               </div>
               <div className="social-icons flex flex-col items-center gap-6 md:flex-row">
@@ -344,10 +392,12 @@ export default function Topnavs() {
           </div>
         </div>
       </div>
-      <div className={classNames(
-        backdrop ? "flex": "hidden",
-        "fixed z-30 top-0 left-0 bottom-0 right-0 inset-0 w-full h-full opacity-30 bg-black"
-      )}></div>
+      <div
+        className={classNames(
+          backdrop ? "flex" : "hidden",
+          "fixed z-30 top-0 left-0 bottom-0 right-0 inset-0 w-full h-full opacity-30 bg-black"
+        )}
+      ></div>
     </>
   );
 }
