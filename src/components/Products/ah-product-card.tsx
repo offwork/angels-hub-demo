@@ -1,5 +1,9 @@
-"use client"
+"use client";
+import { useGSAP } from "@gsap/react";
+import gsap from "gsap";
 import Image from "next/image";
+import Link from "next/link";
+import { useRef } from "react";
 
 export default function ProductCard({
   title,
@@ -10,18 +14,58 @@ export default function ProductCard({
   description: string;
   image: string;
 }) {
+  const linkRef = useRef<HTMLAnchorElement>(null!);
+  const arrowRef = useRef<SVGSVGElement>(null!);
+
+  useGSAP((context, contextSafe) => {
+    gsap.set(arrowRef.current, { opacity: 0.75 });
+    const hoverTL = gsap.timeline({ paused: true });
+    hoverTL
+      .to(arrowRef.current, {
+        keyframes: {
+          '0%': { transform: 'translateX(0)', opacity: 0.75 },
+          '50%': { transform: 'translateX(50%)', opacity: 1 },
+          '100%': { transform: 'translateX(0)', opacity: 0.75 },
+          easeEach: "none"
+        },
+        duration: 0.8,
+        repeat: -1,
+        yoyo: true,
+      })
+      .reverse();
+
+    const onEnter = contextSafe!((evt: MouseEvent) => {
+      hoverTL.reversed(false);
+    });
+
+    const onLeave = contextSafe!((evt: MouseEvent) => {
+      hoverTL.reversed(true).progress(0).revert();
+    });
+
+    linkRef.current.addEventListener("mouseenter", onEnter);
+    linkRef.current.addEventListener("mouseleave", onLeave);
+
+    return () => {
+      linkRef.current.removeEventListener("mouseenter", onEnter);
+      linkRef.current.removeEventListener("mouseleave", onLeave);
+    };
+  });
+
   return (
     <div className="horizontal-item snap-always snap-center relative bg-black py-10 drop-shadow-4xl xl:py-14 md:max-w-xl lg:max-w-2xl xl:min-w-[818px] xl:h-[412px] rounded-[30px]">
       <div className="flex items-baseline mb-10 mt-8 xl:mb-11 xl:mt-0">
         <span className="w-2.5 h-12 bg-angel-orange-500 mr-8"></span>
-        <h3 className="text-white font-bold text-4xl xl:text-5xl xl:max-w-lg xl:leading-tight">{title}</h3>
+        <h3 className="text-white font-bold text-4xl xl:text-5xl xl:max-w-lg xl:leading-tight">
+          {title}
+        </h3>
       </div>
       <div className="grid gap-10 text-white px-11 xl:px-0 xl:gap-11 xl:ml-11 xl:max-w-[472px]">
         <p className="font-medium text-base xl:max-w-md">{description}</p>
-        <a href="#" className="flex items-center text-sm">
+        <Link ref={linkRef} href="/" className="flex items-center  space-x-2 text-sm">
           <span>Learn More</span>
           <svg
-            className="motion-safe:animate-pulse ml-2"
+            className="relative"
+            ref={arrowRef}
             width="16"
             height="14"
             viewBox="0 0 16 14"
@@ -37,16 +81,11 @@ export default function ProductCard({
             </g>
             <defs>
               <clipPath id="clip0_697_1585">
-                <rect
-                  width="16"
-                  height="13"
-                  fill="white"
-                  transform="translate(0 0.299805)"
-                />
+                <rect width="16" height="13" fill="white" transform="translate(0 0.299805)" />
               </clipPath>
             </defs>
           </svg>
-        </a>
+        </Link>
       </div>
       <Image
         className="absolute object-contain object-center w-28 h-28 top-0 -translate-y-1/2 left-1/2 -translate-x-1/2 xl:hidden"
