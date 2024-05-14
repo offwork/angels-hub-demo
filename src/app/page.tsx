@@ -8,6 +8,7 @@ import Slider from "@/components/Slider/slider";
 import CircleBtn from "@/components/Solutions/ah-circle-btn";
 import Team from "@/components/Team/ah-team";
 import BrandLogo from "@/components/ah-brand-logo";
+import ButtonFill from "@/components/ui/ah-button-fill";
 import { PRODUCTS } from "@/constant";
 import { useIsomorphicLayoutEffect } from "@/utils";
 import { useGSAP } from "@gsap/react";
@@ -281,7 +282,7 @@ export default function Home() {
       },
     });
 
-    gsap.from(platformRef.current.querySelector(".bg-angel-blue"), {
+    gsap.from(platformRef.current.querySelector(".platform-btn"), {
       xPercent: -20,
       opacity: 0,
       duration: 0.7,
@@ -676,12 +677,9 @@ export default function Home() {
           ))}
         </div>
         <div className="container w-full flex justify-center lg:justify-end">
-          <a
-            href="#"
-            className="relative bg-angel-blue rounded-full border border-white px-10 py-7 drop-shadow-xl lg:px-20"
-          >
-            <span className="text-sm text-white uppercase">Get good service from experts</span>
-          </a>
+          <div className="platform-btn flex">
+            <ButtonFill bg="bg-angel-blue" size="large" href={"/"} label={"Get good service from experts"} />
+          </div>
         </div>
       </div>
 

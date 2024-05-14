@@ -4,13 +4,13 @@ import Providers from "@/components/Layout/ah-providers";
 import ProductCard from "@/components/Products/ah-product-card";
 import AngelsHubSVG from "@/components/Products/ah-svg";
 import BrandLogo from "@/components/ah-brand-logo";
+import ButtonFill from "@/components/ui/ah-button-fill";
 import { PRODUCTS } from "@/constant";
 import { useIsomorphicLayoutEffect } from "@/utils";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/dist/ScrollTrigger";
 import Image from "next/image";
-import Link from "next/link";
 import { useRef } from "react";
 import Scrollbar from "smooth-scrollbar";
 import WAVE from "../../../public/images/abstract-wave.png";
@@ -281,12 +281,7 @@ export default function Supportsbook() {
                 The aggregator offers a full suite of tools and features for successfully operating
                 and maintaining an online casino website.
               </p>
-              <Link
-                href="/"
-                className="bg-angel-orange rounded-full max-w-fit px-11 py-4 text-white text-center"
-              >
-                <span className="">BOOK A MEETING</span>
-              </Link>
+              <ButtonFill bg="bg-angel-orange" size="medium" href={"/"} label={"BOOK A MEETING"} />
             </div>
             <div className="absolute z-0 min-w-full h-full p-0.5">
               <svg
