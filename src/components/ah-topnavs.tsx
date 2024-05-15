@@ -5,6 +5,7 @@ import gsap from "gsap";
 import Link from "next/link";
 import { useRef, useState } from "react";
 import SocailIcon from "./Team/ah-social-icon";
+import AHLink from "./ui/ah-link";
 
 if (typeof window !== "undefined") {
   gsap.registerPlugin(useGSAP);
@@ -12,26 +13,59 @@ if (typeof window !== "undefined") {
 
 export default function Topnavs() {
   const [backdrop, setBackdrop] = useState(false);
+  const [fill, setFill] = useState("#FFFFFF");
   const isOpen = useRef<boolean>(true);
   const wrapMenuRef = useRef<HTMLDivElement>(null!);
   const btnRef = useRef<HTMLButtonElement>(null!);
   const menuContainRef = useRef<HTMLDivElement>(null!);
+  const bookDemoRef = useRef<HTMLAnchorElement>(null!);
+  const arrowRef = useRef<SVGSVGElement>(null!);
   const hamburgerTl = useRef<GSAPTimeline>(null!);
+  const hoverTL = useRef<GSAPTimeline>(null!);
 
   useGSAP(
     (context, contextSafe) => {
       const hamburgerLines = gsap.utils.toArray<HTMLSpanElement>(".hamburger-line");
-      const linkButtons = wrapMenuRef.current.querySelector<HTMLAnchorElement>(".link-buttons");
-      const scheduleLink = wrapMenuRef.current.querySelector<HTMLAnchorElement>(".schedule-link");
+      const linkButtons = wrapMenuRef.current.querySelector<HTMLAnchorElement>(".link-buttons")!;
+      const scheduleLink = wrapMenuRef.current.querySelector<HTMLAnchorElement>(".schedule-link")!;
       const hamburgerWraper =
-        wrapMenuRef.current.querySelector<HTMLAnchorElement>(".hamburger-wraper");
+        wrapMenuRef.current.querySelector<HTMLAnchorElement>(".hamburger-wraper")!;
       const mobileLinkButtons =
-        wrapMenuRef.current.querySelector<HTMLDivElement>(".mobile-link-buttons");
-      const menuItems = menuContainRef.current.querySelectorAll(".main-nav-item");
+        wrapMenuRef.current?.querySelector<HTMLDivElement>(".mobile-link-buttons")!;
+      const menuItems = menuContainRef.current.querySelectorAll(".main-nav-item")!;
       const accordionGroups = gsap.utils.toArray<HTMLDivElement>(".accordion-group");
       const accordionMenus = gsap.utils.toArray<HTMLDivElement>(".accordion-menu");
       const menuToggles = accordionGroups.map(createAnimation);
       hamburgerTl.current = gsap.timeline({ paused: true });
+      hoverTL.current = gsap.timeline({ paused: true });
+      gsap.set(arrowRef.current, { opacity: 0.75 });
+
+      hoverTL.current
+        .to(arrowRef.current, {
+          keyframes: {
+            "0%": { transform: "translateX(0)", opacity: 0.75 },
+            "50%": { transform: "translateX(50%)", opacity: 1 },
+            "100%": { transform: "translateX(0)", opacity: 0.75 },
+            easeEach: "none",
+          },
+          duration: 0.8,
+          repeat: -1,
+          yoyo: true,
+        })
+        .reverse();
+
+      const onEnter = contextSafe!((evt: MouseEvent) => {
+        setFill("#fe5f00");
+        hoverTL.current.reversed(false);
+      });
+
+      const onLeave = contextSafe!((evt: MouseEvent) => {
+        setFill("#FFFFFF");
+        hoverTL.current.reversed(true).progress(0).revert();
+      });
+
+      bookDemoRef.current.addEventListener("mouseenter", onEnter);
+      bookDemoRef.current.addEventListener("mouseleave", onLeave);
 
       hamburgerTl.current
         .set(scheduleLink, { display: "inline-block", width: 0, autoAlpha: 0 })
@@ -113,38 +147,45 @@ export default function Topnavs() {
 
       btnRef.current.addEventListener("click", clickOnHamburger);
 
-
       accordionMenus.forEach((menu) => {
         menu.addEventListener("click", (evt: MouseEvent) => {
-          toggleMenu(menu)
+          toggleMenu(menu);
           evt.stopPropagation();
         });
       });
-      
-      function toggleMenu(clickedMenu: HTMLDivElement) {    
-        menuToggles.forEach(toggleFn => toggleFn(clickedMenu))
+
+      function toggleMenu(clickedMenu: HTMLDivElement) {
+        menuToggles.forEach((toggleFn) => toggleFn(clickedMenu));
       }
 
       function createAnimation(element: HTMLDivElement) {
         const menu = element.querySelector(".accordion-menu");
-        const box  = element.querySelector(".accordion-content");
-        gsap.set(box, { height: "auto" });
+        const box = element.querySelector(".accordion-content");
+        const plus = element.querySelector(".font-light");
+
+        gsap.set(box, { height: "auto", paddingBottom: 8, paddingTop: 20 });
+        gsap.set(plus, { rotate: 45, transformOrigin: "50% 50%" });
 
         const accordionTl = gsap.timeline({ paused: true });
 
-        accordionTl.from(box, { height: 0, duration: 0.7, ease: "back.in" }).reverse();
-        
-        return function(clickedMenu: HTMLDivElement) {
+        accordionTl
+          .from(plus, { rotate: 0, ease: "sine.in", duration: 0.5 })
+          .from(box, { height: 0, paddingBottom: 0, paddingTop: 0 , duration: 0.7, ease: "back.in" }, "<")
+          .reverse();
+
+        return function (clickedMenu: HTMLDivElement) {
           if (clickedMenu === menu) {
             accordionTl.reversed(!accordionTl.reversed());
           } else {
             accordionTl.reverse();
           }
-        }
+        };
       }
 
       return () => {
         btnRef.current.removeEventListener("click", clickOnHamburger);
+        bookDemoRef.current.removeEventListener("mouseenter", onEnter);
+        bookDemoRef.current.removeEventListener("mouseleave", onLeave);
       };
     },
     { scope: wrapMenuRef.current }
@@ -158,13 +199,14 @@ export default function Topnavs() {
       >
         <div className="relative hidden link-buttons z-10 lg:inline-block rounded-lg py-2 pl-2 lg:pr-[59px] lg:-mr-[59px] bg-black">
           <Link
+            ref={bookDemoRef}
             href="/"
-            className="demo-link inline-block min-h-11 text-white space-x-2 border rounded-lg px-4 py-2"
+            className="demo-link inline-block min-h-11 text-white space-x-2 border rounded-lg px-4 py-2 hover:text-angel-orange"
           >
             <div className="flex items-center space-x-2 text-nowrap">
               <span>Book a Demo</span>
               <svg
-                className="motion-safe:animate-pulse"
+                ref={arrowRef}
                 width="16"
                 height="14"
                 viewBox="0 0 16 14"
@@ -175,12 +217,12 @@ export default function Topnavs() {
                   <path
                     id="Vector"
                     d="M15.5966 7.07958C15.596 6.95827 15.5709 6.83834 15.5228 6.72698C15.4747 6.61562 15.4046 6.51514 15.3166 6.43158L10.1816 1.29858C9.97964 1.10358 9.76964 1.01758 9.54964 1.01758C9.04964 1.01758 8.69064 1.36858 8.69064 1.84558C8.69064 2.09558 8.79264 2.30558 8.94864 2.46258L10.7066 4.24358L12.9716 6.31358L11.1596 6.20458H1.68964C1.16664 6.20458 0.806641 6.56458 0.806641 7.07958C0.806641 7.58758 1.16664 7.94658 1.68964 7.94658H11.1586L12.9706 7.83758L10.7056 9.90758L8.94764 11.6896C8.86561 11.77 8.80052 11.866 8.75621 11.972C8.7119 12.0779 8.68926 12.1917 8.68964 12.3066C8.68964 12.7826 9.04964 13.1346 9.54964 13.1346C9.78239 13.131 10.0043 13.0354 10.1666 12.8686L15.3146 7.72058C15.402 7.63817 15.4719 7.53905 15.5201 7.42911C15.5684 7.31917 15.5941 7.20064 15.5956 7.08058L15.5966 7.07958Z"
-                    fill="white"
+                    fill={fill}
                   />
                 </g>
                 <defs>
                   <clipPath id="clip0_697_1585">
-                    <rect width="16" height="13" fill="white" transform="translate(0 0.299805)" />
+                    <rect width="16" height="13" fill={fill} transform="translate(0 0.299805)" />
                   </clipPath>
                 </defs>
               </svg>
@@ -188,7 +230,7 @@ export default function Topnavs() {
           </Link>
           <Link
             href="/"
-            className="schedule-link text-nowrap hidden text-angel-orange ml-4 bg-angel-blue rounded-lg px-4 py-2"
+            className="schedule-link text-nowrap hidden text-angel-orange ml-4 bg-angel-blue rounded-lg px-4 py-2 hover:text-white"
           >
             <span>Schedule a meeting</span>
           </Link>
@@ -207,41 +249,61 @@ export default function Topnavs() {
           <div className="menu-contain bg-angel-orange pt-28 lg:pt-36 w-screen lg:w-full h-full overflow-y-scroll">
             <ul className="grid w-full grid-flow-row divide-y px-10 md:px-20 pb-16 divide-white/50 text-nowrap text-white text-xl lg:text-3xl font-semibold">
               <li className="accordion-group cursor-pointer main-nav-item py-4 select-none lg:py-6">
-                <div className="accordion-menu flex items-center space-x-3">
-                  <span className="-ml-5">+</span>
+                <div className="accordion-menu flex items-center">
+                  <span className="-ml-5 mr-2 lg:-ml-8 lg:mr-3 font-light">+</span>
                   <span>Products</span>
                 </div>
                 <div className="accordion-content pl-5 grid gap-6 text-lg text-white h-0 overflow-hidden">
-                  <Link href="/suportsbook" className="footer-menu pt-5">
-                    Sportsbook
+                  <Link
+                    href="/suportsbook"
+                    className="footer-menu hover:text-white/65"
+                    passHref
+                    legacyBehavior
+                  >
+                    <AHLink href="/suportsbook">Suportsbook</AHLink>
                   </Link>
-                  <Link href="/online-casino" className="footer-menu">
-                    Online Casino
+                  <Link
+                    href="/online-casino"
+                    className="footer-menu hover:text-white/65"
+                    passHref
+                    legacyBehavior
+                  >
+                    <AHLink href="/suportsbook">Online Casino</AHLink>
                   </Link>
-                  <Link href="/crypto-solutions" className="footer-menu">
-                    Crypto Solutions
+                  <Link
+                    href="/crypto-solutions"
+                    className="footer-menu hover:text-white/65"
+                    passHref
+                    legacyBehavior
+                  >
+                    <AHLink href="/suportsbook">Crypto Solutions</AHLink>
                   </Link>
-                  <Link href="/affiliate-agent-system" className="footer-menu pb-2">
-                    Affiliate and Agent System
+                  <Link
+                    href="/affiliate-agent-system"
+                    className="footer-menu hover:text-white/65"
+                    passHref
+                    legacyBehavior
+                  >
+                    <AHLink href="/suportsbook">Affiliate and Agent System</AHLink>
                   </Link>
                 </div>
               </li>
               <li className="accordion-group cursor-pointer main-nav-item py-4 select-none lg:py-6">
-                <div className="accordion-menu flex items-center space-x-3">
-                  <span className="-ml-5">+</span>
+                <div className="accordion-menu flex items-center">
+                  <span className="-ml-5 mr-2 lg:-ml-8 lg:mr-3 font-light">+</span>
                   <span>Solutions</span>
                 </div>
                 <div className="accordion-content pl-5 grid gap-6 text-lg text-white h-0 overflow-hidden">
-                  <a href="/" className="footer-menu pt-5">
+                  <a href="/" className="footer-menu hover:text-white/65">
                     White Label
                   </a>
-                  <a href="/" className="footer-menu">
+                  <a href="/" className="footer-menu hover:text-white/65">
                     Turnkey System
                   </a>
-                  <a href="/" className="footer-menu">
+                  <a href="/" className="footer-menu hover:text-white/65">
                     Managed Services
                   </a>
-                  <a href="/" className="footer-menu pb-2">
+                  <a href="/" className="footer-menu hover:text-white/65">
                     Angels Payments
                   </a>
                 </div>
@@ -252,8 +314,8 @@ export default function Topnavs() {
                 </div>
               </li>
               <li className="cursor-pointer main-nav-item py-4 select-none lg:py-6">
-                <div className="flex items-center space-x-3">
-                  <span className="-ml-5">+</span>
+                <div className="flex items-center">
+                  <span className="-ml-5 mr-2 lg:-ml-8 lg:mr-3 font-light">+</span>
                   <span>About Us</span>
                 </div>
               </li>
@@ -263,33 +325,33 @@ export default function Topnavs() {
                 </div>
               </li>
               <li className="accordion-group cursor-pointer main-nav-item py-4 select-none lg:py-6 lg:hidden">
-                <div className="accordion-menu flex items-center space-x-3">
-                  <span className="-ml-5">+</span>
+                <div className="accordion-menu flex items-center">
+                  <span className="-ml-5 mr-2 lg:-ml-8 lg:mr-3 font-light">+</span>
                   <span>Useful Links</span>
                 </div>
                 <div className="accordion-content pl-5 grid gap-6 text-lg text-white h-0 overflow-hidden">
-                  <a href="/" className="footer-menu pt-5">
+                  <a href="/" className="footer-menu hover:text-white/65">
                     Events
                   </a>
-                  <a href="/" className="footer-menu">
+                  <a href="/" className="footer-menu hover:text-white/65">
                     Careers
                   </a>
-                  <a href="/" className="footer-menu pb-2">
+                  <a href="/" className="footer-menu hover:text-white/65">
                     Demo
                   </a>
                 </div>
               </li>
             </ul>
-            <div className="flex mx-auto items-center justify-center flex-col space-y-8 max-w-80 sm:max-w-md lg:hidden">
+            <div className="flex mobile-link-buttons mx-auto items-center justify-center flex-col space-y-8 max-w-80 sm:max-w-md lg:hidden">
               <Link
                 href="/"
-                className="bg-white text-angel-orange rounded-full px-11 py-4 text-center w-full"
+                className="bg-white text-angel-orange rounded-full px-11 py-4 text-center w-full hover:underline"
               >
                 <span className="uppercase">BOOK A MEETING</span>
               </Link>
               <Link
                 href="/"
-                className="bg-black rounded-full px-11 py-4 text-white text-center w-full"
+                className="bg-black rounded-full px-11 py-4 text-white text-center w-full hover:underline"
               >
                 <span className="uppercase">Schedule a meeting</span>
               </Link>
@@ -316,9 +378,6 @@ export default function Topnavs() {
                     Useful Links
                   </span>
                   <a href="/" className="footer-menu place-self-auto">
-                    Angel Investment
-                  </a>
-                  <a href="/" className="footer-menu place-self-auto">
                     Events
                   </a>
                   <a href="/" className="footer-menu place-self-auto">
@@ -327,39 +386,21 @@ export default function Topnavs() {
                   <a href="/" className="footer-menu place-self-auto">
                     Demo
                   </a>
-                  <a href="/" className="footer-menu place-self-auto">
-                    Contact Us
-                  </a>
                 </div>
-                <div className="grid gap-4 text-white">
-                  <span className="footer-menu font-bold text-xl">Solutions</span>
-                  <a href="/" className="footer-menu">
-                    White Label
+                <div className="social-icons flex flex-col items-center space-y-6">
+                  <div className="grid grid-flow-col gap-3">
+                    <SocailIcon name="linkedin" bg="bg-[#0F0F0F]" />
+                    <SocailIcon name="instegram" bg="bg-[#0F0F0F]" />
+                    <SocailIcon name="twitter" bg="bg-[#0F0F0F]" />
+                  </div>
+                  <a
+                    href="mailto:info@angelshub.com"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-white hover:underline"
+                  >
+                    info@angelshub.com
                   </a>
-                  <a href="/" className="footer-menu">
-                    Turnkey System
-                  </a>
-                  <a href="/" className="footer-menu">
-                    Managed Services
-                  </a>
-                  <a href="/" className="footer-menu">
-                    Angels Payments
-                  </a>
-                </div>
-                <div className="grid gap-4 text-white">
-                  <span className="footer-menu font-bold text-xl">Products</span>
-                  <Link href="/suportsbook" className="footer-menu">
-                    Sportsbook
-                  </Link>
-                  <Link href="/online-casino" className="footer-menu">
-                    Online Casino
-                  </Link>
-                  <Link href="/crypto-solutions" className="footer-menu">
-                    Crypto Solutions
-                  </Link>
-                  <Link href="/affiliate-agent-system" className="footer-menu">
-                    Affiliate and Agent System
-                  </Link>
                 </div>
               </div>
               <div className="bg-[#2E2E2E] flex justify-center items-center rounded-3xl w-full h-80">
@@ -372,21 +413,6 @@ export default function Topnavs() {
                 >
                   <path d="M27 16.5L0.749998 32.5215L0.75 0.47853L27 16.5Z" fill="#D9D9D9" />
                 </svg>
-              </div>
-              <div className="social-icons flex flex-col items-center gap-6 md:flex-row">
-                <div className="grid grid-flow-col gap-3">
-                  <SocailIcon name="linkedin" bg="bg-[#0F0F0F]" />
-                  <SocailIcon name="instegram" bg="bg-[#0F0F0F]" />
-                  <SocailIcon name="twitter" bg="bg-[#0F0F0F]" />
-                </div>
-                <a
-                  href="mailto:info@angelshub.com"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-white hover:underline"
-                >
-                  info@angelshub.com
-                </a>
               </div>
             </div>
           </div>

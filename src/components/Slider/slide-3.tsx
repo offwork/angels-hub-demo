@@ -3,12 +3,12 @@ import { SelectedSlideContext } from "@/contexts/banner-context";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import Image from "next/image";
-import Link from "next/link";
 import { useContext, useRef } from "react";
 import BALL_3 from "../../../public/images/slider-ball-3.png";
 import SLIDER_PIC_3 from "../../../public/images/slider-main-3.png";
 import ORANGE_SHAPE from "../../../public/images/orange-shape.svg";
 import BLUE_SHAPE from "../../../public/images/blue-shape.svg";
+import ButtonFill from "../ui/ah-button-fill";
 
 gsap.registerPlugin(useGSAP);
 
@@ -21,9 +21,7 @@ export default function Slide3({ slide }: { slide: number }) {
   const titleRef2 = useRef<HTMLHeadingElement>(null!);
   const titleRef3 = useRef<HTMLHeadingElement>(null!);
   const describeRef = useRef<HTMLParagraphElement>(null!);
-  const linkRef = useRef<HTMLAnchorElement>(null!);
-  const orangeRef = useRef<HTMLDivElement>(null!);
-  const blueRef = useRef<HTMLDivElement>(null!);
+  const linkRef = useRef<HTMLDivElement>(null!);
   const imageOrangeRef = useRef<HTMLImageElement>(null!);
   const imageBlueRef = useRef<HTMLImageElement>(null!);
   const slideTL = useRef<GSAPTimeline>(null!);
@@ -244,13 +242,9 @@ export default function Slide3({ slide }: { slide: number }) {
             industry. We offer white label, turnkey, SAAS solutions, crypto
             solutions and much much more!
           </p>
-          <Link
-            ref={linkRef}
-            href="/"
-            className="bg-angel-orange rounded-full max-w-fit px-11 py-4 text-white text-center"
-          >
-            <span className="">BOOK A MEETING</span>
-          </Link>
+          <div ref={linkRef} className="flex">
+            <ButtonFill bg="bg-angel-orange" size="medium" href={"/"} label={"BOOK A MEETING"} />
+          </div>
         </div>
       </div>
     </div>
