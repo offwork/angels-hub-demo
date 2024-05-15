@@ -163,14 +163,14 @@ export default function Topnavs() {
         const box = element.querySelector(".accordion-content");
         const plus = element.querySelector(".font-light");
 
-        gsap.set(box, { height: "auto" });
+        gsap.set(box, { height: "auto", paddingBottom: 8, paddingTop: 20 });
         gsap.set(plus, { rotate: 45, transformOrigin: "50% 50%" });
 
         const accordionTl = gsap.timeline({ paused: true });
 
         accordionTl
           .from(plus, { rotate: 0, ease: "sine.in", duration: 0.5 })
-          .from(box, { height: 0, duration: 0.7, ease: "back.in" }, "<")
+          .from(box, { height: 0, paddingBottom: 0, paddingTop: 0 , duration: 0.7, ease: "back.in" }, "<")
           .reverse();
 
         return function (clickedMenu: HTMLDivElement) {
@@ -256,7 +256,7 @@ export default function Topnavs() {
                 <div className="accordion-content pl-5 grid gap-6 text-lg text-white h-0 overflow-hidden">
                   <Link
                     href="/suportsbook"
-                    className="footer-menu pt-5 hover:text-white/65"
+                    className="footer-menu hover:text-white/65"
                     passHref
                     legacyBehavior
                   >
@@ -280,7 +280,7 @@ export default function Topnavs() {
                   </Link>
                   <Link
                     href="/affiliate-agent-system"
-                    className="footer-menu pb-2 hover:text-white/65"
+                    className="footer-menu hover:text-white/65"
                     passHref
                     legacyBehavior
                   >
@@ -294,7 +294,7 @@ export default function Topnavs() {
                   <span>Solutions</span>
                 </div>
                 <div className="accordion-content pl-5 grid gap-6 text-lg text-white h-0 overflow-hidden">
-                  <a href="/" className="footer-menu pt-5 hover:text-white/65">
+                  <a href="/" className="footer-menu hover:text-white/65">
                     White Label
                   </a>
                   <a href="/" className="footer-menu hover:text-white/65">
@@ -303,7 +303,7 @@ export default function Topnavs() {
                   <a href="/" className="footer-menu hover:text-white/65">
                     Managed Services
                   </a>
-                  <a href="/" className="footer-menu pb-2 hover:text-white/65">
+                  <a href="/" className="footer-menu hover:text-white/65">
                     Angels Payments
                   </a>
                 </div>
@@ -330,13 +330,13 @@ export default function Topnavs() {
                   <span>Useful Links</span>
                 </div>
                 <div className="accordion-content pl-5 grid gap-6 text-lg text-white h-0 overflow-hidden">
-                  <a href="/" className="footer-menu pt-5 hover:text-white/65">
+                  <a href="/" className="footer-menu hover:text-white/65">
                     Events
                   </a>
                   <a href="/" className="footer-menu hover:text-white/65">
                     Careers
                   </a>
-                  <a href="/" className="footer-menu pb-2 hover:text-white/65">
+                  <a href="/" className="footer-menu hover:text-white/65">
                     Demo
                   </a>
                 </div>

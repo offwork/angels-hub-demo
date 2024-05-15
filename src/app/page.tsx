@@ -306,6 +306,7 @@ export default function Home() {
     gsap.set(angelshubRef.current.querySelector(".team"), {
       autoAlpha: 0,
       scale: 0.3,
+      yPercent: -20,
       transformOrigin: "50% 50%",
     });
     const teamTl = gsap.timeline({
@@ -315,7 +316,7 @@ export default function Home() {
         pinType: "transform",
         pinSpacing: true,
         start: "center 75%",
-        scrub: 1.2,
+        scrub: true,
         end: () => "+=100%",
       },
     });
@@ -327,7 +328,7 @@ export default function Home() {
           scale: 70,
           autoAlpha: 0,
           duration: 5,
-          ease: "expo.out",
+          ease: "slow(0.7,0.4,false)",
         },
         "teamscaling"
       )
@@ -335,14 +336,13 @@ export default function Home() {
         angelshubRef.current.querySelector(".team"),
         {
           autoAlpha: 1,
+          duration: 2.5,
           scale: 1,
-          duration: 0.7,
-          yPercent: 5,
-          ease: "expoScale(70,4,none)",
+          yPercent: 20,
+          ease: "slow(0.7,0.4,false)",
         },
         "teamscaling+=3"
-      )
-      .scrollTrigger?.refresh();
+      );
     /*==============================     TEAM END     ==============================*/
     //////////////////////////////////////////////////////////////////////////////////
     //////////////////////////////////////////////////////////////////////////////////
@@ -685,7 +685,7 @@ export default function Home() {
 
       <div
         ref={angelshubRef}
-        className="relative w-full flex justify-center items-center overflow-x-hidden"
+        className="relative w-full h-full py-3 flex justify-center items-center overflow-x-hidden"
       >
         <AngelsHubFlatSVG className="scale-pin relative w-full top-0" />
         <Team />

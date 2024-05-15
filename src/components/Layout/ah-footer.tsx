@@ -5,6 +5,8 @@ import Image from "next/image";
 import Plus18 from "../../../public/images/18-plus.svg";
 import Amblem from "./ah-amblem";
 import { forwardRef } from "react";
+import ButtonFill from "../ui/ah-button-fill";
+import Link from "next/link";
 
 
 const Footer = forwardRef<HTMLDivElement, {}>(
@@ -47,14 +49,9 @@ const Footer = forwardRef<HTMLDivElement, {}>(
               autoComplete="off"
               className="w-full form-element bg-angel-blue indent-14 py-6 rounded-full border border-white/30 focus:outline-none focus:border-white"
             />
-            <a
-              href="#"
-              className="form-element bg-angel-blue rounded-full border-2 text-center border-white px-20 py-7 mt-4 drop-shadow-xl hover:drop-shadow-none"
-            >
-              <span className="text-base font-medium text-white">
-                SEND
-              </span>
-            </a>
+            <div className="form-element grid justify-items-stretch">
+              <ButtonFill href="/" label="SEND" bg="bg-angel-blue" size="large" />
+            </div>
           </div>
         </div>
       </div>
@@ -75,70 +72,67 @@ const Footer = forwardRef<HTMLDivElement, {}>(
           </a>
         </div>
 
-        <div className="grid gap-9 place-self-start w-full md:justify-items-stretch md:grid-flow-col xl:gap-20">
+        <div className="relative z-10 grid gap-9 place-self-start w-full md:justify-items-stretch md:grid-flow-col xl:gap-20">
           <div className="grid gap-4 text-white md:justify-self-start">
-            <a href="/" className="footer-menu font-bold text-xl">
+            <span className="footer-menu font-bold text-xl">
               Useful Links
-            </a>
-            <a href="/" className="footer-menu">
+            </span>
+            <a href="/" className="footer-menu hover:underline">
               Angel Investment
             </a>
-            <a href="/" className="footer-menu">
+            <a href="/" className="footer-menu hover:underline">
               Events
             </a>
-            <a href="/" className="footer-menu">
+            <a href="/" className="footer-menu hover:underline">
               Careers
             </a>
-            <a href="/" className="footer-menu">
+            <a href="/" className="footer-menu hover:underline">
               Demo
             </a>
-            <a href="/" className="footer-menu">
+            <a href="/" className="footer-menu hover:underline">
               Contact Us
             </a>
           </div>
           <div className="grid gap-4 text-white md:justify-self-center">
-            <a href="/" className="footer-menu font-bold text-xl">
+            <span className="footer-menu font-bold text-xl">
               Solutions
-            </a>
-            <a href="/" className="footer-menu">
+            </span>
+            <a href="/" className="footer-menu hover:underline">
               White Label
             </a>
-            <a href="/" className="footer-menu">
+            <a href="/" className="footer-menu hover:underline">
               Turnkey System
             </a>
-            <a href="/" className="footer-menu">
+            <a href="/" className="footer-menu hover:underline">
               Managed Services
             </a>
-            <a href="/" className="footer-menu">
+            <a href="/" className="footer-menu hover:underline">
               Angels Payments
             </a>
           </div>
           <div className="grid gap-4 text-white md:justify-self-end">
-            <a href="/" className="footer-menu font-bold text-xl">
+            <span className="footer-menu font-bold text-xl">
               Products
-            </a>
-            <a href="/" className="footer-menu">
+            </span>
+            <Link href="/" className="footer-menu hover:underline">
               Sportsbook
-            </a>
-            <a href="/" className="footer-menu">
+            </Link>
+            <Link href="/" className="footer-menu hover:underline">
               Online Casino
-            </a>
-            <a href="/" className="footer-menu">
+            </Link>
+            <Link href="/" className="footer-menu hover:underline">
               Crypto Solutions
-            </a>
-            <a href="/" className="footer-menu">
+            </Link>
+            <Link href="/" className="footer-menu hover:underline">
               Affiliate and Agent System
-            </a>
-            <a href="/" className="footer-menu">
-              CRM
-            </a>
+            </Link>
           </div>
         </div>
 
-        <a href="/" className="text-white privacy-policy">
+        <a href="/" className="relative z-10 text-white privacy-policy hover:underline">
           Terms and Conditions & Privacy Policy
         </a>
-        <div className="grid grid-flow-row gap-11 text-white justify-items-stretch lg:place-items-center lg:grid-flow-col lg:gap-0">
+        <div className="relative z-10 grid grid-flow-row gap-11 text-white justify-items-stretch lg:place-items-center lg:grid-flow-col lg:gap-0">
           <div className="website-content inline-flex space-x-4 items-center lg:justify-self-start">
             <Image src={Plus18} alt="18 Plus" />
             <p className="text-sm">

@@ -20,7 +20,7 @@ export default function ButtonFill({
   const linkRef = useRef<HTMLAnchorElement>(null!);
 
   useGSAP((context, contextSafe) => {
-    gsap.set(linkRef.current, { backgroundSize: "200% 200%", transformOrigin: "50% 50%" });
+    gsap.set(linkRef.current, { backgroundColor: "transparent", backgroundSize: "200% 200%", transformOrigin: "50% 50%" });
     const hoverTL = gsap.timeline({ paused: true });
     hoverTL
       .to(linkRef.current, {
@@ -86,10 +86,10 @@ export default function ButtonFill({
             <Link
               href={href}
               ref={linkRef}
-              className="bg-gradient-to-tr from-angel-orange from-25% to-angel-blue-500 to-75% rounded-full max-w-fit p-0.5 drop-shadow-xl"
+              className="grow bg-gradient-to-tr from-angel-orange from-25% to-angel-blue-500 to-75% rounded-full p-0.5 drop-shadow-xl"
             >
               <div
-                className={`w-full h-full rounded-full ${bg} text-white px-10 py-7 text-center lg:px-20 hover:bg-white hover:text-angel-orange`}
+                className={`w-full h-full rounded-full ${bg} text-white px-10 py-7 text-center outline outline-offset-1 outline-2 outline-white lg:px-20 hover:bg-white hover:outline-0 hover:text-angel-orange`}
               >
                 <span className="text-sm select-none uppercase">{label}</span>
               </div>
