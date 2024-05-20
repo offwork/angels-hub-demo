@@ -1,7 +1,5 @@
 import "./globals.css";
 import Topnavs from "@/components/ah-topnavs";
-import AHSmoothScrollbar from "@/components/ui/smooth-scollbar";
-// import Footer from "@/components/Layout/ah-footer";
 import { ReactNode } from "react";
 
 export default function RootLayout({ children }: { children: ReactNode }) {
@@ -9,9 +7,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
     <html lang="en" suppressHydrationWarning>
       <body className="font-sans relative bg-angel-blue w-full" suppressHydrationWarning>
         <Topnavs />
-        <AHSmoothScrollbar>
-          {children}
-        </AHSmoothScrollbar>
+        <main className="main-scroller">{children}</main>
       </body>
     </html>
   );

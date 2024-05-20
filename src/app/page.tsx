@@ -8,6 +8,7 @@ import Slider from "@/components/Slider/slider";
 import CircleBtn from "@/components/Solutions/ah-circle-btn";
 import Team from "@/components/Team/ah-team";
 import BrandLogo from "@/components/ah-brand-logo";
+import StickyLogo from "@/components/ah-sticky-logo";
 import ButtonFill from "@/components/ui/ah-button-fill";
 import { PRODUCTS } from "@/constant";
 import { useIsomorphicLayoutEffect } from "@/utils";
@@ -17,16 +18,18 @@ import { ScrollTrigger } from "gsap/dist/ScrollTrigger";
 import Image from "next/image";
 import Link from "next/link";
 import { useRef } from "react";
+import Scrollbar from "smooth-scrollbar";
 import WAVE from "../../public/images/abstract-wave.png";
 import SOLUTIONS_1 from "../../public/images/solutions-1.png";
 import SOLUTIONS_2 from "../../public/images/solutions-2.png";
 import SOLUTIONS_3 from "../../public/images/solutions-3.png";
 
 if (typeof window !== "undefined") {
-  gsap.registerPlugin(useGSAP);
+  gsap.registerPlugin(useGSAP, ScrollTrigger);
 }
 
 export default function Home() {
+  const bodyScrollBar = useRef<Scrollbar>(null!);
   const scrollContainerRef = useRef<HTMLDivElement>(null!);
   const solutionsRef = useRef<HTMLDivElement>(null!);
   const productsRef = useRef<HTMLDivElement>(null!);
@@ -37,9 +40,53 @@ export default function Home() {
   const cellsRef = useRef<HTMLDivElement[]>([]);
   const footerRef = useRef<HTMLDivElement>(null!);
   const angelshubRef = useRef<HTMLDivElement>(null!);
+  const stickyLogoRef = useRef<HTMLDivElement>(null!);
+  const stickyTL = useRef<GSAPTimeline>(null!);
   const { context, contextSafe } = useGSAP({ scope: scrollContainerRef.current });
 
+  const initSmoothScrolling = () => {
+    ScrollTrigger.config({ limitCallbacks: true, ignoreMobileResize: true });
+
+    bodyScrollBar.current = Scrollbar.init(scrollContainerRef.current, {
+      damping: 0.1,
+      alwaysShowTracks: true,
+    });
+
+    bodyScrollBar.current.setPosition(0, 0);
+    bodyScrollBar.current.track.xAxis.element.remove();
+    bodyScrollBar.current.addListener(ScrollTrigger.update);
+
+    ScrollTrigger.scrollerProxy(scrollContainerRef.current, {
+      scrollTop(value) {
+        if (arguments.length && value) {
+          bodyScrollBar.current.scrollTop = value;
+        }
+        return bodyScrollBar.current.scrollTop;
+      },
+    });
+
+    ScrollTrigger.defaults({
+      toggleActions: "restart pause resume pause",
+      scroller: scrollContainerRef.current,
+    });
+  };
+
   const scroll = contextSafe(() => {
+    /*==========================     STICKY LOGO SCROLL     ========================*/
+    gsap.set(stickyLogoRef.current, { opacity: 0, xPercent: -100 });
+    stickyTL.current = gsap.timeline({
+      scrollTrigger: {
+        trigger: "main",
+        start: "bottom 25%",
+        toggleActions: "play none reverse none",
+        scrub: 1,
+      },
+    });
+    stickyTL.current.to(stickyLogoRef.current, { xPercent: 0, opacity: 1 });
+    /*===========================     STICKY LOGO END     ==========================*/
+    //////////////////////////////////////////////////////////////////////////////////
+    //////////////////////////////////////////////////////////////////////////////////
+    //////////////////////////////////////////////////////////////////////////////////
     /*===========================     SOLUTIONS SCROLL     =========================*/
     const solutions = solutionsRef.current.querySelectorAll<HTMLDivElement>(".solution");
 
@@ -499,6 +546,7 @@ export default function Home() {
   });
 
   useIsomorphicLayoutEffect(() => {
+    initSmoothScrolling();
     scroll();
 
     return () => {
@@ -510,173 +558,186 @@ export default function Home() {
 
   return (
     <>
-      <Link className="cursor-pointer absolute ml-12 top-8 z-30" href="/" passHref legacyBehavior>
-        <BrandLogo href="/" />
-      </Link>
-      <div className="slider-ref relative z-10 w-full">
-        <Slider />
-      </div>
-      <div ref={solutionsRef} className="container grid gap-9">
-        <div className="relative text-center text-3xl leading-tight xl:text-6xl">
-          <h2 className="relative text-white">Complete Solutions for</h2>
-          <h2 className="relative text-spray">Everything Gaming</h2>
-        </div>
-        <div className="grid grid-flow-row gap-0 mx-auto max-w-sm lg:max-w-max lg:gap-8 lg:grid-flow-col">
-          <div className="solution grid content-start border-y border-white/20 gap-8 py-8">
-            <h3 className="text-2xl font-bold text-white">Website API</h3>
-            <div className="relative w-full h-[360px] bg-angel-blue-950 rounded-xl overflow-hidden">
-              <Image
-                className="absolute z-0 object-cover object-center h-full w-full"
-                src={SOLUTIONS_1}
-                alt="Website API Solution"
-              />
-              <CircleBtn />
-            </div>
-            <p className="text-white">
-              It was never easier to integrate sports and casino content into your website as like
-              now.
-            </p>
-          </div>
-          <div className="solution grid content-start border-y-0 border-white/20 gap-8 py-8 lg:border-y">
-            <h3 className="text-2xl font-bold text-white">Turnkey System</h3>
-            <div className="relative w-full h-[360px] bg-angel-blue-950 rounded-xl overflow-hidden">
-              <Image
-                className="absolute z-0 object-cover object-center h-full w-full"
-                src={SOLUTIONS_2}
-                alt="Turnkey System Solution"
-              />
-              <CircleBtn />
-            </div>
-            <p className="text-white">
-              Our Turnkey Solution comes with support to help you operate under own license. You can
-              benefit from the whole spectrum of our betting and gaming products.
-            </p>
-          </div>
-          <div className="solution grid content-start border-y border-white/20 gap-8 py-8">
-            <h3 className="text-2xl font-bold text-white">White Label</h3>
-            <div className="relative w-full h-[360px] bg-angel-blue-950 rounded-xl overflow-hidden">
-              <Image
-                className="absolute z-0 object-cover object-center h-full w-full"
-                src={SOLUTIONS_3}
-                alt="White Label Solution"
-              />
-              <CircleBtn />
-            </div>
-            <p className="text-white">
-              AngelsHub White Label solution comes under Curacao license. It is integrated with
-              multiple payment systems and comes with 24/7 support and risk management.
-            </p>
-          </div>
-        </div>
+      <div
+        ref={stickyLogoRef}
+        className="absolute z-40 opacity-0 top-1/2 -translate-y-1/2 bg-angel-orange text-white"
+      >
+        <Link href="/" legacyBehavior passHref>
+          <StickyLogo href="/" />
+        </Link>
       </div>
       <div
-        ref={productsRef}
-        className="horizontal-scroll relative z-10 w-full mt-56 h-full xl:h-[980px]"
+        ref={scrollContainerRef}
+        className="relative h-screen w-full overscroll-none overflow-hidden"
       >
-        <div className="relative z-10 grid gap-5 w-full text-center">
-          <h3 className="text-3xl text-angel-orange-500 font-medium">Products</h3>
-          <h2 className="text-3xl text-spray mx-auto leading-tight max-w-[315px] md:max-w-none xl:text-6xl">
-            Do you have a good idea but <br className="hidden md:block" /> still not sure{" "}
-            <span className="text-white">where to start?</span>
-          </h2>
+        <Link className="cursor-pointer absolute ml-12 top-8 z-30" href="/" passHref legacyBehavior>
+          <BrandLogo href="/" />
+        </Link>
+        <div className="slider-ref relative z-10 w-full">
+          <Slider />
         </div>
-        <div className="relative w-full overflow-hidden py-8 md:py-24 xl:absolute xl:h-full">
-          <Image
-            className="absolute top-0 z-0 mix-blend-lighten bg-angel-blue opacity-10 max-w-max lg:w-full lg:max-w-full"
-            src={WAVE}
-            alt="Products wave"
-          />
+        <div ref={solutionsRef} className="container grid gap-9">
+          <div className="relative text-center text-3xl leading-tight xl:text-6xl">
+            <h2 className="relative text-white">Complete Solutions for</h2>
+            <h2 className="relative text-spray">Everything Gaming</h2>
+          </div>
+          <div className="grid grid-flow-row gap-0 mx-auto max-w-sm lg:max-w-max lg:gap-8 lg:grid-flow-col">
+            <div className="solution grid content-start border-y border-white/20 gap-8 py-8">
+              <h3 className="text-2xl font-bold text-white">Website API</h3>
+              <div className="relative w-full h-[360px] bg-angel-blue-950 rounded-xl overflow-hidden">
+                <Image
+                  className="absolute z-0 object-cover object-center h-full w-full"
+                  src={SOLUTIONS_1}
+                  alt="Website API Solution"
+                />
+                <CircleBtn />
+              </div>
+              <p className="text-white">
+                It was never easier to integrate sports and casino content into your website as like
+                now.
+              </p>
+            </div>
+            <div className="solution grid content-start border-y-0 border-white/20 gap-8 py-8 lg:border-y">
+              <h3 className="text-2xl font-bold text-white">Turnkey System</h3>
+              <div className="relative w-full h-[360px] bg-angel-blue-950 rounded-xl overflow-hidden">
+                <Image
+                  className="absolute z-0 object-cover object-center h-full w-full"
+                  src={SOLUTIONS_2}
+                  alt="Turnkey System Solution"
+                />
+                <CircleBtn />
+              </div>
+              <p className="text-white">
+                Our Turnkey Solution comes with support to help you operate under own license. You
+                can benefit from the whole spectrum of our betting and gaming products.
+              </p>
+            </div>
+            <div className="solution grid content-start border-y border-white/20 gap-8 py-8">
+              <h3 className="text-2xl font-bold text-white">White Label</h3>
+              <div className="relative w-full h-[360px] bg-angel-blue-950 rounded-xl overflow-hidden">
+                <Image
+                  className="absolute z-0 object-cover object-center h-full w-full"
+                  src={SOLUTIONS_3}
+                  alt="White Label Solution"
+                />
+                <CircleBtn />
+              </div>
+              <p className="text-white">
+                AngelsHub White Label solution comes under Curacao license. It is integrated with
+                multiple payment systems and comes with 24/7 support and risk management.
+              </p>
+            </div>
+          </div>
+        </div>
+        <div
+          ref={productsRef}
+          className="horizontal-scroll relative z-10 w-full mt-56 h-full xl:h-[980px]"
+        >
+          <div className="relative z-10 grid gap-5 w-full text-center">
+            <h3 className="text-3xl text-angel-orange-500 font-medium">Products</h3>
+            <h2 className="text-3xl text-spray mx-auto leading-tight max-w-[315px] md:max-w-none xl:text-6xl">
+              Do you have a good idea but <br className="hidden md:block" /> still not sure{" "}
+              <span className="text-white">where to start?</span>
+            </h2>
+          </div>
+          <div className="relative w-full overflow-hidden py-8 md:py-24 xl:absolute xl:h-full">
+            <Image
+              className="absolute top-0 z-0 mix-blend-lighten bg-angel-blue opacity-10 max-w-max lg:w-full lg:max-w-full"
+              src={WAVE}
+              alt="Products wave"
+            />
+            <div
+              ref={hPinRef}
+              className="horizontal-items relative z-10 snap-x snap-mandatory w-full grid grid-flow-row place-items-center py-40 px-6 gap-20 -mt-20 xl:mt-0 xl:grid-flow-col"
+            >
+              {PRODUCTS.map((product) => (
+                <ProductCard
+                  title={product.title}
+                  description={product.description}
+                  image={product.image}
+                  key={product.title}
+                />
+              ))}
+            </div>
+            <AngelsHubSVG className="absolute z-0 w-[200%] h-auto -left-20 bottom-0 lg:left-0 lg:w-full" />
+          </div>
+        </div>
+        <div
+          ref={platformRef}
+          className="platform-scroll relative w-full my-56 pb-10 overflow-x-hidden"
+        >
+          <div className="relative z-10 grid gap-5 w-full text-center">
+            <h2 className="title text-3xl text-white leading-tight xl:text-6xl">
+              Why AngelsHub Platform
+            </h2>
+            <p className="caption text-white mx-auto text-sm max-w-[345px] md:max-w-lg lg:text-lg lg:max-w-2xl">
+              The complete betting offer from Angelshub provides your business with the tools to
+              compete against the very best in the industry and come out ahead.
+            </p>
+          </div>
+
           <div
-            ref={hPinRef}
-            className="horizontal-items relative z-10 snap-x snap-mandatory w-full grid grid-flow-row place-items-center py-40 px-6 gap-20 -mt-20 xl:mt-0 xl:grid-flow-col"
+            ref={pickerRef}
+            className="platform-items relative z-10 snap-x snap-mandatory w-full grid grid-flow-row place-items-center py-40 px-6 gap-10 -mt-20 xl:mt-0 lg:grid-flow-col"
           >
-            {PRODUCTS.map((product) => (
-              <ProductCard
-                title={product.title}
-                description={product.description}
-                image={product.image}
-                key={product.title}
-              />
+            {[
+              "All-in-one Solution",
+              "Constant Updates",
+              "Integrated Anti-Fraud solution",
+              "Customizable Software",
+              "Extreme Security",
+              "Customer-First Orientated",
+            ].map((item, idx) => (
+              <div
+                key={`${idx}-${item}`}
+                ref={(el: HTMLDivElement) => {
+                  if (el) {
+                    cellsRef.current[idx] = el;
+                  }
+                }}
+                className="platform-item snap-always snap-center relative p-6 drop-shadow-2xl origin-center min-w-80 min-h-72 md:min-w-96 md:min-h-80 xl:min-w-[420px] 6xl:min-w-[484px]"
+              >
+                <h3 className="relative z-10 text-4xl text-white font-medium max-w-64">{item}</h3>
+                <div className="absolute top-0 left-0 z-0 w-full h-full rounded-[20px] bg-[#0164B7] mix-blend-luminosity"></div>
+              </div>
             ))}
           </div>
-          <AngelsHubSVG className="absolute z-0 w-[200%] h-auto -left-20 bottom-0 lg:left-0 lg:w-full" />
-        </div>
-      </div>
-      <div
-        ref={platformRef}
-        className="platform-scroll relative w-full my-56 pb-10 overflow-x-hidden"
-      >
-        <div className="relative z-10 grid gap-5 w-full text-center">
-          <h2 className="title text-3xl text-white leading-tight xl:text-6xl">
-            Why AngelsHub Platform
-          </h2>
-          <p className="caption text-white mx-auto text-sm max-w-[345px] md:max-w-lg lg:text-lg lg:max-w-2xl">
-            The complete betting offer from Angelshub provides your business with the tools to
-            compete against the very best in the industry and come out ahead.
-          </p>
+          <div className="container w-full flex justify-center lg:justify-end">
+            <div className="platform-btn flex">
+              <ButtonFill
+                bg="bg-angel-blue"
+                size="large"
+                href={""}
+                label={"Get good service from experts"}
+              />
+            </div>
+          </div>
         </div>
 
         <div
-          ref={pickerRef}
-          className="platform-items relative z-10 snap-x snap-mandatory w-full grid grid-flow-row place-items-center py-40 px-6 gap-10 -mt-20 xl:mt-0 lg:grid-flow-col"
+          ref={angelshubRef}
+          className="relative w-full h-full py-3 flex justify-center items-center overflow-x-hidden"
         >
-          {[
-            "All-in-one Solution",
-            "Constant Updates",
-            "Integrated Anti-Fraud solution",
-            "Customizable Software",
-            "Extreme Security",
-            "Customer-First Orientated",
-          ].map((item, idx) => (
-            <div
-              key={`${idx}-${item}`}
-              ref={(el: HTMLDivElement) => {
-                if (el) {
-                  cellsRef.current[idx] = el;
-                }
-              }}
-              className="platform-item snap-always snap-center relative p-6 drop-shadow-2xl origin-center min-w-80 min-h-72 md:min-w-96 md:min-h-80 xl:min-w-[420px] 6xl:min-w-[484px]"
-            >
-              <h3 className="relative z-10 text-4xl text-white font-medium max-w-64">{item}</h3>
-              <div className="absolute top-0 left-0 z-0 w-full h-full rounded-[20px] bg-[#0164B7] mix-blend-luminosity"></div>
+          <AngelsHubFlatSVG className="scale-pin relative w-full top-0" />
+          <Team />
+        </div>
+
+        <div ref={providersRef} className="relative w-full">
+          <AngelsHubSVG className="absolute z-0 w-full top-1/2 -translate-y-1/2 2xl:-translate-y-1/3" />
+          <div className="relative container grid gap-16 mx-auto w-full mt-56">
+            <div className="relative z-10 grid gap-5 text-center">
+              <h2 className="text-3xl title text-white leading-tight xl:text-6xl">
+                Gaming Providers
+              </h2>
+              <p className="text-white caption mx-auto text-sm max-w-[345px] md:max-w-lg lg:text-lg lg:max-w-2xl">
+                Explore the trusted partners fuelling iGaming experience
+              </p>
             </div>
-          ))}
-        </div>
-        <div className="container w-full flex justify-center lg:justify-end">
-          <div className="platform-btn flex">
-            <ButtonFill
-              bg="bg-angel-blue"
-              size="large"
-              href={""}
-              label={"Get good service from experts"}
-            />
           </div>
+          <Providers />
         </div>
+        <Footer ref={footerRef} />
       </div>
-
-      <div
-        ref={angelshubRef}
-        className="relative w-full h-full py-3 flex justify-center items-center overflow-x-hidden"
-      >
-        <AngelsHubFlatSVG className="scale-pin relative w-full top-0" />
-        <Team />
-      </div>
-
-      <div ref={providersRef} className="relative w-full">
-        <AngelsHubSVG className="absolute z-0 w-full top-1/2 -translate-y-1/2 2xl:-translate-y-1/3" />
-        <div className="relative container grid gap-16 mx-auto w-full mt-56">
-          <div className="relative z-10 grid gap-5 text-center">
-            <h2 className="text-3xl title text-white leading-tight xl:text-6xl">
-              Gaming Providers
-            </h2>
-            <p className="text-white caption mx-auto text-sm max-w-[345px] md:max-w-lg lg:text-lg lg:max-w-2xl">
-              Explore the trusted partners fuelling iGaming experience
-            </p>
-          </div>
-        </div>
-        <Providers />
-      </div>
-      <Footer ref={footerRef} />
     </>
   );
 }
