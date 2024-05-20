@@ -41,8 +41,6 @@ export default function Topnavs() {
       hoverTL.current = gsap.timeline({ paused: true });
       gsap.set(arrowRef.current, { opacity: 0.75 });
 
-      
-
       hoverTL.current
         .to(arrowRef.current, {
           keyframes: {

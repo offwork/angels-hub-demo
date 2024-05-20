@@ -7,8 +7,15 @@ interface Props {
 }
 
 const StickyLogo = forwardRef<HTMLAnchorElement, Props>((props, ref) => (
-  <a className="relative" ref={ref} href={props.href}>
-    <svg width="98" height="72" viewBox="0 0 98 72" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <a className="relative block w-16 h-12" ref={ref} href={props.href}>
+    <svg
+      className="absolute top-0 left-0 w-full h-auto"
+      width="98"
+      height="72"
+      viewBox="0 0 98 72"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+    >
       <path
         d="M0 0H92C95.3137 0 98 2.68629 98 6V66C98 69.3137 95.3137 72 92 72H0V0Z"
         fill="#FF5F00"
