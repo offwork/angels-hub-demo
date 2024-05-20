@@ -1,12 +1,18 @@
-"use client"
+"use client";
 
-export default function SocailIcon({ name, bg }: { name: string, bg:string }) {
+import Link from "next/link";
+
+export default function SocailIcon({ name, bg }: { name: string; bg: string }) {
   return (
     <>
       {
         {
           linkedin: (
-            <span className={`${bg} cursor-pointer rounded-full p-3 border border-white/30 inline-flex items-center`}>
+            <Link
+              href="https://www.linkedin.com/company/angelshub/"
+              target="_blank"
+              className={`${bg} cursor-pointer rounded-full p-3 border border-white/30 inline-flex items-center`}
+            >
               <svg
                 width="16"
                 height="16"
@@ -31,10 +37,14 @@ export default function SocailIcon({ name, bg }: { name: string, bg:string }) {
                   </clipPath>
                 </defs>
               </svg>
-            </span>
+            </Link>
           ),
           instegram: (
-            <span className={`${bg} cursor-pointer rounded-full p-3 border border-white/30 inline-flex items-center`}>
+            <Link
+              href="https://www.instagram.com/angelshub_official/"
+              target="_blank"
+              className={`${bg} cursor-pointer rounded-full p-3 border border-white/30 inline-flex items-center`}
+            >
               <svg
                 width="16"
                 height="16"
@@ -59,10 +69,14 @@ export default function SocailIcon({ name, bg }: { name: string, bg:string }) {
                   </clipPath>
                 </defs>
               </svg>
-            </span>
+            </Link>
           ),
           twitter: (
-            <span className={`${bg} cursor-pointer rounded-full p-3 border border-white/30 inline-flex items-center`}>
+            <Link
+              href="https://twitter.com/angelshubcom"
+              target="_blank"
+              className={`${bg} cursor-pointer rounded-full p-3 border border-white/30 inline-flex items-center`}
+            >
               <svg
                 width="16"
                 height="16"
@@ -70,24 +84,15 @@ export default function SocailIcon({ name, bg }: { name: string, bg:string }) {
                 fill="none"
                 xmlns="http://www.w3.org/2000/svg"
               >
-                <g clipPath="url(#clip0_512_29)">
+                <g id="x-twitter 1">
                   <path
-                    d="M15.75 3.44226C15.4766 3.56921 15.1909 3.67419 14.8931 3.7572C14.5952 3.84021 14.29 3.89636 13.9775 3.92566C14.2998 3.74011 14.5781 3.50085 14.8125 3.20789C15.0469 2.91492 15.2227 2.58777 15.3398 2.22644C15.0371 2.40222 14.7222 2.55359 14.395 2.68054C14.0679 2.8075 13.7285 2.90515 13.377 2.97351C13.0938 2.68054 12.7593 2.44617 12.3735 2.27039C11.9878 2.0946 11.5752 2.00671 11.1357 2.00671C10.7061 2.00671 10.3057 2.08484 9.93457 2.24109C9.56348 2.4071 9.23877 2.62927 8.96045 2.90759C8.68213 3.18591 8.45996 3.51062 8.29395 3.88171C8.1377 4.25281 8.05957 4.6532 8.05957 5.08289C8.05957 5.20007 8.06689 5.31726 8.08154 5.43445C8.09619 5.55164 8.11328 5.66882 8.13281 5.78601C7.49805 5.74695 6.88281 5.64929 6.28711 5.49304C5.68164 5.32703 5.11035 5.10486 4.57324 4.82654C4.03613 4.54822 3.5332 4.21863 3.06445 3.83777C2.5957 3.45691 2.1709 3.0321 1.79004 2.56335C1.66309 2.79773 1.56299 3.04431 1.48975 3.3031C1.4165 3.56189 1.37988 3.83289 1.37988 4.11609C1.37988 4.6532 1.50439 5.14392 1.75342 5.58826C2.00244 6.03259 2.33203 6.39636 2.74219 6.67957C2.49805 6.6698 2.25635 6.63074 2.01709 6.56238C1.77783 6.49402 1.55566 6.40125 1.35059 6.28406V6.328C1.35059 7.07019 1.5874 7.72205 2.06104 8.28357C2.53467 8.84509 3.12305 9.1991 3.82617 9.34558C3.68945 9.37488 3.55518 9.39929 3.42334 9.41882C3.2915 9.43835 3.15234 9.44812 3.00586 9.44812C2.9082 9.44812 2.81055 9.44324 2.71289 9.43347C2.61523 9.42371 2.52246 9.40906 2.43457 9.38953C2.62988 10.0048 2.98877 10.5126 3.51123 10.913C4.03369 11.3134 4.63184 11.5184 5.30566 11.5282C4.77832 11.9481 4.18994 12.2728 3.54053 12.5023C2.89111 12.7318 2.20508 12.8466 1.48242 12.8466C1.35547 12.8466 1.23096 12.8441 1.10889 12.8392C0.986816 12.8344 0.867188 12.8221 0.75 12.8026C1.0918 13.0272 1.44824 13.2225 1.81934 13.3885C2.19043 13.5643 2.57373 13.7108 2.96924 13.828C3.36475 13.9452 3.77246 14.0331 4.19238 14.0917C4.6123 14.16 5.03711 14.1942 5.4668 14.1942C6.88281 14.1942 8.13281 13.9257 9.2168 13.3885C10.3105 12.8612 11.2285 12.1776 11.9707 11.3378C12.7129 10.4979 13.2744 9.56042 13.6553 8.52527C14.0361 7.48035 14.2266 6.45007 14.2266 5.43445L14.2119 5.03894C14.5146 4.8241 14.7954 4.5824 15.0542 4.31384C15.313 4.04529 15.5449 3.75476 15.75 3.44226Z"
+                    id="Vector"
+                    d="M12.1625 14.5H14.3687L9.54999 8.99375L15.2187 1.5H10.7812L7.30312 6.04375L3.32812 1.5H1.11874L6.27187 7.39062L0.837494 14.5H5.38749L8.52812 10.3469L12.1625 14.5ZM11.3875 2.81875H12.6094L4.72187 13.25H3.40937L11.3875 2.81875Z"
                     fill="white"
                   />
                 </g>
-                <defs>
-                  <clipPath id="clip0_512_29">
-                    <rect
-                      width="15"
-                      height="15"
-                      fill="white"
-                      transform="matrix(1 0 0 -1 0.75 15.41)"
-                    />
-                  </clipPath>
-                </defs>
               </svg>
-            </span>
+            </Link>
           ),
         }[name]
       }

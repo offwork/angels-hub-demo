@@ -11,8 +11,8 @@ import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/dist/ScrollTrigger";
 import Image from "next/image";
+import Link from "next/link";
 import { useRef } from "react";
-import Scrollbar from "smooth-scrollbar";
 import WAVE from "../../../public/images/abstract-wave.png";
 import CRYPTO_SOLUTIONS_CURRENCY from "../../../public/images/crypto-solutions-currency.png";
 import CRYPTO_SOLUTIONS_MAIN_CHIPS from "../../../public/images/crypto-solutions-main-chips.png";
@@ -25,7 +25,7 @@ import CRYPTO_SOLUTIONS_UNLIMITED from "../../../public/images/crypto-sulionts-u
 import CRYPTO_SOLUTIONS_VERIFICATION from "../../../public/images/crypto-sulionts-verification.svg";
 
 if (typeof window !== "undefined") {
-  gsap.registerPlugin(useGSAP, ScrollTrigger);
+  gsap.registerPlugin(useGSAP);
 }
 
 export default function CryptoSolutions() {
@@ -34,33 +34,7 @@ export default function CryptoSolutions() {
   const productsRef = useRef<HTMLDivElement>(null!);
   const providersRef = useRef<HTMLDivElement>(null!);
   const scrollContainerRef = useRef<HTMLDivElement>(null!);
-
   const { context, contextSafe } = useGSAP({ scope: scrollContainerRef.current });
-
-  const initSmoothScrolling = () => {
-    ScrollTrigger.config({ limitCallbacks: true, ignoreMobileResize: true });
-
-    const bodyScrollBar = Scrollbar.init(scrollContainerRef.current, {
-      damping: 0.1,
-      alwaysShowTracks: true,
-    });
-
-    bodyScrollBar.addListener(ScrollTrigger.update);
-
-    ScrollTrigger.scrollerProxy(scrollContainerRef.current, {
-      scrollTop(value) {
-        if (arguments.length && value) {
-          bodyScrollBar.scrollTop = value;
-        }
-        return bodyScrollBar.scrollTop;
-      },
-    });
-
-    ScrollTrigger.defaults({
-      toggleActions: "restart pause resume pause",
-      scroller: scrollContainerRef.current,
-    });
-  };
 
   const scroll = contextSafe(() => {
     /*===========================     PRODUCTS SCROLL     ==========================*/
@@ -249,7 +223,6 @@ export default function CryptoSolutions() {
   });
 
   useIsomorphicLayoutEffect(() => {
-    initSmoothScrolling();
     scroll();
 
     return () => {
@@ -260,8 +233,10 @@ export default function CryptoSolutions() {
   }, [context, scroll]);
 
   return (
-    <div ref={scrollContainerRef} className="relative h-screen w-full overflow-x-hidden">
-      <BrandLogo />
+    <>
+      <Link className="cursor-pointer absolute ml-12 top-8 z-30" href="/" passHref legacyBehavior>
+        <BrandLogo href="/" />
+      </Link>
       <div className="relative flex px-5 w-full h-[1000px] md:h-[820px] lg:h-[1050px] xl:h-[1200px] bg-angel-blue mix-blend-luminosity overflow-hidden">
         <div className="absolute left-0 z-30 top-28 lg:top-16 xl:top-32 block mx-auto w-full">
           <div className="flex justify-center items-center">
@@ -277,7 +252,7 @@ export default function CryptoSolutions() {
                 cryptocurrencies included Bitcoin, Ethereum, Litecoin, Dogecoin, Tether, Bitcoin
                 Cash, Ripple, Binance Coin, Cardano, TRON, and many more.
               </h2>
-              <ButtonFill bg="bg-angel-orange" size="medium" href={"/"} label={"BOOK A MEETING"} />
+              <ButtonFill bg="bg-angel-orange" size="medium" href={""} label={"BOOK A MEETING"} />
             </div>
             <div className="absolute z-0 min-w-full h-full p-0.5">
               <Image
@@ -289,11 +264,14 @@ export default function CryptoSolutions() {
             </div>
           </div>
         </div>
-        <Image
-          className="absolute w-full z-10 scale-125 mix-blend-lighten opacity-20 left-1/2 -translate-x-1/2 bottom-0 lg:bottom-10 xl:bottom-52"
-          src={WAVE}
-          alt="Products wave"
-        />
+        <div className="absolute left-0 z-10 w-full h-auto bottom-0 overflow-hidden lg:bottom-16 xl:bottom-80 2xl:bottom-80 3xl:bottom-72 5xl:bottom-60 6xl:bottom-44">
+          <Image
+            className="relative object-cover object-center scale-150 w-full h-auto mix-blend-lighten opacity-20 drop-shadow-lg lg:scale-110"
+            src={WAVE}
+            priority
+            alt="Products wave"
+          />
+        </div>
         <div className="absolute z-10 left-0 w-full h-[670px] lg:h-[597px]">
           <div className="relative mx-auto xl:w-full 2xl:w-[1390px] h-full">
             <Image
@@ -361,7 +339,8 @@ export default function CryptoSolutions() {
                 Crypto Solution at AngelsHub <br /> Platform is always Stable and Secure
               </h2>
               <h3 className="text-2xl md:text-3xl lg:text-4xl text-white">
-                Popularity of crypto gambling raised in <br className="hidden md:block" /> year 2017 and 2018.
+                Popularity of crypto gambling raised in <br className="hidden md:block" /> year 2017
+                and 2018.
               </h3>
               <p className="text-base md:text-lg text-white/75 lg:max-w-3xl">
                 AngelsHub Platform offers to all customers cryptocurrency gaming, providing a fun,
@@ -384,9 +363,8 @@ export default function CryptoSolutions() {
       </div>
       <div
         ref={productsRef}
-        className="horizontal-scroll relative z-10 w-full py-28 h-full overflow-x-hidden xl:h-[980px]"
+        className="horizontal-scroll relative z-10 w-full py-28 h-full xl:h-[1070px]"
       >
-        <div className="hidden xl:block absolute z-0 w-[150%] -rotate-[9deg] top-1/2 -translate-y-1/2 left-1/2 -translate-x-1/2 h-[480px] bg-angel-orange rounded-tr-full rounded-bl-full"></div>
         <div className="relative z-10 grid gap-5 w-full text-center">
           <h3 className="text-3xl text-angel-orange-500 font-medium">Products</h3>
           <h2 className="text-3xl text-spray mx-auto leading-tight max-w-[315px] md:max-w-none xl:text-6xl">
@@ -394,18 +372,21 @@ export default function CryptoSolutions() {
             <span className="text-white">where to start?</span>
           </h2>
         </div>
-        <div
-          ref={hPinRef}
-          className="horizontal-items relative z-10 snap-x snap-mandatory w-full grid grid-flow-row place-items-center py-40 px-6 gap-20 -mt-20 xl:mt-0 xl:grid-flow-col"
-        >
-          {PRODUCTS.map((product) => (
-            <ProductCard
-              title={product.title}
-              description={product.description}
-              image={product.image}
-              key={product.title}
-            />
-          ))}
+        <div className="relative w-full overflow-hidden xl:absolute xl:top-56 xl:pt-32 xl:h-full 5xl:pt-40">
+          <div className="hidden xl:block absolute z-0 w-[150%] -rotate-[9deg] left-1/2 -translate-x-1/2 h-[600px] bg-angel-orange rounded-tr-full rounded-bl-full 6xl:w-full"></div>
+          <div
+            ref={hPinRef}
+            className="horizontal-items relative z-10 snap-x snap-mandatory w-full grid grid-flow-row place-items-center py-24 px-6 gap-20 xl:py-40 xl:mt-0 xl:grid-flow-col"
+          >
+            {PRODUCTS.map((product) => (
+              <ProductCard
+                title={product.title}
+                description={product.description}
+                image={product.image}
+                key={product.title}
+              />
+            ))}
+          </div>
         </div>
       </div>
       <div ref={providersRef} className="relative w-full py-28">
@@ -424,6 +405,6 @@ export default function CryptoSolutions() {
         <Providers />
       </div>
       <Footer ref={footerRef} />
-    </div>
+    </>
   );
 }

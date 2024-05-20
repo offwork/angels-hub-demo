@@ -15,12 +15,15 @@ import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/dist/ScrollTrigger";
 import Image from "next/image";
+import Link from "next/link";
 import { useRef } from "react";
-import Scrollbar from "smooth-scrollbar";
 import WAVE from "../../public/images/abstract-wave.png";
+import SOLUTIONS_1 from "../../public/images/solutions-1.png";
+import SOLUTIONS_2 from "../../public/images/solutions-2.png";
+import SOLUTIONS_3 from "../../public/images/solutions-3.png";
 
 if (typeof window !== "undefined") {
-  gsap.registerPlugin(useGSAP, ScrollTrigger);
+  gsap.registerPlugin(useGSAP);
 }
 
 export default function Home() {
@@ -34,39 +37,7 @@ export default function Home() {
   const cellsRef = useRef<HTMLDivElement[]>([]);
   const footerRef = useRef<HTMLDivElement>(null!);
   const angelshubRef = useRef<HTMLDivElement>(null!);
-  const bodyScrollBar = useRef<Scrollbar>(null!);
   const { context, contextSafe } = useGSAP({ scope: scrollContainerRef.current });
-
-  const onClickScrollTo = () => {
-    bodyScrollBar.current.scrollIntoView(solutionsRef.current, {
-      offsetTop: -bodyScrollBar.current.containerEl.scrollTop,
-    });
-  };
-
-  const initSmoothScrolling = () => {
-    ScrollTrigger.config({ limitCallbacks: true, ignoreMobileResize: true });
-
-    bodyScrollBar.current = Scrollbar.init(scrollContainerRef.current, {
-      damping: 0.1,
-      alwaysShowTracks: true,
-    });
-
-    bodyScrollBar.current.addListener(ScrollTrigger.update);
-
-    ScrollTrigger.scrollerProxy(scrollContainerRef.current, {
-      scrollTop(value) {
-        if (arguments.length && value) {
-          bodyScrollBar.current.scrollTop = value;
-        }
-        return bodyScrollBar.current.scrollTop;
-      },
-    });
-
-    ScrollTrigger.defaults({
-      toggleActions: "restart pause resume pause",
-      scroller: scrollContainerRef.current,
-    });
-  };
 
   const scroll = contextSafe(() => {
     /*===========================     SOLUTIONS SCROLL     =========================*/
@@ -100,7 +71,7 @@ export default function Home() {
       },
     });
 
-    solutions.forEach((solution, pos, arr) => {
+    solutions.forEach((_solution, pos, arr) => {
       gsap.from(arr[arr.length - 1 - pos], {
         ease: "sine.in",
         yPercent: 10,
@@ -528,7 +499,6 @@ export default function Home() {
   });
 
   useIsomorphicLayoutEffect(() => {
-    initSmoothScrolling();
     scroll();
 
     return () => {
@@ -539,30 +509,12 @@ export default function Home() {
   }, [context, scroll]);
 
   return (
-    <div ref={scrollContainerRef} className="relative h-screen w-full overflow-x-hidden">
-      <BrandLogo />
+    <>
+      <Link className="cursor-pointer absolute ml-12 top-8 z-30" href="/" passHref legacyBehavior>
+        <BrandLogo href="/" />
+      </Link>
       <div className="slider-ref relative z-10 w-full">
         <Slider />
-        <button
-          onClick={onClickScrollTo}
-          className="absolute z-20 hidden space-x-2 items-center bottom-56 right-24 xl:flex"
-        >
-          <span className="text-white text-lg">Scroll</span>
-          <svg
-            className="motion-safe:animate-bounce"
-            width="13"
-            height="14"
-            viewBox="0 0 13 14"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              id="Vector"
-              d="M6.05519 13.7163C6.17649 13.7157 6.29643 13.6906 6.40778 13.6425C6.51914 13.5943 6.61962 13.5242 6.70319 13.4363L11.8362 8.30127C12.0312 8.09927 12.1172 7.88927 12.1172 7.66927C12.1172 7.16927 11.7662 6.81027 11.2892 6.81027C11.0392 6.81027 10.8292 6.91227 10.6722 7.06827L8.89119 8.82627L6.82119 11.0913L6.93019 9.27927L6.93019 1.80927C6.93019 1.28627 6.57019 0.926269 6.05519 0.926269C5.54719 0.926269 5.18819 1.28627 5.18819 1.80927L5.18819 9.27827L5.29719 11.0903L3.22719 8.82527L1.44519 7.06727C1.36478 6.98524 1.26876 6.92015 1.16279 6.87583C1.05682 6.83152 0.943049 6.80889 0.828188 6.80927C0.352188 6.80927 0.000187601 7.16927 0.000187579 7.66927C0.00375908 7.90202 0.099405 8.12388 0.266187 8.28627L5.41419 13.4343C5.49659 13.5216 5.59571 13.5915 5.70566 13.6398C5.8156 13.688 5.93412 13.7137 6.05419 13.7153L6.05519 13.7163Z"
-              fill="white"
-            />
-          </svg>
-        </button>
       </div>
       <div ref={solutionsRef} className="container grid gap-9">
         <div className="relative text-center text-3xl leading-tight xl:text-6xl">
@@ -572,7 +524,12 @@ export default function Home() {
         <div className="grid grid-flow-row gap-0 mx-auto max-w-sm lg:max-w-max lg:gap-8 lg:grid-flow-col">
           <div className="solution grid content-start border-y border-white/20 gap-8 py-8">
             <h3 className="text-2xl font-bold text-white">Website API</h3>
-            <div className="relative w-full h-[460px] bg-angel-blue-950 rounded-xl lg:h-[360px]">
+            <div className="relative w-full h-[360px] bg-angel-blue-950 rounded-xl overflow-hidden">
+              <Image
+                className="absolute z-0 object-cover object-center h-full w-full"
+                src={SOLUTIONS_1}
+                alt="Website API Solution"
+              />
               <CircleBtn />
             </div>
             <p className="text-white">
@@ -582,7 +539,12 @@ export default function Home() {
           </div>
           <div className="solution grid content-start border-y-0 border-white/20 gap-8 py-8 lg:border-y">
             <h3 className="text-2xl font-bold text-white">Turnkey System</h3>
-            <div className="relative w-full h-[460px] bg-angel-blue-950 rounded-xl lg:h-[360px]">
+            <div className="relative w-full h-[360px] bg-angel-blue-950 rounded-xl overflow-hidden">
+              <Image
+                className="absolute z-0 object-cover object-center h-full w-full"
+                src={SOLUTIONS_2}
+                alt="Turnkey System Solution"
+              />
               <CircleBtn />
             </div>
             <p className="text-white">
@@ -592,7 +554,12 @@ export default function Home() {
           </div>
           <div className="solution grid content-start border-y border-white/20 gap-8 py-8">
             <h3 className="text-2xl font-bold text-white">White Label</h3>
-            <div className="relative w-full h-[460px] bg-angel-blue-950 rounded-xl lg:h-[360px]">
+            <div className="relative w-full h-[360px] bg-angel-blue-950 rounded-xl overflow-hidden">
+              <Image
+                className="absolute z-0 object-cover object-center h-full w-full"
+                src={SOLUTIONS_3}
+                alt="White Label Solution"
+              />
               <CircleBtn />
             </div>
             <p className="text-white">
@@ -602,16 +569,10 @@ export default function Home() {
           </div>
         </div>
       </div>
-
       <div
         ref={productsRef}
-        className="horizontal-scroll relative z-10 w-full mt-56 h-full overflow-x-hidden xl:h-[980px]"
+        className="horizontal-scroll relative z-10 w-full mt-56 h-full xl:h-[980px]"
       >
-        <Image
-          className="absolute top-20 z-0 mix-blend-lighten bg-angel-blue opacity-10 max-w-max lg:w-full lg:max-w-full"
-          src={WAVE}
-          alt="Products wave"
-        />
         <div className="relative z-10 grid gap-5 w-full text-center">
           <h3 className="text-3xl text-angel-orange-500 font-medium">Products</h3>
           <h2 className="text-3xl text-spray mx-auto leading-tight max-w-[315px] md:max-w-none xl:text-6xl">
@@ -619,23 +580,28 @@ export default function Home() {
             <span className="text-white">where to start?</span>
           </h2>
         </div>
-        <div
-          ref={hPinRef}
-          className="horizontal-items relative z-10 snap-x snap-mandatory w-full grid grid-flow-row place-items-center py-40 px-6 gap-20 -mt-20 xl:mt-0 xl:grid-flow-col"
-        >
-          {PRODUCTS.map((product) => (
-            <ProductCard
-              title={product.title}
-              description={product.description}
-              image={product.image}
-              key={product.title}
-            />
-          ))}
+        <div className="relative w-full overflow-hidden py-8 md:py-24 xl:absolute xl:h-full">
+          <Image
+            className="absolute top-0 z-0 mix-blend-lighten bg-angel-blue opacity-10 max-w-max lg:w-full lg:max-w-full"
+            src={WAVE}
+            alt="Products wave"
+          />
+          <div
+            ref={hPinRef}
+            className="horizontal-items relative z-10 snap-x snap-mandatory w-full grid grid-flow-row place-items-center py-40 px-6 gap-20 -mt-20 xl:mt-0 xl:grid-flow-col"
+          >
+            {PRODUCTS.map((product) => (
+              <ProductCard
+                title={product.title}
+                description={product.description}
+                image={product.image}
+                key={product.title}
+              />
+            ))}
+          </div>
+          <AngelsHubSVG className="absolute z-0 w-[200%] h-auto -left-20 bottom-0 lg:left-0 lg:w-full" />
         </div>
-        <AngelsHubSVG className="absolute z-0 w-full lg:-bottom-52 xl:-bottom-28 hidden md:block" />
-        <AngelsHubSVG className="absolute z-0 w-auto scale-[0.45] -bottom-[7%] left-[90%] -translate-x-1/2 md:hidden" />
       </div>
-
       <div
         ref={platformRef}
         className="platform-scroll relative w-full my-56 pb-10 overflow-x-hidden"
@@ -678,7 +644,12 @@ export default function Home() {
         </div>
         <div className="container w-full flex justify-center lg:justify-end">
           <div className="platform-btn flex">
-            <ButtonFill bg="bg-angel-blue" size="large" href={"/"} label={"Get good service from experts"} />
+            <ButtonFill
+              bg="bg-angel-blue"
+              size="large"
+              href={""}
+              label={"Get good service from experts"}
+            />
           </div>
         </div>
       </div>
@@ -699,14 +670,13 @@ export default function Home() {
               Gaming Providers
             </h2>
             <p className="text-white caption mx-auto text-sm max-w-[345px] md:max-w-lg lg:text-lg lg:max-w-2xl">
-              Lorem ipsum dolor sit amet consectetur. Sed sed varius ut sed sit sed commodo a
-              ornare. Tellus viverra adipiscing volutpat habitasse quam fringilla tortor diam.
+              Explore the trusted partners fuelling iGaming experience
             </p>
           </div>
         </div>
         <Providers />
       </div>
       <Footer ref={footerRef} />
-    </div>
+    </>
   );
 }

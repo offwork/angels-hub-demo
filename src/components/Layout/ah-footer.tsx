@@ -10,7 +10,7 @@ import Link from "next/link";
 
 
 const Footer = forwardRef<HTMLDivElement, {}>(
-  (props, ref) => {
+  (_props, ref) => {
     return (
       <div ref={ref} className="relative w-full overflow-hidden pb-16 xl:pb-40">
         <div className="relative grid place-items-center gap-12 mt-28 w-full xl:gap-20 xl:mt-56">
@@ -18,8 +18,9 @@ const Footer = forwardRef<HTMLDivElement, {}>(
         <div className="container text-center w-full text-white">
           <div className="grid grid-flow-row justify-items-stretch gap-4 lg:place-items-center lg:gap-8 lg:grid-flow-col">
             <h2 className="title font-bold text-2xl lg:justify-self-end xl:text-4xl">ARE YOU READY TO START?</h2>
-            <h3 className="caption text-sm lg:justify-self-start xl:text-2xl">It&apos;s fast, free and very easy!</h3>
+            <h3 className="caption text-sm lg:justify-self-start xl:text-2xl">Share your ideas with us!</h3>
           </div>
+          <p className="mt-6 text-center text-white">Our team is ready 24/7 to answer all your questions and provide the best technical support services.</p>
           <div className="grid gap-4 mx-auto text-white w-full mt-10 lg:mt-20 lg:min-w-[672px] lg:max-w-2xl">
             <input
               type="text"
@@ -50,7 +51,7 @@ const Footer = forwardRef<HTMLDivElement, {}>(
               className="w-full form-element bg-angel-blue indent-14 py-6 rounded-full border border-white/30 focus:outline-none focus:border-white"
             />
             <div className="form-element grid justify-items-stretch">
-              <ButtonFill href="/" label="SEND" bg="bg-angel-blue" size="large" />
+              <ButtonFill href="" label="SEND" bg="bg-angel-blue" size="large" />
             </div>
           </div>
         </div>
@@ -114,16 +115,16 @@ const Footer = forwardRef<HTMLDivElement, {}>(
             <span className="footer-menu font-bold text-xl">
               Products
             </span>
-            <Link href="/" className="footer-menu hover:underline">
+            <Link href="/suportsbook" className="footer-menu hover:underline">
               Sportsbook
             </Link>
-            <Link href="/" className="footer-menu hover:underline">
+            <Link href="/online-casino" className="footer-menu hover:underline">
               Online Casino
             </Link>
-            <Link href="/" className="footer-menu hover:underline">
+            <Link href="/crypto-solutions" className="footer-menu hover:underline">
               Crypto Solutions
             </Link>
-            <Link href="/" className="footer-menu hover:underline">
+            <Link href="/affiliate-agent-system" className="footer-menu hover:underline">
               Affiliate and Agent System
             </Link>
           </div>
@@ -141,7 +142,7 @@ const Footer = forwardRef<HTMLDivElement, {}>(
             </p>
           </div>
           <p className="copyright text-sm text-center md:text-left lg:justify-self-end">
-            Copyright © AngelsHub 2023 All rights reserved
+            Copyright © AngelsHub 2024 All rights reserved
           </p>
         </div>
       </div>

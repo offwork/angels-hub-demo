@@ -5,6 +5,7 @@ import gsap from "gsap";
 import Link from "next/link";
 import { useRef, useState } from "react";
 import SocailIcon from "./Team/ah-social-icon";
+import BrandLogo from "./ah-brand-logo";
 import AHLink from "./ui/ah-link";
 
 if (typeof window !== "undefined") {
@@ -24,7 +25,7 @@ export default function Topnavs() {
   const hoverTL = useRef<GSAPTimeline>(null!);
 
   useGSAP(
-    (context, contextSafe) => {
+    (_context, contextSafe) => {
       const hamburgerLines = gsap.utils.toArray<HTMLSpanElement>(".hamburger-line");
       const linkButtons = wrapMenuRef.current.querySelector<HTMLAnchorElement>(".link-buttons")!;
       const scheduleLink = wrapMenuRef.current.querySelector<HTMLAnchorElement>(".schedule-link")!;
@@ -39,6 +40,8 @@ export default function Topnavs() {
       hamburgerTl.current = gsap.timeline({ paused: true });
       hoverTL.current = gsap.timeline({ paused: true });
       gsap.set(arrowRef.current, { opacity: 0.75 });
+
+      
 
       hoverTL.current
         .to(arrowRef.current, {
@@ -170,7 +173,11 @@ export default function Topnavs() {
 
         accordionTl
           .from(plus, { rotate: 0, ease: "sine.in", duration: 0.5 })
-          .from(box, { height: 0, paddingBottom: 0, paddingTop: 0 , duration: 0.7, ease: "back.in" }, "<")
+          .from(
+            box,
+            { height: 0, paddingBottom: 0, paddingTop: 0, duration: 0.7, ease: "back.in" },
+            "<"
+          )
           .reverse();
 
         return function (clickedMenu: HTMLDivElement) {
@@ -246,7 +253,13 @@ export default function Topnavs() {
           ref={menuContainRef}
           className="absolute hidden z-0 overflow-hidden top-0 -right-8 lg:-right-16 min-w-max lg:min-w-[890px]"
         >
-          <div className="menu-contain bg-angel-orange pt-28 lg:pt-36 w-screen lg:w-full h-full overflow-y-scroll">
+          <div className="menu-contain bg-angel-orange pt-28 lg:pt-36 w-screen lg:w-full h-full overscroll-none overflow-y-scroll">
+            <Link href="/" passHref legacyBehavior>
+              <BrandLogo
+                className="lg:hidden bg-angel-orange w-full h-24 top-0 absolute z-30 px-6 py-8"
+                href="/"
+              />
+            </Link>
             <ul className="grid w-full grid-flow-row divide-y px-10 md:px-20 pb-16 divide-white/50 text-nowrap text-white text-xl lg:text-3xl font-semibold">
               <li className="accordion-group cursor-pointer main-nav-item py-4 select-none lg:py-6">
                 <div className="accordion-menu flex items-center">
@@ -268,7 +281,7 @@ export default function Topnavs() {
                     passHref
                     legacyBehavior
                   >
-                    <AHLink href="/suportsbook">Online Casino</AHLink>
+                    <AHLink href="/online-casino">Online Casino</AHLink>
                   </Link>
                   <Link
                     href="/crypto-solutions"
@@ -276,7 +289,7 @@ export default function Topnavs() {
                     passHref
                     legacyBehavior
                   >
-                    <AHLink href="/suportsbook">Crypto Solutions</AHLink>
+                    <AHLink href="/crypto-solutions">Crypto Solutions</AHLink>
                   </Link>
                   <Link
                     href="/affiliate-agent-system"
@@ -284,7 +297,7 @@ export default function Topnavs() {
                     passHref
                     legacyBehavior
                   >
-                    <AHLink href="/suportsbook">Affiliate and Agent System</AHLink>
+                    <AHLink href="/affiliate-agent-system">Affiliate and Agent System</AHLink>
                   </Link>
                 </div>
               </li>

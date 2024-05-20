@@ -20,10 +20,11 @@ export default function ButtonFill({
   const linkRef = useRef<HTMLAnchorElement>(null!);
 
   useGSAP((context, contextSafe) => {
-    gsap.set(linkRef.current, { backgroundColor: "transparent", backgroundSize: "200% 200%", transformOrigin: "50% 50%" });
+    const gradientBg = linkRef.current.querySelector<HTMLDivElement>(".absolute")
+    gsap.set(gradientBg, { opacity: 0, backgroundColor: "transparent", backgroundSize: "200% 200%", transformOrigin: "50% 50%" });
     const hoverTL = gsap.timeline({ paused: true });
     hoverTL
-      .to(linkRef.current, {
+      .to(gradientBg, {
         keyframes: {
           "0%": { backgroundPosition: "0% -100%" },
           "50%": { backgroundPosition: "-100% 0%" },
@@ -36,10 +37,12 @@ export default function ButtonFill({
       .reverse();
 
     const onEnter = contextSafe!((evt: MouseEvent) => {
+      gsap.set(gradientBg, { opacity: 1 });
       hoverTL.reversed(false);
     });
 
     const onLeave = contextSafe!((evt: MouseEvent) => {
+      gsap.set(gradientBg, { opacity: 0 });
       hoverTL.reversed(true).progress(0).revert();
     });
 
@@ -73,26 +76,28 @@ export default function ButtonFill({
             <Link
               href={href}
               ref={linkRef}
-              className="bg-gradient-to-tr from-angel-orange from-25% to-angel-blue-500 to-75% rounded-full max-w-fit p-0.5"
+              className="relative rounded-full max-w-fit h-auto p-0.5"
             >
               <div
-                className={`w-full h-full rounded-full ${bg} text-white px-11 py-4 text-center hover:bg-white hover:text-angel-orange`}
+                className={`relative z-10 w-full h-full rounded-full ${bg} text-white px-11 py-4 text-center`}
               >
                 <span className="select-none uppercase">{label}</span>
               </div>
+              <div className="absolute top-0 left-0 z-0 w-full h-full bg-gradient-to-tr from-angel-orange from-25% to-angel-blue-500 to-75% rounded-full"></div>
             </Link>
           ),
           large: (
             <Link
               href={href}
               ref={linkRef}
-              className="grow bg-gradient-to-tr from-angel-orange from-25% to-angel-blue-500 to-75% rounded-full p-0.5 drop-shadow-xl"
+              className="relative grow rounded-full w-full h-auto p-0.5 drop-shadow-xl bg-white"
             >
               <div
-                className={`w-full h-full rounded-full ${bg} text-white px-10 py-7 text-center outline outline-offset-1 outline-2 outline-white lg:px-20 hover:bg-white hover:outline-0 hover:text-angel-orange`}
+                className={`relative z-10 w-full h-full rounded-full ${bg} text-white px-10 py-7 text-center lg:px-20`}
               >
                 <span className="text-sm select-none uppercase">{label}</span>
               </div>
+              <div className="absolute top-0 left-0 z-0 w-full h-full bg-gradient-to-tr from-angel-orange from-25% to-angel-blue-500 to-75% rounded-full"></div>
             </Link>
           ),
         }[size]
