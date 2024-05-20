@@ -1,18 +1,23 @@
 "use client";
 import { useIsomorphicLayoutEffect } from "@/utils";
+import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/dist/ScrollTrigger";
+import Link from "next/link";
 import { ReactNode, useRef } from "react";
 import Scrollbar from "smooth-scrollbar";
+import StickyLogo from "../ah-sticky-logo";
 
 if (typeof window !== "undefined") {
-  gsap.registerPlugin(ScrollTrigger);
+  gsap.registerPlugin(useGSAP, ScrollTrigger);
   window.history.scrollRestoration = "manual";
 }
 
 export default function AHSmoothScrollbar({ children }: { children?: ReactNode }) {
   const scrollContainerRef = useRef<HTMLElement>(null!);
   const bodyScrollBar = useRef<Scrollbar>(null!);
+  const stickyLogoRef = useRef<HTMLDivElement>(null!);
+  const stickyTL = useRef<GSAPTimeline>(null!);
 
   const initSmoothScrolling = () => {
     ScrollTrigger.config({ limitCallbacks: true, ignoreMobileResize: true });
@@ -41,16 +46,42 @@ export default function AHSmoothScrollbar({ children }: { children?: ReactNode }
     });
   };
 
+  useGSAP(
+    () => {
+      gsap.set(stickyLogoRef.current, { opacity: 0, xPercent: -100 });
+      stickyTL.current = gsap.timeline({
+        scrollTrigger: {
+          trigger: "main",
+          start: "bottom 25%",
+          toggleActions: "play none reverse none",
+          scrub: 1,
+        },
+      });
+      stickyTL.current.to(stickyLogoRef.current, { xPercent: 0, opacity: 1 });
+    },
+    { scope: scrollContainerRef.current }
+  );
+
   useIsomorphicLayoutEffect(() => {
     initSmoothScrolling();
   }, []);
 
   return (
-    <main
-      ref={scrollContainerRef}
-      className="relative h-screen w-full overscroll-none overflow-hidden"
-    >
-      {children}
-    </main>
+    <>
+      <div
+        ref={stickyLogoRef}
+        className="fixed z-40 opacity-0 top-1/2 -translate-y-1/2 bg-angel-orange text-white"
+      >
+        <Link href="/" legacyBehavior passHref>
+          <StickyLogo href="/" />
+        </Link>
+      </div>
+      <main
+        ref={scrollContainerRef}
+        className="relative h-screen w-full overscroll-none overflow-hidden"
+      >
+        {children}
+      </main>
+    </>
   );
 }

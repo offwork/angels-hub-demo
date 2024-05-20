@@ -17,14 +17,12 @@ export default function Topnavs() {
   const [fill, setFill] = useState("#FFFFFF");
   const isOpen = useRef<boolean>(true);
   const wrapMenuRef = useRef<HTMLDivElement>(null!);
-  const stickyLogoRef = useRef<HTMLDivElement>(null!);
   const btnRef = useRef<HTMLButtonElement>(null!);
   const menuContainRef = useRef<HTMLDivElement>(null!);
   const bookDemoRef = useRef<HTMLAnchorElement>(null!);
   const arrowRef = useRef<SVGSVGElement>(null!);
   const hamburgerTl = useRef<GSAPTimeline>(null!);
   const hoverTL = useRef<GSAPTimeline>(null!);
-  const stickyTL = useRef<GSAPTimeline>(null!);
 
   useGSAP(
     (_context, contextSafe) => {
@@ -42,17 +40,8 @@ export default function Topnavs() {
       hamburgerTl.current = gsap.timeline({ paused: true });
       hoverTL.current = gsap.timeline({ paused: true });
       gsap.set(arrowRef.current, { opacity: 0.75 });
-      gsap.set(stickyLogoRef.current, { opacity: 0, xPercent: -100 });
 
-      stickyTL.current = gsap.timeline({
-        scrollTrigger: {
-          trigger: "main",
-          start: "bottom 25%",
-          toggleActions: "play none reverse none",
-          scrub: 1,
-        },
-      });
-      stickyTL.current.to(stickyLogoRef.current, { xPercent: 0, opacity: 1 });
+      
 
       hoverTL.current
         .to(arrowRef.current, {
@@ -211,12 +200,6 @@ export default function Topnavs() {
 
   return (
     <>
-      <div
-        ref={stickyLogoRef}
-        className="fixed z-40 opacity-0 top-1/2 -translate-y-1/2 bg-angel-orange w-16 h-24 text-white"
-      >
-        Kerem
-      </div>
       <div
         ref={wrapMenuRef}
         className="fixed z-40 flex items-center pt-4 mr-8 lg:mr-16 top-0 right-0"
