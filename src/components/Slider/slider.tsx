@@ -69,10 +69,12 @@ export default function Slider() {
         },
         onStart: () => {
           slidesRef.current[slide.current].classList.add("opacity-100");
+          gsap.set(upcomingSlide, { z: 99 });
         },
         onComplete: () => {
           slidesRef.current[previous].classList.remove("opacity-100");
           isAnimating.current = false;
+          gsap.set(upcomingSlide, { z: 1 });
           setSelected(String(slide.current));
         },
       })
@@ -83,6 +85,7 @@ export default function Slider() {
           duration: 0.4,
           ease: "power2.in",
           xPercent: -direction * 100,
+          z: 0
         },
         "start"
       )
@@ -162,40 +165,39 @@ export default function Slider() {
         <div
           ref={sliderRef}
           style={{ perspective: 1000 }}
-          className="grid place-items-center w-full min-h-[940px] xl:h-[1123px] overflow-hidden"
+          className="relative z-10 grid place-items-center w-full min-h-[940px] xl:h-[1123px] overflow-hidden"
         >
           <div
             style={{ gridArea: "1 / 1 / -1 / -1" }}
-            className="slide relative grid place-items-center w-full h-full opacity-0 overflow-hidden"
+            className="slide absolute z-20 grid place-items-center w-full h-full opacity-0 overflow-hidden"
           >
             <Slide1 slide={slide.current} />
           </div>
           <div
             style={{ gridArea: "1 / 1 / -1 / -1" }}
-            className="slide relative grid place-items-center w-full h-full opacity-0 overflow-hidden"
+            className="slide absolute z-10 grid place-items-center w-full h-full opacity-0 overflow-hidden"
           >
             <Slide2 slide={slide.current} />
           </div>
           <div
             style={{ gridArea: "1 / 1 / -1 / -1" }}
-            className="slide relative grid place-items-center w-full h-full opacity-0 overflow-hidden"
+            className="slide absolute z-0 grid place-items-center w-full h-full opacity-0 overflow-hidden"
           >
             <Slide3 slide={slide.current} />
           </div>
           <div
             style={{ gridArea: "1 / 1 / -1 / -1" }}
-            className="deco bg-angel-orange relative grid place-items-center w-full h-full opacity-0"
+            className="deco bg-angel-orange absolute z-0 grid place-items-center w-full h-full opacity-0"
           ></div>
           <div
             style={{ gridArea: "1 / 1 / -1 / -1" }}
-            className="deco bg-angel-blue-950 relative grid place-items-center w-full h-full opacity-0"
+            className="deco bg-angel-blue-950 absolute z-0 grid place-items-center w-full h-full opacity-0"
           ></div>
           <div
             style={{ gridArea: "1 / 1 / -1 / -1" }}
-            className="deco bg-angel-blue relative grid place-items-center w-full h-full opacity-0"
+            className="deco bg-angel-blue absolute z-0 grid place-items-center w-full h-full opacity-0"
           ></div>
         </div>
-        <div className="relative"></div>
         <BannerController />
       </SelectedSlideContext.Provider>
     </>

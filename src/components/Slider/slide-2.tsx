@@ -253,13 +253,13 @@ export default function Slide2({ slide }: { slide: number }) {
       </div>
 
       <div className="container absolute z-30 top-40 left-1/2 -translate-x-1/2 text-center lg:text-left">
-        <div className="grid max-w-3xl gap-10 text-white justify-items-center lg:justify-items-start lg:gap-10 4xl:gap-11 5xl:gap-14">
+        <div className="grid max-w-4xl gap-10 text-white justify-items-center lg:justify-items-start lg:gap-10 4xl:gap-11 5xl:gap-14">
           <div>
             <h1
               ref={titleRef1}
-              className="text-4xl font-light md:text-5xl lg:text-6xl xl:text-8xl drop-shadow-[0_4px_3px_rgba(0,0,0,0.65)]"
+              className="text-4xl font-light md:text-5xl lg:text-[50px] xl:text-[80px] drop-shadow-[0_4px_3px_rgba(0,0,0,0.65)]"
             >
-              Home for NextGen
+              Home for the NextGen
             </h1>
             <h2
               ref={titleRef2}
@@ -283,7 +283,7 @@ export default function Slide2({ slide }: { slide: number }) {
             solutions and much much more!
           </p>
           <div ref={linkRef} className="flex">
-            <ButtonFill bg="bg-angel-orange" size="medium" href={"/"} label={"BOOK A MEETING"} />
+            <ButtonFill bg="bg-angel-orange" size="medium" href={""} label={"BOOK A MEETING"} />
           </div>
         </div>
       </div>

@@ -1,11 +1,12 @@
 "use client";
+import { useIsomorphicLayoutEffect } from "@/utils";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import Image from "next/image";
+import Link from "next/link";
 import { useCallback, useRef } from "react";
 import EVENT_PIC from "../../../public/images/event-pic.png";
-import { useIsomorphicLayoutEffect } from "@/utils";
-import Link from "next/link";
+import EVENT_PIC_2 from "../../../public/images/event-pic-2.png";
 
 const NEXT = 1;
 const PREV = -1;
@@ -42,7 +43,6 @@ export default function BannerController({ onNextSlide, onPrevSlide }: BannerCon
   };
 
   const navigateSlider = contextSafe((direction: number) => {
-
     if (isCtrlAnimating.current) return false;
     isCtrlAnimating.current = true;
     const previous = slideCtrl.current;
@@ -65,7 +65,7 @@ export default function BannerController({ onNextSlide, onPrevSlide }: BannerCon
         defaults: {},
         onStart: () => {
           slidesCtrlRef.current[slideCtrl.current].classList.add("opacity-0");
-          gsap.set(upcomingSlide, { zIndex: 39, opacity: 0 });
+          gsap.set(upcomingSlide, { zIndex: 40, opacity: 0 });
         },
         onComplete: () => {
           slidesCtrlRef.current[previous].classList.remove("opacity-0");
@@ -198,7 +198,7 @@ export default function BannerController({ onNextSlide, onPrevSlide }: BannerCon
     slidesCtrlTotal.current = gsap.utils.toArray(".controller ").length;
 
     slidesImagesRef.current.forEach((img, idx) => {
-      gsap.set(img, { xPercent: 100 * idx })
+      gsap.set(img, { xPercent: 100 * idx });
     });
 
     if (window.innerWidth < 1024) {
@@ -222,43 +222,33 @@ export default function BannerController({ onNextSlide, onPrevSlide }: BannerCon
       <div className="bar relative grid grid-flow-col justify-items-stretch place-items-center w-full rounded-3xl bg-black h-[186px] opacity-0 shadow-[0_18px_103px_-15px_rgba(0,0,0,0.36)]">
         <div className="event-images hidden md:block absolute bg-angel-blue left-0 w-[316px] h-[200px] rounded-3xl border-8 border-angel-blue-600 overflow-hidden -ml-[1px]">
           <Image
-            className="event-img absolute object-cover -translate-y-11 object-center"
+            className="event-img absolute object-cover bottom-0 object-center"
             src={EVENT_PIC.src}
             alt="BEGE 2023 Sofia"
             width={EVENT_PIC.width}
             height={EVENT_PIC.height}
           />
           <Image
-            className="event-img absolute object-cover -translate-y-11 object-center"
-            src={EVENT_PIC.src}
+            className="event-img absolute object-cover object-center -top-12"
+            src={EVENT_PIC_2.src}
             alt="BEGE 2023 Sofia"
             width={EVENT_PIC.width}
-            height={EVENT_PIC.height}
-          />
-          <Image
-            className="event-img absolute object-cover -translate-y-11 object-center"
-            src={EVENT_PIC.src}
-            alt="BEGE 2023 Sofia"
-            width={EVENT_PIC.width}
-            height={EVENT_PIC.height}
+            height={EVENT_PIC_2.height}
           />
         </div>
         <div
           ref={controllerContentRef}
-          className="content grid place-items-center w-full md:w-auto relative md:ml-60 lg:ml-80 xl:ml-72 opacity-0 overflow-hidden"
+          className="content grid place-items-center w-full md:w-auto relative md:ml-64 lg:ml-80 xl:ml-72 opacity-0 overflow-hidden"
         >
           <div
             style={{ gridArea: "1 / 1 / -1 / -1" }}
-            className="controller relative grid place-items-center grid-flow-col md:gap-12 lg:gap-16 xl:gap-32 opacity-0"
+            className="controller relative z-10 grid place-items-center grid-flow-col md:gap-12 lg:gap-16 xl:gap-32 opacity-0"
           >
             <div className="text-lines relative">
               <div className="text-line">
-                <p className="text-white lg:text-xl text-nowrap">
-                  We are so excited to meet so many
-                </p>
-                <p className="text-white lg:text-xl text-nowrap">partners and friends there!</p>
-                <p className="text-white lg:text-xl text-nowrap">
-                  Booth 38 - <span className="text-angel-orange">14-18 JUNE 2021 </span>
+                <p className="text-white lg:text-xl max-w-72">
+                  We are excited to meet you in Malta at the Casino Beats Summit. - {" "}
+                  <span className="text-angel-orange">21-23 May 2024</span>
                 </p>
               </div>
               <span className="text-line block border-t border-white/35 w-full my-4"></span>
@@ -274,41 +264,12 @@ export default function BannerController({ onNextSlide, onPrevSlide }: BannerCon
           </div>
           <div
             style={{ gridArea: "1 / 1 / -1 / -1" }}
-            className="controller relative grid place-items-center grid-flow-col md:gap-12 lg:gap-16 xl:gap-32 opacity-0"
+            className="controller relative z-0 grid place-items-center grid-flow-col md:gap-12 lg:gap-16 xl:gap-32 opacity-0"
           >
             <div className="text-lines relative">
               <div className="text-line">
-                <p className="text-white lg:text-xl text-nowrap">
-                  We are so excited to meet so many
-                </p>
-                <p className="text-white lg:text-xl text-nowrap">partners and friends there!</p>
-                <p className="text-white lg:text-xl text-nowrap">
-                  Booth 38 - <span className="text-angel-orange">14-18 JUNE 2022 </span>
-                </p>
-              </div>
-              <span className="text-line block border-t border-white/35 w-full my-4"></span>
-              <div className="text-line flex items-center justify-between">
-                <Link href="" className="text-white hover:underline">
-                  Detail
-                </Link>
-                <Link href="" className="text-angel-orange hover:underline">
-                  View All Events
-                </Link>
-              </div>
-            </div>
-          </div>
-          <div
-            style={{ gridArea: "1 / 1 / -1 / -1" }}
-            className="controller relative grid place-items-center grid-flow-col md:gap-12 lg:gap-16 xl:gap-32 opacity-0"
-          >
-            <div className="text-lines relative">
-              <div className="text-line">
-                <p className="text-white lg:text-xl text-nowrap">
-                  We are so excited to meet so many
-                </p>
-                <p className="text-white lg:text-xl text-nowrap">partners and friends there!</p>
-                <p className="text-white lg:text-xl text-nowrap">
-                  Booth 38 - <span className="text-angel-orange">14-18 JUNE 2023 </span>
+                <p className="text-white lg:text-xl max-w-72">
+                  We&apos;re thrilled to announce our participation at the Sigma Asia in Manila! - <span className="text-angel-orange">June 02-05 2024</span>
                 </p>
               </div>
               <span className="text-line block border-t border-white/35 w-full my-4"></span>

@@ -53,8 +53,7 @@ export default function Team() {
             duration: 0.9,
             ease: "back.in",
           },
-          onStart: () => {
-          },
+          onStart: () => {},
           onComplete: () => {
             isAnimating.current = false;
           },
@@ -137,13 +136,11 @@ export default function Team() {
     <div className="team absolute container grid mx-auto overflow-hidden">
       <div className="grid border-y border-white/20 py-20">
         <div className="relative z-10 grid gap-5 text-center">
-          <h2 className="text-3xl text-white leading-tight xl:text-6xl">
-            Meet the leadership team
-          </h2>
+          <h2 className="text-3xl text-white leading-tight xl:text-6xl">Meet Our Team</h2>
           <p className="text-white mx-auto text-sm max-w-[345px] md:max-w-lg lg:text-lg lg:max-w-2xl">
-            Lorem ipsum dolor sit amet consectetur. Sed sed varius ut sed sit
-            sed commodo a ornare. Tellus viverra adipiscing volutpat habitasse
-            quam fringilla tortor diam.
+            Meet our industry experts dedicated to driving success. From pioneering minds to
+            executives, each member brings insight and leadership to our organization. Get to know
+            the leaders behind our innovation and excellence in the world of iGaming.
           </p>
         </div>
         <div className="relative z-10 w-full h-full overflow-hidden">
@@ -176,8 +173,8 @@ export default function Team() {
               </div>
               <div className="grid gap-7 text-center text-white xl:text-left">
                 <div>
-                  <h3 className="font-bold text-2xl">Jane Cooper</h3>
-                  <span className="text-lg">Chief Technology Officer</span>
+                  <h3 className="font-bold text-2xl">Iago Boaventura</h3>
+                  <span className="text-lg">Sales Manager</span>
                 </div>
                 <div className="flex items-center justify-center xl:justify-start">
                   <SocailIcon name="linkedin" bg="bg-angel-blue" />
@@ -210,8 +207,8 @@ export default function Team() {
               </div>
               <div className="grid gap-7 text-center text-white xl:text-left">
                 <div>
-                  <h3 className="font-bold text-2xl">Kristen Watson</h3>
-                  <span className="text-lg">Manager</span>
+                  <h3 className="font-bold text-2xl">George Baghchejian</h3>
+                  <span className="text-lg">Business Development Manager</span>
                 </div>
                 <div className="flex items-center justify-center xl:justify-start">
                   <SocailIcon name="linkedin" bg="bg-angel-blue" />
@@ -244,8 +241,8 @@ export default function Team() {
               </div>
               <div className="grid gap-7 text-center text-white xl:text-left">
                 <div>
-                  <h3 className="font-bold text-2xl">Stephen Osmond</h3>
-                  <span className="text-lg">Chief Finance Officer</span>
+                  <h3 className="font-bold text-2xl">Seba Nader</h3>
+                  <span className="text-lg">VP of Business Development</span>
                 </div>
                 <div className="flex items-center justify-center xl:justify-start">
                   <SocailIcon name="linkedin" bg="bg-angel-blue" />
