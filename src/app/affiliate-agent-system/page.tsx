@@ -41,8 +41,8 @@ export default function AffiliateAgentSystem() {
   const productsRef = useRef<HTMLDivElement>(null!);
   const providersRef = useRef<HTMLDivElement>(null!);
   const scrollContainerRef = useRef<HTMLDivElement>(null!);
+  const affiliateRef = useRef<HTMLDivElement>(null!);
   const stickyLogoRef = useRef<HTMLDivElement>(null!);
-  const stickyTL = useRef<GSAPTimeline>(null!);
   const { context, contextSafe } = useGSAP({ scope: scrollContainerRef.current });
 
   const initSmoothScrolling = () => {
@@ -75,15 +75,28 @@ export default function AffiliateAgentSystem() {
   const scroll = contextSafe(() => {
     /*==========================     STICKY LOGO SCROLL     ========================*/
     gsap.set(stickyLogoRef.current, { opacity: 0, xPercent: -100 });
-    stickyTL.current = gsap.timeline({
-      scrollTrigger: {
-        trigger: "main",
-        start: "bottom 25%",
-        toggleActions: "play none reverse none",
-        scrub: 1,
-      },
-    });
-    stickyTL.current.to(stickyLogoRef.current, { xPercent: 0, opacity: 1 });
+    const stickyEnd = gsap
+      .timeline({
+        scrollTrigger: {
+          trigger: footerRef.current,
+          start: "bottom -10%",
+          end: "top 30%",
+          toggleActions: "play none none reverse",
+          preventOverlaps: true,
+        },
+      })
+      .to(stickyLogoRef.current, { xPercent: -100, opacity: 0 });
+    const stickyStart = gsap
+      .timeline({
+        scrollTrigger: {
+          trigger: affiliateRef.current,
+          start: "top 80%",
+          end: "bottom 40%",
+          toggleActions: "play none none reverse",
+          preventOverlaps: true,
+        },
+      })
+      .to(stickyLogoRef.current, { xPercent: 0, opacity: 1 });
     /*===========================     STICKY LOGO END     ==========================*/
     //////////////////////////////////////////////////////////////////////////////////
     //////////////////////////////////////////////////////////////////////////////////
@@ -288,7 +301,7 @@ export default function AffiliateAgentSystem() {
     <>
       <div
         ref={stickyLogoRef}
-        className="absolute z-40 opacity-0 top-1/2 -translate-y-1/2 bg-angel-orange text-white"
+        className="absolute z-40 opacity-0 top-5 rounded-r-lg overflow-hidden"
       >
         <Link href="/" legacyBehavior passHref>
           <StickyLogo href="/" />
@@ -331,7 +344,7 @@ export default function AffiliateAgentSystem() {
                 <Image
                   className="absolute z-0 left-1/2 -translate-x-1/2 -translate-y-[14%] w-3/5 md:w-2/5 h-auto"
                   src={AFFILIATE_AGENT_OFFER}
-                  alt="AngelsHub suportsbook players"
+                  alt="AngelsHub sportsbook players"
                 />
                 <div className="absolute z-10 w-[90%] h-1/2 left-1/2 -translate-x-1/2 md:h-3/4 lg:top-10 xl:top-14 bg-gradient-to-t from-black via-black via-35%"></div>
               </div>
@@ -346,7 +359,7 @@ export default function AffiliateAgentSystem() {
             />
           </div>
         </div>
-        <div className="relative container mx-auto w-full pt-28 pb-28 xl:pt-0">
+        <div ref={affiliateRef} className="relative container mx-auto w-full pt-28 pb-28 xl:pt-0">
           <div className="block w-full rounded-3xl bg-gradient-to-br from-angel-orange from-10% to-angel-blue-500 to-95% p-0.5 drop-shadow-2xl lg:drop-shadow-3xl">
             <div className="relative grid gap-12 justify-items-center bg-black w-full h-full rounded-3xl overflow-hidden px-8 pt-20 pb-28 sm:px-16 md:px-10 md:pt-24 lg:px-0 lg:pb-0">
               <div className="relative z-10 text-center grid place-content-start gap-10 place-items-center">
@@ -365,7 +378,7 @@ export default function AffiliateAgentSystem() {
                 <Image
                   className="relative object-cover object-center mx-auto"
                   src={AFFILIATE_AGENT_OPERATE}
-                  alt="AngelsHub suportsbook big ball"
+                  alt="AngelsHub sportsbook big ball"
                 />
               </div>
             </div>
@@ -444,35 +457,40 @@ export default function AffiliateAgentSystem() {
         </div>
         <div className="relative w-full text-center py-28 lg:text-left overflow-hidden">
           <AngelsHubSVG className="absolute z-0 w-[200%] h-auto -left-20 top-0 md:-top-28 lg:top-0 lg:left-0 lg:w-full" />
-          <div className="container">
+          <div className="container relative z-10">
             <h2 className="text-4xl text-white mb-12 xl:text-7xl">Key Features</h2>
             <div className="hidden lg:grid gap-7">
               <div className="flex flex-row space-x-7">
                 <div className="flex-grow rounded-xl h-48 bg-angel-orange p-6">
-                  <div className="grid h-full justify-items-stretch gap-4 max-w-64">
-                    <h3 className="text-xl text-white min-h-[86px]">A user-friendly interface</h3>
-                    <p className="text-sm text-white/75">
-                      Lorem ipsum dolor sit amet consectetur. Dolor sed diam.
+                  <div className="grid h-full justify-items-stretch gap-4 max-w-72">
+                    <h3 className="text-base xl:text-xl text-white min-h-16">
+                      A user-friendly interface
+                    </h3>
+                    <p className="text-xs xl:text-sm text-white/75">
+                      Navigate effortlessly through the affiliate system with an intuitive interface
+                      designed for ease of use.
                     </p>
                   </div>
                 </div>
                 <div className="flex-grow rounded-xl h-48 bg-angel-orange p-6">
-                  <div className="grid h-full justify-items-stretch gap-4 max-w-64">
-                    <h3 className="text-xl text-white min-h-[86px]">
+                  <div className="grid h-full justify-items-stretch gap-4 max-w-72">
+                    <h3 className="text-base xl:text-xl text-white min-h-16">
                       Advanced financial statements that detail revenue
                     </h3>
-                    <p className="text-sm text-white/75">
-                      Lorem ipsum dolor sit amet consectetur. Dolor sed diam.
+                    <p className="text-xs xl:text-sm text-white/75">
+                      Gain insights into revenue streams through detailed financial statements,
+                      empowering informed decision-making.
                     </p>
                   </div>
                 </div>
                 <div className="flex-grow rounded-xl h-48 bg-angel-orange p-6">
-                  <div className="grid h-full justify-items-stretch gap-4 max-w-64">
-                    <h3 className="text-xl text-white min-h-[86px]">
+                  <div className="grid h-full justify-items-stretch gap-4 max-w-72">
+                    <h3 className="text-base xl:text-xl text-white min-h-16">
                       Empowering agents with the ability to retain their own players
                     </h3>
-                    <p className="text-sm text-white/75">
-                      Lorem ipsum dolor sit amet consectetur. Dolor sed diam.
+                    <p className="text-xs xl:text-sm text-white/75">
+                      Provide agents with autonomy to retain and manage their player base, fostering
+                      stronger player-agent relationships.
                     </p>
                   </div>
                 </div>
@@ -480,19 +498,23 @@ export default function AffiliateAgentSystem() {
               <div className="flex flex-row space-x-7">
                 <div className="basis-3/5 rounded-xl h-52 bg-angel-orange p-6">
                   <div className="grid justify-items-stretch gap-4 max-w-72">
-                    <h3 className="text-xl text-white min-h-[84px]">
+                    <h3 className="text-base xl:text-xl text-white min-h-[84px]">
                       Configuration of commission plans for sub-agents
                     </h3>
-                    <p className="text-sm text-white/75">
-                      Lorem ipsum dolor sit amet consectetur. Dolor sed diam.
+                    <p className="text-xs xl:text-sm text-white/75">
+                      Customize commission plans for sub-agents, optimizing incentives and rewards
+                      for performance.
                     </p>
                   </div>
                 </div>
                 <div className="basis-2/5 rounded-xl h-52 bg-angel-orange p-6">
                   <div className="grid justify-items-stretch gap-4 max-w-72">
-                    <h3 className="text-xl text-white min-h-[84px]">Comprehensive reports</h3>
-                    <p className="text-sm text-white/75">
-                      Lorem ipsum dolor sit amet consectetur. Dolor sed diam.
+                    <h3 className="text-base xl:text-xl text-white min-h-[84px]">
+                      Comprehensive reports
+                    </h3>
+                    <p className="text-xs xl:text-sm text-white/75">
+                      Access in-depth reports covering various aspects of affiliate performance and
+                      earnings for comprehensive insights.
                     </p>
                   </div>
                 </div>
@@ -500,12 +522,13 @@ export default function AffiliateAgentSystem() {
               <div className="flex flex-row">
                 <div className="flex-grow rounded-xl h-52 bg-angel-orange p-6">
                   <div className="grid justify-items-stretch gap-4 max-w-lg">
-                    <h3 className="text-xl text-white min-h-[84px]">
+                    <h3 className="text-base xl:text-xl text-white min-h-[84px]">
                       Real-time betting reports, statistics, and risk data are readily available,
                       along with seamless integration of sportsbook iframes
                     </h3>
-                    <p className="text-sm text-white/75 max-w-72">
-                      Lorem ipsum dolor sit amet consectetur. Dolor sed diam.
+                    <p className="text-xs xl:text-sm text-white/75">
+                      Access real-time betting reports, statistics, and risk data seamlessly
+                      integrated with sportsbook iframes for enhanced monitoring and analysis.
                     </p>
                   </div>
                 </div>

@@ -115,7 +115,7 @@ const Footer = forwardRef<HTMLDivElement, {}>(
             <span className="footer-menu font-bold text-xl">
               Products
             </span>
-            <Link href="/suportsbook" className="footer-menu hover:underline">
+            <Link href="/sportsbook" className="footer-menu hover:underline">
               Sportsbook
             </Link>
             <Link href="/online-casino" className="footer-menu hover:underline">

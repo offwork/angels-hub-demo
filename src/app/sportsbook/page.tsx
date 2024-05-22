@@ -29,15 +29,15 @@ if (typeof window !== "undefined") {
   gsap.registerPlugin(useGSAP, ScrollTrigger);
 }
 
-export default function Supportsbook() {
+export default function Sportsbook() {
   const bodyScrollBar = useRef<Scrollbar>(null!);
   const footerRef = useRef<HTMLDivElement>(null!);
   const hPinRef = useRef<HTMLDivElement>(null!);
   const productsRef = useRef<HTMLDivElement>(null!);
   const providersRef = useRef<HTMLDivElement>(null!);
+  const featuresRef = useRef<HTMLDivElement>(null!);
   const scrollContainerRef = useRef<HTMLDivElement>(null!);
   const stickyLogoRef = useRef<HTMLDivElement>(null!);
-  const stickyTL = useRef<GSAPTimeline>(null!);
   const { context, contextSafe } = useGSAP({ scope: scrollContainerRef.current! });
 
   const initSmoothScrolling = () => {
@@ -70,15 +70,28 @@ export default function Supportsbook() {
   const scroll = contextSafe(() => {
     /*==========================     STICKY LOGO SCROLL     ========================*/
     gsap.set(stickyLogoRef.current, { opacity: 0, xPercent: -100 });
-    stickyTL.current = gsap.timeline({
-      scrollTrigger: {
-        trigger: "main",
-        start: "bottom 25%",
-        toggleActions: "play none reverse none",
-        scrub: 1,
-      },
-    });
-    stickyTL.current.to(stickyLogoRef.current, { xPercent: 0, opacity: 1 });
+    const stickyEnd = gsap
+      .timeline({
+        scrollTrigger: {
+          trigger: footerRef.current,
+          start: "bottom -10%",
+          end: "top 30%",
+          toggleActions: "play none none reverse",
+          preventOverlaps: true,
+        },
+      })
+      .to(stickyLogoRef.current, { xPercent: -100, opacity: 0 });
+    const stickyStart = gsap
+      .timeline({
+        scrollTrigger: {
+          trigger: featuresRef.current,
+          start: "top 80%",
+          end: "bottom 40%",
+          toggleActions: "play none none reverse",
+          preventOverlaps: true,
+        },
+      })
+      .to(stickyLogoRef.current, { xPercent: 0, opacity: 1 });
     /*===========================     STICKY LOGO END     ==========================*/
     //////////////////////////////////////////////////////////////////////////////////
     //////////////////////////////////////////////////////////////////////////////////
@@ -283,7 +296,7 @@ export default function Supportsbook() {
     <>
       <div
         ref={stickyLogoRef}
-        className="absolute z-40 opacity-0 top-1/2 -translate-y-1/2 bg-angel-orange text-white"
+        className="absolute z-40 opacity-0 top-5 rounded-r-lg overflow-hidden"
       >
         <Link href="/" legacyBehavior passHref>
           <StickyLogo href="/" />
@@ -300,7 +313,7 @@ export default function Supportsbook() {
           <div className="absolute left-0 z-30 top-28 lg:top-16 xl:top-40 block mx-auto w-full">
             <div className="flex justify-center items-center">
               <span className="w-2.5 h-12 bg-angel-orange mr-8"></span>
-              <h1 className="text-white font-bold text-4xl xl:text-7xl">Suportsbook</h1>
+              <h1 className="text-white font-bold text-4xl xl:text-7xl">Sportsbook</h1>
             </div>
           </div>
           <div className="relative container mx-auto top-64 z-30 lg:top-1/2 lg:-translate-y-1/2 w-full h-[670px] lg:w-[958px] lg:h-[597px] rounded-3xl bg-gradient-to-br from-angel-orange from-10% to-angel-blue-500 to-95% p-0.5 drop-shadow-2xl lg:drop-shadow-5xl">
@@ -319,12 +332,12 @@ export default function Supportsbook() {
                 <Image
                   className="absolute z-0 left-1/2 -translate-x-1/2 translate-y-1/4 w-3/4 md:w-1/2 h-auto lg:w-[326px] lg:h-[305px]"
                   src={SUPPORTSBOOK_BALL}
-                  alt="AngelsHub suportsbook ball"
+                  alt="AngelsHub sportsbook ball"
                 />
                 <Image
                   className="absolute z-0 left-1/2 -translate-x-1/2 -translate-y-[14%] w-[90%] h-auto lg:w-[428px] lg:h-[534px]"
                   src={SUPPORTSBOOK_PLAYERS}
-                  alt="AngelsHub suportsbook players"
+                  alt="AngelsHub sportsbook players"
                 />
                 <div className="absolute z-10 w-[90%] h-3/4 left-1/2 -translate-x-1/2 translate-y-1/4 bg-gradient-to-t from-black via-black via-35%"></div>
               </div>
@@ -334,7 +347,7 @@ export default function Supportsbook() {
             <Image
               className="relative z-0 object-cover mix-blend-luminosity flex-grow"
               src={SUPPORTSBOOK_MAIN}
-              alt="AngelsHub suportsbook"
+              alt="AngelsHub sportsbook"
             />
             <div className="absolute z-10 left-0 w-full h-1/2 bottom-0 lg:h-2/3 bg-gradient-to-t from-angel-blue via-angel-blue via-20% 3xl:h-1/2"></div>
           </div>
@@ -347,71 +360,84 @@ export default function Supportsbook() {
             />
           </div>
         </div>
-        <div className="relative w-full container text-center pb-28 pt-36 lg:pt-20 lg:text-left xl:pt-0">
+        <div
+          ref={featuresRef}
+          className="relative w-full container text-center pb-28 pt-36 lg:pt-20 lg:text-left xl:pt-0"
+        >
           <h2 className="text-4xl text-white mb-12 xl:text-7xl">Key Features</h2>
           <div className="hidden lg:grid gap-7">
             <div className="flex flex-row space-x-7">
               <div className="flex-grow rounded-xl h-48 bg-angel-orange p-6">
-                <div className="grid h-full justify-items-stretch gap-4 max-w-64">
-                  <h3 className="text-xl text-white min-h-16">Multi-currency and single wallet</h3>
-                  <p className="text-sm text-white/75">
-                    Lorem ipsum dolor sit amet consectetur. Dolor sed diam.
+                <div className="grid h-full justify-items-stretch gap-4 max-w-72">
+                  <h3 className="text-base xl:text-xl text-white min-h-16">
+                    Multi-currency and single wallet
+                  </h3>
+                  <p className="text-xs xl:text-sm text-white/75">
+                    Seamlessly manage funds in various currencies through a unified wallet system.
                   </p>
                 </div>
               </div>
               <div className="flex-grow rounded-xl h-48 bg-angel-orange p-6">
-                <div className="grid h-full justify-items-stretch gap-4 max-w-64">
-                  <h3 className="text-xl text-white min-h-16">Risk management tools</h3>
-                  <p className="text-sm text-white/75">
-                    Lorem ipsum dolor sit amet consectetur. Dolor sed diam.
+                <div className="grid h-full justify-items-stretch gap-4 max-w-72">
+                  <h3 className="text-base xl:text-xl text-white min-h-16">
+                    Risk management tools
+                  </h3>
+                  <p className="text-xs xl:text-sm text-white/75">
+                    Employ sophisticated tools to mitigate risks and optimize profitability.
                   </p>
                 </div>
               </div>
               <div className="flex-grow rounded-xl h-48 bg-angel-orange p-6">
-                <div className="grid h-full justify-items-stretch gap-4 max-w-64">
-                  <h3 className="text-xl text-white min-h-16">Mobile, web</h3>
-                  <p className="text-sm text-white/75">
-                    Lorem ipsum dolor sit amet consectetur. Dolor sed diam.
+                <div className="grid h-full justify-items-stretch gap-4 max-w-72">
+                  <h3 className="text-base xl:text-xl text-white min-h-16">Mobile, web</h3>
+                  <p className="text-xs xl:text-sm text-white/75">
+                    Accessible across mobile and web platforms for convenient betting anytime,
+                    anywhere.
                   </p>
                 </div>
               </div>
             </div>
             <div className="flex flex-row space-x-7">
               <div className="basis-3/5 rounded-xl h-52 bg-angel-orange p-6">
-                <div className="grid justify-items-stretch gap-4 max-w-72">
-                  <h3 className="text-xl text-white min-h-[84px]">Customisable views</h3>
-                  <p className="text-sm text-white/75">
-                    Lorem ipsum dolor sit amet consectetur. Dolor sed diam.
+                <div className="grid justify-items-stretch gap-4 max-w-96">
+                  <h3 className="text-base xl:text-xl text-white min-h-[84px]">
+                    Customisable views
+                  </h3>
+                  <p className="text-xs xl:text-sm text-white/75">
+                    Tailor the interface to individual preferences for an enhanced user experience.
                   </p>
                 </div>
               </div>
               <div className="basis-2/5 rounded-xl h-52 bg-angel-orange p-6">
-                <div className="grid justify-items-stretch gap-4 max-w-72">
-                  <h3 className="text-xl text-white min-h-[84px]">Cash-out</h3>
-                  <p className="text-sm text-white/75">
-                    Lorem ipsum dolor sit amet consectetur. Dolor sed diam.
+                <div className="grid justify-items-stretch gap-4 max-w-96">
+                  <h3 className="text-base xl:text-xl text-white min-h-[84px]">Cashout</h3>
+                  <p className="text-xs xl:text-sm text-white/75">
+                    Offer the flexibility for users to cash out their bets before the event
+                    concludes.
                   </p>
                 </div>
               </div>
             </div>
             <div className="flex flex-row space-x-7">
               <div className="flex-grow rounded-xl h-52 bg-angel-orange p-6">
-                <div className="grid justify-items-stretch gap-4 max-w-72">
-                  <h3 className="text-xl text-white min-h-[84px]">
+                <div className="grid justify-items-stretch gap-4 max-w-96">
+                  <h3 className="text-base xl:text-xl text-white min-h-[84px]">
                     Advanced Tagging system for personalized bonuses, content and much more
                   </h3>
-                  <p className="text-sm text-white/75">
-                    Lorem ipsum dolor sit amet consectetur. Dolor sed diam.
+                  <p className="text-xs xl:text-sm text-white/75">
+                    Harness a robust tagging system to deliver personalized bonuses, content, and
+                    services to users.
                   </p>
                 </div>
               </div>
               <div className="flex-grow rounded-xl h-52 bg-angel-orange p-6">
-                <div className="grid justify-items-stretch gap-4 max-w-72">
-                  <h3 className="text-xl text-white min-h-[84px]">
+                <div className="grid justify-items-stretch gap-4 max-w-96">
+                  <h3 className="text-base xl:text-xl text-white min-h-[84px]">
                     Multiple feeds and ability to run more than one Sportsbook simultaneously
                   </h3>
-                  <p className="text-sm text-white/75">
-                    Lorem ipsum dolor sit amet consectetur. Dolor sed diam.
+                  <p className="text-xs xl:text-sm text-white/75">
+                    Integrate multiple data feeds and operate multiple Sportsbooks concurrently for
+                    expanded offerings and enhanced user engagement.
                   </p>
                 </div>
               </div>
@@ -451,7 +477,7 @@ export default function Supportsbook() {
                     <Image
                       className="absolute inset-0 m-auto w-2/4 h-auto"
                       src={SUPPORTSBOOK_DEPOSIT}
-                      alt="AngelsHub suportsbook deposit"
+                      alt="AngelsHub sportsbook deposit"
                     />
                   </div>
                   <div className="flex-1 grid gap-1">
@@ -465,7 +491,7 @@ export default function Supportsbook() {
                     <Image
                       className="absolute inset-0 m-auto w-2/4 h-auto"
                       src={SUPPORTSBOOK_FREESPIN}
-                      alt="AngelsHub suportsbook deposit"
+                      alt="AngelsHub sportsbook deposit"
                     />
                   </div>
                   <div className="flex-1 grid gap-1">
@@ -477,7 +503,7 @@ export default function Supportsbook() {
                     <Image
                       className="absolute inset-0 m-auto w-2/4 h-auto"
                       src={SUPPORTSBOOK_FREEBET}
-                      alt="AngelsHub suportsbook deposit"
+                      alt="AngelsHub sportsbook deposit"
                     />
                   </div>
                   <div className="flex-1 grid gap-1">
@@ -489,7 +515,7 @@ export default function Supportsbook() {
                     <Image
                       className="absolute inset-0 m-auto w-2/4 h-auto"
                       src={SUPPORTSBOOK_CASHBACK}
-                      alt="AngelsHub suportsbook deposit"
+                      alt="AngelsHub sportsbook deposit"
                     />
                   </div>
                   <div className="flex-1 grid gap-1">
@@ -500,7 +526,7 @@ export default function Supportsbook() {
               <Image
                 className="absolute opacity-40 z-0 left-1/2 -translate-x-1/2 w-3/4 -bottom-[10%] md:-bottom-1/4 xl:-bottom-[40%]"
                 src={SUPPORTSBOOK_BIG_BALL}
-                alt="AngelsHub suportsbook big ball"
+                alt="AngelsHub sportsbook big ball"
               />
             </div>
           </div>

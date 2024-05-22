@@ -6,7 +6,7 @@ interface Props {
 }
 
 const AHLink = forwardRef<HTMLAnchorElement, Props>((props, ref) => (
-  <a ref={ref} className="" href={props.href}>
+  <a ref={ref} className="hover:text-white/65" href={props.href}>
     {props.children}
   </a>
 ));
