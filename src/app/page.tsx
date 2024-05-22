@@ -41,7 +41,6 @@ export default function Home() {
   const footerRef = useRef<HTMLDivElement>(null!);
   const angelshubRef = useRef<HTMLDivElement>(null!);
   const stickyLogoRef = useRef<HTMLDivElement>(null!);
-  const stickyTL = useRef<GSAPTimeline>(null!);
   const { context, contextSafe } = useGSAP({ scope: scrollContainerRef.current });
 
   const initSmoothScrolling = () => {
@@ -74,15 +73,24 @@ export default function Home() {
   const scroll = contextSafe(() => {
     /*==========================     STICKY LOGO SCROLL     ========================*/
     gsap.set(stickyLogoRef.current, { opacity: 0, xPercent: -100 });
-    stickyTL.current = gsap.timeline({
+    const stickyEnd = gsap.timeline({
       scrollTrigger: {
-        trigger: "main",
-        start: "bottom 25%",
-        toggleActions: "play none reverse none",
-        scrub: 1,
-      },
-    });
-    stickyTL.current.to(stickyLogoRef.current, { xPercent: 0, opacity: 1 });
+        trigger: footerRef.current,
+        start: "bottom -200%",
+        end: "top -160%", 
+        toggleActions: "play none none reverse", 
+        preventOverlaps: true,
+      }
+    }).to(stickyLogoRef.current, { xPercent: -100, opacity: 0 });
+    const stickyStart = gsap.timeline({
+      scrollTrigger: {
+        trigger: solutionsRef.current,
+        start: "top 80%", 
+        end: "bottom 40%",
+        toggleActions: "play none none reverse", 
+        preventOverlaps: true,
+      }
+    }).to(stickyLogoRef.current, { xPercent: 0, opacity: 1 });
     /*===========================     STICKY LOGO END     ==========================*/
     //////////////////////////////////////////////////////////////////////////////////
     //////////////////////////////////////////////////////////////////////////////////
@@ -356,7 +364,7 @@ export default function Home() {
           autoAlpha: 1,
           duration: 2.5,
           scale: 1,
-          yPercent: 20,
+          yPercent: 0,
           ease: "slow(0.7,0.4,false)",
         },
         "teamscaling+=3"
@@ -560,7 +568,7 @@ export default function Home() {
     <>
       <div
         ref={stickyLogoRef}
-        className="absolute z-40 opacity-0 top-1/2 -translate-y-1/2 bg-angel-orange text-white"
+        className="absolute z-40 opacity-0 top-5 rounded-r-lg overflow-hidden"
       >
         <Link href="/" legacyBehavior passHref>
           <StickyLogo href="/" />
@@ -718,7 +726,7 @@ export default function Home() {
           ref={angelshubRef}
           className="relative w-full h-full py-3 flex justify-center items-center overflow-x-hidden"
         >
-          <AngelsHubFlatSVG className="scale-pin relative w-full top-0" />
+          <AngelsHubFlatSVG className="scale-pin relative w-full top-1/4 -translate-y-1/2" />
           <Team />
         </div>
 

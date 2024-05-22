@@ -41,8 +41,8 @@ export default function AffiliateAgentSystem() {
   const productsRef = useRef<HTMLDivElement>(null!);
   const providersRef = useRef<HTMLDivElement>(null!);
   const scrollContainerRef = useRef<HTMLDivElement>(null!);
+  const affiliateRef = useRef<HTMLDivElement>(null!);
   const stickyLogoRef = useRef<HTMLDivElement>(null!);
-  const stickyTL = useRef<GSAPTimeline>(null!);
   const { context, contextSafe } = useGSAP({ scope: scrollContainerRef.current });
 
   const initSmoothScrolling = () => {
@@ -75,15 +75,24 @@ export default function AffiliateAgentSystem() {
   const scroll = contextSafe(() => {
     /*==========================     STICKY LOGO SCROLL     ========================*/
     gsap.set(stickyLogoRef.current, { opacity: 0, xPercent: -100 });
-    stickyTL.current = gsap.timeline({
+    const stickyEnd = gsap.timeline({
       scrollTrigger: {
-        trigger: "main",
-        start: "bottom 25%",
-        toggleActions: "play none reverse none",
-        scrub: 1,
-      },
-    });
-    stickyTL.current.to(stickyLogoRef.current, { xPercent: 0, opacity: 1 });
+        trigger: footerRef.current,
+        start: "bottom -10%",
+        end: "top 30%", 
+        toggleActions: "play none none reverse", 
+        preventOverlaps: true,
+      }
+    }).to(stickyLogoRef.current, { xPercent: -100, opacity: 0 });
+    const stickyStart = gsap.timeline({
+      scrollTrigger: {
+        trigger: affiliateRef.current,
+        start: "top 80%", 
+        end: "bottom 40%",
+        toggleActions: "play none none reverse", 
+        preventOverlaps: true,
+      }
+    }).to(stickyLogoRef.current, { xPercent: 0, opacity: 1 });
     /*===========================     STICKY LOGO END     ==========================*/
     //////////////////////////////////////////////////////////////////////////////////
     //////////////////////////////////////////////////////////////////////////////////
@@ -288,7 +297,7 @@ export default function AffiliateAgentSystem() {
     <>
       <div
         ref={stickyLogoRef}
-        className="absolute z-40 opacity-0 top-1/2 -translate-y-1/2 bg-angel-orange text-white"
+        className="absolute z-40 opacity-0 top-5 rounded-r-lg overflow-hidden"
       >
         <Link href="/" legacyBehavior passHref>
           <StickyLogo href="/" />
@@ -346,7 +355,7 @@ export default function AffiliateAgentSystem() {
             />
           </div>
         </div>
-        <div className="relative container mx-auto w-full pt-28 pb-28 xl:pt-0">
+        <div ref={affiliateRef} className="relative container mx-auto w-full pt-28 pb-28 xl:pt-0">
           <div className="block w-full rounded-3xl bg-gradient-to-br from-angel-orange from-10% to-angel-blue-500 to-95% p-0.5 drop-shadow-2xl lg:drop-shadow-3xl">
             <div className="relative grid gap-12 justify-items-center bg-black w-full h-full rounded-3xl overflow-hidden px-8 pt-20 pb-28 sm:px-16 md:px-10 md:pt-24 lg:px-0 lg:pb-0">
               <div className="relative z-10 text-center grid place-content-start gap-10 place-items-center">

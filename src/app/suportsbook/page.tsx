@@ -35,9 +35,9 @@ export default function Supportsbook() {
   const hPinRef = useRef<HTMLDivElement>(null!);
   const productsRef = useRef<HTMLDivElement>(null!);
   const providersRef = useRef<HTMLDivElement>(null!);
+  const featuresRef = useRef<HTMLDivElement>(null!);
   const scrollContainerRef = useRef<HTMLDivElement>(null!);
   const stickyLogoRef = useRef<HTMLDivElement>(null!);
-  const stickyTL = useRef<GSAPTimeline>(null!);
   const { context, contextSafe } = useGSAP({ scope: scrollContainerRef.current! });
 
   const initSmoothScrolling = () => {
@@ -70,15 +70,24 @@ export default function Supportsbook() {
   const scroll = contextSafe(() => {
     /*==========================     STICKY LOGO SCROLL     ========================*/
     gsap.set(stickyLogoRef.current, { opacity: 0, xPercent: -100 });
-    stickyTL.current = gsap.timeline({
+    const stickyEnd = gsap.timeline({
       scrollTrigger: {
-        trigger: "main",
-        start: "bottom 25%",
-        toggleActions: "play none reverse none",
-        scrub: 1,
-      },
-    });
-    stickyTL.current.to(stickyLogoRef.current, { xPercent: 0, opacity: 1 });
+        trigger: footerRef.current,
+        start: "bottom -10%",
+        end: "top 30%", 
+        toggleActions: "play none none reverse", 
+        preventOverlaps: true,
+      }
+    }).to(stickyLogoRef.current, { xPercent: -100, opacity: 0 });
+    const stickyStart = gsap.timeline({
+      scrollTrigger: {
+        trigger: featuresRef.current,
+        start: "top 80%", 
+        end: "bottom 40%",
+        toggleActions: "play none none reverse", 
+        preventOverlaps: true,
+      }
+    }).to(stickyLogoRef.current, { xPercent: 0, opacity: 1 });
     /*===========================     STICKY LOGO END     ==========================*/
     //////////////////////////////////////////////////////////////////////////////////
     //////////////////////////////////////////////////////////////////////////////////
@@ -283,7 +292,7 @@ export default function Supportsbook() {
     <>
       <div
         ref={stickyLogoRef}
-        className="absolute z-40 opacity-0 top-1/2 -translate-y-1/2 bg-angel-orange text-white"
+        className="absolute z-40 opacity-0 top-5 rounded-r-lg overflow-hidden"
       >
         <Link href="/" legacyBehavior passHref>
           <StickyLogo href="/" />
@@ -347,7 +356,7 @@ export default function Supportsbook() {
             />
           </div>
         </div>
-        <div className="relative w-full container text-center pb-28 pt-36 lg:pt-20 lg:text-left xl:pt-0">
+        <div ref={featuresRef} className="relative w-full container text-center pb-28 pt-36 lg:pt-20 lg:text-left xl:pt-0">
           <h2 className="text-4xl text-white mb-12 xl:text-7xl">Key Features</h2>
           <div className="hidden lg:grid gap-7">
             <div className="flex flex-row space-x-7">

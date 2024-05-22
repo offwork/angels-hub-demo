@@ -37,8 +37,8 @@ export default function CryptoSolutions() {
   const productsRef = useRef<HTMLDivElement>(null!);
   const providersRef = useRef<HTMLDivElement>(null!);
   const scrollContainerRef = useRef<HTMLDivElement>(null!);
+  const platformRef = useRef<HTMLDivElement>(null!);
   const stickyLogoRef = useRef<HTMLDivElement>(null!);
-  const stickyTL = useRef<GSAPTimeline>(null!);
   const { context, contextSafe } = useGSAP({ scope: scrollContainerRef.current });
 
   const initSmoothScrolling = () => {
@@ -71,15 +71,24 @@ export default function CryptoSolutions() {
   const scroll = contextSafe(() => {
     /*==========================     STICKY LOGO SCROLL     ========================*/
     gsap.set(stickyLogoRef.current, { opacity: 0, xPercent: -100 });
-    stickyTL.current = gsap.timeline({
+    const stickyEnd = gsap.timeline({
       scrollTrigger: {
-        trigger: "main",
-        start: "bottom 25%",
-        toggleActions: "play none reverse none",
-        scrub: 1,
-      },
-    });
-    stickyTL.current.to(stickyLogoRef.current, { xPercent: 0, opacity: 1 });
+        trigger: footerRef.current,
+        start: "bottom -10%",
+        end: "top 30%", 
+        toggleActions: "play none none reverse", 
+        preventOverlaps: true,
+      }
+    }).to(stickyLogoRef.current, { xPercent: -100, opacity: 0 });
+    const stickyStart = gsap.timeline({
+      scrollTrigger: {
+        trigger: platformRef.current,
+        start: "top 80%", 
+        end: "bottom 40%",
+        toggleActions: "play none none reverse", 
+        preventOverlaps: true,
+      }
+    }).to(stickyLogoRef.current, { xPercent: 0, opacity: 1 });
     /*===========================     STICKY LOGO END     ==========================*/
     //////////////////////////////////////////////////////////////////////////////////
     //////////////////////////////////////////////////////////////////////////////////
@@ -284,7 +293,7 @@ export default function CryptoSolutions() {
     <>
       <div
         ref={stickyLogoRef}
-        className="absolute z-40 opacity-0 top-1/2 -translate-y-1/2 bg-angel-orange text-white"
+        className="absolute z-40 opacity-0 top-5 rounded-r-lg overflow-hidden"
       >
         <Link href="/" legacyBehavior passHref>
           <StickyLogo href="/" />
@@ -347,7 +356,7 @@ export default function CryptoSolutions() {
             </div>
           </div>
         </div>
-        <div className="relative w-full overflow-hidden pt-28 pb-28 xl:pt-0">
+        <div ref={platformRef} className="relative w-full overflow-hidden pt-28 pb-28 xl:pt-0">
           <AngelsHubSVG className="absolute z-0 w-[200%] h-auto -left-20 top-0 md:-top-28 lg:top-0 lg:left-0 lg:w-full" />
           <div className="container grid gap-10 mx-auto xl:gap-14">
             <div className="grid grid-cols-1 place-content-center gap-28 sm:gap-96 md:gap-[480px] lg:grid-cols-2 lg:gap-14 xl:px-16">
