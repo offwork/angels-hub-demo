@@ -31,7 +31,7 @@ if (typeof window !== "undefined") {
   gsap.registerPlugin(useGSAP, ScrollTrigger);
 }
 
-export default function Supportsbook() {
+export default function Sportsbook() {
   const bodyScrollBar = useRef<Scrollbar>(null!);
   const footerRef = useRef<HTMLDivElement>(null!);
   const hPinRef = useRef<HTMLDivElement>(null!);
@@ -344,7 +344,7 @@ export default function Supportsbook() {
                 <Image
                   className="absolute z-0 left-1/2 -translate-x-1/2 -translate-y-[14%] w-3/4 md:w-1/2 h-auto"
                   src={ONLINECASINO_AGGREGATOR}
-                  alt="AngelsHub suportsbook players"
+                  alt="AngelsHub sportsbook players"
                 />
                 <div className="absolute z-10 w-[90%] h-1/2 left-1/2 -translate-x-1/2 md:h-3/4 lg:top-10 xl:top-14 bg-gradient-to-t from-black via-black via-35%"></div>
               </div>
@@ -354,7 +354,7 @@ export default function Supportsbook() {
             <Image
               className="relative z-0 w-full scale-150 lg:scale-100 xl:w-[87%] mx-auto object-cover mix-blend-luminosity"
               src={ONLINECASINO_MAIN}
-              alt="AngelsHub suportsbook"
+              alt="AngelsHub sportsbook"
             />
           </div>
           <div className="absolute left-0 z-10 w-full h-auto bottom-0 overflow-hidden lg:bottom-16 xl:bottom-96 2xl:bottom-80 3xl:bottom-72 5xl:bottom-60 6xl:bottom-44">
@@ -468,7 +468,7 @@ export default function Supportsbook() {
                     <Image
                       className="absolute inset-0 m-auto w-2/4 h-auto"
                       src={ONLINECASINO_DEPOSIT}
-                      alt="AngelsHub suportsbook deposit"
+                      alt="AngelsHub sportsbook deposit"
                     />
                   </div>
                   <div className="flex-1 grid gap-1">
@@ -485,7 +485,7 @@ export default function Supportsbook() {
                     <Image
                       className="absolute inset-0 m-auto w-3/4 h-auto"
                       src={ONLINECASINO_FREESPIN}
-                      alt="AngelsHub suportsbook freespin"
+                      alt="AngelsHub sportsbook freespin"
                     />
                   </div>
                   <div className="flex-1 grid gap-1">
@@ -503,7 +503,7 @@ export default function Supportsbook() {
                     <Image
                       className="absolute inset-0 m-auto w-3/4 h-auto"
                       src={ONLINECASINO_FREEBET}
-                      alt="AngelsHub suportsbook freebet"
+                      alt="AngelsHub sportsbook freebet"
                     />
                   </div>
                   <div className="flex-1 grid gap-1">
@@ -520,7 +520,7 @@ export default function Supportsbook() {
                     <Image
                       className="absolute inset-0 m-auto w-2/3 h-auto"
                       src={ONLINECASINO_CASHBACK}
-                      alt="AngelsHub suportsbook cashback"
+                      alt="AngelsHub sportsbook cashback"
                     />
                   </div>
                   <div className="flex-1 grid gap-1">
@@ -536,7 +536,7 @@ export default function Supportsbook() {
               <Image
                 className="absolute opacity-30 z-0 left-1/2 -translate-x-1/2 w-3/4 -bottom-[10%] md:-bottom-1/4 lg:-bottom-[40%] xl:-bottom-1/2"
                 src={ONLINECASINO_CHIP}
-                alt="AngelsHub suportsbook big ball"
+                alt="AngelsHub sportsbook big ball"
               />
             </div>
             <div className="hidden xl:block absolute z-10 left-0 top-0 w-full h-full">

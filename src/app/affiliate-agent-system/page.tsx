@@ -340,7 +340,7 @@ export default function AffiliateAgentSystem() {
                 <Image
                   className="absolute z-0 left-1/2 -translate-x-1/2 -translate-y-[14%] w-3/5 md:w-2/5 h-auto"
                   src={AFFILIATE_AGENT_OFFER}
-                  alt="AngelsHub suportsbook players"
+                  alt="AngelsHub sportsbook players"
                 />
                 <div className="absolute z-10 w-[90%] h-1/2 left-1/2 -translate-x-1/2 md:h-3/4 lg:top-10 xl:top-14 bg-gradient-to-t from-black via-black via-35%"></div>
               </div>
@@ -374,7 +374,7 @@ export default function AffiliateAgentSystem() {
                 <Image
                   className="relative object-cover object-center mx-auto"
                   src={AFFILIATE_AGENT_OPERATE}
-                  alt="AngelsHub suportsbook big ball"
+                  alt="AngelsHub sportsbook big ball"
                 />
               </div>
             </div>

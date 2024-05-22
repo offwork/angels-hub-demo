@@ -29,7 +29,7 @@ if (typeof window !== "undefined") {
   gsap.registerPlugin(useGSAP, ScrollTrigger);
 }
 
-export default function Supportsbook() {
+export default function Sportsbook() {
   const bodyScrollBar = useRef<Scrollbar>(null!);
   const footerRef = useRef<HTMLDivElement>(null!);
   const hPinRef = useRef<HTMLDivElement>(null!);
@@ -309,7 +309,7 @@ export default function Supportsbook() {
           <div className="absolute left-0 z-30 top-28 lg:top-16 xl:top-40 block mx-auto w-full">
             <div className="flex justify-center items-center">
               <span className="w-2.5 h-12 bg-angel-orange mr-8"></span>
-              <h1 className="text-white font-bold text-4xl xl:text-7xl">Suportsbook</h1>
+              <h1 className="text-white font-bold text-4xl xl:text-7xl">Sportsbook</h1>
             </div>
           </div>
           <div className="relative container mx-auto top-64 z-30 lg:top-1/2 lg:-translate-y-1/2 w-full h-[670px] lg:w-[958px] lg:h-[597px] rounded-3xl bg-gradient-to-br from-angel-orange from-10% to-angel-blue-500 to-95% p-0.5 drop-shadow-2xl lg:drop-shadow-5xl">
@@ -328,12 +328,12 @@ export default function Supportsbook() {
                 <Image
                   className="absolute z-0 left-1/2 -translate-x-1/2 translate-y-1/4 w-3/4 md:w-1/2 h-auto lg:w-[326px] lg:h-[305px]"
                   src={SUPPORTSBOOK_BALL}
-                  alt="AngelsHub suportsbook ball"
+                  alt="AngelsHub sportsbook ball"
                 />
                 <Image
                   className="absolute z-0 left-1/2 -translate-x-1/2 -translate-y-[14%] w-[90%] h-auto lg:w-[428px] lg:h-[534px]"
                   src={SUPPORTSBOOK_PLAYERS}
-                  alt="AngelsHub suportsbook players"
+                  alt="AngelsHub sportsbook players"
                 />
                 <div className="absolute z-10 w-[90%] h-3/4 left-1/2 -translate-x-1/2 translate-y-1/4 bg-gradient-to-t from-black via-black via-35%"></div>
               </div>
@@ -343,7 +343,7 @@ export default function Supportsbook() {
             <Image
               className="relative z-0 object-cover mix-blend-luminosity flex-grow"
               src={SUPPORTSBOOK_MAIN}
-              alt="AngelsHub suportsbook"
+              alt="AngelsHub sportsbook"
             />
             <div className="absolute z-10 left-0 w-full h-1/2 bottom-0 lg:h-2/3 bg-gradient-to-t from-angel-blue via-angel-blue via-20% 3xl:h-1/2"></div>
           </div>
@@ -460,7 +460,7 @@ export default function Supportsbook() {
                     <Image
                       className="absolute inset-0 m-auto w-2/4 h-auto"
                       src={SUPPORTSBOOK_DEPOSIT}
-                      alt="AngelsHub suportsbook deposit"
+                      alt="AngelsHub sportsbook deposit"
                     />
                   </div>
                   <div className="flex-1 grid gap-1">
@@ -474,7 +474,7 @@ export default function Supportsbook() {
                     <Image
                       className="absolute inset-0 m-auto w-2/4 h-auto"
                       src={SUPPORTSBOOK_FREESPIN}
-                      alt="AngelsHub suportsbook deposit"
+                      alt="AngelsHub sportsbook deposit"
                     />
                   </div>
                   <div className="flex-1 grid gap-1">
@@ -486,7 +486,7 @@ export default function Supportsbook() {
                     <Image
                       className="absolute inset-0 m-auto w-2/4 h-auto"
                       src={SUPPORTSBOOK_FREEBET}
-                      alt="AngelsHub suportsbook deposit"
+                      alt="AngelsHub sportsbook deposit"
                     />
                   </div>
                   <div className="flex-1 grid gap-1">
@@ -498,7 +498,7 @@ export default function Supportsbook() {
                     <Image
                       className="absolute inset-0 m-auto w-2/4 h-auto"
                       src={SUPPORTSBOOK_CASHBACK}
-                      alt="AngelsHub suportsbook deposit"
+                      alt="AngelsHub sportsbook deposit"
                     />
                   </div>
                   <div className="flex-1 grid gap-1">
@@ -509,7 +509,7 @@ export default function Supportsbook() {
               <Image
                 className="absolute opacity-40 z-0 left-1/2 -translate-x-1/2 w-3/4 -bottom-[10%] md:-bottom-1/4 xl:-bottom-[40%]"
                 src={SUPPORTSBOOK_BIG_BALL}
-                alt="AngelsHub suportsbook big ball"
+                alt="AngelsHub sportsbook big ball"
               />
             </div>
           </div>

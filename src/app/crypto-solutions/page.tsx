@@ -327,7 +327,7 @@ export default function CryptoSolutions() {
                 <Image
                   className="absolute z-0 left-1/2 -translate-x-1/2 -translate-y-[14%] w-3/5 md:w-1/2 h-auto"
                   src={CRYPTO_SOLUTIONS_CURRENCY}
-                  alt="AngelsHub suportsbook players"
+                  alt="AngelsHub sportsbook players"
                 />
                 <div className="absolute z-10 w-[90%] h-1/2 left-1/2 -translate-x-1/2 md:h-3/4 lg:top-10 xl:top-14 bg-gradient-to-t from-black via-black via-35%"></div>
               </div>
@@ -346,12 +346,12 @@ export default function CryptoSolutions() {
               <Image
                 className="absolute object-cover mix-blend-luminosity h-auto w-80 top-32 -left-28 md:-left-24 md:w-96 lg:w-[600px] lg:top-24 xl:left-0 xl:top-60 3xl:-left-20 4xl:-left-28"
                 src={CRYPTO_SOLUTIONS_MAIN_SPIN}
-                alt="AngelsHub suportsbook"
+                alt="AngelsHub sportsbook"
               />
               <Image
                 className="absolute object-cover mix-blend-luminosity h-auto w-36 top-32 right-0 md:-right-9 md:w-44 lg:w-80 lg:top-24 xl:right-0 xl:top-60"
                 src={CRYPTO_SOLUTIONS_MAIN_CHIPS}
-                alt="AngelsHub suportsbook"
+                alt="AngelsHub sportsbook"
               />
             </div>
           </div>
@@ -426,7 +426,7 @@ export default function CryptoSolutions() {
                 <Image
                   className="relative"
                   src={CRYPTO_SOLUTIONS_POPULARITY}
-                  alt="AngelsHub suportsbook big ball"
+                  alt="AngelsHub sportsbook big ball"
                 />
               </div>
             </div>

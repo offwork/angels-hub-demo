@@ -266,16 +266,16 @@ export default function Topnavs() {
                 </div>
                 <div className="accordion-content pl-5 grid gap-6 text-lg text-white h-0 overflow-hidden">
                   <Link
-                    href="/suportsbook"
-                    className="footer-menu hover:text-white/65"
+                    href="/sportsbook"
+                    className="footer-menu"
                     passHref
                     legacyBehavior
                   >
-                    <AHLink href="/suportsbook">Suportsbook</AHLink>
+                    <AHLink href="/sportsbook">Sportsbook</AHLink>
                   </Link>
                   <Link
                     href="/online-casino"
-                    className="footer-menu hover:text-white/65"
+                    className="footer-menu"
                     passHref
                     legacyBehavior
                   >
@@ -283,7 +283,7 @@ export default function Topnavs() {
                   </Link>
                   <Link
                     href="/crypto-solutions"
-                    className="footer-menu hover:text-white/65"
+                    className="footer-menu"
                     passHref
                     legacyBehavior
                   >
@@ -291,7 +291,7 @@ export default function Topnavs() {
                   </Link>
                   <Link
                     href="/affiliate-agent-system"
-                    className="footer-menu hover:text-white/65"
+                    className="footer-menu"
                     passHref
                     legacyBehavior
                   >
