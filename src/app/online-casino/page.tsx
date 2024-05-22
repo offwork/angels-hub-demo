@@ -72,24 +72,28 @@ export default function Sportsbook() {
   const scroll = contextSafe(() => {
     /*==========================     STICKY LOGO SCROLL     ========================*/
     gsap.set(stickyLogoRef.current, { opacity: 0, xPercent: -100 });
-    const stickyEnd = gsap.timeline({
-      scrollTrigger: {
-        trigger: footerRef.current,
-        start: "bottom -10%",
-        end: "top 30%", 
-        toggleActions: "play none none reverse", 
-        preventOverlaps: true,
-      }
-    }).to(stickyLogoRef.current, { xPercent: -100, opacity: 0 });
-    const stickyStart = gsap.timeline({
-      scrollTrigger: {
-        trigger: featuresRef.current,
-        start: "top 80%", 
-        end: "bottom 40%",
-        toggleActions: "play none none reverse", 
-        preventOverlaps: true,
-      }
-    }).to(stickyLogoRef.current, { xPercent: 0, opacity: 1 });
+    const stickyEnd = gsap
+      .timeline({
+        scrollTrigger: {
+          trigger: footerRef.current,
+          start: "bottom -10%",
+          end: "top 30%",
+          toggleActions: "play none none reverse",
+          preventOverlaps: true,
+        },
+      })
+      .to(stickyLogoRef.current, { xPercent: -100, opacity: 0 });
+    const stickyStart = gsap
+      .timeline({
+        scrollTrigger: {
+          trigger: featuresRef.current,
+          start: "top 80%",
+          end: "bottom 40%",
+          toggleActions: "play none none reverse",
+          preventOverlaps: true,
+        },
+      })
+      .to(stickyLogoRef.current, { xPercent: 0, opacity: 1 });
     /*===========================     STICKY LOGO END     ==========================*/
     //////////////////////////////////////////////////////////////////////////////////
     //////////////////////////////////////////////////////////////////////////////////
@@ -366,75 +370,78 @@ export default function Sportsbook() {
             />
           </div>
         </div>
-        <div ref={featuresRef} className="relative w-full text-center container pb-28 pt-36 lg:pt-20 lg:text-left xl:pt-0">
+        <div
+          ref={featuresRef}
+          className="relative w-full text-center container pb-28 pt-36 lg:pt-20 lg:text-left xl:pt-0"
+        >
           <h2 className="text-4xl text-white mb-12 xl:text-7xl">Key Features</h2>
           <div className="hidden lg:grid gap-7">
             <div className="flex flex-row space-x-7">
               <div className="flex-grow rounded-xl h-48 bg-angel-orange p-6">
-                <div className="grid h-full justify-items-stretch gap-4 max-w-64">
-                  <h3 className="text-xl text-white min-h-16">10,000+ Casino Games</h3>
-                  <p className="text-sm text-white/75">
-                    Lorem ipsum dolor sit amet consectetur. Dolor sed diam.
+                <div className="grid h-full justify-items-stretch gap-4 max-w-72">
+                  <h3 className="text-base xl:text-xl text-white min-h-16">10,000+ Casino Games</h3>
+                  <p className="text-xs text-white/75">
+                    Access an extensive library of over 10,000 captivating casino games to suit
+                    every player&apos;s preference.
                   </p>
                 </div>
               </div>
               <div className="flex-grow rounded-xl h-48 bg-angel-orange p-6">
-                <div className="grid h-full justify-items-stretch gap-4 max-w-64">
-                  <h3 className="text-xl text-white min-h-16">
+                <div className="grid h-full justify-items-stretch gap-4 max-w-72">
+                  <h3 className="text-base xl:text-xl text-white min-h-16">
                     Classic and video slots, live tables, video poker, megaways and jackpots
                   </h3>
-                  <p className="text-sm text-white/75">
-                    Lorem ipsum dolor sit amet consectetur. Dolor sed diam.
+                  <p className="text-xs text-white/75">
+                    Enjoy a diverse array of gaming options including classic and video slots, live
+                    tables, video poker, megaways, and enticing jackpot opportunities.
                   </p>
                 </div>
               </div>
               <div className="flex-grow rounded-xl h-48 bg-angel-orange p-6">
-                <div className="grid h-full justify-items-stretch gap-4 max-w-64">
-                  <h3 className="text-xl text-white min-h-16">Certified RNG systems</h3>
-                  <p className="text-sm text-white/75">
-                    Lorem ipsum dolor sit amet consectetur. Dolor sed diam.
+                <div className="grid h-full justify-items-stretch gap-4 max-w-72">
+                  <h3 className="text-base xl:text-xl text-white min-h-16">
+                    Certified RNG systems
+                  </h3>
+                  <p className="text-xs text-white/75">
+                    Rest assured with certified Random Number Generator systems ensuring fair and
+                    unpredictable outcomes for all games.
                   </p>
                 </div>
               </div>
             </div>
             <div className="flex flex-row space-x-7">
               <div className="basis-3/5 rounded-xl h-52 bg-angel-orange p-6">
-                <div className="grid justify-items-stretch gap-4 max-w-72">
-                  <h3 className="text-xl text-white min-h-[84px]">
+                <div className="grid justify-items-stretch gap-4 max-w-96">
+                  <h3 className="text-base xl:text-xl text-white min-h-[84px]">
                     Ready-to-use online casino solution for short implementation time
                   </h3>
-                  <p className="text-sm text-white/75">
-                    Lorem ipsum dolor sit amet consectetur. Dolor sed diam.
+                  <p className="text-xs text-white/75">
+                    Implement a turnkey online casino solution swiftly, streamlining the launch
+                    process for rapid market entry.
                   </p>
                 </div>
               </div>
               <div className="basis-2/5 rounded-xl h-52 bg-angel-orange p-6">
-                <div className="grid justify-items-stretch gap-4 max-w-72">
-                  <h3 className="text-xl text-white min-h-[84px]">
+                <div className="grid justify-items-stretch gap-4 max-w-96">
+                  <h3 className="text-base xl:text-xl text-white min-h-[84px]">
                     Multi-channel, multi-currency and multi-lingual
                   </h3>
-                  <p className="text-sm text-white/75">
-                    Lorem ipsum dolor sit amet consectetur. Dolor sed diam.
+                  <p className="text-xs text-white/75">
+                    Reach a global audience with multi-channel accessibility, multi-currency
+                    support, and multi-lingual interfaces for enhanced inclusivity.
                   </p>
                 </div>
               </div>
             </div>
             <div className="flex flex-row space-x-7">
               <div className="flex-grow rounded-xl h-52 bg-angel-orange p-6">
-                <div className="grid justify-items-stretch gap-4 max-w-72">
-                  <h3 className="text-xl text-white min-h-[84px]">Comprehensive risk management</h3>
-                  <p className="text-sm text-white/75">
-                    Lorem ipsum dolor sit amet consectetur. Dolor sed diam.
-                  </p>
-                </div>
-              </div>
-              <div className="flex-grow rounded-xl h-52 bg-angel-orange p-6">
-                <div className="grid justify-items-stretch gap-4 max-w-72">
-                  <h3 className="text-xl text-white min-h-[84px]">
-                    Fully customizable product to fit customer&apos;s requirements
+                <div className="grid justify-items-stretch gap-4 max-w-lg">
+                  <h3 className="text-base xl:text-xl text-white min-h-[84px]">
+                    Comprehensive risk management
                   </h3>
-                  <p className="text-sm text-white/75">
-                    Lorem ipsum dolor sit amet consectetur. Dolor sed diam.
+                  <p className="text-xs text-white/75">
+                    Safeguard operations with robust risk management strategies ensuring a secure
+                    and stable gaming environment for players and operators alike.
                   </p>
                 </div>
               </div>
