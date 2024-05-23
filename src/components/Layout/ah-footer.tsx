@@ -7,15 +7,22 @@ import Amblem from "./ah-amblem";
 import { forwardRef } from "react";
 import ButtonFill from "../ui/ah-button-fill";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
+import { classNames } from "@/utils";
 
 
 const Footer = forwardRef<HTMLDivElement, {}>(
   (_props, ref) => {
+    const pathname = usePathname();
     return (
       <div ref={ref} className="relative w-full overflow-hidden pb-16 xl:pb-40">
-        <div className="relative grid place-items-center gap-12 mt-28 w-full xl:gap-20 xl:mt-56">
+        <div className={classNames(
+          pathname !== "/contacxt" ? "relative grid place-items-center gap-12 mt-0 w-full md:mt-10 xl:gap-20 xl:mt-56" : "relative grid place-items-center gap-12 mt-28 w-full xl:gap-20 xl:mt-56"
+        )}>
         <AngelsHubFlatSVG className="word-logo relative w-full" />
-        <div className="container text-center w-full text-white">
+        <div className={classNames(
+          pathname !== "/contact" ? "container text-center w-full text-white" : "hidden"
+        )}>
           <div className="grid grid-flow-row justify-items-stretch gap-4 lg:place-items-center lg:gap-8 lg:grid-flow-col">
             <h2 className="title font-bold text-2xl lg:justify-self-end xl:text-4xl">ARE YOU READY TO START?</h2>
             <h3 className="caption text-sm lg:justify-self-start xl:text-2xl">Share your ideas with us!</h3>
@@ -56,7 +63,9 @@ const Footer = forwardRef<HTMLDivElement, {}>(
           </div>
         </div>
       </div>
-      <div className="relative container grid gap-16 w-full mt-40">
+      <div className={classNames(
+        pathname !== "/contact" ? "relative container grid gap-16 w-full mt-40" : "relative container grid gap-16 w-full mt-0 xl:mt-10"
+      )}>
         <div className="social-icons flex flex-col items-center gap-6 md:flex-row">
           <div className="grid grid-flow-col gap-3">
             <SocailIcon name="linkedin" bg="bg-angel-blue" />
@@ -90,9 +99,9 @@ const Footer = forwardRef<HTMLDivElement, {}>(
             <a href="/" className="footer-menu hover:underline">
               Demo
             </a>
-            <a href="/" className="footer-menu hover:underline">
+            <Link href="/contact" className="footer-menu hover:underline">
               Contact Us
-            </a>
+            </Link>
           </div>
           <div className="grid gap-4 text-white md:justify-self-center">
             <span className="footer-menu font-bold text-xl">

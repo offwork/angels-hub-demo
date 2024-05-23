@@ -332,7 +332,14 @@ export default function Topnavs() {
               </li>
               <li className="cursor-pointer main-nav-item py-4 select-none lg:py-6">
                 <div className="flex items-center space-x-3">
-                  <span>Contact Us</span>
+                  <Link
+                    href="/contact"
+                    className="footer-menu"
+                    passHref
+                    legacyBehavior
+                  >
+                    <AHLink href="/contact">Contact Us</AHLink>
+                  </Link>
                 </div>
               </li>
               <li className="accordion-group cursor-pointer main-nav-item py-4 select-none lg:py-6 lg:hidden">
