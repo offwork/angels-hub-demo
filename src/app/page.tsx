@@ -76,8 +76,7 @@ export default function Home() {
     const stickyEnd = gsap.timeline({
       scrollTrigger: {
         trigger: footerRef.current,
-        start: "bottom -200%",
-        end: "top -160%", 
+        start: "center",
         toggleActions: "play none none reverse", 
         preventOverlaps: true,
       }
@@ -578,7 +577,7 @@ export default function Home() {
         ref={scrollContainerRef}
         className="relative h-screen w-full overscroll-none overflow-hidden"
       >
-        <Link className="cursor-pointer absolute ml-12 top-8 z-30" href="/" passHref legacyBehavior>
+        <Link className="cursor-pointer absolute ml-5 lg:ml-12 top-8 z-30" href="/" passHref legacyBehavior>
           <BrandLogo href="/" />
         </Link>
         <div className="slider-ref relative z-10 w-full">
@@ -661,6 +660,7 @@ export default function Home() {
               {PRODUCTS.map((product) => (
                 <ProductCard
                   title={product.title}
+                  href={product.href}
                   description={product.description}
                   image={product.image}
                   key={product.title}

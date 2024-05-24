@@ -7,10 +7,12 @@ import { useRef } from "react";
 
 export default function ProductCard({
   title,
+  href,
   description,
   image,
 }: {
   title: string;
+  href: string
   description: string;
   image: string;
 }) {
@@ -61,7 +63,7 @@ export default function ProductCard({
       </div>
       <div className="grid gap-10 text-white px-11 xl:px-0 xl:gap-11 xl:ml-11 xl:max-w-[472px]">
         <p className="font-medium text-base xl:max-w-md">{description}</p>
-        <Link ref={linkRef} href="/" className="flex items-center  space-x-2 text-sm">
+        <Link ref={linkRef} href={href} className="flex items-center  space-x-2 text-sm">
           <span>Learn More</span>
           <svg
             className="relative"

@@ -74,8 +74,7 @@ export default function Sportsbook() {
       .timeline({
         scrollTrigger: {
           trigger: footerRef.current,
-          start: "bottom -10%",
-          end: "top 30%",
+          start: "center",
           toggleActions: "play none none reverse",
           preventOverlaps: true,
         },
@@ -306,7 +305,7 @@ export default function Sportsbook() {
         ref={scrollContainerRef}
         className="relative h-screen w-full overscroll-none overflow-hidden"
       >
-        <Link className="cursor-pointer absolute ml-12 top-8 z-30" href="/" passHref legacyBehavior>
+        <Link className="cursor-pointer absolute ml-5 lg:ml-12 top-8 z-30" href="/" passHref legacyBehavior>
           <BrandLogo href="/" />
         </Link>
         <div className="relative flex px-5 w-full h-[1000px] xl:h-[1200px] bg-angel-blue mix-blend-luminosity overflow-hidden">
@@ -326,7 +325,7 @@ export default function Sportsbook() {
                   Due to the years of experience our team has in developing sportsbook software, we
                   can provide our clients with a complete sports betting solution and much more!
                 </p>
-                <ButtonFill bg="bg-angel-orange" size="medium" href={""} label={"BOOK A MEETING"} />
+                <ButtonFill bg="bg-angel-orange" size="medium" href="/contact" label={"BOOK A MEETING"} />
               </div>
               <div className="absolute z-0 min-w-full h-full p-0.5">
                 <Image
@@ -551,6 +550,7 @@ export default function Sportsbook() {
               {PRODUCTS.map((product) => (
                 <ProductCard
                   title={product.title}
+                  href={product.href}
                   description={product.description}
                   image={product.image}
                   key={product.title}

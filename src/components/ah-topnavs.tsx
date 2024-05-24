@@ -19,7 +19,7 @@ export default function Topnavs() {
   const wrapMenuRef = useRef<HTMLDivElement>(null!);
   const btnRef = useRef<HTMLButtonElement>(null!);
   const menuContainRef = useRef<HTMLDivElement>(null!);
-  const bookDemoRef = useRef<HTMLAnchorElement>(null!);
+  const bookDemoRef = useRef<HTMLDivElement>(null!);
   const arrowRef = useRef<SVGSVGElement>(null!);
   const hamburgerTl = useRef<GSAPTimeline>(null!);
   const hoverTL = useRef<GSAPTimeline>(null!);
@@ -203,35 +203,36 @@ export default function Topnavs() {
         className="fixed z-40 flex items-center pt-4 mr-8 lg:mr-16 top-0 right-0"
       >
         <div className="relative hidden link-buttons z-10 lg:inline-block rounded-lg py-2 pl-2 lg:pr-[59px] lg:-mr-[59px] bg-black">
-          <Link
-            ref={bookDemoRef}
-            href="/"
-            className="demo-link inline-block min-h-11 text-white space-x-2 border rounded-lg px-4 py-2 hover:text-angel-orange"
-          >
-            <div className="flex items-center space-x-2 text-nowrap">
-              <span>Book a Demo</span>
-              <svg
-                ref={arrowRef}
-                width="16"
-                height="14"
-                viewBox="0 0 16 14"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <g id="svg" clipPath="url(#clip0_697_1585)">
-                  <path
-                    id="Vector"
-                    d="M15.5966 7.07958C15.596 6.95827 15.5709 6.83834 15.5228 6.72698C15.4747 6.61562 15.4046 6.51514 15.3166 6.43158L10.1816 1.29858C9.97964 1.10358 9.76964 1.01758 9.54964 1.01758C9.04964 1.01758 8.69064 1.36858 8.69064 1.84558C8.69064 2.09558 8.79264 2.30558 8.94864 2.46258L10.7066 4.24358L12.9716 6.31358L11.1596 6.20458H1.68964C1.16664 6.20458 0.806641 6.56458 0.806641 7.07958C0.806641 7.58758 1.16664 7.94658 1.68964 7.94658H11.1586L12.9706 7.83758L10.7056 9.90758L8.94764 11.6896C8.86561 11.77 8.80052 11.866 8.75621 11.972C8.7119 12.0779 8.68926 12.1917 8.68964 12.3066C8.68964 12.7826 9.04964 13.1346 9.54964 13.1346C9.78239 13.131 10.0043 13.0354 10.1666 12.8686L15.3146 7.72058C15.402 7.63817 15.4719 7.53905 15.5201 7.42911C15.5684 7.31917 15.5941 7.20064 15.5956 7.08058L15.5966 7.07958Z"
-                    fill={fill}
-                  />
-                </g>
-                <defs>
-                  <clipPath id="clip0_697_1585">
-                    <rect width="16" height="13" fill={fill} transform="translate(0 0.299805)" />
-                  </clipPath>
-                </defs>
-              </svg>
-            </div>
+          <Link href="/contact" passHref legacyBehavior>
+            <AHLink
+              className="demo-link inline-block min-h-11 text-white space-x-2 border rounded-lg px-4 py-2 hover:text-angel-orange"
+              href="/contact"
+            >
+              <div ref={bookDemoRef} className="flex items-center space-x-2 text-nowrap">
+                <span>Book a Demo</span>
+                <svg
+                  ref={arrowRef}
+                  width="16"
+                  height="14"
+                  viewBox="0 0 16 14"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <g id="svg" clipPath="url(#clip0_697_1585)">
+                    <path
+                      id="Vector"
+                      d="M15.5966 7.07958C15.596 6.95827 15.5709 6.83834 15.5228 6.72698C15.4747 6.61562 15.4046 6.51514 15.3166 6.43158L10.1816 1.29858C9.97964 1.10358 9.76964 1.01758 9.54964 1.01758C9.04964 1.01758 8.69064 1.36858 8.69064 1.84558C8.69064 2.09558 8.79264 2.30558 8.94864 2.46258L10.7066 4.24358L12.9716 6.31358L11.1596 6.20458H1.68964C1.16664 6.20458 0.806641 6.56458 0.806641 7.07958C0.806641 7.58758 1.16664 7.94658 1.68964 7.94658H11.1586L12.9706 7.83758L10.7056 9.90758L8.94764 11.6896C8.86561 11.77 8.80052 11.866 8.75621 11.972C8.7119 12.0779 8.68926 12.1917 8.68964 12.3066C8.68964 12.7826 9.04964 13.1346 9.54964 13.1346C9.78239 13.131 10.0043 13.0354 10.1666 12.8686L15.3146 7.72058C15.402 7.63817 15.4719 7.53905 15.5201 7.42911C15.5684 7.31917 15.5941 7.20064 15.5956 7.08058L15.5966 7.07958Z"
+                      fill={fill}
+                    />
+                  </g>
+                  <defs>
+                    <clipPath id="clip0_697_1585">
+                      <rect width="16" height="13" fill={fill} transform="translate(0 0.299805)" />
+                    </clipPath>
+                  </defs>
+                </svg>
+              </div>
+            </AHLink>
           </Link>
           <Link
             href="/"
@@ -265,29 +266,20 @@ export default function Topnavs() {
                   <span>Products</span>
                 </div>
                 <div className="accordion-content pl-5 grid gap-6 text-lg text-white h-0 overflow-hidden">
-                  <Link
-                    href="/sportsbook"
-                    className="footer-menu"
-                    passHref
-                    legacyBehavior
-                  >
-                    <AHLink href="/sportsbook">Sportsbook</AHLink>
+                  <Link href="/sportsbook" className="footer-menu" passHref legacyBehavior>
+                    <AHLink className="hover:text-white/65" href="/sportsbook">
+                      Sportsbook
+                    </AHLink>
                   </Link>
-                  <Link
-                    href="/online-casino"
-                    className="footer-menu"
-                    passHref
-                    legacyBehavior
-                  >
-                    <AHLink href="/online-casino">Online Casino</AHLink>
+                  <Link href="/online-casino" className="footer-menu" passHref legacyBehavior>
+                    <AHLink className="hover:text-white/65" href="/online-casino">
+                      Online Casino
+                    </AHLink>
                   </Link>
-                  <Link
-                    href="/crypto-solutions"
-                    className="footer-menu"
-                    passHref
-                    legacyBehavior
-                  >
-                    <AHLink href="/crypto-solutions">Crypto Solutions</AHLink>
+                  <Link href="/crypto-solutions" className="footer-menu" passHref legacyBehavior>
+                    <AHLink className="hover:text-white/65" href="/crypto-solutions">
+                      Crypto Solutions
+                    </AHLink>
                   </Link>
                   <Link
                     href="/affiliate-agent-system"
@@ -295,7 +287,9 @@ export default function Topnavs() {
                     passHref
                     legacyBehavior
                   >
-                    <AHLink href="/affiliate-agent-system">Affiliate and Agent System</AHLink>
+                    <AHLink className="hover:text-white/65" href="/affiliate-agent-system">
+                      Affiliate and Agent System
+                    </AHLink>
                   </Link>
                 </div>
               </li>
@@ -332,7 +326,9 @@ export default function Topnavs() {
               </li>
               <li className="cursor-pointer main-nav-item py-4 select-none lg:py-6">
                 <div className="flex items-center space-x-3">
-                  <span>Contact Us</span>
+                  <Link href="/contact" className="footer-menu" passHref legacyBehavior>
+                    <AHLink href="/contact">Contact Us</AHLink>
+                  </Link>
                 </div>
               </li>
               <li className="accordion-group cursor-pointer main-nav-item py-4 select-none lg:py-6 lg:hidden">
@@ -354,11 +350,13 @@ export default function Topnavs() {
               </li>
             </ul>
             <div className="flex mobile-link-buttons mx-auto items-center justify-center flex-col space-y-8 max-w-80 sm:max-w-md lg:hidden">
-              <Link
-                href="/"
-                className="bg-white text-angel-orange rounded-full px-11 py-4 text-center w-full hover:underline"
-              >
-                <span className="uppercase">BOOK A MEETING</span>
+              <Link href="/contact" passHref legacyBehavior>
+                <AHLink
+                  className="bg-white text-angel-orange rounded-full px-11 py-4 text-center w-full hover:underline"
+                  href="/contact"
+                >
+                  <span className="uppercase">BOOK A MEETING</span>
+                </AHLink>
               </Link>
               <Link
                 href="/"
