@@ -366,9 +366,21 @@ export default function Topnavs() {
               </Link>
               <div className="social-icons flex flex-col items-center gap-6 md:flex-row">
                 <div className="grid grid-flow-col gap-3">
-                  <SocailIcon name="linkedin" bg="bg-angel-orange" />
-                  <SocailIcon name="instegram" bg="bg-angel-orange" />
-                  <SocailIcon name="twitter" bg="bg-angel-orange" />
+                  <SocailIcon
+                    href="https://www.linkedin.com/company/angelshub/"
+                    name="linkedin"
+                    bg="bg-angel-orange"
+                  />
+                  <SocailIcon
+                    href="https://www.instagram.com/angelshub_official/"
+                    name="instegram"
+                    bg="bg-angel-orange"
+                  />
+                  <SocailIcon
+                    href="https://twitter.com/angelshubcom"
+                    name="twitter"
+                    bg="bg-angel-orange"
+                  />
                 </div>
                 <a
                   href="mailto:info@angelshub.com"
@@ -398,9 +410,21 @@ export default function Topnavs() {
                 </div>
                 <div className="social-icons flex flex-col items-center space-y-6">
                   <div className="grid grid-flow-col gap-3">
-                    <SocailIcon name="linkedin" bg="bg-[#0F0F0F]" />
-                    <SocailIcon name="instegram" bg="bg-[#0F0F0F]" />
-                    <SocailIcon name="twitter" bg="bg-[#0F0F0F]" />
+                    <SocailIcon
+                      href="https://www.linkedin.com/company/angelshub/"
+                      name="linkedin"
+                      bg="bg-[#0F0F0F]"
+                    />
+                    <SocailIcon
+                      href="https://www.instagram.com/angelshub_official/"
+                      name="instegram"
+                      bg="bg-[#0F0F0F]"
+                    />
+                    <SocailIcon
+                      href="https://twitter.com/angelshubcom"
+                      name="twitter"
+                      bg="bg-[#0F0F0F]"
+                    />
                   </div>
                   <a
                     href="mailto:info@angelshub.com"

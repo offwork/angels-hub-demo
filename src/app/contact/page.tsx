@@ -216,7 +216,12 @@ export default function Contact() {
         ref={scrollContainerRef}
         className="relative h-screen w-full overscroll-none overflow-hidden"
       >
-        <Link className="cursor-pointer absolute ml-5 lg:ml-12 top-8 z-30" href="/" passHref legacyBehavior>
+        <Link
+          className="cursor-pointer absolute ml-5 lg:ml-12 top-8 z-30"
+          href="/"
+          passHref
+          legacyBehavior
+        >
           <BrandLogo href="/" />
         </Link>
         <div className="relative z-10 px-5 lg:px-10 xl;px-0 w-full h-full bg-angel-blue mix-blend-luminosity pb-60 md:pb-72">
@@ -284,9 +289,21 @@ export default function Contact() {
           <div className="relative container grid gap-16 w-full mt-0 xl:mt-10">
             <div className="social-icons flex flex-col items-center gap-6 md:flex-row">
               <div className="grid grid-flow-col gap-3">
-                <SocailIcon name="linkedin" bg="bg-angel-blue" />
-                <SocailIcon name="instegram" bg="bg-angel-blue" />
-                <SocailIcon name="twitter" bg="bg-angel-blue" />
+                <SocailIcon
+                  href="https://www.linkedin.com/company/angelshub/"
+                  name="linkedin"
+                  bg="bg-angel-blue"
+                />
+                <SocailIcon
+                  href="https://www.instagram.com/angelshub_official/"
+                  name="instegram"
+                  bg="bg-angel-blue"
+                />
+                <SocailIcon
+                  href="https://twitter.com/angelshubcom"
+                  name="twitter"
+                  bg="bg-angel-blue"
+                />
               </div>
               <a
                 href="mailto:info@angelshub.com"

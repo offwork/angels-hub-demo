@@ -127,9 +127,17 @@ const Footer = forwardRef<HTMLDivElement, {}>((_props, ref) => {
       <div className="relative container grid gap-16 w-full mt-40">
         <div className="social-icons flex flex-col items-center gap-6 md:flex-row">
           <div className="grid grid-flow-col gap-3">
-            <SocailIcon name="linkedin" bg="bg-angel-blue" />
-            <SocailIcon name="instegram" bg="bg-angel-blue" />
-            <SocailIcon name="twitter" bg="bg-angel-blue" />
+            <SocailIcon
+              href="https://www.linkedin.com/company/angelshub/"
+              name="linkedin"
+              bg="bg-angel-blue"
+            />
+            <SocailIcon
+              href="https://www.instagram.com/angelshub_official/"
+              name="instegram"
+              bg="bg-angel-blue"
+            />
+            <SocailIcon href="https://twitter.com/angelshubcom" name="twitter" bg="bg-angel-blue" />
           </div>
           <a
             href="mailto:info@angelshub.com"
@@ -153,9 +161,9 @@ const Footer = forwardRef<HTMLDivElement, {}>((_props, ref) => {
             <a href="/" className="footer-menu hover:underline">
               Careers
             </a>
-            <a href="/" className="footer-menu hover:underline">
+            <Link href="/contact" className="footer-menu hover:underline">
               Demo
-            </a>
+            </Link>
             <Link href="/contact" className="footer-menu hover:underline">
               Contact Us
             </Link>

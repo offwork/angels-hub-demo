@@ -6,6 +6,7 @@ import Image from "next/image";
 import { useContext, useRef } from "react";
 import BALL_3 from "../../../public/images/slider-ball-3.png";
 import SLIDER_PIC_3 from "../../../public/images/slider-main-3.png";
+import SLIDER_BG_3 from "../../../public/images/slider-3-bg.png";
 import ORANGE_SHAPE from "../../../public/images/orange-shape.svg";
 import BLUE_SHAPE from "../../../public/images/blue-shape.svg";
 import ButtonFill from "../ui/ah-button-fill";
@@ -16,6 +17,7 @@ export default function Slide3({ slide }: { slide: number }) {
   const { selected } = useContext(SelectedSlideContext);
   const slideRef = useRef<HTMLDivElement>(null!);
   const imageRef = useRef<HTMLImageElement>(null!);
+  const bgImageRef = useRef<HTMLImageElement>(null!);
   const imageRef1 = useRef<HTMLImageElement>(null!);
   const titleRef1 = useRef<HTMLHeadingElement>(null!);
   const titleRef2 = useRef<HTMLHeadingElement>(null!);
@@ -121,6 +123,22 @@ export default function Slide3({ slide }: { slide: number }) {
           ">"
         )
         .fromTo(
+          bgImageRef.current,
+          {
+            scale: 1.8,
+            transformOrigin: "center center",
+            opacity: 0,
+            autoAlpha: 0,
+          },
+          {
+            scale: 1,
+            opacity: 1,
+            transformOrigin: "center center",
+            autoAlpha: 1,
+          },
+          "<"
+        )
+        .fromTo(
           imageBlueRef.current,
           {
             scale: 1.8,
@@ -179,24 +197,21 @@ export default function Slide3({ slide }: { slide: number }) {
           height={778}
           alt="Slider picture 1"
         />
-        <video
-          loop
-          muted
-          autoPlay
-          playsInline
-          className="absolute object-cover object-center z-0 top-1/2 left-1/2 w-full h-full -translate-y-1/2 -translate-x-1/2"
-        >
-          <source src="/videos/slider-video-3.mp4" type="video/mp4" />
-        </video>
+        <Image
+          ref={bgImageRef}
+          src={SLIDER_BG_3}
+          alt="Slider 3 background image"
+          className="absolute object-cover contrast-125 blur-[2px] object-center z-0 top-1/2 left-1/2 w-full h-full -translate-y-1/2 -translate-x-1/2"
+        />
         <Image
           ref={imageBlueRef}
-          className="absolute z-10 brightness-150 opacity-30 scale-150 top-64 -right-28 sm:scale-100 sm:top-44 sm:-right-36 md:-right-44 lg:-right-56 xl:-right-72 2xl:-right-60 3xl:-right-52 4xl:-right-64 5xl:-right-44 6xl:top-32 6xl:-right-12"
+          className="absolute z-10 brightness-200 opacity-50 scale-150 top-64 -right-28 sm:scale-100 sm:top-44 sm:-right-36 md:-right-44 lg:-right-56 xl:-right-72 2xl:-right-60 3xl:-right-52 4xl:-right-64 5xl:-right-44 6xl:top-32 6xl:-right-12"
           src={BLUE_SHAPE}
           alt=""
         />
         <Image
           ref={imageOrangeRef}
-          className="relative z-10 contrast-200 opacity-25  scale-150 -top-32 -left-40 sm:scale-100 sm:-top-36 sm:-left-32 md:-top-56 md:-left-48 lg:-left-80 xl:-top-80 xl:-left-96 2xl:-top-96 2xl:-left-[480px] 3xl:-left-96 4xl:-top-[480px] 4xl:-left-48 5xl:-top-[450px] 5xl:-left-36"
+          className="relative z-10 contrast-200 opacity-50  scale-150 -top-32 -left-40 sm:scale-100 sm:-top-36 sm:-left-32 md:-top-56 md:-left-48 lg:-left-80 xl:-top-80 xl:-left-96 2xl:-top-96 2xl:-left-[480px] 3xl:-left-96 4xl:-top-[480px] 4xl:-left-48 5xl:-top-[450px] 5xl:-left-36"
           src={ORANGE_SHAPE}
           alt=""
         />
@@ -238,12 +253,16 @@ export default function Slide3({ slide }: { slide: number }) {
             ref={describeRef}
             className="text-sm max-w-72 md:max-w-96 lg:text-lg lg:max-w-md xl:max-w-xl 4xl:text-xl"
           >
-            AngelsHub is a technology and service provider for online gaming
-            industry. We offer white label, turnkey, SAAS solutions, crypto
-            solutions and much much more!
+            AngelsHub is a technology and service provider for online gaming industry. We offer
+            white label, turnkey, SAAS solutions, crypto solutions and much much more!
           </p>
           <div ref={linkRef} className="flex">
-            <ButtonFill bg="bg-angel-orange" size="medium" href="/contact" label={"BOOK A MEETING"} />
+            <ButtonFill
+              bg="bg-angel-orange"
+              size="medium"
+              href="/contact"
+              label={"BOOK A MEETING"}
+            />
           </div>
         </div>
       </div>
