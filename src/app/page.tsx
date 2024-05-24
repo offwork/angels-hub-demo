@@ -76,8 +76,7 @@ export default function Home() {
     const stickyEnd = gsap.timeline({
       scrollTrigger: {
         trigger: footerRef.current,
-        start: "bottom -200%",
-        end: "top -160%", 
+        start: "center",
         toggleActions: "play none none reverse", 
         preventOverlaps: true,
       }
@@ -661,6 +660,7 @@ export default function Home() {
               {PRODUCTS.map((product) => (
                 <ProductCard
                   title={product.title}
+                  href={product.href}
                   description={product.description}
                   image={product.image}
                   key={product.title}

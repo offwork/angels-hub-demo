@@ -76,8 +76,7 @@ export default function Sportsbook() {
       .timeline({
         scrollTrigger: {
           trigger: footerRef.current,
-          start: "bottom -10%",
-          end: "top 30%",
+          start: "center",
           toggleActions: "play none none reverse",
           preventOverlaps: true,
         },
@@ -585,6 +584,7 @@ export default function Sportsbook() {
               {PRODUCTS.map((product) => (
                 <ProductCard
                   title={product.title}
+                  href={product.href}
                   description={product.description}
                   image={product.image}
                   key={product.title}
