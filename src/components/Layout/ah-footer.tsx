@@ -10,7 +10,6 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { classNames } from "@/utils";
 
-
 const Footer = forwardRef<HTMLDivElement, {}>(
   (_props, ref) => {
     const pathname = usePathname();
@@ -41,7 +40,7 @@ const Footer = forwardRef<HTMLDivElement, {}>(
               name="email"
               placeholder="Email"
               autoComplete="off"
-              className="w-full form-element bg-angel-blue indent-14 py-6 rounded-full border border-white/30 focus:outline-none focus:border-white"
+              className="w-full form-element bg-angel-blue indent-14 py-6 rounded-full border border-white/30 focus:outline-none"
             />
             <input
               type="text"
