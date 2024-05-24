@@ -177,7 +177,11 @@ export default function Team() {
                   <span className="text-lg">Sales Manager</span>
                 </div>
                 <div className="flex items-center justify-center xl:justify-start">
-                  <SocailIcon name="linkedin" bg="bg-angel-blue" />
+                  <SocailIcon
+                    href="https://www.linkedin.com/in/iago-boaventura-5a1566156/"
+                    name="linkedin"
+                    bg="bg-angel-blue"
+                  />
                 </div>
               </div>
             </div>
@@ -211,7 +215,11 @@ export default function Team() {
                   <span className="text-lg">Business Development Manager</span>
                 </div>
                 <div className="flex items-center justify-center xl:justify-start">
-                  <SocailIcon name="linkedin" bg="bg-angel-blue" />
+                  <SocailIcon
+                    href="https://www.linkedin.com/in/george-baghchejian/"
+                    name="linkedin"
+                    bg="bg-angel-blue"
+                  />
                 </div>
               </div>
             </div>
@@ -245,7 +253,11 @@ export default function Team() {
                   <span className="text-lg">VP of Business Development</span>
                 </div>
                 <div className="flex items-center justify-center xl:justify-start">
-                  <SocailIcon name="linkedin" bg="bg-angel-blue" />
+                  <SocailIcon
+                    href="https://www.linkedin.com/in/seba-nader-0589468b/"
+                    name="linkedin"
+                    bg="bg-angel-blue"
+                  />
                 </div>
               </div>
             </div>

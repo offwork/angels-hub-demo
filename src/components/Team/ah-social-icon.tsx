@@ -1,15 +1,14 @@
 "use client";
-
 import Link from "next/link";
 
-export default function SocailIcon({ name, bg }: { name: string; bg: string }) {
+export default function SocailIcon({ name, bg, href }: { name: string; bg: string; href: string }) {
   return (
     <>
       {
         {
           linkedin: (
             <Link
-              href="https://www.linkedin.com/company/angelshub/"
+              href={href}
               target="_blank"
               className={`${bg} cursor-pointer rounded-full p-3 border border-white/30 inline-flex items-center`}
             >
@@ -41,7 +40,7 @@ export default function SocailIcon({ name, bg }: { name: string; bg: string }) {
           ),
           instegram: (
             <Link
-              href="https://www.instagram.com/angelshub_official/"
+              href={href}
               target="_blank"
               className={`${bg} cursor-pointer rounded-full p-3 border border-white/30 inline-flex items-center`}
             >
@@ -73,7 +72,7 @@ export default function SocailIcon({ name, bg }: { name: string; bg: string }) {
           ),
           twitter: (
             <Link
-              href="https://twitter.com/angelshubcom"
+              href={href}
               target="_blank"
               className={`${bg} cursor-pointer rounded-full p-3 border border-white/30 inline-flex items-center`}
             >
