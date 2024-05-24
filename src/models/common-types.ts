@@ -6,10 +6,14 @@ import { FieldErrors, Path, UseFormRegister } from "react-hook-form";
 ///////////////////          COMMON TYPES          ///////////////////
 ///////////////////////                        ///////////////////////
 //////////////////////////////////////////////////////////////////////
+type OptionsFlags<Type> = {
+  [Property in keyof Type]: string;
+};
 interface ContactFormSchema {
   name: string;
   email: string;
-  country: string;
+  country?: string;
+  phone?: string;
   message?: string;
 }
 
