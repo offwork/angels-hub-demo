@@ -216,7 +216,7 @@ export default function Contact() {
         ref={scrollContainerRef}
         className="relative h-screen w-full overscroll-none overflow-hidden"
       >
-        <Link className="cursor-pointer absolute ml-12 top-8 z-30" href="/" passHref legacyBehavior>
+        <Link className="cursor-pointer absolute ml-5 lg:ml-12 top-8 z-30" href="/" passHref legacyBehavior>
           <BrandLogo href="/" />
         </Link>
         <div className="relative z-10 px-5 lg:px-10 xl;px-0 w-full h-full bg-angel-blue mix-blend-luminosity pb-60 md:pb-72">

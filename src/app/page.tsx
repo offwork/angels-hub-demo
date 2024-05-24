@@ -577,7 +577,7 @@ export default function Home() {
         ref={scrollContainerRef}
         className="relative h-screen w-full overscroll-none overflow-hidden"
       >
-        <Link className="cursor-pointer absolute ml-12 top-8 z-30" href="/" passHref legacyBehavior>
+        <Link className="cursor-pointer absolute ml-5 lg:ml-12 top-8 z-30" href="/" passHref legacyBehavior>
           <BrandLogo href="/" />
         </Link>
         <div className="slider-ref relative z-10 w-full">

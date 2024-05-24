@@ -216,7 +216,7 @@ export default function Slide1({ slide }: { slide: number }) {
             solutions and much much more!
           </p>
           <div ref={linkRef} className="flex">
-            <ButtonFill bg="bg-angel-orange" size="medium" href={""} label={"BOOK A MEETING"} />
+            <ButtonFill bg="bg-angel-orange" size="medium" href="/contact" label={"BOOK A MEETING"} />
           </div>
         </div>
       </div>

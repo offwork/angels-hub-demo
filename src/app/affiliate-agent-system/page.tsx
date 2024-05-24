@@ -310,7 +310,7 @@ export default function AffiliateAgentSystem() {
         ref={scrollContainerRef}
         className="relative h-screen w-full overscroll-none overflow-hidden"
       >
-        <Link className="cursor-pointer absolute ml-12 top-8 z-30" href="/" passHref legacyBehavior>
+        <Link className="cursor-pointer absolute ml-5 lg:ml-12 top-8 z-30" href="/" passHref legacyBehavior>
           <BrandLogo href="/" />
         </Link>
         <div className="relative flex px-5 w-full h-[1000px] md:h-[820px] lg:h-[1050px] xl:h-[1200px] bg-angel-blue mix-blend-luminosity overflow-hidden">
@@ -333,7 +333,7 @@ export default function AffiliateAgentSystem() {
                   <ButtonFill
                     bg="bg-angel-orange"
                     size="medium"
-                    href={""}
+                    href="/contact"
                     label={"BOOK A MEETING"}
                   />
                   <ButtonFill bg="bg-angel-blue" size="medium" href={""} label={"Agent System"} />
