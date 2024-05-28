@@ -264,16 +264,15 @@ export default function Contact() {
               </div>
             </div>
           </div>
-          <div className="absolute flex w-full top-0 left-0 h-1/2 md:h-full md:-top-44 lg:-top-64 xl:top-0">
+          <div className="absolute block w-full top-0 inset-x-0 h-1/3 lg:h-full lg:top-0l overflow-hidden">
             <Image
-              className="relative z-0 object-cover mix-blend-luminosity flex-grow"
+              className="relative z-0 object-cover mix-blend-luminosity h-full w-auto md:w-full"
               src={SUPPORTSBOOK_MAIN}
-              priority
               alt="AngelsHub sportsbook"
             />
-            <div className="absolute z-10 left-0 w-full h-1/2 bottom-0 lg:h-2/3 bg-gradient-to-t from-angel-blue via-angel-blue via-20% 3xl:h-1/2"></div>
+            <div className="absolute z-10 left-0 bottom-0 w-full h-full bg-gradient-to-t from-angel-blue via-angel-blue via-20%"></div>
           </div>
-          <div className="absolute left-0 z-10 w-full h-auto bottom-0 overflow-hidden py-5 xl:bottom-1/3 3xl:bottom-1/4">
+          <div className="absolute left-0 z-10 w-full h-auto bottom-0 overflow-hidden py-5 xl:bottom-1/4 3xl:bottom-1/4">
             <Image
               className="relative object-cover object-center scale-150 w-full h-auto mix-blend-lighten opacity-20 drop-shadow-lg lg:scale-110"
               src={WAVE}

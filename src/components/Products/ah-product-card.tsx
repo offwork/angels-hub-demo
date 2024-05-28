@@ -54,7 +54,7 @@ export default function ProductCard({
   });
 
   return (
-    <div className="horizontal-item snap-always snap-center relative bg-black py-10 drop-shadow-4xl xl:py-14 md:max-w-xl lg:max-w-2xl xl:min-w-[818px] xl:h-[412px] rounded-[30px]">
+    <div className="horizontal-item snap-always snap-center relative bg-black py-10 shadow-3xl xl:py-14 md:max-w-xl lg:max-w-2xl xl:min-w-[818px] xl:h-[412px] rounded-[30px]">
       <div className="flex items-baseline mb-10 mt-8 xl:mb-11 xl:mt-0">
         <span className="w-2.5 h-12 bg-angel-orange-500 mr-8"></span>
         <h3 className="text-white font-bold text-4xl xl:text-5xl xl:max-w-lg xl:leading-tight">

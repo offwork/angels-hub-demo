@@ -16,6 +16,9 @@ const config: Config = {
         "gradient-conic":
           "radial-gradient(130% 100% at 50% 0%, rgba(252, 253, 255, 0) 0%, var(--tw-gradient-stops))",
       },
+      boxShadow: {
+        '3xl': '0 30px 30px -25px rgba(0, 0, 0, 0.8)',
+      },
       container: {
         center: true,
         padding: {
