@@ -334,7 +334,7 @@ export default function Sportsbook() {
                   alt="AngelsHub sportsbook ball"
                 />
                 <Image
-                  className="absolute z-0 left-1/2 -translate-x-1/2 -translate-y-[14%] w-[90%] h-auto lg:w-[428px] lg:h-[534px]"
+                  className="absolute z-0 left-1/2 -translate-x-1/2 -translate-y-[14%] w-[85%] h-auto lg:w-[428px] lg:h-[534px]"
                   src={SUPPORTSBOOK_PLAYERS}
                   alt="AngelsHub sportsbook players"
                 />
@@ -342,15 +342,15 @@ export default function Sportsbook() {
               </div>
             </div>
           </div>
-          <div className="absolute flex w-full top-0 left-0 h-1/2 md:h-full md:-top-44 lg:-top-64 xl:top-0">
+          <div className="absolute block w-full top-0 inset-x-0 h-1/2 lg:h-full lg:top-0l overflow-hidden">
             <Image
-              className="relative z-0 object-cover mix-blend-luminosity flex-grow"
+              className="relative z-0 object-cover mix-blend-luminosity h-full w-auto md:w-full"
               src={SUPPORTSBOOK_MAIN}
               alt="AngelsHub sportsbook"
             />
-            <div className="absolute z-10 left-0 w-full h-1/2 bottom-0 lg:h-2/3 bg-gradient-to-t from-angel-blue via-angel-blue via-20% 3xl:h-1/2"></div>
+            <div className="absolute z-10 left-0 bottom-0 w-full h-full bg-gradient-to-t from-angel-blue via-angel-blue via-20%"></div>
           </div>
-          <div className="absolute left-0 z-10 w-full h-auto bottom-0 overflow-hidden lg:bottom-16 xl:bottom-96 2xl:bottom-80 3xl:bottom-72 5xl:bottom-60 6xl:bottom-44">
+          <div className="absolute left-0 z-10 w-full h-auto bottom-0 overflow-hidden py-5 xl:bottom-1/4 3xl:bottom-1/4">
             <Image
               className="relative object-cover object-center scale-150 w-full h-auto mix-blend-lighten opacity-20 drop-shadow-lg lg:scale-110"
               src={WAVE}
@@ -532,7 +532,7 @@ export default function Sportsbook() {
         </div>
         <div
           ref={productsRef}
-          className="horizontal-scroll relative z-10 w-full py-28 h-full xl:h-[1070px]"
+          className="horizontal-scroll relative z-10 w-full py-28 h-full xl:h-[1070px] overflow-hidden"
         >
           <div className="relative z-10 grid gap-5 w-full text-center">
             <h3 className="text-3xl text-angel-orange-500 font-medium">Products</h3>

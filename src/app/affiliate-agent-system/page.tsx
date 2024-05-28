@@ -317,8 +317,8 @@ export default function AffiliateAgentSystem() {
           <div className="absolute left-0 z-30 top-28 lg:top-16 xl:top-32 block mx-auto w-full">
             <div className="flex justify-center items-center">
               <span className="w-2.5 h-12 bg-angel-orange mr-8"></span>
-              <h1 className="text-white font-bold text-2xl sm:text-4xl xl:text-7xl">
-                Affiliate and Agent System
+              <h1 className="text-white font-bold text-4xl xl:text-7xl">
+                Affiliate and <br className="md:hidden" /> Agent System
               </h1>
             </div>
           </div>

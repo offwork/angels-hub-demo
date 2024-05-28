@@ -73,23 +73,27 @@ export default function Home() {
   const scroll = contextSafe(() => {
     /*==========================     STICKY LOGO SCROLL     ========================*/
     gsap.set(stickyLogoRef.current, { opacity: 0, xPercent: -100 });
-    const stickyEnd = gsap.timeline({
-      scrollTrigger: {
-        trigger: footerRef.current,
-        start: "center",
-        toggleActions: "play none none reverse", 
-        preventOverlaps: true,
-      }
-    }).to(stickyLogoRef.current, { xPercent: -100, opacity: 0 });
-    const stickyStart = gsap.timeline({
-      scrollTrigger: {
-        trigger: solutionsRef.current,
-        start: "top 80%", 
-        end: "bottom 40%",
-        toggleActions: "play none none reverse", 
-        preventOverlaps: true,
-      }
-    }).to(stickyLogoRef.current, { xPercent: 0, opacity: 1 });
+    const stickyEnd = gsap
+      .timeline({
+        scrollTrigger: {
+          trigger: footerRef.current,
+          start: "center",
+          toggleActions: "play none none reverse",
+          preventOverlaps: true,
+        },
+      })
+      .to(stickyLogoRef.current, { xPercent: -100, opacity: 0 });
+    const stickyStart = gsap
+      .timeline({
+        scrollTrigger: {
+          trigger: solutionsRef.current,
+          start: "top 80%",
+          end: "bottom 40%",
+          toggleActions: "play none none reverse",
+          preventOverlaps: true,
+        },
+      })
+      .to(stickyLogoRef.current, { xPercent: 0, opacity: 1 });
     /*===========================     STICKY LOGO END     ==========================*/
     //////////////////////////////////////////////////////////////////////////////////
     //////////////////////////////////////////////////////////////////////////////////
@@ -160,19 +164,20 @@ export default function Home() {
       (context) => {
         const { isDesktop } = context.conditions!;
         if (isDesktop) {
-          gsap.to(hItems, {
-            x: getHorizontalScrollAmount,
-            ease: "none",
-            duration: 2,
-            scrollTrigger: {
-              trigger: ".horizontal-scroll",
-              start: "top top",
-              end: () => `+=${getHorizontalScrollAmount() * -1}`,
-              pin: true,
-              scrub: 1,
-              invalidateOnRefresh: true,
-            },
-          });
+          gsap
+            .to(hItems, {
+              x: getHorizontalScrollAmount,
+              ease: "none",
+              duration: 2,
+              scrollTrigger: {
+                trigger: ".horizontal-scroll",
+                start: "top top",
+                end: () => `+=${getHorizontalScrollAmount() * -1}`,
+                pin: true,
+                scrub: 1,
+                invalidateOnRefresh: true,
+              },
+            });
         }
       }
     );
@@ -251,19 +256,20 @@ export default function Home() {
       (context) => {
         const { isDesktop } = context.conditions!;
         if (isDesktop) {
-          gsap.to(platformItems, {
-            x: getHorizontalPlatformScrollAmount,
-            ease: "none",
-            duration: 2,
-            scrollTrigger: {
-              trigger: ".platform-scroll",
-              start: "top top",
-              end: () => `+=${getHorizontalPlatformScrollAmount() * -1}`,
-              pin: true,
-              scrub: 1,
-              invalidateOnRefresh: true,
-            },
-          });
+          gsap
+            .to(platformItems, {
+              x: getHorizontalPlatformScrollAmount,
+              ease: "none",
+              duration: 2,
+              scrollTrigger: {
+                trigger: ".platform-scroll",
+                start: "top top",
+                end: () => `+=${getHorizontalPlatformScrollAmount() * -1}`,
+                pin: true,
+                scrub: 1,
+                invalidateOnRefresh: true,
+              },
+            });
         }
       }
     );
@@ -343,6 +349,7 @@ export default function Home() {
         start: "center 75%",
         scrub: true,
         end: () => "+=100%",
+        invalidateOnRefresh: true,
       },
     });
     teamTl
@@ -552,14 +559,20 @@ export default function Home() {
     /*=============================     FOOTER END     =============================*/
   });
 
+  const resizeHandle = () => {
+    ScrollTrigger.refresh();
+  };
+
   useIsomorphicLayoutEffect(() => {
     initSmoothScrolling();
     scroll();
 
+    window.addEventListener("resize", resizeHandle);
+
     return () => {
-      context.kill();
       context.revert();
       ScrollTrigger.killAll();
+      window.removeEventListener("resize", resizeHandle);
     };
   }, [context, scroll]);
 
@@ -577,7 +590,12 @@ export default function Home() {
         ref={scrollContainerRef}
         className="relative h-screen w-full overscroll-none overflow-hidden"
       >
-        <Link className="cursor-pointer absolute ml-5 lg:ml-12 top-8 z-30" href="/" passHref legacyBehavior>
+        <Link
+          className="cursor-pointer absolute ml-5 lg:ml-12 top-8 z-30"
+          href="/"
+          passHref
+          legacyBehavior
+        >
           <BrandLogo href="/" />
         </Link>
         <div className="slider-ref relative z-10 w-full">
@@ -703,7 +721,7 @@ export default function Home() {
                     cellsRef.current[idx] = el;
                   }
                 }}
-                className="platform-item snap-always snap-center relative p-6 drop-shadow-2xl origin-center min-w-80 min-h-72 md:min-w-96 md:min-h-80 xl:min-w-[420px] 6xl:min-w-[484px]"
+                className="platform-item snap-always snap-center relative p-6 shadow-2xl origin-center min-w-80 min-h-72 md:min-w-96 md:min-h-80 xl:min-w-[420px] 6xl:min-w-[484px]"
               >
                 <h3 className="relative z-10 text-4xl text-white font-medium max-w-64">{item}</h3>
                 <div className="absolute top-0 left-0 z-0 w-full h-full rounded-[20px] bg-[#0164B7] mix-blend-luminosity"></div>
@@ -726,13 +744,13 @@ export default function Home() {
           ref={angelshubRef}
           className="relative w-full h-full py-3 flex justify-center items-center overflow-x-hidden"
         >
-          <AngelsHubFlatSVG className="scale-pin relative w-full top-1/4 -translate-y-1/2" />
+          <AngelsHubFlatSVG className="scale-pin relative w-full top-1/2 -translate-y-1/2" />
           <Team />
         </div>
 
         <div ref={providersRef} className="relative w-full">
           <AngelsHubSVG className="absolute z-0 w-full top-1/2 -translate-y-1/2 2xl:-translate-y-1/3" />
-          <div className="relative container grid gap-16 mx-auto w-full mt-56">
+          <div className="relative container grid gap-16 mx-auto w-full lg:mt-56">
             <div className="relative z-10 grid gap-5 text-center">
               <h2 className="text-3xl title text-white leading-tight xl:text-6xl">
                 Gaming Providers
