@@ -1,15 +1,11 @@
 "use client";
-import AngelsHubFlatSVG from "@/components/Layout/ah-flat-svg";
-import Footer from "@/components/Layout/ah-footer";
-import Providers from "@/components/Layout/ah-providers";
-import ProductCard from "@/components/Products/ah-product-card";
-import AngelsHubSVG from "@/components/Products/ah-svg";
-import Slider from "@/components/Slider/slider";
-import CircleBtn from "@/components/Solutions/ah-circle-btn";
-import Team from "@/components/Team/ah-team";
-import BrandLogo from "@/components/ah-brand-logo";
-import StickyLogo from "@/components/ah-sticky-logo";
-import ButtonFill from "@/components/ui/ah-button-fill";
+import BrandLogo from "@/components/layout/AHBrandLogo";
+import AngelsHubFlatSVG from "@/components/layout/AHFlatSvg";
+import Footer from "@/components/layout/AHFooter";
+import Providers from "@/components/layout/AHProviders";
+import StickyLogo from "@/components/layout/AHStickyLogo";
+import ButtonFill from "@/components/ui/AHButtonFill";
+import CircleButton from "@/components/ui/AHCircleButton";
 import { PRODUCTS } from "@/constant";
 import { useIsomorphicLayoutEffect } from "@/utils";
 import { useGSAP } from "@gsap/react";
@@ -23,6 +19,10 @@ import WAVE from "../../public/images/abstract-wave.png";
 import SOLUTIONS_1 from "../../public/images/solutions-1.png";
 import SOLUTIONS_2 from "../../public/images/solutions-2.png";
 import SOLUTIONS_3 from "../../public/images/solutions-3.png";
+import ProductCard from "./_components/products/AHProductCard";
+import AngelsHubSVG from "./_components/products/AHSvg";
+import Team from "./_components/team/AHTeam";
+import Slider from "./_components/slider/Slider";
 
 if (typeof window !== "undefined") {
   gsap.registerPlugin(useGSAP, ScrollTrigger);
@@ -615,7 +615,7 @@ export default function Home() {
                   src={SOLUTIONS_1}
                   alt="Website API Solution"
                 />
-                <CircleBtn />
+                <CircleButton />
               </div>
               <p className="text-white">
                 It was never easier to integrate sports and casino content into your website as like
@@ -630,7 +630,7 @@ export default function Home() {
                   src={SOLUTIONS_2}
                   alt="Turnkey System Solution"
                 />
-                <CircleBtn />
+                <CircleButton />
               </div>
               <p className="text-white">
                 Our Turnkey Solution comes with support to help you operate under own license. You
@@ -645,7 +645,7 @@ export default function Home() {
                   src={SOLUTIONS_3}
                   alt="White Label Solution"
                 />
-                <CircleBtn />
+                <CircleButton />
               </div>
               <p className="text-white">
                 AngelsHub White Label solution comes under Curacao license. It is integrated with

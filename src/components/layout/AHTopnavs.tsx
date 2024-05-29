@@ -4,9 +4,9 @@ import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import Link from "next/link";
 import { useRef, useState } from "react";
-import SocailIcon from "./Team/ah-social-icon";
-import BrandLogo from "./ah-brand-logo";
-import AHLink from "./ui/ah-link";
+import SocailIcon from "../ui/AHSocialIcon";
+import BrandLogo from "./AHBrandLogo";
+import AHLink from "../ui/AHLink";
 
 if (typeof window !== "undefined") {
   gsap.registerPlugin(useGSAP);

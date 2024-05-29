@@ -5,11 +5,11 @@ import Link from "next/link";
 import { forwardRef, useState } from "react";
 import { useForm } from "react-hook-form";
 import Plus18 from "../../../public/images/18-plus.svg";
-import SocailIcon from "../Team/ah-social-icon";
-import Amblem from "./ah-amblem";
-import AngelsHubFlatSVG from "./ah-flat-svg";
-import ButtonSend from "../ui/ah-button-send";
-import Textbox from "../ui/ah-textbox";
+import ButtonSend from "../ui/AHButtonSend";
+import SocailIcon from "../ui/AHSocialIcon";
+import Textbox from "../ui/AHTextbox";
+import Amblem from "./AHAmblem";
+import AngelsHubFlatSVG from "./AHFlatSvg";
 
 const Footer = forwardRef<HTMLDivElement, {}>((_props, ref) => {
   const [action, setAction] = useState("");

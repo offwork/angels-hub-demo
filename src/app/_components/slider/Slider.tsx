@@ -1,13 +1,13 @@
 "use client";
 import { SelectedSlideContext } from "@/contexts/banner-context";
+import { useIsomorphicLayoutEffect } from "@/utils";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import { useRef, useState } from "react";
-import Slide1 from "./slide-1";
-import Slide2 from "./slide-2";
-import Slide3 from "./slide-3";
-import BannerController from "./banner-controller";
-import { useIsomorphicLayoutEffect } from "@/utils";
+import BannerController from "./BannerController";
+import SlideFirst from "./SlideFirst";
+import SlideSecond from "./SlideSecond";
+import SlideThird from "./SlideThird";
 
 const NEXT = 1;
 
@@ -171,19 +171,19 @@ export default function Slider() {
             style={{ gridArea: "1 / 1 / -1 / -1" }}
             className="slide absolute z-20 grid place-items-center w-full h-full opacity-0 overflow-hidden"
           >
-            <Slide1 slide={slide.current} />
+            <SlideFirst slide={slide.current} />
           </div>
           <div
             style={{ gridArea: "1 / 1 / -1 / -1" }}
             className="slide absolute z-10 grid place-items-center w-full h-full opacity-0 overflow-hidden"
           >
-            <Slide2 slide={slide.current} />
+            <SlideSecond slide={slide.current} />
           </div>
           <div
             style={{ gridArea: "1 / 1 / -1 / -1" }}
             className="slide absolute z-0 grid place-items-center w-full h-full opacity-0 overflow-hidden"
           >
-            <Slide3 slide={slide.current} />
+            <SlideThird slide={slide.current} />
           </div>
           <div
             style={{ gridArea: "1 / 1 / -1 / -1" }}

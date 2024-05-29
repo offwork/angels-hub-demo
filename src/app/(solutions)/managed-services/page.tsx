@@ -1,8 +1,8 @@
 "use client";
-import Footer from "@/components/Layout/ah-footer";
-import BrandLogo from "@/components/ah-brand-logo";
-import StickyLogo from "@/components/ah-sticky-logo";
-import ButtonFill from "@/components/ui/ah-button-fill";
+import BrandLogo from "@/components/layout/AHBrandLogo";
+import Footer from "@/components/layout/AHFooter";
+import StickyLogo from "@/components/layout/AHStickyLogo";
+import ButtonFill from "@/components/ui/AHButtonFill";
 import { useIsomorphicLayoutEffect } from "@/utils";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
@@ -12,14 +12,14 @@ import Link from "next/link";
 import { useRef } from "react";
 import Scrollbar from "smooth-scrollbar";
 import WAVE from "../../../../public/images/abstract-wave.png";
-import MANAGED_SERVICES_MAIN from "../../../../public/images/managed-services-main.png";
 import MANAGED_SERVICES_BLACK_BG from "../../../../public/images/black-background.png";
+import MANAGED_SERVICES_MAIN from "../../../../public/images/managed-services-main.png";
 
 if (typeof window !== "undefined") {
   gsap.registerPlugin(useGSAP, ScrollTrigger);
 }
 
-export default function Sportsbook() {
+export default function ManagedServices() {
   const bodyScrollBar = useRef<Scrollbar>(null!);
   const footerRef = useRef<HTMLDivElement>(null!);
   const hPinRef = useRef<HTMLDivElement>(null!);

@@ -1,24 +1,20 @@
 "use client";
+import ButtonFill from "@/components/ui/AHButtonFill";
 import { SelectedSlideContext } from "@/contexts/banner-context";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import Image from "next/image";
 import { useContext, useRef } from "react";
-import BALL_3 from "../../../public/images/slider-ball-3.png";
-import SLIDER_PIC_3 from "../../../public/images/slider-main-3.png";
-import SLIDER_BG_3 from "../../../public/images/slider-3-bg.png";
-import ORANGE_SHAPE from "../../../public/images/orange-shape.svg";
-import BLUE_SHAPE from "../../../public/images/blue-shape.svg";
-import ButtonFill from "../ui/ah-button-fill";
+import BLUE_SHAPE from "../../../../public/images/blue-shape.svg";
+import ORANGE_SHAPE from "../../../../public/images/orange-shape.svg";
+import SLIDER_PIC_1 from "../../../../public/images/slider-main-2-copy.png";
 
 gsap.registerPlugin(useGSAP);
 
-export default function Slide3({ slide }: { slide: number }) {
+export default function Slide1({ slide }: { slide: number }) {
   const { selected } = useContext(SelectedSlideContext);
   const slideRef = useRef<HTMLDivElement>(null!);
   const imageRef = useRef<HTMLImageElement>(null!);
-  const bgImageRef = useRef<HTMLImageElement>(null!);
-  const imageRef1 = useRef<HTMLImageElement>(null!);
   const titleRef1 = useRef<HTMLHeadingElement>(null!);
   const titleRef2 = useRef<HTMLHeadingElement>(null!);
   const titleRef3 = useRef<HTMLHeadingElement>(null!);
@@ -30,18 +26,19 @@ export default function Slide3({ slide }: { slide: number }) {
 
   useGSAP(
     () => {
-      slideTL.current = gsap.timeline({ paused: Number(selected) !== 2 });
+      slideTL.current = gsap.timeline({ paused: Number(selected) !== 0 });
       slideTL.current
-        .fromTo(
-          titleRef1.current,
-          {
-            yPercent: 20,
-            opacity: 0,
-            autoAlpha: 0,
-            ease: "back.inOut(1.7)",
-          },
-          { yPercent: 0, opacity: 1, autoAlpha: 1, ease: "back.inOut(1.7)" }
-        )
+        .fromTo(titleRef1.current, {
+          yPercent: 20,
+          opacity: 0,
+          autoAlpha: 0,
+          ease: "back.inOut(1.7)",
+        }, {
+          yPercent: 0,
+          opacity: 1,
+          autoAlpha: 1,
+          ease: "back.inOut(1.7)",
+        })
         .fromTo(
           titleRef2.current,
           {
@@ -107,6 +104,22 @@ export default function Slide3({ slide }: { slide: number }) {
           "<0.1"
         )
         .fromTo(
+          imageRef.current,
+          {
+            scale: 1.8,
+            transformOrigin: "center center",
+            opacity: 0,
+            autoAlpha: 0,
+          },
+          {
+            scale: 1,
+            transformOrigin: "center center",
+            opacity: 1,
+            autoAlpha: 1,
+          },
+          "<0.2"
+        )
+        .fromTo(
           imageOrangeRef.current,
           {
             scale: 1.8,
@@ -118,22 +131,6 @@ export default function Slide3({ slide }: { slide: number }) {
             scale: 1,
             transformOrigin: "center center",
             opacity: 0.3,
-            autoAlpha: 1,
-          },
-          ">"
-        )
-        .fromTo(
-          bgImageRef.current,
-          {
-            scale: 1.8,
-            transformOrigin: "center center",
-            opacity: 0,
-            autoAlpha: 0,
-          },
-          {
-            scale: 1,
-            opacity: 1,
-            transformOrigin: "center center",
             autoAlpha: 1,
           },
           "<"
@@ -149,38 +146,14 @@ export default function Slide3({ slide }: { slide: number }) {
           {
             scale: 1,
             transformOrigin: "center center",
-            opacity: 0.25,
+            opacity: 0.5,
             autoAlpha: 1,
           },
           "<"
-        )
-        .fromTo(
-          imageRef.current,
-          {
-            scale: 1.8,
-            transformOrigin: "center center",
-            opacity: 0,
-            autoAlpha: 0,
-          },
-          {
-            scale: 1,
-            opacity: 1,
-            transformOrigin: "center center",
-            autoAlpha: 1,
-          },
-          "<0.2"
-        )
-        .fromTo(
-          imageRef1.current,
-          { scale: 0.2, rotationZ: 0, opacity: 0, autoAlpha: 0 },
-          {
-            scale: 1,
-            rotationZ: 360,
-            opacity: 1,
-            autoAlpha: 1,
-          },
-          "<0.2"
         );
+      return () => {
+        slideTL.current.revert();
+      };
     },
     { scope: slideRef.current, dependencies: [slide] }
   );
@@ -190,41 +163,26 @@ export default function Slide3({ slide }: { slide: number }) {
       <div className="absolute inset-0 w-full h-full overflow-hidden">
         <Image
           ref={imageRef}
-          className="absolute object-cover z-20 h-3/4 top-44 md:h-auto md:top-36 md:right-0 lg:-right-44 lg:top-48 lg:translate-x-0 xl:top-64 xl:-right-32 2xl:-right-14 3xl:right-6 4xl:right-28 5xl:right-48 6xl:right-[510px]"
-          src={SLIDER_PIC_3.src}
+          className="main-item absolute z-0 object-cover h-3/4 -top-20 lg:h-auto lg:top-0 lg:left-20 xl:left-56 2xl:left-60 3xl:left-64 4xl:left-72 5xl:left-80 6xl:left-96 6xl:-top-28"
+          src={SLIDER_PIC_1}
           priority
-          width={796}
-          height={778}
           alt="Slider picture 1"
-        />
-        <Image
-          ref={bgImageRef}
-          src={SLIDER_BG_3}
-          alt="Slider 3 background image"
-          className="absolute object-cover contrast-125 blur-[2px] object-center z-0 top-1/2 left-1/2 w-full h-full -translate-y-1/2 -translate-x-1/2"
         />
         <Image
           ref={imageBlueRef}
-          className="absolute z-10 brightness-200 opacity-50 scale-150 top-64 -right-28 sm:scale-100 sm:top-44 sm:-right-36 md:-right-44 lg:-right-56 xl:-right-72 2xl:-right-60 3xl:-right-52 4xl:-right-64 5xl:-right-44 6xl:top-32 6xl:-right-12"
+          className="absolute z-10 saturate-200 opacity-50 top-32 -right-20 sm:top-24 sm:-right-28 md:top-20 md:-right-32 lg:top-28 lg:-right-48 xl:top-32 xl:-right-96 2xl:-right-[416px] 4xl:top-44 4xl:-right-96 6xl:-right-20"
           src={BLUE_SHAPE}
           alt=""
         />
+        <div className="absolute z-10 -left-[10%] lg:left-0 top-0 w-1/2 h-full bg-gradient-to-r from-angel-blue via-angel-blue via-25% xl:via-40%"></div>
+        <div className="absolute z-10 -right-1/4 top-0 w-3/5 h-full bg-gradient-to-l from-angel-blue via-angel-blue via-30%"></div>
+        <div className="absolute z-10 bottom-0 w-full h-2/3 bg-gradient-to-t from-angel-blue via-angel-blue via-50% 2xl:-bottom-10 3xl:-bottom-24 4xl:-bottom-32 5xl:-bottom-40 6xl:-bottom-72"></div>
         <Image
           ref={imageOrangeRef}
-          className="relative z-10 contrast-200 opacity-50  scale-150 -top-32 -left-40 sm:scale-100 sm:-top-36 sm:-left-32 md:-top-56 md:-left-48 lg:-left-80 xl:-top-80 xl:-left-96 2xl:-top-96 2xl:-left-[480px] 3xl:-left-96 4xl:-top-[480px] 4xl:-left-48 5xl:-top-[450px] 5xl:-left-36"
+          className="relative z-10 saturate-200 opacity-30 -left-20 -top-28 sm:-left-72 sm:-top-44 md:-left-72 md:-top-72 lg:-left-80 xl:-left-96 xl:-top-64 2xl:-left-80 2xl:-top-96 3xl:-left-72 3xl:-top-80 4xl:-left-28 4xl:-top-96 5xl:-left-28 5xl:-top-80 6xl:left-52 6xl:-top-80"
           src={ORANGE_SHAPE}
           alt=""
         />
-        <Image
-          ref={imageRef1}
-          className="absolute z-10 object-contain hidden lg:block lg:top-32 lg:right-44 xl:top-44 xl:right-56 2xl:right-[300px] 3xl:right-96 4xl:right-[470px] 5xl:right-[550px] 6xl:right-[870px]"
-          src={BALL_3.src}
-          priority
-          width={90}
-          height={90}
-          alt="Slider picture 1"
-        />
-        <div className="absolute z-20 -bottom-10 w-full h-2/3 bg-gradient-to-t from-angel-blue via-angel-blue via-10%"></div>
       </div>
 
       <div className="container absolute z-30 top-40 left-1/2 -translate-x-1/2 text-center lg:text-left">
@@ -253,16 +211,12 @@ export default function Slide3({ slide }: { slide: number }) {
             ref={describeRef}
             className="text-sm max-w-72 md:max-w-96 lg:text-lg lg:max-w-md xl:max-w-xl 4xl:text-xl"
           >
-            AngelsHub is a technology and service provider for online gaming industry. We offer
-            white label, turnkey, SAAS solutions, crypto solutions and much much more!
+            AngelsHub is a technology and service provider for online gaming
+            industry. We offer white label, turnkey, SAAS solutions, crypto
+            solutions and much much more!
           </p>
           <div ref={linkRef} className="flex">
-            <ButtonFill
-              bg="bg-angel-orange"
-              size="medium"
-              href="/contact"
-              label={"BOOK A MEETING"}
-            />
+            <ButtonFill bg="bg-angel-orange" size="medium" href="/contact" label={"BOOK A MEETING"} />
           </div>
         </div>
       </div>

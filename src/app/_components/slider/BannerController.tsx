@@ -5,8 +5,8 @@ import gsap from "gsap";
 import Image from "next/image";
 import Link from "next/link";
 import { useCallback, useRef } from "react";
-import EVENT_PIC from "../../../public/images/event-pic.png";
-import EVENT_PIC_2 from "../../../public/images/event-pic-2.png";
+import EVENT_PIC from "../../../../public/images/event-pic.png";
+import EVENT_PIC_2 from "../../../../public/images/event-pic-2.png";
 
 const NEXT = 1;
 const PREV = -1;

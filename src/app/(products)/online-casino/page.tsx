@@ -1,11 +1,11 @@
 "use client";
-import Footer from "@/components/Layout/ah-footer";
-import Providers from "@/components/Layout/ah-providers";
-import ProductCard from "@/components/Products/ah-product-card";
-import AngelsHubSVG from "@/components/Products/ah-svg";
-import BrandLogo from "@/components/ah-brand-logo";
-import StickyLogo from "@/components/ah-sticky-logo";
-import ButtonFill from "@/components/ui/ah-button-fill";
+import ProductCard from "@/app/_components/products/AHProductCard";
+import AngelsHubSVG from "@/app/_components/products/AHSvg";
+import BrandLogo from "@/components/layout/AHBrandLogo";
+import Footer from "@/components/layout/AHFooter";
+import Providers from "@/components/layout/AHProviders";
+import StickyLogo from "@/components/layout/AHStickyLogo";
+import ButtonFill from "@/components/ui/AHButtonFill";
 import { PRODUCTS } from "@/constant";
 import { useIsomorphicLayoutEffect } from "@/utils";
 import { useGSAP } from "@gsap/react";
@@ -15,23 +15,23 @@ import Image from "next/image";
 import Link from "next/link";
 import { useRef } from "react";
 import Scrollbar from "smooth-scrollbar";
-import WAVE from "../../../public/images/abstract-wave.png";
-import ONLINECASINO_AGGREGATOR from "../../../public/images/online-casino-aggregator.png";
-import ONLINECASINO_CHIP from "../../../public/images/online-casino-chip.png";
-import ONLINECASINO_GAMIFICATION_1 from "../../../public/images/online-casino-gamification-1.png";
-import ONLINECASINO_GAMIFICATION_2 from "../../../public/images/online-casino-gamification-2.png";
-import ONLINECASINO_GAMIFICATION_3 from "../../../public/images/online-casino-gamification-3.png";
-import ONLINECASINO_MAIN from "../../../public/images/online-casino-main.png";
-import ONLINECASINO_CASHBACK from "../../../public/images/supportsbook-cashback.png";
-import ONLINECASINO_DEPOSIT from "../../../public/images/supportsbook-deposit.png";
-import ONLINECASINO_FREEBET from "../../../public/images/supportsbook-freebet.png";
-import ONLINECASINO_FREESPIN from "../../../public/images/supportsbook-freespin.png";
+import WAVE from "../../../../public/images/abstract-wave.png";
+import ONLINECASINO_AGGREGATOR from "../../../../public/images/online-casino-aggregator.png";
+import ONLINECASINO_CHIP from "../../../../public/images/online-casino-chip.png";
+import ONLINECASINO_GAMIFICATION_1 from "../../../../public/images/online-casino-gamification-1.png";
+import ONLINECASINO_GAMIFICATION_2 from "../../../../public/images/online-casino-gamification-2.png";
+import ONLINECASINO_GAMIFICATION_3 from "../../../../public/images/online-casino-gamification-3.png";
+import ONLINECASINO_MAIN from "../../../../public/images/online-casino-main.png";
+import ONLINECASINO_CASHBACK from "../../../../public/images/supportsbook-cashback.png";
+import ONLINECASINO_DEPOSIT from "../../../../public/images/supportsbook-deposit.png";
+import ONLINECASINO_FREEBET from "../../../../public/images/supportsbook-freebet.png";
+import ONLINECASINO_FREESPIN from "../../../../public/images/supportsbook-freespin.png";
 
 if (typeof window !== "undefined") {
   gsap.registerPlugin(useGSAP, ScrollTrigger);
 }
 
-export default function Sportsbook() {
+export default function OnlineCasino() {
   const bodyScrollBar = useRef<Scrollbar>(null!);
   const footerRef = useRef<HTMLDivElement>(null!);
   const hPinRef = useRef<HTMLDivElement>(null!);

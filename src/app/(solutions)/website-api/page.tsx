@@ -1,9 +1,9 @@
 "use client";
-import Footer from "@/components/Layout/ah-footer";
-import AngelsHubSVG from "@/components/Products/ah-svg";
-import BrandLogo from "@/components/ah-brand-logo";
-import StickyLogo from "@/components/ah-sticky-logo";
-import ButtonFill from "@/components/ui/ah-button-fill";
+import AngelsHubSVG from "@/app/_components/products/AHSvg";
+import BrandLogo from "@/components/layout/AHBrandLogo";
+import Footer from "@/components/layout/AHFooter";
+import StickyLogo from "@/components/layout/AHStickyLogo";
+import ButtonFill from "@/components/ui/AHButtonFill";
 import { useIsomorphicLayoutEffect } from "@/utils";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
@@ -13,20 +13,20 @@ import Link from "next/link";
 import { useRef } from "react";
 import Scrollbar from "smooth-scrollbar";
 import WAVE from "../../../../public/images/abstract-wave.png";
-import WEBSITEAPI_MAIN from "../../../../public/images/website-api-main.png";
-import WEBSITEAPI_SECURITY from "../../../../public/images/website-api-security.png";
 import WEBSITEAPI_BUILTIN from "../../../../public/images/affiliate-agent-system-builtin.svg";
 import WEBSITEAPI_CUSTOMIZABLE from "../../../../public/images/affiliate-agent-system-customizable.svg";
 import WEBSITEAPI_FLEXIBLE from "../../../../public/images/affiliate-agent-system-flexible.svg";
 import WEBSITEAPI_MULTITOUCH from "../../../../public/images/affiliate-agent-system-multitouch.svg";
 import WEBSITEAPI_HOSTING from "../../../../public/images/crypto-sulionts-security.svg";
+import WEBSITEAPI_MAIN from "../../../../public/images/website-api-main.png";
 import WEBSITEAPI_REPORTING from "../../../../public/images/website-api-payment.svg";
+import WEBSITEAPI_SECURITY from "../../../../public/images/website-api-security.png";
 
 if (typeof window !== "undefined") {
   gsap.registerPlugin(useGSAP, ScrollTrigger);
 }
 
-export default function Sportsbook() {
+export default function WebsiteApi() {
   const bodyScrollBar = useRef<Scrollbar>(null!);
   const footerRef = useRef<HTMLDivElement>(null!);
   const platformRef = useRef<HTMLDivElement>(null!);

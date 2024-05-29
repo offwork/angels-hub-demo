@@ -4,7 +4,7 @@ import { useRef } from "react";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 
-export default function CircleBtn() {
+export default function CircleButton() {
   const linkRef = useRef<HTMLAnchorElement>(null!);
   const circleRef = useRef<SVGSVGElement>(null!);
 

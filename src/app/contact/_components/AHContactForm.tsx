@@ -2,8 +2,8 @@
 import { ContactFormSchema } from "@/models";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
-import ButtonSend from "../ui/ah-button-send";
-import Textbox from "../ui/ah-textbox";
+import ButtonSend from "../../../components/ui/AHButtonSend";
+import Textbox from "../../../components/ui/AHTextbox";
 
 export default function ContactForm() {
   const [action, setAction] = useState("");

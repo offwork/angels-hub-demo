@@ -27,11 +27,9 @@ export default function Providers() {
           const { isMobile, isTablet, isDesktop } = context.conditions!;
           if (isMobile) {
             const providerHeight =
-              mobileSliderRef.current.querySelector<HTMLDivElement>(
-                ".provider-row"
-              )?.offsetHeight! + 9;
-            const providers =
-              mobileSliderRef.current.querySelectorAll(".provider-row").length;
+              mobileSliderRef.current.querySelector<HTMLDivElement>(".provider-row")
+                ?.offsetHeight! + 9;
+            const providers = mobileSliderRef.current.querySelectorAll(".provider-row").length;
             gsap.set(".provider-row", { y: (i) => i * providerHeight });
             const totalHeight = providers * providerHeight;
             const wrapOffsetTop = -providerHeight;
@@ -50,11 +48,9 @@ export default function Providers() {
             });
           } else if (isTablet) {
             const providerHeight =
-              tabletSliderRef.current.querySelector<HTMLDivElement>(
-                ".provider-row"
-              )?.offsetHeight! + 9;
-            const providers =
-              tabletSliderRef.current.querySelectorAll(".provider-row").length;
+              tabletSliderRef.current.querySelector<HTMLDivElement>(".provider-row")
+                ?.offsetHeight! + 9;
+            const providers = tabletSliderRef.current.querySelectorAll(".provider-row").length;
             gsap.set(".provider-row", { y: (i) => i * providerHeight });
             const totalHeight = providers * providerHeight;
             const wrapOffsetTop = -providerHeight;
@@ -73,11 +69,9 @@ export default function Providers() {
             });
           } else if (isDesktop) {
             const providerHeight =
-              desktopSliderRef.current.querySelector<HTMLDivElement>(
-                ".provider-row"
-              )?.offsetHeight! + 9;
-            const providers =
-              desktopSliderRef.current.querySelectorAll(".provider-row").length;
+              desktopSliderRef.current.querySelector<HTMLDivElement>(".provider-row")
+                ?.offsetHeight! + 9;
+            const providers = desktopSliderRef.current.querySelectorAll(".provider-row").length;
             gsap.set(".provider-row", { y: (i) => i * providerHeight });
             const totalHeight = providers * providerHeight;
             const wrapOffsetTop = -providerHeight;
@@ -109,8 +103,7 @@ export default function Providers() {
   return (
     <div
       style={{
-        maskImage:
-          "linear-gradient(180deg,transparent,#0f38b4 20%,#0f38b4 80%,transparent 100%)",
+        maskImage: "linear-gradient(180deg,transparent,#0f38b4 20%,#0f38b4 80%,transparent 100%)",
       }}
       ref={containerRef}
       className="relative container grid gap-16 mx-auto w-full mt-16"

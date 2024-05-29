@@ -1,44 +1,54 @@
 "use client";
+import ButtonFill from "@/components/ui/AHButtonFill";
 import { SelectedSlideContext } from "@/contexts/banner-context";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import Image from "next/image";
 import { useContext, useRef } from "react";
-import BLUE_SHAPE from "../../../public/images/blue-shape.svg";
-import ORANGE_SHAPE from "../../../public/images/orange-shape.svg";
-import SLIDER_PIC_1 from "../../../public/images/slider-main-2-copy.png";
-import ButtonFill from "../ui/ah-button-fill";
+import BLUE_SHAPE from "../../../../public/images/blue-shape.svg";
+import ORANGE_SHAPE from "../../../../public/images/orange-shape.svg";
+import CARD_2 from "../../../../public/images/slide-card-2.png";
+import CIP_2 from "../../../../public/images/slider-cip-2.png";
+import CIP_BLUR_2 from "../../../../public/images/slider-cip-blur-2.png";
+import SLIDER_PIC_2 from "../../../../public/images/slider-main-2.png";
 
 gsap.registerPlugin(useGSAP);
 
-export default function Slide1({ slide }: { slide: number }) {
+export default function Slide2({ slide }: { slide: number }) {
   const { selected } = useContext(SelectedSlideContext);
   const slideRef = useRef<HTMLDivElement>(null!);
   const imageRef = useRef<HTMLImageElement>(null!);
+  const imageRef1 = useRef<HTMLImageElement>(null!);
+  const imageRef2 = useRef<HTMLImageElement>(null!);
+  const imageRef3 = useRef<HTMLImageElement>(null!);
   const titleRef1 = useRef<HTMLHeadingElement>(null!);
   const titleRef2 = useRef<HTMLHeadingElement>(null!);
   const titleRef3 = useRef<HTMLHeadingElement>(null!);
   const describeRef = useRef<HTMLParagraphElement>(null!);
   const linkRef = useRef<HTMLDivElement>(null!);
-  const imageOrangeRef = useRef<HTMLImageElement>(null!);
   const imageBlueRef = useRef<HTMLImageElement>(null!);
+  const imageOrangeRef = useRef<HTMLImageElement>(null!);
   const slideTL = useRef<GSAPTimeline>(null!);
 
   useGSAP(
     () => {
-      slideTL.current = gsap.timeline({ paused: Number(selected) !== 0 });
+      slideTL.current = gsap.timeline({ paused: Number(selected) !== 1 });
       slideTL.current
-        .fromTo(titleRef1.current, {
-          yPercent: 20,
-          opacity: 0,
-          autoAlpha: 0,
-          ease: "back.inOut(1.7)",
-        }, {
-          yPercent: 0,
-          opacity: 1,
-          autoAlpha: 1,
-          ease: "back.inOut(1.7)",
-        })
+        .fromTo(
+          titleRef1.current,
+          {
+            yPercent: 20,
+            opacity: 0,
+            autoAlpha: 0,
+            ease: "back.inOut(1.7)",
+          },
+          {
+            yPercent: 0,
+            opacity: 1,
+            autoAlpha: 1,
+            ease: "back.inOut(1.7)",
+          }
+        )
         .fromTo(
           titleRef2.current,
           {
@@ -104,6 +114,38 @@ export default function Slide1({ slide }: { slide: number }) {
           "<0.1"
         )
         .fromTo(
+          imageOrangeRef.current,
+          {
+            scale: 1.8,
+            transformOrigin: "center center",
+            opacity: 0,
+            autoAlpha: 0,
+          },
+          {
+            scale: 1,
+            transformOrigin: "center center",
+            opacity: 1,
+            autoAlpha: 1,
+          },
+          ">"
+        )
+        .fromTo(
+          imageBlueRef.current,
+          {
+            scale: 1.8,
+            transformOrigin: "center center",
+            opacity: 0,
+            autoAlpha: 0,
+          },
+          {
+            scale: 1,
+            transformOrigin: "center center",
+            opacity: 1,
+            autoAlpha: 1,
+          },
+          "<"
+        )
+        .fromTo(
           imageRef.current,
           {
             scale: 1.8,
@@ -120,40 +162,38 @@ export default function Slide1({ slide }: { slide: number }) {
           "<0.2"
         )
         .fromTo(
-          imageOrangeRef.current,
+          imageRef1.current,
+          { rotate: 0, scale: 0.2, opacity: 0, autoAlpha: 0 },
           {
-            scale: 1.8,
-            transformOrigin: "center center",
+            rotate: -45,
+            scale: 1,
+            opacity: 1,
+            autoAlpha: 1,
+          },
+          "<0.2"
+        )
+        .fromTo(
+          imageRef2.current,
+          {
+            rotate: 0,
+            scale: 0.2,
             opacity: 0,
             autoAlpha: 0,
           },
           {
+            rotate: 45,
             scale: 1,
-            transformOrigin: "center center",
-            opacity: 0.3,
+            opacity: 1,
             autoAlpha: 1,
           },
           "<"
         )
         .fromTo(
-          imageBlueRef.current,
-          {
-            scale: 1.8,
-            transformOrigin: "center center",
-            opacity: 0,
-            autoAlpha: 0,
-          },
-          {
-            scale: 1,
-            transformOrigin: "center center",
-            opacity: 0.5,
-            autoAlpha: 1,
-          },
+          imageRef3.current,
+          { scale: 0.2, opacity: 0, autoAlpha: 0 },
+          { scale: 1, opacity: 1, autoAlpha: 1 },
           "<"
         );
-      return () => {
-        slideTL.current.revert();
-      };
     },
     { scope: slideRef.current, dependencies: [slide] }
   );
@@ -163,26 +203,53 @@ export default function Slide1({ slide }: { slide: number }) {
       <div className="absolute inset-0 w-full h-full overflow-hidden">
         <Image
           ref={imageRef}
-          className="main-item absolute z-0 object-cover h-3/4 -top-20 lg:h-auto lg:top-0 lg:left-20 xl:left-56 2xl:left-60 3xl:left-64 4xl:left-72 5xl:left-80 6xl:left-96 6xl:-top-28"
-          src={SLIDER_PIC_1}
+          className="absolute z-20 object-cover right-0 h-3/4 sm:h-auto 6xl:right-80"
+          src={SLIDER_PIC_2.src}
           priority
+          width={SLIDER_PIC_2.width}
+          height={SLIDER_PIC_2.height}
           alt="Slider picture 1"
         />
         <Image
           ref={imageBlueRef}
-          className="absolute z-10 saturate-200 opacity-50 top-32 -right-20 sm:top-24 sm:-right-28 md:top-20 md:-right-32 lg:top-28 lg:-right-48 xl:top-32 xl:-right-96 2xl:-right-[416px] 4xl:top-44 4xl:-right-96 6xl:-right-20"
+          className="absolute z-10 brightness-200 opacity-50 scale-150 -right-16 top-40 sm:-right-24 sm:top-16 sm:scale-100 lg:top-0 lg:-right-32 xl:-right-48 6xl:right-32"
           src={BLUE_SHAPE}
           alt=""
         />
-        <div className="absolute z-10 -left-[10%] lg:left-0 top-0 w-1/2 h-full bg-gradient-to-r from-angel-blue via-angel-blue via-25% xl:via-40%"></div>
-        <div className="absolute z-10 -right-1/4 top-0 w-3/5 h-full bg-gradient-to-l from-angel-blue via-angel-blue via-30%"></div>
-        <div className="absolute z-10 bottom-0 w-full h-2/3 bg-gradient-to-t from-angel-blue via-angel-blue via-50% 2xl:-bottom-10 3xl:-bottom-24 4xl:-bottom-32 5xl:-bottom-40 6xl:-bottom-72"></div>
         <Image
           ref={imageOrangeRef}
-          className="relative z-10 saturate-200 opacity-30 -left-20 -top-28 sm:-left-72 sm:-top-44 md:-left-72 md:-top-72 lg:-left-80 xl:-left-96 xl:-top-64 2xl:-left-80 2xl:-top-96 3xl:-left-72 3xl:-top-80 4xl:-left-28 4xl:-top-96 5xl:-left-28 5xl:-top-80 6xl:left-52 6xl:-top-80"
+          className="relative z-10 scale-150 -top-24 -left-60 sm:scale-100 sm:-top-60 sm:-left-36 md:-top-64 md:-left-56 lg:-top-80 lg:-left-80 xl:-top-56 xl:-left-[540px] 2xl:-top-96 2xl:-left-[480px] 3xl:-left-96 4xl:-left-24 4xl:-top-[460px] 5xl:-left-16 5xl:-top-96 6xl:-top-96 6xl:-left-11"
           src={ORANGE_SHAPE}
           alt=""
         />
+        <Image
+          ref={imageRef1}
+          className="absolute z-30 hidden xl:block xl:top-[600px] xl:right-[800px] 2xl:right-[880px] 3xl:right-[940px] 6xl:right-[1260px] drop-shadow-[0_35px_15px_rgba(0,0,0,0.35)]"
+          src={CIP_2.src}
+          priority
+          width={106}
+          height={100}
+          alt="Slider picture 1"
+        />
+        <Image
+          ref={imageRef2}
+          className="absolute z-30 hidden xl:block xl:top-10 xl:right-[470px] 6xl:right-[800px]"
+          src={CIP_BLUR_2.src}
+          priority
+          width={114}
+          height={77}
+          alt="Slider picture 1"
+        />
+        <Image
+          ref={imageRef3}
+          className="absolute z-30 hidden xl:block xl:top-80 right-9 6xl:right-[360px] drop-shadow-[0_90px_10px_rgba(0,0,0,0.35)]"
+          src={CARD_2.src}
+          priority
+          width={188}
+          height={170}
+          alt="Slider picture 1"
+        />
+        <div className="absolute z-20 w-full h-2/3 bottom-4 md:-bottom-16 2xl:-bottom-24 3xl:-bottom-32 bg-gradient-to-t from-angel-blue via-angel-blue via-50%"></div>
       </div>
 
       <div className="container absolute z-30 top-40 left-1/2 -translate-x-1/2 text-center lg:text-left">

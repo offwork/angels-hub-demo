@@ -1,14 +1,14 @@
 "use client";
 
-import Image from "next/image";
-import TEAM_MEMBER_1 from "../../../public/images/Jane-Cooper.png";
-import TEAM_MEMBER_2 from "../../../public/images/Kristen-Watson.png";
-import TEAM_MEMBER_3 from "../../../public/images/Stephen-Osmond.png";
-import SocailIcon from "./ah-social-icon";
+import SocailIcon from "@/components/ui/AHSocialIcon";
+import { useIsomorphicLayoutEffect } from "@/utils";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
+import Image from "next/image";
 import { useRef } from "react";
-import { useIsomorphicLayoutEffect } from "@/utils";
+import TEAM_MEMBER_1 from "../../../../public/images/Jane-Cooper.png";
+import TEAM_MEMBER_2 from "../../../../public/images/Kristen-Watson.png";
+import TEAM_MEMBER_3 from "../../../../public/images/Stephen-Osmond.png";
 
 const NEXT = 1;
 const PREV = -1;
