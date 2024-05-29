@@ -299,18 +299,15 @@ export default function Topnavs() {
                   <span>Solutions</span>
                 </div>
                 <div className="accordion-content pl-5 grid gap-6 text-lg text-white h-0 overflow-hidden">
-                  <a href="/" className="footer-menu hover:text-white/65">
-                    White Label
-                  </a>
-                  <a href="/" className="footer-menu hover:text-white/65">
-                    Turnkey System
-                  </a>
-                  <a href="/" className="footer-menu hover:text-white/65">
+                  <Link href="/website-api" className="footer-menu hover:text-white/65">
+                    Website API
+                  </Link>
+                  <Link href="/turnkey-system" className="footer-menu hover:text-white/65">
+                    Turnkey-System
+                  </Link>
+                  <Link href="/managed-services" className="footer-menu hover:text-white/65">
                     Managed Services
-                  </a>
-                  <a href="/" className="footer-menu hover:text-white/65">
-                    Angels Payments
-                  </a>
+                  </Link>
                 </div>
               </li>
               <li className="cursor-pointer main-nav-item py-4 select-none lg:py-6">
