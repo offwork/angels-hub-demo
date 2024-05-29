@@ -24,7 +24,7 @@ const Footer = forwardRef<HTMLDivElement, {}>((_props, ref) => {
     defaultValues: {
       name: "",
       email: "",
-      phone: "",
+      country: "",
       message: undefined,
     },
   });
@@ -99,13 +99,13 @@ const Footer = forwardRef<HTMLDivElement, {}>((_props, ref) => {
               className="w-full form-element appearance-none bg-angel-blue indent-14 py-6 rounded-full border border-white/30"
             />
             <Textbox
-              label="phone"
+              label="country"
               register={register}
               required
               type="text"
               name="operation"
               errors={errors}
-              placeholder="Phone"
+              placeholder="Country of Operation"
               className="w-full form-element appearance-none bg-angel-blue indent-14 py-6 rounded-full border border-white/30"
             />
             <Textbox

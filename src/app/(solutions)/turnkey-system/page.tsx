@@ -1,4 +1,5 @@
 "use client";
+import AngelsHubSVG from "@/app/_components/products/AHSvg";
 import BrandLogo from "@/components/layout/AHBrandLogo";
 import Footer from "@/components/layout/AHFooter";
 import StickyLogo from "@/components/layout/AHStickyLogo";
@@ -13,7 +14,11 @@ import { useRef } from "react";
 import Scrollbar from "smooth-scrollbar";
 import WAVE from "../../../../public/images/abstract-wave.png";
 import TURNKEY_SYSTEM_BACK_BG from "../../../../public/images/black-background.png";
+import TURNKEY_SYSTEM_PAYMENTS from "../../../../public/images/crypto-sulionts-instant.svg";
+import TURNKEY_SYSTEM_HOSTING from "../../../../public/images/turnkey-system-hosting.svg";
+import TURNKEY_SYSTEM_LICENSE from "../../../../public/images/turnkey-system-license.svg";
 import TURNKEY_SYSTEM_MAIN from "../../../../public/images/turnkey-system-main.png";
+import TURNKEY_SYSTEM from "../../../../public/images/website-api-security.png";
 
 if (typeof window !== "undefined") {
   gsap.registerPlugin(useGSAP, ScrollTrigger);
@@ -22,10 +27,7 @@ if (typeof window !== "undefined") {
 export default function TurnkeySystem() {
   const bodyScrollBar = useRef<Scrollbar>(null!);
   const footerRef = useRef<HTMLDivElement>(null!);
-  const hPinRef = useRef<HTMLDivElement>(null!);
-  const productsRef = useRef<HTMLDivElement>(null!);
-  const providersRef = useRef<HTMLDivElement>(null!);
-  const featuresRef = useRef<HTMLDivElement>(null!);
+  const systemRef = useRef<HTMLDivElement>(null!);
   const scrollContainerRef = useRef<HTMLDivElement>(null!);
   const stickyLogoRef = useRef<HTMLDivElement>(null!);
   const { context, contextSafe } = useGSAP({ scope: scrollContainerRef.current! });
@@ -60,7 +62,7 @@ export default function TurnkeySystem() {
   const scroll = contextSafe(() => {
     /*==========================     STICKY LOGO SCROLL     ========================*/
     gsap.set(stickyLogoRef.current, { opacity: 0, xPercent: -100 });
-    /* const stickyEnd = gsap
+    const stickyEnd = gsap
       .timeline({
         scrollTrigger: {
           trigger: footerRef.current,
@@ -73,51 +75,15 @@ export default function TurnkeySystem() {
     const stickyStart = gsap
       .timeline({
         scrollTrigger: {
-          trigger: featuresRef.current,
+          trigger: systemRef.current,
           start: "top 80%",
           end: "bottom 40%",
           toggleActions: "play none none reverse",
           preventOverlaps: true,
         },
       })
-      .to(stickyLogoRef.current, { xPercent: 0, opacity: 1 }); */
+      .to(stickyLogoRef.current, { xPercent: 0, opacity: 1 });
     /*===========================     STICKY LOGO END     ==========================*/
-    //////////////////////////////////////////////////////////////////////////////////
-    //////////////////////////////////////////////////////////////////////////////////
-    //////////////////////////////////////////////////////////////////////////////////
-    /*===========================     PRODUCTS SCROLL     ==========================*/
-    /* const hItems = productsRef.current.querySelector<HTMLDivElement>(".horizontal-items")!;
-
-    function getHorizontalScrollAmount() {
-      let hItemsWidth = hItems.scrollWidth;
-      return -(hItemsWidth - window.innerWidth);
-    }
-
-    const mediaMatcher = gsap.matchMedia();
-    mediaMatcher.add(
-      {
-        isDesktop: `(min-width: 1280px) and (prefers-reduced-motion: no-preference)`,
-      },
-      (context) => {
-        const { isDesktop } = context.conditions!;
-        if (isDesktop) {
-          gsap.to(hItems, {
-            x: getHorizontalScrollAmount,
-            ease: "none",
-            duration: 2,
-            scrollTrigger: {
-              trigger: ".horizontal-scroll",
-              start: "top top",
-              end: () => `+=${getHorizontalScrollAmount() * -1}`,
-              pin: true,
-              scrub: 1,
-              invalidateOnRefresh: true,
-            },
-          });
-        }
-      }
-    ); */
-    /*============================     PRODUCTS END     ============================*/
     //////////////////////////////////////////////////////////////////////////////////
     //////////////////////////////////////////////////////////////////////////////////
     //////////////////////////////////////////////////////////////////////////////////
@@ -354,9 +320,147 @@ export default function TurnkeySystem() {
             />
           </div>
         </div>
-
-        {/* ==============================  EMPTY  ==============================  */}
-
+        <div ref={systemRef} className="relative w-full overflow-hidden pt-28 pb-28 xl:pt-0">
+          <AngelsHubSVG className="absolute z-0 w-[200%] h-auto top-1/2 -translate-y-1/2 lg:w-full" />
+          <div className="relative z-10 container grid gap-10 mx-auto xl:gap-32">
+            <div className="grid grid-cols-1 place-content-center gap-16 xl:grid-cols-2">
+              <div className="relative place-self-center lg:place-self-end">
+                <h2 className="text-3xl xl:text-6xl text-white">
+                  AngelsHub offers the best<span>&#20;</span>
+                  <span className="text-angel-blue-300">
+                    Turnkey System for your iGaming Business
+                  </span>
+                </h2>
+              </div>
+              <div className="ralative w-full place-self-center xl:row-span-2">
+                <Image
+                  className="relative object-cover object-center w-full h-auto left-1/2 -translate-x-1/2"
+                  src={TURNKEY_SYSTEM}
+                  alt=""
+                />
+              </div>
+              <div className="ralative place-self-center lg:place-self-auto">
+                <p className="text-xl text-white">
+                  AngelsHub offers a ground-breaking Turnkey System for managing core betting and
+                  gaming business operations. Our fully customisable solution fits to
+                  customer&apos;s needs and boost game offering for betting and gaming operators
+                  worldwide.
+                </p>
+                <br />
+                <p className="text-lg text-white/75">
+                  And what&apos;s more, our customers get everything ready to be used immediately
+                  upon installation and run their business smoothly.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div className="relative z-10 block container w-full py-40 mx-auto">
+          <div className="grid grid-flow-row lg:grid-flow-col gap-10 justify-items-stretch py-28 border-y border-white/20">
+            <div className="relative grid content-center justify-self-center text-center lg:text-left lg:justify-self-start">
+              <h2 className="text-3xl xl:text-6xl text-white">
+                <span className="text-angel-blue-300">Our Turnkey</span> <br /> System includes
+              </h2>
+            </div>
+            <div className="grid mx-auto grid-cols-1 px-20 gap-5 sm:grid-cols-2 sm:gap-3 lg:gap-5 lg:grid-cols-3 lg:px-6 xl:px-0 xl:max-w-6xl">
+              <div className="relative w-full h-56 bg-angel-blue-500 rounded-xl flex flex-col p-5">
+                <h3 className="text-xl text-white">iGaming Platform</h3>
+                <Image className="ml-auto mt-auto" src={TURNKEY_SYSTEM_PAYMENTS} alt="" />
+              </div>
+              <div className="relative w-full h-56 bg-angel-blue-500 rounded-xl flex flex-col p-5">
+                <h3 className="text-xl text-white">White Label License</h3>
+                <Image className="ml-auto mt-auto" src={TURNKEY_SYSTEM_LICENSE} alt="" />
+              </div>
+              <div className="relative w-full h-56 bg-angel-blue-500 rounded-xl flex flex-col p-5 col-auto sm:col-span-2 lg:col-auto">
+                <h3 className="text-xl text-white">Affiliate System</h3>
+                <Image className="ml-auto mt-auto" src={TURNKEY_SYSTEM_HOSTING} alt="" />
+              </div>
+            </div>
+          </div>
+        </div>
+        <div className="relative w-full container text-center pb-28 pt-36 lg:pt-20 lg:text-left xl:pt-0">
+          <h2 className="text-4xl text-white mb-12 xl:text-7xl">Key Features</h2>
+          <div className="hidden lg:grid gap-7">
+            <div className="flex flex-row space-x-7">
+              <div className="flex-grow rounded-xl h-56 bg-angel-orange p-6">
+                <div className="grid h-full justify-items-stretch gap-4 max-w-80">
+                  <h3 className="text-base xl:text-xl text-white min-h-16">
+                    Own Share Control in a Gambling Industry for Casino Owners
+                  </h3>
+                  <p className="text-xs xl:text-sm text-white/75">
+                    Granting casino owners autonomy and control over their share within the gambling
+                    industry.
+                  </p>
+                </div>
+              </div>
+              <div className="flex-grow rounded-xl h-56 bg-angel-orange p-6">
+                <div className="grid h-full justify-items-stretch gap-4 max-w-80">
+                  <h3 className="text-base xl:text-xl text-white min-h-16">
+                    Comprehensive Platform with User-friendly Controls
+                  </h3>
+                  <p className="text-xs xl:text-sm text-white/75">
+                    Access a comprehensive platform equipped with user-friendly controls for
+                    seamless navigation and management.
+                  </p>
+                </div>
+              </div>
+              <div className="flex-grow rounded-xl h-56 bg-angel-orange p-6">
+                <div className="grid h-full justify-items-stretch gap-4 max-w-80">
+                  <h3 className="text-base xl:text-xl text-white min-h-16">
+                    Time and Resource Management
+                  </h3>
+                  <p className="text-xs xl:text-sm text-white/75">
+                    Optimize efficiency with tools for effective time and resource management,
+                    enhancing productivity.
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div className="flex flex-row space-x-7">
+              <div className="flex-grow rounded-xl h-56 bg-angel-orange p-6">
+                <div className="grid h-full justify-items-stretch gap-4 max-w-80">
+                  <h3 className="text-base xl:text-xl text-white min-h-16">High-Quality Design</h3>
+                  <p className="text-xs xl:text-sm text-white/75">
+                    Elevate your iGaming website with visually stunning aesthetics and intuitive
+                    user interfaces, enhancing user engagement and brand credibility.
+                  </p>
+                </div>
+              </div>
+              <div className="flex-grow rounded-xl h-56 bg-angel-orange p-6">
+                <div className="grid h-full justify-items-stretch gap-4 max-w-80">
+                  <h3 className="text-base xl:text-xl text-white min-h-16">
+                    Simplified Payment System
+                  </h3>
+                  <p className="text-xs xl:text-sm text-white/75">
+                    Streamline financial transactions with a simplified payment system, ensuring
+                    convenience and security for all parties involved.
+                  </p>
+                </div>
+              </div>
+              <div className="flex-grow rounded-xl h-56 bg-angel-orange p-6">
+                <div className="grid h-full justify-items-stretch gap-4 max-w-80">
+                  <h3 className="text-base xl:text-xl text-white min-h-16">
+                    24/7 Technical Assistance
+                  </h3>
+                  <p className="text-xs xl:text-sm text-white/75">
+                    Receive round-the-clock technical support to address any queries or issues
+                    promptly, ensuring uninterrupted operations.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <ul className="lg:hidden list-disc list-outside text-left text-white xs:pl-3 sm:pl-0 md:px-16 grid divide-y divide-white/50">
+            <li className="text-xl py-8">
+              Own Share Control in a Gambling Industry for Casino Owners
+            </li>
+            <li className="text-xl py-8">Comprehensive Platform with User-friendly Controls</li>
+            <li className="text-xl py-8">Time and Resource Management</li>
+            <li className="text-xl py-8">High-Quality Design</li>
+            <li className="text-xl py-8">Simplified Payment System</li>
+            <li className="text-xl py-8">24/7 Technical Assistance</li>
+          </ul>
+        </div>
         <Footer ref={footerRef} />
       </div>
     </>
