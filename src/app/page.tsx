@@ -733,8 +733,8 @@ export default function Home() {
               <ButtonFill
                 bg="bg-angel-blue"
                 size="large"
-                href={""}
-                label={"Get good service from experts"}
+                href="/contact"
+                label="Get good service from experts"
               />
             </div>
           </div>

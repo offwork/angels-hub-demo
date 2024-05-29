@@ -326,27 +326,24 @@ export default function Contact() {
                 <a href="/" className="footer-menu hover:underline">
                   Careers
                 </a>
-                <a href="/" className="footer-menu hover:underline">
+                <Link href="/contact" className="footer-menu hover:underline">
                   Demo
-                </a>
+                </Link>
                 <Link href="/contact" className="footer-menu hover:underline">
                   Contact Us
                 </Link>
               </div>
               <div className="grid gap-4 text-white md:justify-self-center">
                 <span className="footer-menu font-bold text-xl">Solutions</span>
-                <a href="/" className="footer-menu hover:underline">
-                  White Label
-                </a>
-                <a href="/" className="footer-menu hover:underline">
-                  Turnkey System
-                </a>
-                <a href="/" className="footer-menu hover:underline">
+                <Link href="/website-api" className="footer-menu hover:underline">
+                  Website API
+                </Link>
+                <Link href="/turnkey-system" className="footer-menu hover:underline">
+                  Turnkey-System
+                </Link>
+                <Link href="/managed-services" className="footer-menu hover:underline">
                   Managed Services
-                </a>
-                <a href="/" className="footer-menu hover:underline">
-                  Angels Payments
-                </a>
+                </Link>
               </div>
               <div className="grid gap-4 text-white md:justify-self-end">
                 <span className="footer-menu font-bold text-xl">Products</span>

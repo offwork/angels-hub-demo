@@ -299,14 +299,20 @@ export default function Topnavs() {
                   <span>Solutions</span>
                 </div>
                 <div className="accordion-content pl-5 grid gap-6 text-lg text-white h-0 overflow-hidden">
-                  <Link href="/website-api" className="footer-menu hover:text-white/65">
-                    Website API
+                  <Link href="/website-api" className="footer-menu" passHref legacyBehavior>
+                    <AHLink className="hover:text-white/65" href="/crypto-solutions">
+                      Website API
+                    </AHLink>
                   </Link>
-                  <Link href="/turnkey-system" className="footer-menu hover:text-white/65">
-                    Turnkey-System
+                  <Link href="/turnkey-system" className="footer-menu" passHref legacyBehavior>
+                    <AHLink className="hover:text-white/65" href="/crypto-solutions">
+                      Turnkey-System
+                    </AHLink>
                   </Link>
-                  <Link href="/managed-services" className="footer-menu hover:text-white/65">
-                    Managed Services
+                  <Link href="/managed-services" className="footer-menu" passHref legacyBehavior>
+                    <AHLink className="hover:text-white/65" href="/crypto-solutions">
+                      Managed Services
+                    </AHLink>
                   </Link>
                 </div>
               </li>
@@ -340,9 +346,11 @@ export default function Topnavs() {
                   <a href="/" className="footer-menu hover:text-white/65">
                     Careers
                   </a>
-                  <a href="/" className="footer-menu hover:text-white/65">
-                    Demo
-                  </a>
+                  <Link href="/contact" passHref legacyBehavior>
+                    <AHLink className="footer-menu hover:text-white/65" href="/contact">
+                      <span className="">Demo</span>
+                    </AHLink>
+                  </Link>
                 </div>
               </li>
             </ul>
@@ -395,15 +403,17 @@ export default function Topnavs() {
                   <span className="footer-menu font-bold text-xl place-self-auto">
                     Useful Links
                   </span>
-                  <a href="/" className="footer-menu place-self-auto">
+                  <a href="/" className="footer-menu place-self-auto hover:underline">
                     Events
                   </a>
-                  <a href="/" className="footer-menu place-self-auto">
+                  <a href="/" className="footer-menu place-self-auto hover:underline">
                     Careers
                   </a>
-                  <a href="/" className="footer-menu place-self-auto">
-                    Demo
-                  </a>
+                  <Link href="/contact" passHref legacyBehavior>
+                    <AHLink className="footer-menu place-self-auto hover:underline" href="/contact">
+                      <span className="">Demo</span>
+                    </AHLink>
+                  </Link>
                 </div>
                 <div className="social-icons flex flex-col items-center space-y-6">
                   <div className="grid grid-flow-col gap-3">
