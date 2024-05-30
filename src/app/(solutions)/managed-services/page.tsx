@@ -1,4 +1,5 @@
 "use client";
+import AngelsHubSVG from "@/app/_components/products/AHSvg";
 import BrandLogo from "@/components/layout/AHBrandLogo";
 import Footer from "@/components/layout/AHFooter";
 import StickyLogo from "@/components/layout/AHStickyLogo";
@@ -13,6 +14,10 @@ import { useRef } from "react";
 import Scrollbar from "smooth-scrollbar";
 import WAVE from "../../../../public/images/abstract-wave.png";
 import MANAGED_SERVICES_BLACK_BG from "../../../../public/images/black-background.png";
+import MANAGED_SERVICES_BLUE_BG from "../../../../public/images/blue-background.png";
+import MANAGED_SERVICES_B2C from "../../../../public/images/managed-services-b2c.png";
+import MANAGED_SERVICES_SEO from "../../../../public/images/managed-services-seo.png";
+import MANAGED_SERVICES_LEGAL from "../../../../public/images/managed-services-legal.png";
 import MANAGED_SERVICES_MAIN from "../../../../public/images/managed-services-main.png";
 
 if (typeof window !== "undefined") {
@@ -22,10 +27,7 @@ if (typeof window !== "undefined") {
 export default function ManagedServices() {
   const bodyScrollBar = useRef<Scrollbar>(null!);
   const footerRef = useRef<HTMLDivElement>(null!);
-  const hPinRef = useRef<HTMLDivElement>(null!);
-  const productsRef = useRef<HTMLDivElement>(null!);
-  const providersRef = useRef<HTMLDivElement>(null!);
-  const featuresRef = useRef<HTMLDivElement>(null!);
+  const servicesRef = useRef<HTMLDivElement>(null!);
   const scrollContainerRef = useRef<HTMLDivElement>(null!);
   const stickyLogoRef = useRef<HTMLDivElement>(null!);
   const { context, contextSafe } = useGSAP({ scope: scrollContainerRef.current! });
@@ -60,7 +62,7 @@ export default function ManagedServices() {
   const scroll = contextSafe(() => {
     /*==========================     STICKY LOGO SCROLL     ========================*/
     gsap.set(stickyLogoRef.current, { opacity: 0, xPercent: -100 });
-    /* const stickyEnd = gsap
+    const stickyEnd = gsap
       .timeline({
         scrollTrigger: {
           trigger: footerRef.current,
@@ -73,51 +75,15 @@ export default function ManagedServices() {
     const stickyStart = gsap
       .timeline({
         scrollTrigger: {
-          trigger: featuresRef.current,
+          trigger: servicesRef.current,
           start: "top 80%",
           end: "bottom 40%",
           toggleActions: "play none none reverse",
           preventOverlaps: true,
         },
       })
-      .to(stickyLogoRef.current, { xPercent: 0, opacity: 1 }); */
+      .to(stickyLogoRef.current, { xPercent: 0, opacity: 1 });
     /*===========================     STICKY LOGO END     ==========================*/
-    //////////////////////////////////////////////////////////////////////////////////
-    //////////////////////////////////////////////////////////////////////////////////
-    //////////////////////////////////////////////////////////////////////////////////
-    /*===========================     PRODUCTS SCROLL     ==========================*/
-    /* const hItems = productsRef.current.querySelector<HTMLDivElement>(".horizontal-items")!;
-
-    function getHorizontalScrollAmount() {
-      let hItemsWidth = hItems.scrollWidth;
-      return -(hItemsWidth - window.innerWidth);
-    }
-
-    const mediaMatcher = gsap.matchMedia();
-    mediaMatcher.add(
-      {
-        isDesktop: `(min-width: 1280px) and (prefers-reduced-motion: no-preference)`,
-      },
-      (context) => {
-        const { isDesktop } = context.conditions!;
-        if (isDesktop) {
-          gsap.to(hItems, {
-            x: getHorizontalScrollAmount,
-            ease: "none",
-            duration: 2,
-            scrollTrigger: {
-              trigger: ".horizontal-scroll",
-              start: "top top",
-              end: () => `+=${getHorizontalScrollAmount() * -1}`,
-              pin: true,
-              scrub: 1,
-              invalidateOnRefresh: true,
-            },
-          });
-        }
-      }
-    ); */
-    /*============================     PRODUCTS END     ============================*/
     //////////////////////////////////////////////////////////////////////////////////
     //////////////////////////////////////////////////////////////////////////////////
     //////////////////////////////////////////////////////////////////////////////////
@@ -355,7 +321,193 @@ export default function ManagedServices() {
           </div>
         </div>
 
-        {/* ==============================  EMPTY  ==============================  */}
+        <div
+          ref={servicesRef}
+          className="relative z-10 block w-full overflow-hidden pt-28 pb-28 xl:pt-0"
+        >
+          <AngelsHubSVG className="absolute z-0 w-[200%] h-auto top-1/2 -translate-y-1/2 lg:w-full" />
+
+          <div className="container mx-auto grid gap-28">
+            <div className="relative block w-full bg-[#0151AD] rounded-xl shadow-2xl py-16 overflow-hidden">
+              <Image
+                className="absolute opacity-75 bottom-0 z-0 w-full h-auto left-1/2 -translate-x-1/2"
+                src={MANAGED_SERVICES_BLUE_BG}
+                alt="AngelsHub sportsbook players"
+              />
+              <div className="relative z-10 flex lg:flex-row lg:space-x-16">
+                <div className="hidden lg:block">
+                  <Image
+                    className="relative object-cover object-center"
+                    src={MANAGED_SERVICES_B2C}
+                    priority
+                    alt="Products wave"
+                  />
+                </div>
+                <div className="grid gap-8 max-w-2xl px-5 md:px-10">
+                  <div className="flex justify-start items-center -ml-5">
+                    <span className="w-2.5 h-6 bg-angel-orange mr-3"></span>
+                    <h1 className="text-white font-bold text-2xl">B2C Support</h1>
+                  </div>
+                  <p className="text-base text-white">
+                    Are you interested in providing round-the-clock support in multiple languages to
+                    your players, with the fastest response times in the industry? With our
+                    acclaimed Customer Service, we can elevate your business and enhance the player
+                    experience. We deliver top-notch support to international partners, enabling you
+                    to establish trust by addressing both basic customer inquiries and complex
+                    technical problems. Our customer support is offered through live chat and email
+                    channels. Additionally, we offer customizable packages for Inbound/Outbound
+                    Calls, VIP Support, Customer Acquisition, Retention, and Social Media Customer
+                    Service upon request. Rest assured, our services adhere to the regulations of
+                    several reputable jurisdictions.
+                  </p>
+                  <ul className="list-disc list-outside pl-4 text-left text-white">
+                    <h3 className="text-xl font-bold -ml-4 mb-4">Key Features</h3>
+                    <li className="text-base py-2">24/7 support covering multiple languages</li>
+                    <li className="text-base py-2">Industry leading customer response times</li>
+                    <li className="text-base py-2">
+                      Customer inquiries and data are managed using the most advanced system
+                      platform software available
+                    </li>
+                    <li className="text-base py-2">
+                      Highly skilled agents who engage with players in a polite & professional
+                      manner
+                    </li>
+                  </ul>
+                  <div className="flex items-center justify-center lg:justify-start">
+                    <ButtonFill
+                      bg="bg-angel-orange"
+                      size="medium"
+                      href="/contact"
+                      label="Contact Us"
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div className="relative block w-full bg-[#0151AD] rounded-xl shadow-2xl py-16 overflow-hidden">
+              <Image
+                className="absolute opacity-75 bottom-0 z-0 w-full h-auto left-1/2 -translate-x-1/2"
+                src={MANAGED_SERVICES_BLUE_BG}
+                alt="AngelsHub sportsbook players"
+              />
+              <div className="relative z-10 flex lg:flex-row lg:space-x-16">
+                <div className="hidden lg:block">
+                  <Image
+                    className="relative object-cover object-center"
+                    src={MANAGED_SERVICES_SEO}
+                    priority
+                    alt="Products wave"
+                  />
+                </div>
+                <div className="grid gap-8 max-w-2xl px-5 md:px-10">
+                  <div className="flex justify-start items-center -ml-5">
+                    <span className="w-2.5 h-6 bg-angel-orange mr-3"></span>
+                    <h1 className="text-white font-bold text-2xl">Search Engine Optimisation</h1>
+                  </div>
+                  <p className="text-base text-white">
+                    To begin, we will perform an SEO audit on your website to evaluate its current
+                    status, outcomes, and anticipated goals. Subsequently, we will develop an SEO
+                    strategy tailored specifically to your needs. With our expertise spanning all
+                    aspects of SEO, we understand the unique requirements of gambling and betting
+                    websites and possess the know-how to accomplish them. In addition to conducting
+                    comprehensive on-page and off-page SEO, we will also promote your website within
+                    local forums to enhance its visibility.
+                  </p>
+                  <div className="">
+                    <h3 className="text-xl text-white font-bold mb-4">Key Features</h3>
+                    <div className="flex flex-row space-x-8">
+                      <ul className="list-disc list-outside pl-4 text-left text-white">
+                        <li className="text-base py-2">On-site SEO</li>
+                        <li className="text-base py-2">Off-site SEO</li>
+                        <li className="text-base py-2">Organic results</li>
+                      </ul>
+                      <ul className="list-disc list-outside pl-4 text-left text-white">
+                        <li className="text-base py-2">Keywords</li>
+                        <li className="text-base py-2">Link building</li>
+                        <li className="text-base py-2">Quality of traffic</li>
+                      </ul>
+                    </div>
+                  </div>
+                  <div className="flex items-center justify-center lg:justify-start">
+                    <ButtonFill
+                      bg="bg-angel-orange"
+                      size="medium"
+                      href="/contact"
+                      label="Contact Us"
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div className="relative block w-full bg-[#0151AD] rounded-xl shadow-2xl py-16 overflow-hidden">
+              <Image
+                className="absolute opacity-75 bottom-0 z-0 w-full h-auto left-1/2 -translate-x-1/2"
+                src={MANAGED_SERVICES_BLUE_BG}
+                alt="AngelsHub sportsbook players"
+              />
+              <div className="relative z-10 flex lg:flex-row lg:space-x-16">
+                <div className="hidden lg:block">
+                  <Image
+                    className="relative object-cover object-center"
+                    src={MANAGED_SERVICES_LEGAL}
+                    priority
+                    alt="Products wave"
+                  />
+                </div>
+                <div className="grid gap-8 max-w-2xl px-5 md:px-10">
+                  <div className="flex justify-start items-center -ml-5">
+                    <span className="w-2.5 h-6 bg-angel-orange mr-3"></span>
+                    <h1 className="text-white font-bold text-2xl">Legal and License Services</h1>
+                  </div>
+                  <p className="text-base text-white">
+                    If you desire to establish your legal entities in respected jurisdictions and
+                    require legal support, such as the review and creation of Software License
+                    Agreements, White Label Agreements, Consulting Agreements, Technical Service
+                    Agreements, Non-Disclosure Agreements, and more, our services can fulfill your
+                    needs. We also offer assistance in overseeing the preparation and revision of
+                    contracts related to the buying and selling of goods and services. We will
+                    develop your company&apos;s policies and stance on legal matters. Additionally,
+                    we are skilled in drafting, reviewing, and negotiating contracts, reports,
+                    memos, and other documents with suppliers and other business partners.
+                  </p>
+                  <ul className="list-disc list-outside pl-4 text-left text-white">
+                    <h3 className="text-xl font-bold -ml-4 mb-4">Key Features</h3>
+
+                    <li className="text-base py-2">
+                      Legal support of high international standards
+                    </li>
+                    <li className="text-base py-2">
+                      Exceptional expertise in gambling area covering a broad spectrum of legal
+                      matters
+                    </li>
+                    <li className="text-base py-2">Flexibility and on-going client support</li>
+                    <li className="text-base py-2">
+                      Availability, loyalty and complete confidentiality
+                    </li>
+                    <li className="text-base py-2">
+                      Solving increasingly complex legal issues arising in dynamic business
+                      environment
+                    </li>
+                    <li className="text-base py-2">
+                      Approaching clients&apos; needs comprehensively and devising practical
+                      solutions adapted to the specific circumstances
+                    </li>
+                  </ul>
+                  <div className="flex items-center justify-center lg:justify-start">
+                    <ButtonFill
+                      bg="bg-angel-orange"
+                      size="medium"
+                      href="/contact"
+                      label="Contact Us"
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
 
         <Footer ref={footerRef} />
       </div>
