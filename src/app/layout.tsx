@@ -1,6 +1,6 @@
-import "./globals.css";
-import Topnavs from "@/components/ah-topnavs";
+import Topnavs from "@/components/layout/AHTopnavs";
 import { ReactNode } from "react";
+import "./globals.css";
 
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (

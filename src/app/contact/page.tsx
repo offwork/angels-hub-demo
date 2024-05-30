@@ -1,10 +1,9 @@
 "use client";
-import ContactForm from "@/components/Contact/AHContactForm";
-import Amblem from "@/components/Layout/ah-amblem";
-import AngelsHubFlatSVG from "@/components/Layout/ah-flat-svg";
-import SocailIcon from "@/components/Team/ah-social-icon";
-import BrandLogo from "@/components/ah-brand-logo";
-import StickyLogo from "@/components/ah-sticky-logo";
+import Amblem from "@/components/layout/AHAmblem";
+import BrandLogo from "@/components/layout/AHBrandLogo";
+import AngelsHubFlatSVG from "@/components/layout/AHFlatSvg";
+import StickyLogo from "@/components/layout/AHStickyLogo";
+import SocailIcon from "@/components/ui/AHSocialIcon";
 import { useIsomorphicLayoutEffect } from "@/utils";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
@@ -18,6 +17,7 @@ import WAVE from "../../../public/images/abstract-wave.png";
 import SUPPORTSBOOK_BALL from "../../../public/images/supports-black-ball.png";
 import SUPPORTSBOOK_MAIN from "../../../public/images/supportsbook-main.png";
 import SUPPORTSBOOK_PLAYERS from "../../../public/images/supportsbook-players.png";
+import ContactForm from "./_components/AHContactForm";
 
 if (typeof window !== "undefined") {
   gsap.registerPlugin(useGSAP, ScrollTrigger);
@@ -326,27 +326,24 @@ export default function Contact() {
                 <a href="/" className="footer-menu hover:underline">
                   Careers
                 </a>
-                <a href="/" className="footer-menu hover:underline">
+                <Link href="/contact" className="footer-menu hover:underline">
                   Demo
-                </a>
+                </Link>
                 <Link href="/contact" className="footer-menu hover:underline">
                   Contact Us
                 </Link>
               </div>
               <div className="grid gap-4 text-white md:justify-self-center">
                 <span className="footer-menu font-bold text-xl">Solutions</span>
-                <a href="/" className="footer-menu hover:underline">
-                  White Label
-                </a>
-                <a href="/" className="footer-menu hover:underline">
-                  Turnkey System
-                </a>
-                <a href="/" className="footer-menu hover:underline">
+                <Link href="/website-api" className="footer-menu hover:underline">
+                  Website API
+                </Link>
+                <Link href="/turnkey-system" className="footer-menu hover:underline">
+                  Turnkey-System
+                </Link>
+                <Link href="/managed-services" className="footer-menu hover:underline">
                   Managed Services
-                </a>
-                <a href="/" className="footer-menu hover:underline">
-                  Angels Payments
-                </a>
+                </Link>
               </div>
               <div className="grid gap-4 text-white md:justify-self-end">
                 <span className="footer-menu font-bold text-xl">Products</span>
