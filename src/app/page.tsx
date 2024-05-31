@@ -71,6 +71,8 @@ export default function Home() {
   };
 
   const scroll = contextSafe(() => {
+    const mediaMatcher = gsap.matchMedia();
+
     /*==========================     STICKY LOGO SCROLL     ========================*/
     gsap.set(stickyLogoRef.current, { opacity: 0, xPercent: -100 });
     const stickyEnd = gsap
@@ -99,51 +101,148 @@ export default function Home() {
     //////////////////////////////////////////////////////////////////////////////////
     //////////////////////////////////////////////////////////////////////////////////
     /*===========================     SOLUTIONS SCROLL     =========================*/
-    const solutions = solutionsRef.current.querySelectorAll<HTMLDivElement>(".solution");
+    const solutions = solutionsRef.current.querySelectorAll<HTMLDivElement>(".solution")!;
+    const solutionCards = solutionsRef.current.querySelector<HTMLDivElement>(".solutions")!;
+    const solutionsTitle = solutionsRef.current.querySelector<HTMLHeadingElement>(".text-white")!;
+    const solutionsSubtitle =
+      solutionsRef.current.querySelector<HTMLHeadingElement>(".text-spray")!;
 
-    gsap.from(solutionsRef.current.querySelector(".text-white"), {
-      xPercent: -7,
-      opacity: 0,
-      duration: 0.7,
-      ease: "sine.in",
-      scrollTrigger: {
-        trigger: solutionsRef.current,
-        start: "top bottom",
-        scrub: 1.2,
-        end: () =>
-          solutionsRef.current.querySelector<HTMLHeadingElement>(".text-white")?.offsetHeight!,
+    mediaMatcher.add(
+      {
+        isMobile: `(max-width: 1023px) and (prefers-reduced-motion: no-preference)`,
+        isTablet: `(min-width: 1024px) and (max-width: 1439px) and (prefers-reduced-motion: no-preference)`,
+        isDesktop: `(min-width: 1440px) and (prefers-reduced-motion: no-preference)`,
       },
-    });
+      (context) => {
+        const { isMobile, isTablet, isDesktop } = context.conditions!;
+        if (isMobile) {
+          gsap.from(solutionsTitle, {
+            xPercent: -7,
+            opacity: 0,
+            duration: 0.7,
+            ease: "sine.in",
+            scrollTrigger: {
+              trigger: solutionsRef.current,
+              start: () => "top bottom",
+              scrub: 1.2,
+              end: () => solutionsTitle.offsetHeight!,
+            },
+          });
 
-    gsap.from(solutionsRef.current.querySelector(".text-spray"), {
-      xPercent: -10,
-      opacity: 0,
-      duration: 0.7,
-      ease: "sine.in",
-      scrollTrigger: {
-        trigger: solutionsRef.current,
-        start: "top bottom",
-        scrub: 1.2,
-        end: () =>
-          solutionsRef.current.querySelector<HTMLHeadingElement>(".text-spray")?.offsetHeight!,
-      },
-    });
+          gsap.from(solutionsSubtitle, {
+            xPercent: -10,
+            opacity: 0,
+            duration: 0.7,
+            ease: "sine.in",
+            scrollTrigger: {
+              trigger: solutionsRef.current,
+              start: "top bottom",
+              scrub: 1.2,
+              end: () => solutionsSubtitle.offsetHeight,
+            },
+          });
 
-    solutions.forEach((_solution, pos, arr) => {
-      gsap.from(arr[arr.length - 1 - pos], {
-        ease: "sine.in",
-        yPercent: 10,
-        opacity: 0,
-        delay: pos * 0.2,
-        stagger: 0.4,
-        scrollTrigger: {
-          trigger: arr[arr.length - 1 - pos],
-          start: "top bottom",
-          scrub: pos * 0.8,
-          end: () => arr[pos].offsetHeight,
-        },
-      });
-    });
+          gsap.from(solutionCards, {
+            xPercent: -10,
+            opacity: 0,
+            duration: 0.7,
+            ease: "sine.in",
+            scrollTrigger: {
+              trigger: solutionCards,
+              start: "top bottom",
+              scrub: 1.2,
+              end: () => solutionCards.offsetHeight,
+            },
+          });
+        }
+        if (isTablet) {
+          gsap.from(solutionsTitle, {
+            xPercent: -7,
+            opacity: 0,
+            duration: 0.7,
+            ease: "sine.in",
+            scrollTrigger: {
+              trigger: solutionsRef.current,
+              start: () => "top center",
+              scrub: 1.2,
+              end: () => solutionsTitle.offsetHeight!,
+            },
+          });
+
+          gsap.from(solutionsSubtitle, {
+            xPercent: -10,
+            opacity: 0,
+            duration: 0.7,
+            ease: "sine.in",
+            scrollTrigger: {
+              trigger: solutionsRef.current,
+              start: "top center",
+              scrub: 1.2,
+              end: () => solutionsSubtitle.offsetHeight,
+            },
+          });
+
+          solutions.forEach((_solution, pos, arr) => {
+            gsap.from(arr[arr.length - 1 - pos], {
+              ease: "sine.in",
+              yPercent: 10,
+              opacity: 0,
+              delay: pos * 0.2,
+              stagger: 0.4,
+              scrollTrigger: {
+                trigger: arr[arr.length - 1 - pos],
+                start: "top bottom",
+                scrub: pos * 0.8,
+                end: () => "+=" + arr[pos].offsetHeight,
+              },
+            });
+          });
+        }
+        if (isDesktop) {
+          gsap.from(solutionsTitle, {
+            xPercent: -7,
+            opacity: 0,
+            duration: 0.7,
+            ease: "sine.in",
+            scrollTrigger: {
+              trigger: solutionsRef.current,
+              start: () => "bottom top",
+              scrub: 1.2,
+              end: () => solutionsTitle.offsetHeight!,
+            },
+          });
+
+          gsap.from(solutionsSubtitle, {
+            xPercent: -10,
+            opacity: 0,
+            duration: 0.7,
+            ease: "sine.in",
+            scrollTrigger: {
+              trigger: solutionsRef.current,
+              start: "bottom top",
+              scrub: 1.2,
+              end: () => solutionsSubtitle.offsetHeight,
+            },
+          });
+
+          solutions.forEach((_solution, pos, arr) => {
+            gsap.from(arr[arr.length - 1 - pos], {
+              ease: "sine.in",
+              yPercent: 10,
+              opacity: 0,
+              delay: pos * 0.2,
+              stagger: 0.4,
+              scrollTrigger: {
+                trigger: arr[arr.length - 1 - pos],
+                start: "bottom top",
+                scrub: pos * 0.8,
+                end: () => "+=" + arr[pos].offsetHeight,
+              },
+            });
+          });
+        }
+      }
+    );
     /*============================     SOLUTIONS END     ===========================*/
     //////////////////////////////////////////////////////////////////////////////////
     //////////////////////////////////////////////////////////////////////////////////
@@ -156,7 +255,6 @@ export default function Home() {
       return -(hItemsWidth - window.innerWidth);
     }
 
-    const mediaMatcher = gsap.matchMedia();
     mediaMatcher.add(
       {
         isDesktop: `(min-width: 1280px) and (prefers-reduced-motion: no-preference)`,
@@ -164,20 +262,19 @@ export default function Home() {
       (context) => {
         const { isDesktop } = context.conditions!;
         if (isDesktop) {
-          gsap
-            .to(hItems, {
-              x: getHorizontalScrollAmount,
-              ease: "none",
-              duration: 2,
-              scrollTrigger: {
-                trigger: ".horizontal-scroll",
-                start: "top top",
-                end: () => `+=${getHorizontalScrollAmount() * -1}`,
-                pin: true,
-                scrub: 1,
-                invalidateOnRefresh: true,
-              },
-            });
+          gsap.to(hItems, {
+            x: getHorizontalScrollAmount,
+            ease: "none",
+            duration: 2,
+            scrollTrigger: {
+              trigger: ".horizontal-scroll",
+              start: "top top",
+              end: () => `+=${getHorizontalScrollAmount() * -1}`,
+              pin: true,
+              scrub: 1,
+              invalidateOnRefresh: true,
+            },
+          });
         }
       }
     );
@@ -232,9 +329,9 @@ export default function Home() {
       ease: "sine.in",
       scrollTrigger: {
         trigger: productsRef.current,
-        start: "top bottom",
+        start: "top center",
         scrub: 2,
-        end: () => hPinRef.current.offsetHeight,
+        end: "top 25%",
       },
     });
     /*============================     PRODUCTS END     ============================*/
@@ -256,20 +353,19 @@ export default function Home() {
       (context) => {
         const { isDesktop } = context.conditions!;
         if (isDesktop) {
-          gsap
-            .to(platformItems, {
-              x: getHorizontalPlatformScrollAmount,
-              ease: "none",
-              duration: 2,
-              scrollTrigger: {
-                trigger: ".platform-scroll",
-                start: "top top",
-                end: () => `+=${getHorizontalPlatformScrollAmount() * -1}`,
-                pin: true,
-                scrub: 1,
-                invalidateOnRefresh: true,
-              },
-            });
+          gsap.to(platformItems, {
+            x: getHorizontalPlatformScrollAmount,
+            ease: "none",
+            duration: 2,
+            scrollTrigger: {
+              trigger: ".platform-scroll",
+              start: "top top",
+              end: () => `+=${getHorizontalPlatformScrollAmount() * -1}`,
+              pin: true,
+              scrub: 1,
+              invalidateOnRefresh: true,
+            },
+          });
         }
       }
     );
@@ -571,7 +667,6 @@ export default function Home() {
 
     return () => {
       context.revert();
-      ScrollTrigger.killAll();
       window.removeEventListener("resize", resizeHandle);
     };
   }, [context, scroll]);
@@ -601,12 +696,46 @@ export default function Home() {
         <div className="slider-ref relative z-10 w-full">
           <Slider />
         </div>
-        <div ref={solutionsRef} className="container grid gap-9">
+        <div
+          ref={productsRef}
+          className="horizontal-scroll relative z-10 w-screen overflow-hidden mt-28 pb-28 md:pb-40"
+        >
+          <div className="relative z-10 grid gap-5 w-full text-center">
+            <h3 className="text-3xl text-angel-orange-500 font-medium">Products</h3>
+            <h2 className="text-3xl text-spray mx-auto leading-tight max-w-[315px] md:max-w-none xl:text-6xl">
+              Do you have a good idea but <br className="hidden md:block" /> still not sure{" "}
+              <span className="text-white">where to start?</span>
+            </h2>
+          </div>
+          <div className="relative w-full">
+            <Image
+              className="absolute -top-28 z-0 mix-blend-lighten bg-angel-blue opacity-10 max-w-max lg:w-full lg:max-w-full"
+              src={WAVE}
+              alt="Products wave"
+            />
+            <div
+              ref={hPinRef}
+              className="horizontal-items relative z-10 snap-x snap-mandatory w-full grid grid-flow-row place-items-center px-6 gap-20 py-16 xl:grid-flow-col"
+            >
+              {PRODUCTS.map((product) => (
+                <ProductCard
+                  title={product.title}
+                  href={product.href}
+                  description={product.description}
+                  image={product.image}
+                  key={product.title}
+                />
+              ))}
+            </div>
+            <AngelsHubSVG className="absolute z-0 w-[200%] h-auto -left-20 -bottom-32 md:-bottom-56 lg:-bottom-32 xl:-bottom-56 lg:left-0 lg:w-full" />
+          </div>
+        </div>
+        <div ref={solutionsRef} className="container grid gap-9 mt-28">
           <div className="relative text-center text-3xl leading-tight xl:text-6xl">
             <h2 className="relative text-white">Complete Solutions for</h2>
             <h2 className="relative text-spray">Everything Gaming</h2>
           </div>
-          <div className="grid grid-flow-row gap-0 mx-auto max-w-sm lg:max-w-max lg:gap-8 lg:grid-flow-col">
+          <div className="solutions grid grid-flow-row gap-0 mx-auto max-w-sm lg:max-w-max lg:gap-8 lg:grid-flow-col">
             <div className="solution grid content-start border-y border-white/20 gap-8 py-8">
               <h3 className="text-2xl font-bold text-white">Website API</h3>
               <div className="relative w-full h-[360px] bg-angel-blue-950 rounded-xl overflow-hidden">
@@ -655,42 +784,8 @@ export default function Home() {
           </div>
         </div>
         <div
-          ref={productsRef}
-          className="horizontal-scroll relative z-10 w-full mt-56 h-full xl:h-[980px]"
-        >
-          <div className="relative z-10 grid gap-5 w-full text-center">
-            <h3 className="text-3xl text-angel-orange-500 font-medium">Products</h3>
-            <h2 className="text-3xl text-spray mx-auto leading-tight max-w-[315px] md:max-w-none xl:text-6xl">
-              Do you have a good idea but <br className="hidden md:block" /> still not sure{" "}
-              <span className="text-white">where to start?</span>
-            </h2>
-          </div>
-          <div className="relative w-full overflow-hidden py-8 md:py-24 xl:absolute xl:h-full">
-            <Image
-              className="absolute top-0 z-0 mix-blend-lighten bg-angel-blue opacity-10 max-w-max lg:w-full lg:max-w-full"
-              src={WAVE}
-              alt="Products wave"
-            />
-            <div
-              ref={hPinRef}
-              className="horizontal-items relative z-10 snap-x snap-mandatory w-full grid grid-flow-row place-items-center py-40 px-6 gap-20 -mt-20 xl:mt-0 xl:grid-flow-col"
-            >
-              {PRODUCTS.map((product) => (
-                <ProductCard
-                  title={product.title}
-                  href={product.href}
-                  description={product.description}
-                  image={product.image}
-                  key={product.title}
-                />
-              ))}
-            </div>
-            <AngelsHubSVG className="absolute z-0 w-[200%] h-auto -left-20 bottom-0 lg:left-0 lg:w-full" />
-          </div>
-        </div>
-        <div
           ref={platformRef}
-          className="platform-scroll relative w-full my-56 pb-10 overflow-x-hidden"
+          className="platform-scroll relative w-full my-56 pb-10 overflow-hidden"
         >
           <div className="relative z-10 grid gap-5 w-full text-center">
             <h2 className="title text-3xl text-white leading-tight xl:text-6xl">
@@ -724,7 +819,7 @@ export default function Home() {
                 className="platform-item snap-always snap-center relative p-6 shadow-2xl origin-center min-w-80 min-h-72 md:min-w-96 md:min-h-80 xl:min-w-[420px] 6xl:min-w-[484px]"
               >
                 <h3 className="relative z-10 text-4xl text-white font-medium max-w-64">{item}</h3>
-                <div className="absolute top-0 left-0 z-0 w-full h-full rounded-[20px] bg-[#0164B7] mix-blend-luminosity"></div>
+                <div className="absolute top-0 left-0 z-0 w-full h-full rounded-[20px] bg-[#0164B7]"></div>
               </div>
             ))}
           </div>
@@ -742,7 +837,7 @@ export default function Home() {
 
         <div
           ref={angelshubRef}
-          className="relative w-full h-full py-3 flex justify-center items-center overflow-x-hidden"
+          className="relative w-full h-full py-3 flex justify-center items-center overflow-hidden"
         >
           <AngelsHubFlatSVG className="scale-pin relative w-full top-1/2 -translate-y-1/2" />
           <Team />
@@ -750,7 +845,7 @@ export default function Home() {
 
         <div ref={providersRef} className="relative w-full">
           <AngelsHubSVG className="absolute z-0 w-full top-1/2 -translate-y-1/2 2xl:-translate-y-1/3" />
-          <div className="relative container grid gap-16 mx-auto w-full lg:mt-56">
+          <div className="relative container grid gap-16 mx-auto w-full">
             <div className="relative z-10 grid gap-5 text-center">
               <h2 className="text-3xl title text-white leading-tight xl:text-6xl">
                 Gaming Providers

@@ -11,17 +11,24 @@ export default function ButtonFill({
   href,
   label,
   size,
+  selector,
 }: {
   href: string;
   label: string;
   bg: string;
   size: BTN_SIZE;
+  selector?: string
 }) {
   const linkRef = useRef<HTMLAnchorElement>(null!);
 
   useGSAP((context, contextSafe) => {
-    const gradientBg = linkRef.current.querySelector<HTMLDivElement>(".absolute")
-    gsap.set(gradientBg, { opacity: 0, backgroundColor: "transparent", backgroundSize: "200% 200%", transformOrigin: "50% 50%" });
+    const gradientBg = linkRef.current.querySelector<HTMLDivElement>(".absolute");
+    gsap.set(gradientBg, {
+      opacity: 0,
+      backgroundColor: "transparent",
+      backgroundSize: "200% 200%",
+      transformOrigin: "50% 50%",
+    });
     const hoverTL = gsap.timeline({ paused: true });
     hoverTL
       .to(gradientBg, {
@@ -60,17 +67,18 @@ export default function ButtonFill({
       {
         {
           small: (
-            <Link
-              href={href}
+            <a
+              type="button"
               ref={linkRef}
-              className="bg-gradient-to-tr from-angel-orange from-25% to-angel-blue-500 to-75% rounded-full max-w-fit p-0.5"
+              className={`cursor-pointer ${selector} relative rounded-full max-w-fit h-auto p-0.5`}
             >
               <div
-                className={`w-full h-full rounded-full ${bg} text-white px-11 py-4 text-center hover:bg-white hover:text-angel-orange`}
+                className={`relative z-10 w-full h-full rounded-full ${bg} text-white px-11 py-4 text-center`}
               >
                 <span className="select-none uppercase">{label}</span>
               </div>
-            </Link>
+              <div className="absolute top-0 left-0 z-0 w-full h-full bg-gradient-to-tr from-angel-orange from-25% to-angel-blue-500 to-75% rounded-full"></div>
+            </a>
           ),
           medium: (
             <Link

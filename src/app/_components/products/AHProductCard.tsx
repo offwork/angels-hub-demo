@@ -54,7 +54,7 @@ export default function ProductCard({
   });
 
   return (
-    <div className="horizontal-item snap-always snap-center relative bg-black py-10 shadow-3xl xl:py-14 md:max-w-xl lg:max-w-2xl xl:min-w-[818px] xl:h-[412px] rounded-[30px]">
+    <Link ref={linkRef} href={href} className="horizontal-item snap-always snap-center relative bg-black py-10 shadow-3xl xl:py-14 md:max-w-xl lg:max-w-2xl xl:min-w-[818px] xl:h-[412px] rounded-[30px]">
       <div className="flex items-baseline mb-10 mt-8 xl:mb-11 xl:mt-0">
         <span className="w-2.5 h-12 bg-angel-orange-500 mr-8"></span>
         <h3 className="text-white font-bold text-4xl xl:text-5xl xl:max-w-lg xl:leading-tight">
@@ -63,7 +63,7 @@ export default function ProductCard({
       </div>
       <div className="grid gap-10 text-white px-11 xl:px-0 xl:gap-11 xl:ml-11 xl:max-w-[472px]">
         <p className="font-medium text-base xl:max-w-md">{description}</p>
-        <Link ref={linkRef} href={href} className="flex items-center  space-x-2 text-sm">
+        <div className="flex items-center  space-x-2 text-sm">
           <span>Learn More</span>
           <svg
             className="relative"
@@ -87,7 +87,7 @@ export default function ProductCard({
               </clipPath>
             </defs>
           </svg>
-        </Link>
+        </div>
       </div>
       <Image
         className="absolute object-contain object-center w-28 h-28 top-0 -translate-y-1/2 left-1/2 -translate-x-1/2 xl:hidden"
@@ -103,6 +103,6 @@ export default function ProductCard({
         height={243}
         alt="Sportsbook"
       />
-    </div>
+    </Link>
   );
 }

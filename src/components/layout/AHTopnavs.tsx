@@ -7,12 +7,14 @@ import { useRef, useState } from "react";
 import SocailIcon from "../ui/AHSocialIcon";
 import BrandLogo from "./AHBrandLogo";
 import AHLink from "../ui/AHLink";
+import { usePathname } from "next/navigation";
 
 if (typeof window !== "undefined") {
   gsap.registerPlugin(useGSAP);
 }
 
 export default function Topnavs() {
+  const pathname = usePathname();
   const [backdrop, setBackdrop] = useState(false);
   const [fill, setFill] = useState("#FFFFFF");
   const isOpen = useRef<boolean>(true);
@@ -191,9 +193,11 @@ export default function Topnavs() {
         btnRef.current.removeEventListener("click", clickOnHamburger);
         bookDemoRef.current.removeEventListener("mouseenter", onEnter);
         bookDemoRef.current.removeEventListener("mouseleave", onLeave);
+        hoverTL.current.revert();
+        hamburgerTl.current.revert();
       };
     },
-    { scope: wrapMenuRef.current }
+    { scope: wrapMenuRef.current, dependencies: [pathname] }
   );
 
   return (
@@ -340,10 +344,10 @@ export default function Topnavs() {
                   <span>Useful Links</span>
                 </div>
                 <div className="accordion-content pl-5 grid gap-6 text-lg text-white h-0 overflow-hidden">
-                  <a href="/" className="footer-menu hover:text-white/65">
+                  <a className="footer-menu select-none cursor-pointer hover:text-white/65">
                     Events
                   </a>
-                  <a href="/" className="footer-menu hover:text-white/65">
+                  <a className="footer-menu select-none cursor-pointer hover:text-white/65">
                     Careers
                   </a>
                   <Link href="/contact" passHref legacyBehavior>
@@ -403,10 +407,10 @@ export default function Topnavs() {
                   <span className="footer-menu font-bold text-xl place-self-auto">
                     Useful Links
                   </span>
-                  <a href="/" className="footer-menu place-self-auto hover:underline">
+                  <a className="footer-menu select-none cursor-pointer place-self-auto hover:underline">
                     Events
                   </a>
-                  <a href="/" className="footer-menu place-self-auto hover:underline">
+                  <a className="footer-menu select-none cursor-pointer place-self-auto hover:underline">
                     Careers
                   </a>
                   <Link href="/contact" passHref legacyBehavior>
