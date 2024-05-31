@@ -744,7 +744,7 @@ export default function Home() {
                   src={SOLUTIONS_1}
                   alt="Website API Solution"
                 />
-                <CircleButton />
+                <CircleButton href="/website-api" />
               </div>
               <p className="text-white">
                 It was never easier to integrate sports and casino content into your website as like
@@ -752,14 +752,14 @@ export default function Home() {
               </p>
             </div>
             <div className="solution grid content-start border-y-0 border-white/20 gap-8 py-8 lg:border-y">
-              <h3 className="text-2xl font-bold text-white">Turnkey System</h3>
+              <h3 className="text-2xl font-bold text-white">Turnkey-System</h3>
               <div className="relative w-full h-[360px] bg-angel-blue-950 rounded-xl overflow-hidden">
                 <Image
                   className="absolute z-0 object-cover object-center h-full w-full"
                   src={SOLUTIONS_2}
                   alt="Turnkey System Solution"
                 />
-                <CircleButton />
+                <CircleButton href="/turnkey-system" />
               </div>
               <p className="text-white">
                 Our Turnkey Solution comes with support to help you operate under own license. You
@@ -767,14 +767,14 @@ export default function Home() {
               </p>
             </div>
             <div className="solution grid content-start border-y border-white/20 gap-8 py-8">
-              <h3 className="text-2xl font-bold text-white">White Label</h3>
+              <h3 className="text-2xl font-bold text-white">Managed Services</h3>
               <div className="relative w-full h-[360px] bg-angel-blue-950 rounded-xl overflow-hidden">
                 <Image
                   className="absolute z-0 object-cover object-center h-full w-full"
                   src={SOLUTIONS_3}
                   alt="White Label Solution"
                 />
-                <CircleButton />
+                <CircleButton href="/managed-services" />
               </div>
               <p className="text-white">
                 AngelsHub White Label solution comes under Curacao license. It is integrated with
