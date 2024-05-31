@@ -7,14 +7,12 @@ import { useRef, useState } from "react";
 import SocailIcon from "../ui/AHSocialIcon";
 import BrandLogo from "./AHBrandLogo";
 import AHLink from "../ui/AHLink";
-import { usePathname } from "next/navigation";
 
 if (typeof window !== "undefined") {
   gsap.registerPlugin(useGSAP);
 }
 
 export default function Topnavs() {
-  const pathname = usePathname();
   const [backdrop, setBackdrop] = useState(false);
   const [fill, setFill] = useState("#FFFFFF");
   const isOpen = useRef<boolean>(true);
@@ -193,11 +191,9 @@ export default function Topnavs() {
         btnRef.current.removeEventListener("click", clickOnHamburger);
         bookDemoRef.current.removeEventListener("mouseenter", onEnter);
         bookDemoRef.current.removeEventListener("mouseleave", onLeave);
-        hoverTL.current.revert();
-        hamburgerTl.current.revert();
       };
     },
-    { scope: wrapMenuRef.current, dependencies: [pathname] }
+    { scope: wrapMenuRef.current }
   );
 
   return (
