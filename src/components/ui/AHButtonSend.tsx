@@ -1,8 +1,9 @@
 "use client";
-import { useRef } from "react";
-import { useGSAP } from "@gsap/react";
-import gsap from "gsap";
 import { classNames } from "@/utils";
+import { useGSAP } from "@gsap/react";
+import { sendGTMEvent } from '@next/third-parties/google';
+import gsap from "gsap";
+import { useRef } from "react";
 
 export default function ButtonSend({
   bg,
@@ -62,6 +63,7 @@ export default function ButtonSend({
       <button
         ref={btnRef}
         type="submit"
+        onClick={() => sendGTMEvent({ event: 'buttonClicked', value: 'AW-16532795192/Xqh_CNXl968ZELjeucs9' })}
         className={classNames(
           available ? "cursor-pointer" : "cursor-not-allowed",
           "relative block rounded-full w-full h-full p-0.5 drop-shadow-xl bg-white"

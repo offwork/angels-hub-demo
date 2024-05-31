@@ -4,7 +4,7 @@ import { useRef } from "react";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 
-export default function CircleButton() {
+export default function CircleButton({ href }: { href: string })  {
   const linkRef = useRef<HTMLAnchorElement>(null!);
   const circleRef = useRef<SVGSVGElement>(null!);
 
@@ -37,7 +37,7 @@ export default function CircleButton() {
   });
 
   return (
-    <Link ref={linkRef} href="/" className="absolute bottom-3 right-3 rounded-full p-3 bg-angel-orange inline-flex items-center hover:backdrop-blur-sm">
+    <Link ref={linkRef} href={href} className="absolute bottom-3 right-3 rounded-full p-3 bg-angel-orange inline-flex items-center hover:backdrop-blur-sm">
       <svg
         width="20"
         height="20"
