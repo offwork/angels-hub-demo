@@ -317,13 +317,13 @@ export default function Contact() {
             <div className="relative z-10 grid gap-9 place-self-start w-full md:justify-items-stretch md:grid-flow-col xl:gap-20">
               <div className="grid gap-4 text-white md:justify-self-start">
                 <span className="footer-menu font-bold text-xl">Useful Links</span>
-                <a href="/" className="footer-menu hover:underline">
+                <a className="footer-menu select-none cursor-pointer hover:underline">
                   Angel Investment
                 </a>
-                <a href="/" className="footer-menu hover:underline">
+                <a className="footer-menu select-none cursor-pointer hover:underline">
                   Events
                 </a>
-                <a href="/" className="footer-menu hover:underline">
+                <a className="footer-menu select-none cursor-pointer hover:underline">
                   Careers
                 </a>
                 <Link href="/contact" className="footer-menu hover:underline">
@@ -362,7 +362,7 @@ export default function Contact() {
               </div>
             </div>
 
-            <a href="/" className="relative z-10 text-white privacy-policy hover:underline">
+            <a className="relative select-none cursor-pointer max-w-fit z-10 text-white privacy-policy hover:underline">
               Terms and Conditions & Privacy Policy
             </a>
             <div className="relative z-10 grid grid-flow-row gap-11 text-white justify-items-stretch lg:place-items-center lg:grid-flow-col lg:gap-0">

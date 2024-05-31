@@ -39,9 +39,11 @@ export default function AffiliateAgentSystem() {
   const footerRef = useRef<HTMLDivElement>(null!);
   const hPinRef = useRef<HTMLDivElement>(null!);
   const productsRef = useRef<HTMLDivElement>(null!);
+  const buttonsRef = useRef<HTMLDivElement>(null!);
   const providersRef = useRef<HTMLDivElement>(null!);
   const scrollContainerRef = useRef<HTMLDivElement>(null!);
   const affiliateRef = useRef<HTMLDivElement>(null!);
+  const agentRef = useRef<HTMLDivElement>(null!);
   const stickyLogoRef = useRef<HTMLDivElement>(null!);
   const { context, contextSafe } = useGSAP({ scope: scrollContainerRef.current });
 
@@ -285,6 +287,30 @@ export default function AffiliateAgentSystem() {
     /*=============================     FOOTER END     =============================*/
   });
 
+  useGSAP(
+    (_context, contextSafe) => {
+      const affiliateSystem = buttonsRef.current.querySelector<HTMLAnchorElement>(".affiliate")!;
+      const agentSystem = buttonsRef.current.querySelector<HTMLAnchorElement>(".agent")!;
+
+      const scrollToAffiliateSystem = contextSafe!(() => {
+        //gsap.to(scrollContainerRef.current, { duration: 1, scrollTo: affiliateRef.current })
+        bodyScrollBar.current.scrollIntoView(affiliateRef.current, { offsetTop: 0 });
+      });
+      const scrollToAgentSystem = contextSafe!(() => {
+        bodyScrollBar.current.scrollIntoView(agentRef.current, { offsetTop: 0 });
+      });
+
+      affiliateSystem.addEventListener("click", scrollToAffiliateSystem);
+      agentSystem.addEventListener("click", scrollToAgentSystem);
+
+      return () => {
+        affiliateSystem.removeEventListener("click", scrollToAffiliateSystem);
+        agentSystem.removeEventListener("click", scrollToAgentSystem);
+      };
+    },
+    { scope: scrollContainerRef.current }
+  );
+
   useIsomorphicLayoutEffect(() => {
     initSmoothScrolling();
     scroll();
@@ -310,7 +336,12 @@ export default function AffiliateAgentSystem() {
         ref={scrollContainerRef}
         className="relative h-screen w-full overscroll-none overflow-hidden"
       >
-        <Link className="cursor-pointer absolute ml-5 lg:ml-12 top-8 z-30" href="/" passHref legacyBehavior>
+        <Link
+          className="cursor-pointer absolute ml-5 lg:ml-12 top-8 z-30"
+          href="/"
+          passHref
+          legacyBehavior
+        >
           <BrandLogo href="/" />
         </Link>
         <div className="relative flex px-5 w-full h-[1000px] md:h-[820px] lg:h-[1050px] xl:h-[1200px] bg-angel-blue mix-blend-luminosity overflow-hidden">
@@ -329,14 +360,24 @@ export default function AffiliateAgentSystem() {
                   AngelsHub offers modern Affiliate and Agent System that helps our customers to
                   gain full control over their customer management in multiple languages.
                 </h2>
-                <div className="flex items-center justify-center flex-col space-y-8 sm:flex-row sm:space-y-0 sm:space-x-9 lg:space-x-8 xl:space-x-16">
+                <div
+                  ref={buttonsRef}
+                  className="flex items-center justify-center flex-col space-y-8 sm:flex-row sm:space-y-0 sm:space-x-9 lg:space-x-8 xl:space-x-16"
+                >
                   <ButtonFill
                     bg="bg-angel-orange"
-                    size="medium"
-                    href="/contact"
-                    label={"BOOK A MEETING"}
+                    size="small"
+                    href="/"
+                    selector="affiliate"
+                    label="Affiliate System"
                   />
-                  <ButtonFill bg="bg-angel-blue" size="medium" href={""} label={"Agent System"} />
+                  <ButtonFill
+                    bg="bg-angel-blue"
+                    size="small"
+                    href="/"
+                    selector="agent"
+                    label="Agent System"
+                  />
                 </div>
               </div>
               <div className="absolute z-0 min-w-full h-full p-0.5">
@@ -548,7 +589,7 @@ export default function AffiliateAgentSystem() {
             </ul>
           </div>
         </div>
-        <div className="relative w-full container mx-auto overflow-hidden py-28">
+        <div ref={agentRef} className="relative w-full container mx-auto overflow-hidden py-28">
           <div className="absolute z-0 left-1/2 -translate-x-1/2 rounded-full opacity-35 w-10/12 h-80 sm:h-[500px] md:h-[660px] bg-gradient-to-t from-angel-blue-950 xl:w-3/5 lg:h-3/4"></div>
           <h2 className="relative z-10 text-3xl text-center lg:lg:text-4xl text-white lg:mb-12 xl:mb-0">
             Agent System
@@ -629,7 +670,7 @@ export default function AffiliateAgentSystem() {
             </div>
           </div>
         </div>
-        <div ref={providersRef} className="relative w-full py-28">
+        <div ref={providersRef} className="relative w-full py-14 xl:py-28">
           <AngelsHubSVG className="absolute z-0 w-full top-1/2 -translate-y-1/2 2xl:-translate-y-1/3" />
           <div className="relative container grid gap-16 mx-auto w-full">
             <div className="relative z-10 grid gap-5 text-center">
@@ -637,8 +678,7 @@ export default function AffiliateAgentSystem() {
                 Gaming Providers
               </h2>
               <p className="text-white caption mx-auto text-sm max-w-[345px] md:max-w-lg lg:text-lg lg:max-w-2xl">
-                Lorem ipsum dolor sit amet consectetur. Sed sed varius ut sed sit sed commodo a
-                ornare. Tellus viverra adipiscing volutpat habitasse quam fringilla tortor diam.
+                Explore the trusted partners fuelling iGaming experience
               </p>
             </div>
           </div>

@@ -460,7 +460,7 @@ export default function CryptoSolutions() {
             </div>
           </div>
         </div>
-        <div ref={providersRef} className="relative w-full py-28">
+        <div ref={providersRef} className="relative w-full py-14 xl:py-28">
           <AngelsHubSVG className="absolute z-0 w-full top-1/2 -translate-y-1/2 2xl:-translate-y-1/3" />
           <div className="relative container grid gap-16 mx-auto w-full">
             <div className="relative z-10 grid gap-5 text-center">
@@ -468,8 +468,7 @@ export default function CryptoSolutions() {
                 Gaming Providers
               </h2>
               <p className="text-white caption mx-auto text-sm max-w-[345px] md:max-w-lg lg:text-lg lg:max-w-2xl">
-                Lorem ipsum dolor sit amet consectetur. Sed sed varius ut sed sit sed commodo a
-                ornare. Tellus viverra adipiscing volutpat habitasse quam fringilla tortor diam.
+                Explore the trusted partners fuelling iGaming experience
               </p>
             </div>
           </div>
