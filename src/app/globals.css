@@ -1,3 +1,30 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.peer:checked ~ .group .peer-checked\:group\:bg-indigo-600 {
+	background-color: #0f38b4;
+	border: none;
+}
+
+.peer:checked ~ .group .peer-checked\:group\:visible {
+	display: block;
+}
+
+input[type=file]::before {
+	content: "Pdf   ⇪   ";
+	color: #FFFFFF;
+	opacity: 0.6;
+}
+
+input[type=file]::after {
+	content: "  Max 5MB";
+	color: #FFFFFF;
+	opacity: 0.6;
+	font-size: smaller;
+}
+
+input[type=file]::file-selector-button {
+  display: none;
+	visibility: hidden;
+}

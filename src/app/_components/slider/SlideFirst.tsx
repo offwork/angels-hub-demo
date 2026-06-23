@@ -5,13 +5,12 @@ import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import Image from "next/image";
 import { useContext, useRef } from "react";
-import BLUE_SHAPE from "../../../../public/images/blue-shape.svg";
-import ORANGE_SHAPE from "../../../../public/images/orange-shape.svg";
-import SLIDER_PIC_1 from "../../../../public/images/slider-main-2-copy.png";
+import BLUE_SHAPE from "../../../../public/blue-shape.svg";
+import ORANGE_SHAPE from "../../../../public/orange-shape.svg";
 
-gsap.registerPlugin(useGSAP);
 
 export default function Slide1({ slide }: { slide: number }) {
+  gsap.registerPlugin(useGSAP);
   const { selected } = useContext(SelectedSlideContext);
   const slideRef = useRef<HTMLDivElement>(null!);
   const imageRef = useRef<HTMLImageElement>(null!);
@@ -28,17 +27,21 @@ export default function Slide1({ slide }: { slide: number }) {
     () => {
       slideTL.current = gsap.timeline({ paused: Number(selected) !== 0 });
       slideTL.current
-        .fromTo(titleRef1.current, {
-          yPercent: 20,
-          opacity: 0,
-          autoAlpha: 0,
-          ease: "back.inOut(1.7)",
-        }, {
-          yPercent: 0,
-          opacity: 1,
-          autoAlpha: 1,
-          ease: "back.inOut(1.7)",
-        })
+        .fromTo(
+          titleRef1.current,
+          {
+            yPercent: 20,
+            opacity: 0,
+            autoAlpha: 0,
+            ease: "back.inOut(1.7)",
+          },
+          {
+            yPercent: 0,
+            opacity: 1,
+            autoAlpha: 1,
+            ease: "back.inOut(1.7)",
+          }
+        )
         .fromTo(
           titleRef2.current,
           {
@@ -163,16 +166,20 @@ export default function Slide1({ slide }: { slide: number }) {
       <div className="absolute inset-0 w-full h-full overflow-hidden">
         <Image
           ref={imageRef}
+          width={1728}
+          height={1152}
           className="main-item absolute z-0 object-cover h-3/4 -top-20 lg:h-auto lg:top-0 lg:left-20 xl:left-56 2xl:left-60 3xl:left-64 4xl:left-72 5xl:left-80 6xl:left-96 6xl:-top-28"
-          src={SLIDER_PIC_1}
+          src="/slider-main-2-copy.png"
+          sizes="(min-width: 1840px) 1728px, calc(93.95vw + 18px)"
           priority
-          alt="Slider picture 1"
+          fetchPriority="high"
+          alt="AngelsHub"
         />
         <Image
           ref={imageBlueRef}
           className="absolute z-10 saturate-200 opacity-50 top-32 -right-20 sm:top-24 sm:-right-28 md:top-20 md:-right-32 lg:top-28 lg:-right-48 xl:top-32 xl:-right-96 2xl:-right-[416px] 4xl:top-44 4xl:-right-96 6xl:-right-20"
           src={BLUE_SHAPE}
-          alt=""
+          alt="Angels blue shape"
         />
         <div className="absolute z-10 -left-[10%] lg:left-0 top-0 w-1/2 h-full bg-gradient-to-r from-angel-blue via-angel-blue via-25% xl:via-40%"></div>
         <div className="absolute z-10 -right-1/4 top-0 w-3/5 h-full bg-gradient-to-l from-angel-blue via-angel-blue via-30%"></div>
@@ -181,19 +188,19 @@ export default function Slide1({ slide }: { slide: number }) {
           ref={imageOrangeRef}
           className="relative z-10 saturate-200 opacity-30 -left-20 -top-28 sm:-left-72 sm:-top-44 md:-left-72 md:-top-72 lg:-left-80 xl:-left-96 xl:-top-64 2xl:-left-80 2xl:-top-96 3xl:-left-72 3xl:-top-80 4xl:-left-28 4xl:-top-96 5xl:-left-28 5xl:-top-80 6xl:left-52 6xl:-top-80"
           src={ORANGE_SHAPE}
-          alt=""
+          alt="Angels orange shape"
         />
       </div>
 
       <div className="container absolute z-30 top-40 left-1/2 -translate-x-1/2 text-center lg:text-left">
         <div className="grid max-w-4xl gap-10 text-white justify-items-center lg:justify-items-start lg:gap-10 4xl:gap-11 5xl:gap-14">
           <div>
-            <h1
+            <h2
               ref={titleRef1}
               className="text-4xl font-light md:text-5xl lg:text-[50px] xl:text-[80px] drop-shadow-[0_4px_3px_rgba(0,0,0,0.65)]"
             >
               Home for the NextGen
-            </h1>
+            </h2>
             <h2
               ref={titleRef2}
               className="font-semibold text-4xl md:text-5xl lg:text-6xl xl:text-8xl drop-shadow-[0_4px_3px_rgba(0,0,0,0.65)]"
@@ -211,12 +218,17 @@ export default function Slide1({ slide }: { slide: number }) {
             ref={describeRef}
             className="text-sm max-w-72 md:max-w-96 lg:text-lg lg:max-w-md xl:max-w-xl 4xl:text-xl"
           >
-            AngelsHub is a technology and service provider for online gaming
-            industry. We offer white label, turnkey, SAAS solutions, crypto
-            solutions and much much more!
+            With AngelsHub, you gain a strategic partner dedicated to your success with tailored
+            technology and unmatched support.
           </p>
           <div ref={linkRef} className="flex">
-            <ButtonFill bg="bg-angel-orange" size="medium" href="/contact" label={"BOOK A MEETING"} />
+            <ButtonFill
+              className="bg-angel-orange text-white"
+              size="medium"
+              href="/contact"
+              target="_blank"
+              label={"BOOK A MEETING"}
+            />
           </div>
         </div>
       </div>

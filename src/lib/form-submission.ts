@@ -1,13 +1,12 @@
 "use server";
-import { ContactFormSchema } from "@/models";
 
-export const onSubmitAction = async (data: ContactFormSchema) => {
+export const onSubmitAction = async (endpoint: string, data: Record<string, any>) => {
   const formData = new FormData();
   Object.entries(data).forEach(([key, value]) => {
     formData.append(key, value);
   });
 
-  await fetch("https://getform.io/f/wbrkemda", {
+  await fetch(`https://getform.io/f/${endpoint}`, {
     method: "POST",
     headers: {
       Accept: "application/json",

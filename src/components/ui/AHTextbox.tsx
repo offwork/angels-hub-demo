@@ -1,6 +1,6 @@
 "use client";
 
-import { ContactInputProps } from "@/models";
+import { InputProps } from "@/models";
 import { classNames } from "@/utils";
 
 export default function Textbox({
@@ -14,7 +14,7 @@ export default function Textbox({
   name,
   placeholder,
   className,
-}: ContactInputProps) {
+}: InputProps<{ [key: string]: unknown }>) {
   const getTypeValidation = (type: string) => {
     return {
       email: {
@@ -25,6 +25,10 @@ export default function Textbox({
         value: /^[a-zA-Z0-9- ]{3,}\b$/,
         message: "This field cannot be less than 3 characters",
       },
+      tel: {
+        value: /^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\s\./0-9]*$/,
+        message: "Incorrect phonne number format"
+      }
     }[type];
   };
 

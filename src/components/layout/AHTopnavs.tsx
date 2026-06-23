@@ -2,25 +2,22 @@
 import { classNames } from "@/utils";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
-import Link from "next/link";
 import { useRef, useState } from "react";
-import SocailIcon from "../ui/AHSocialIcon";
-import BrandLogo from "./AHBrandLogo";
+import BrandAmblem from "../ui/AHBrandAmblem";
+import BrandLogo from "../ui/AHBrandLogo";
 import AHLink from "../ui/AHLink";
-
-if (typeof window !== "undefined") {
-  gsap.registerPlugin(useGSAP);
-}
+import SocailIcon from "../ui/AHSocialIcon";
+import Link from "next/link";
 
 export default function Topnavs() {
   const [backdrop, setBackdrop] = useState(false);
-  const [fill, setFill] = useState("#FFFFFF");
   const isOpen = useRef<boolean>(true);
   const wrapMenuRef = useRef<HTMLDivElement>(null!);
+  const backdropRef = useRef<HTMLDivElement>(null!);
   const btnRef = useRef<HTMLButtonElement>(null!);
   const menuContainRef = useRef<HTMLDivElement>(null!);
-  const bookDemoRef = useRef<HTMLDivElement>(null!);
-  const arrowRef = useRef<SVGSVGElement>(null!);
+  const openMenuRef = useRef<HTMLDivElement | null>(null!);
+  const stickyLogoRef = useRef<HTMLDivElement>(null!);
   const hamburgerTl = useRef<GSAPTimeline>(null!);
   const hoverTL = useRef<GSAPTimeline>(null!);
 
@@ -36,42 +33,39 @@ export default function Topnavs() {
       const menuItems = menuContainRef.current.querySelectorAll(".main-nav-item")!;
       const accordionGroups = gsap.utils.toArray<HTMLDivElement>(".accordion-group");
       const accordionMenus = gsap.utils.toArray<HTMLDivElement>(".accordion-menu");
+      const customLink = gsap.utils.toArray<HTMLAnchorElement>(".custom-link")!;
       const menuToggles = accordionGroups.map(createAnimation);
       hamburgerTl.current = gsap.timeline({ paused: true });
       hoverTL.current = gsap.timeline({ paused: true });
-      gsap.set(arrowRef.current, { opacity: 0.75 });
 
-      hoverTL.current
-        .to(arrowRef.current, {
-          keyframes: {
-            "0%": { transform: "translateX(0)", opacity: 0.75 },
-            "50%": { transform: "translateX(50%)", opacity: 1 },
-            "100%": { transform: "translateX(0)", opacity: 0.75 },
-            easeEach: "none",
+      /*==========================     STICKY LOGO SCROLL     ========================*/
+      const stickyEnd = gsap
+        .timeline({
+          scrollTrigger: {
+            trigger: document.querySelector<HTMLDivElement>(".footer")!,
+            start: "center 25%",
+            toggleActions: "play none none reverse",
+            preventOverlaps: true,
           },
-          duration: 0.8,
-          repeat: -1,
-          yoyo: true,
         })
-        .reverse();
-
-      const onEnter = contextSafe!((evt: MouseEvent) => {
-        setFill("#fe5f00");
-        hoverTL.current.reversed(false);
-      });
-
-      const onLeave = contextSafe!((evt: MouseEvent) => {
-        setFill("#FFFFFF");
-        hoverTL.current.reversed(true).progress(0).revert();
-      });
-
-      bookDemoRef.current.addEventListener("mouseenter", onEnter);
-      bookDemoRef.current.addEventListener("mouseleave", onLeave);
+        .fromTo(stickyLogoRef.current, { xPercent: 0, opacity: 1 }, { opacity: 0, xPercent: -100 });
+      const stickyStart = gsap
+        .timeline({
+          scrollTrigger: {
+            trigger: wrapMenuRef.current,
+            start: "center",
+            end: () => wrapMenuRef.current.offsetHeight + "=600",
+            toggleActions: "play none none reverse",
+            preventOverlaps: true,
+          },
+        })
+        .fromTo(stickyLogoRef.current, { opacity: 0, xPercent: -100 }, { xPercent: 0, opacity: 1 });
+      /*===========================     STICKY LOGO END     ==========================*/
 
       hamburgerTl.current
         .set(scheduleLink, { display: "inline-block", width: 0, autoAlpha: 0 })
-        .set(menuItems, { xPercent: -20, autoAlpha: 0 })
-        .set(mobileLinkButtons, { xPercent: -20, autoAlpha: 0 })
+        .set(menuItems, { yPercent: -50, autoAlpha: 0 })
+        .set(mobileLinkButtons, { yPercent: -50, autoAlpha: 0 })
         .set(menuContainRef.current, {
           display: "none",
           height: 0,
@@ -81,27 +75,23 @@ export default function Topnavs() {
         .to(
           linkButtons,
           {
-            x: -326,
+            xPercent: -113,
             paddingRight: "8px",
             marginRight: 0,
-            ease: "power4.out",
+            backgroundColor: "#FFFFFF",
+            ease: "power3.inOut",
           },
           "mainMenu"
         )
         .to(scheduleLink, { width: "auto", autoAlpha: 1 }, "mainMenu")
         .to(hamburgerWraper, { backgroundColor: "#FFFFFF" }, "mainMenu")
         .to(hamburgerLines[1], { opacity: 0 }, "<0.3")
-        .to(
-          hamburgerLines[0],
-          { y: 5, rotate: 45, backgroundColor: "#fe5f00", ease: "expo.inOut" },
-          "mainMenu"
-        )
+        .to(hamburgerLines[0], { y: 5, rotate: 45, ease: "expo.inOut" }, "mainMenu")
         .to(
           hamburgerLines[2],
           {
             y: -5,
             rotate: -45,
-            backgroundColor: "#fe5f00",
             ease: "expo.inOut",
           },
           "mainMenu"
@@ -109,7 +99,7 @@ export default function Topnavs() {
         .to(
           mobileLinkButtons,
           {
-            xPercent: 0,
+            yPercent: 0,
             autoAlpha: 1,
           },
           "mainMenu"
@@ -122,6 +112,9 @@ export default function Topnavs() {
             display: "block",
             onComplete: () => {
               isOpen.current = false;
+              if (openMenuRef.current) {
+                openMenuRef.current = null;
+              }
             },
           },
           "mainMenu"
@@ -130,7 +123,7 @@ export default function Topnavs() {
       menuItems.forEach((elm, idx) => {
         hamburgerTl.current.to(
           elm,
-          { xPercent: 0, autoAlpha: 1, ease: "sine.inOut" },
+          { yPercent: 0, autoAlpha: 1, ease: "power4.out", duration: 1.1, stagger: 0.1 },
           `mainMenu+=${idx * 0.1}`
         );
       });
@@ -143,6 +136,9 @@ export default function Topnavs() {
           hamburgerTl.current.reverse();
           isOpen.current = true;
           setBackdrop(false);
+          if (openMenuRef.current) {
+            toggleMenu(openMenuRef.current);
+          }
         }
       });
 
@@ -157,6 +153,7 @@ export default function Topnavs() {
 
       function toggleMenu(clickedMenu: HTMLDivElement) {
         menuToggles.forEach((toggleFn) => toggleFn(clickedMenu));
+        openMenuRef.current = clickedMenu;
       }
 
       function createAnimation(element: HTMLDivElement) {
@@ -187,10 +184,26 @@ export default function Topnavs() {
         };
       }
 
+      const clickOnBackdrop = contextSafe!(() => {
+        hamburgerTl.current.reverse();
+        isOpen.current = true;
+        setBackdrop(false);
+        if (openMenuRef.current) {
+          toggleMenu(openMenuRef.current);
+        }
+      });
+
+      customLink.forEach((anchor) => {
+        anchor.addEventListener("click", clickOnBackdrop)
+      })
+
+      backdropRef.current.addEventListener("click", clickOnBackdrop);
+
       return () => {
         btnRef.current.removeEventListener("click", clickOnHamburger);
-        bookDemoRef.current.removeEventListener("mouseenter", onEnter);
-        bookDemoRef.current.removeEventListener("mouseleave", onLeave);
+        customLink.forEach((anchor) => {
+          anchor.removeEventListener("click", clickOnBackdrop)
+        })
       };
     },
     { scope: wrapMenuRef.current }
@@ -198,67 +211,55 @@ export default function Topnavs() {
 
   return (
     <>
+      <div ref={stickyLogoRef} className="fixed z-50 top-5 opacity-0 rounded-r-lg overflow-hidden">
+        <AHLink href="/" className="relative block w-16 h-12">
+          <BrandAmblem className="absolute top-0 left-0 w-full h-auto" />
+        </AHLink>
+      </div>
       <div
         ref={wrapMenuRef}
         className="fixed z-40 flex items-center pt-4 mr-8 lg:mr-16 top-0 right-0"
       >
-        <div className="relative hidden link-buttons z-10 lg:inline-block rounded-lg py-2 pl-2 lg:pr-[59px] lg:-mr-[59px] bg-black">
-          <Link href="/contact" passHref legacyBehavior>
-            <AHLink
-              className="demo-link inline-block min-h-11 text-white space-x-2 border rounded-lg px-4 py-2 hover:text-angel-orange"
-              href="/contact"
-            >
-              <div ref={bookDemoRef} className="flex items-center space-x-2 text-nowrap">
-                <span>Book a Demo</span>
-                <svg
-                  ref={arrowRef}
-                  width="16"
-                  height="14"
-                  viewBox="0 0 16 14"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <g id="svg" clipPath="url(#clip0_697_1585)">
-                    <path
-                      id="Vector"
-                      d="M15.5966 7.07958C15.596 6.95827 15.5709 6.83834 15.5228 6.72698C15.4747 6.61562 15.4046 6.51514 15.3166 6.43158L10.1816 1.29858C9.97964 1.10358 9.76964 1.01758 9.54964 1.01758C9.04964 1.01758 8.69064 1.36858 8.69064 1.84558C8.69064 2.09558 8.79264 2.30558 8.94864 2.46258L10.7066 4.24358L12.9716 6.31358L11.1596 6.20458H1.68964C1.16664 6.20458 0.806641 6.56458 0.806641 7.07958C0.806641 7.58758 1.16664 7.94658 1.68964 7.94658H11.1586L12.9706 7.83758L10.7056 9.90758L8.94764 11.6896C8.86561 11.77 8.80052 11.866 8.75621 11.972C8.7119 12.0779 8.68926 12.1917 8.68964 12.3066C8.68964 12.7826 9.04964 13.1346 9.54964 13.1346C9.78239 13.131 10.0043 13.0354 10.1666 12.8686L15.3146 7.72058C15.402 7.63817 15.4719 7.53905 15.5201 7.42911C15.5684 7.31917 15.5941 7.20064 15.5956 7.08058L15.5966 7.07958Z"
-                      fill={fill}
-                    />
-                  </g>
-                  <defs>
-                    <clipPath id="clip0_697_1585">
-                      <rect width="16" height="13" fill={fill} transform="translate(0 0.299805)" />
-                    </clipPath>
-                  </defs>
-                </svg>
-              </div>
-            </AHLink>
+        <div className="relative hidden link-buttons z-10 lg:inline-block rounded-lg py-2.5 pl-2 lg:pr-[59px] lg:-mr-[59px] bg-angel-orange">
+          <Link
+            className="demo-link inline-block text-white rounded-lg px-4 py-2.5 bg-angel-blue hover:text-angel-orange"
+            href="/contact"
+            target="_blank"
+          >
+            <span>Book a Demo</span>
           </Link>
           <Link
-            href="/"
-            className="schedule-link text-nowrap hidden text-angel-orange ml-4 bg-angel-blue rounded-lg px-4 py-2 hover:text-white"
+            className="schedule-link text-nowrap hidden text-angel-orange ml-4 bg-white border border-angel-blue-300 rounded-lg px-4 py-2 hover:text-angel-blue"
+            href="/contact"
+            target="_blank"
           >
-            <span>Schedule a meeting</span>
+            <span>Schedule a Meeting</span>
           </Link>
         </div>
-        <button ref={btnRef} className="relative z-10 inline-block p-2">
-          <div className="hamburger-wraper grid bg-angel-orange gap-[3px] rounded-lg py-4 px-3 min-h-11">
-            <span className="hamburger-line relative bg-white w-[19px] h-[2px]"></span>
-            <span className="hamburger-line relative bg-white w-[19px] h-[2px]"></span>
-            <span className="hamburger-line relative bg-white w-[19px] h-[2px]"></span>
+        <button
+          ref={btnRef}
+          className="relative z-10 inline-block p-2"
+          role="button"
+          aria-label="Hamburger Menu"
+          aria-labelledby="Hamburger"
+        >
+          <div className="hamburger-wraper grid bg-white gap-[3px] rounded-lg py-4 px-3">
+            <span className="hamburger-line relative bg-angel-blue w-[19px] h-[2px]"></span>
+            <span className="hamburger-line relative bg-angel-blue w-[19px] h-[2px]"></span>
+            <span className="hamburger-line relative bg-angel-blue w-[19px] h-[2px]"></span>
           </div>
         </button>
         <div
           ref={menuContainRef}
-          className="absolute hidden z-0 overflow-hidden top-0 -right-8 lg:-right-16 min-w-max lg:min-w-[890px]"
+          className="absolute hidden z-0 overflow-hidden top-0 -right-8 border-l border-white/50 lg:-right-16 min-w-max lg:min-w-[890px]"
         >
           <div className="menu-contain bg-angel-orange pt-28 lg:pt-36 w-screen lg:w-full h-full overscroll-none overflow-y-scroll">
-            <Link href="/" passHref legacyBehavior>
-              <BrandLogo
-                className="lg:hidden bg-angel-orange w-full h-24 top-0 absolute z-30 px-6 py-8"
-                href="/"
-              />
-            </Link>
+            <AHLink
+              href="/"
+              className="lg:hidden bg-angel-orange w-full h-24 top-0 absolute z-30 px-6 py-8"
+            >
+              <BrandLogo />
+            </AHLink>
             <ul className="grid w-full grid-flow-row divide-y px-10 md:px-20 pb-16 divide-white/50 text-nowrap text-white text-xl lg:text-3xl font-semibold">
               <li className="accordion-group cursor-pointer main-nav-item py-4 select-none lg:py-6">
                 <div className="accordion-menu flex items-center">
@@ -266,31 +267,18 @@ export default function Topnavs() {
                   <span>Products</span>
                 </div>
                 <div className="accordion-content pl-5 grid gap-6 text-lg text-white h-0 overflow-hidden">
-                  <Link href="/sportsbook" className="footer-menu" passHref legacyBehavior>
-                    <AHLink className="hover:text-white/65" href="/sportsbook">
-                      Sportsbook
-                    </AHLink>
-                  </Link>
-                  <Link href="/online-casino" className="footer-menu" passHref legacyBehavior>
-                    <AHLink className="hover:text-white/65" href="/online-casino">
-                      Online Casino
-                    </AHLink>
-                  </Link>
-                  <Link href="/crypto-solutions" className="footer-menu" passHref legacyBehavior>
-                    <AHLink className="hover:text-white/65" href="/crypto-solutions">
-                      Crypto Solutions
-                    </AHLink>
-                  </Link>
-                  <Link
-                    href="/affiliate-agent-system"
-                    className="footer-menu"
-                    passHref
-                    legacyBehavior
-                  >
-                    <AHLink className="hover:text-white/65" href="/affiliate-agent-system">
-                      Affiliate and Agent System
-                    </AHLink>
-                  </Link>
+                  <AHLink className="hover:text-white/65" href="/sportsbook">
+                    Sportsbook
+                  </AHLink>
+                  <AHLink className="hover:text-white/65" href="/online-casino">
+                    Online Casino
+                  </AHLink>
+                  <AHLink className="hover:text-white/65" href="/crypto-solutions">
+                    Crypto Solutions
+                  </AHLink>
+                  <AHLink className="hover:text-white/65" href="/affiliate-agent-system">
+                    Affiliate and Agent System
+                  </AHLink>
                 </div>
               </li>
               <li className="accordion-group cursor-pointer main-nav-item py-4 select-none lg:py-6">
@@ -299,39 +287,58 @@ export default function Topnavs() {
                   <span>Solutions</span>
                 </div>
                 <div className="accordion-content pl-5 grid gap-6 text-lg text-white h-0 overflow-hidden">
-                  <Link href="/website-api" className="footer-menu" passHref legacyBehavior>
-                    <AHLink className="hover:text-white/65" href="/crypto-solutions">
-                      Website API
-                    </AHLink>
-                  </Link>
-                  <Link href="/turnkey-system" className="footer-menu" passHref legacyBehavior>
-                    <AHLink className="hover:text-white/65" href="/crypto-solutions">
-                      Turnkey-System
-                    </AHLink>
-                  </Link>
-                  <Link href="/managed-services" className="footer-menu" passHref legacyBehavior>
-                    <AHLink className="hover:text-white/65" href="/crypto-solutions">
-                      Managed Services
-                    </AHLink>
-                  </Link>
+                  <AHLink className="hover:text-white/65" href="/white-label">
+                    White Label
+                  </AHLink>
+                  <AHLink className="hover:text-white/65" href="/turnkey-system">
+                    Turnkey-System
+                  </AHLink>
+                  <AHLink className="hover:text-white/65" href="/managed-services">
+                    Managed Services
+                  </AHLink>
                 </div>
               </li>
               <li className="cursor-pointer main-nav-item py-4 select-none lg:py-6">
                 <div className="flex items-center space-x-3">
-                  <span>Angel Investment</span>
+                  <AHLink href="/angel-investment" className="footer-menu">
+                    Angel Investment
+                  </AHLink>
                 </div>
               </li>
               <li className="cursor-pointer main-nav-item py-4 select-none lg:py-6">
                 <div className="flex items-center">
+                  <AHLink href="/about">About Us</AHLink>
+                </div>
+              </li>
+              <li className="accordion-group cursor-pointer main-nav-item py-4 select-none lg:py-6">
+                <div className="accordion-menu flex items-center">
                   <span className="-ml-5 mr-2 lg:-ml-8 lg:mr-3 font-light">+</span>
-                  <span>About Us</span>
+                  <span>News & Events</span>
+                </div>
+                <div className="accordion-content pl-5 grid gap-6 text-lg text-white h-0 overflow-hidden">
+                  <AHLink className="hover:text-white/65" href="/news-and-events/page/1">
+                    View All
+                  </AHLink>
+                  <AHLink className="hover:text-white/65" href="/news-and-events/news/page/1">
+                    News
+                  </AHLink>
+                  <AHLink
+                    className="hover:text-white/65"
+                    href="/news-and-events/press-releases/page/1"
+                  >
+                    Press Releases
+                  </AHLink>
+                  <AHLink className="hover:text-white/65" href="/news-and-events/articles/page/1">
+                    Articles
+                  </AHLink>
+                  <AHLink className="hover:text-white/65" href="/news-and-events/events/page/1">
+                    Events
+                  </AHLink>
                 </div>
               </li>
               <li className="cursor-pointer main-nav-item py-4 select-none lg:py-6">
                 <div className="flex items-center space-x-3">
-                  <Link href="/contact" className="footer-menu" passHref legacyBehavior>
-                    <AHLink href="/contact">Contact Us</AHLink>
-                  </Link>
+                  <AHLink href="/contact">Contact Us</AHLink>
                 </div>
               </li>
               <li className="accordion-group cursor-pointer main-nav-item py-4 select-none lg:py-6 lg:hidden">
@@ -340,35 +347,31 @@ export default function Topnavs() {
                   <span>Useful Links</span>
                 </div>
                 <div className="accordion-content pl-5 grid gap-6 text-lg text-white h-0 overflow-hidden">
-                  <a className="footer-menu select-none cursor-pointer hover:text-white/65">
-                    Events
-                  </a>
-                  <a className="footer-menu select-none cursor-pointer hover:text-white/65">
+                  <AHLink className="footer-menu hover:text-white/65" href="/news-and-events">
+                    <span className="">News & Events</span>
+                  </AHLink>
+                  <AHLink href="/careers" className="footer-menu hover:text-white/65">
                     Careers
-                  </a>
-                  <Link href="/contact" passHref legacyBehavior>
-                    <AHLink className="footer-menu hover:text-white/65" href="/contact">
-                      <span className="">Demo</span>
-                    </AHLink>
-                  </Link>
+                  </AHLink>
+                  <AHLink className="footer-menu hover:text-white/65" href="/contact">
+                    <span className="">Demo</span>
+                  </AHLink>
                 </div>
               </li>
             </ul>
-            <div className="flex mobile-link-buttons mx-auto items-center justify-center flex-col space-y-8 max-w-80 sm:max-w-md lg:hidden">
-              <Link href="/contact" passHref legacyBehavior>
-                <AHLink
-                  className="bg-white text-angel-orange rounded-full px-11 py-4 text-center w-full hover:underline"
-                  href="/contact"
-                >
-                  <span className="uppercase">BOOK A MEETING</span>
-                </AHLink>
-              </Link>
-              <Link
-                href="/"
-                className="bg-black rounded-full px-11 py-4 text-white text-center w-full hover:underline"
+            <div className="relative grid mobile-link-buttons mx-auto gap-8 justify-items-center px-6 lg:hidden">
+              <AHLink
+                className="bg-white text-angel-orange rounded-full px-11 py-4 text-center w-full hover:underline"
+                href="/contact"
               >
-                <span className="uppercase">Schedule a meeting</span>
-              </Link>
+                <span className="uppercase">BOOK A DEMO</span>
+              </AHLink>
+              <AHLink
+                className="bg-black rounded-full px-11 py-4 text-white text-center w-full hover:underline"
+                href="/contact"
+              >
+                <span className="uppercase">Schedule a Meeting</span>
+              </AHLink>
               <div className="social-icons flex flex-col items-center gap-6 md:flex-row">
                 <div className="grid grid-flow-col gap-3">
                   <SocailIcon
@@ -397,40 +400,35 @@ export default function Topnavs() {
                 </a>
               </div>
             </div>
-            <div className="hidden gap-12 bg-[#0F0F0F] px-20 py-12 lg:grid">
-              <div className="flex items-baseline space-y-9 w-full flex-col md:justify-between md:flex-row xl:space-x-16">
+            <div className="hidden gap-12 px-20 py-12 lg:grid">
+              <div className="flex items-baseline space-y-9 w-full border-t border-white/50 flex-col md:justify-between md:flex-row xl:space-x-16">
                 <div className="grid gap-4 text-white">
                   <span className="footer-menu font-bold text-xl place-self-auto">
                     Useful Links
                   </span>
-                  <a className="footer-menu select-none cursor-pointer place-self-auto hover:underline">
-                    Events
-                  </a>
-                  <a className="footer-menu select-none cursor-pointer place-self-auto hover:underline">
+                  <AHLink href="/careers" className="footer-menu hover:underline">
                     Careers
-                  </a>
-                  <Link href="/contact" passHref legacyBehavior>
-                    <AHLink className="footer-menu place-self-auto hover:underline" href="/contact">
-                      <span className="">Demo</span>
-                    </AHLink>
-                  </Link>
+                  </AHLink>
+                  <AHLink className="footer-menu place-self-auto hover:underline" href="/contact">
+                    <span className="">Demo</span>
+                  </AHLink>
                 </div>
                 <div className="social-icons flex flex-col items-center space-y-6">
                   <div className="grid grid-flow-col gap-3">
                     <SocailIcon
                       href="https://www.linkedin.com/company/angelshub/"
                       name="linkedin"
-                      bg="bg-[#0F0F0F]"
+                      bg="bg-angel-orange"
                     />
                     <SocailIcon
                       href="https://www.instagram.com/angelshub_official/"
                       name="instegram"
-                      bg="bg-[#0F0F0F]"
+                      bg="bg-angel-orange"
                     />
                     <SocailIcon
                       href="https://twitter.com/angelshubcom"
                       name="twitter"
-                      bg="bg-[#0F0F0F]"
+                      bg="bg-angel-orange"
                     />
                   </div>
                   <a
@@ -443,25 +441,15 @@ export default function Topnavs() {
                   </a>
                 </div>
               </div>
-              <div className="bg-[#2E2E2E] flex justify-center items-center rounded-3xl w-full h-80">
-                <svg
-                  width="27"
-                  height="33"
-                  viewBox="0 0 27 33"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path d="M27 16.5L0.749998 32.5215L0.75 0.47853L27 16.5Z" fill="#D9D9D9" />
-                </svg>
-              </div>
             </div>
           </div>
         </div>
       </div>
       <div
+        ref={backdropRef}
         className={classNames(
           backdrop ? "flex" : "hidden",
-          "fixed z-30 top-0 left-0 bottom-0 right-0 inset-0 w-full h-full opacity-30 bg-black"
+          "fixed z-30 bottom-0 cursor-pointer inset-0 opacity-30 bg-black"
         )}
       ></div>
     </>

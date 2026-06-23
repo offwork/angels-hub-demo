@@ -1,128 +1,19 @@
 "use client";
-import { ContactFormSchema } from "@/models";
 import Image from "next/image";
 import Link from "next/link";
-import { forwardRef, useState } from "react";
-import { useForm } from "react-hook-form";
-import Plus18 from "../../../public/images/18-plus.svg";
-import ButtonSend from "../ui/AHButtonSend";
+import { ReactNode } from "react";
+import Plus18 from "../../../public/18-plus.svg";
+import AHLink from "../ui/AHLink";
 import SocailIcon from "../ui/AHSocialIcon";
-import Textbox from "../ui/AHTextbox";
 import Amblem from "./AHAmblem";
 import AngelsHubFlatSVG from "./AHFlatSvg";
 
-const Footer = forwardRef<HTMLDivElement, {}>((_props, ref) => {
-  const [action, setAction] = useState("");
-
-  const {
-    register,
-    reset,
-    formState: { errors },
-    handleSubmit,
-    setValue,
-  } = useForm<ContactFormSchema>({
-    defaultValues: {
-      name: "",
-      email: "",
-      country: "",
-      message: undefined,
-    },
-  });
-  const onSubmitHandle = async (data: ContactFormSchema) => {
-    setAction("PENDING");
-    const formData = new FormData();
-    Object.entries(data).forEach(([key, value]) => {
-      formData.append(key, value);
-    });
-
-    await fetch("https://getform.io/f/wbrkemda", {
-      method: "POST",
-      headers: {
-        Accept: "application/json",
-      },
-      body: formData,
-    })
-      .then(() => {
-        setAction("SUCCESS");
-        return new Promise((resolve) => setTimeout(resolve, 2000));
-      })
-      .catch(() => {
-        setAction("FAILED");
-      })
-      .finally(() => {
-        setAction("");
-        reset();
-      });
-  };
-
+export default function Footer({ children }: { children?: ReactNode }) {
   return (
-    <div ref={ref} className="relative w-full overflow-hidden pb-16 xl:pb-40">
-      <div className="relative grid place-items-center gap-12 w-full xl:gap-20 xl:mt-56">
-        <AngelsHubFlatSVG className="word-logo relative w-full" />
-        <div className="container text-center w-full text-white">
-          <div className="grid grid-flow-row justify-items-stretch gap-4 lg:place-items-center lg:gap-8 lg:grid-flow-col">
-            <h2 className="title font-bold text-2xl lg:justify-self-end xl:text-4xl">
-              ARE YOU READY TO START?
-            </h2>
-            <h3 className="caption text-sm lg:justify-self-start xl:text-2xl">
-              Share your ideas with us!
-            </h3>
-          </div>
-          <p className="mt-6 text-center text-white">
-            Our team is ready 24/7 to answer all your questions and provide the best technical
-            support services.
-          </p>
-          <form
-            onSubmit={handleSubmit(onSubmitHandle)}
-            noValidate
-            data-hs-cf-bound
-            className="grid gap-4 mx-auto text-white w-full mt-10 lg:mt-20 lg:min-w-[672px] lg:max-w-2xl"
-          >
-            <Textbox
-              label="name"
-              register={register}
-              required
-              type="text"
-              name="name"
-              errors={errors}
-              placeholder="Name"
-              className="w-full form-element appearance-none bg-angel-blue indent-14 py-6 rounded-full border border-white/30"
-            />
-            <Textbox
-              label="email"
-              register={register}
-              required
-              type="email"
-              name="email"
-              errors={errors}
-              placeholder="Email"
-              className="w-full form-element appearance-none bg-angel-blue indent-14 py-6 rounded-full border border-white/30"
-            />
-            <Textbox
-              label="country"
-              register={register}
-              required
-              type="text"
-              name="operation"
-              errors={errors}
-              placeholder="Country of Operation"
-              className="w-full form-element appearance-none bg-angel-blue indent-14 py-6 rounded-full border border-white/30"
-            />
-            <Textbox
-              label="message"
-              register={register}
-              required={false}
-              type="text"
-              name="message"
-              errors={errors}
-              placeholder="Leave Us a Message"
-              className="w-full form-element appearance-none bg-angel-blue indent-14 py-6 rounded-full border border-white/30"
-            />
-            <div className="grid form-element justify-items-stretch">
-              <ButtonSend action={action} available={true} bg="bg-angel-blue" label="SEND" />
-            </div>
-          </form>
-        </div>
+    <div className="footer relative w-full overflow-hidden pb-16 xl:pb-40">
+      <div className="relative grid place-items-center gap-12 w-full mt-28 xl:gap-20">
+        <AngelsHubFlatSVG className="word-logo relative w-full max-h-28 lg:max-h-max" />
+        {children}
       </div>
       <div className="relative container grid gap-16 w-full mt-40">
         <div className="social-icons flex flex-col items-center gap-6 md:flex-row">
@@ -150,59 +41,99 @@ const Footer = forwardRef<HTMLDivElement, {}>((_props, ref) => {
         </div>
 
         <div className="relative z-10 grid gap-9 place-self-start w-full md:justify-items-stretch md:grid-flow-col xl:gap-20">
-          <div className="grid gap-4 text-white md:justify-self-start">
+          <div className="grid gap-4 text-white place-content-start md:justify-self-start">
             <span className="footer-menu font-bold text-xl">Useful Links</span>
-            <a className="footer-menu select-none cursor-pointer hover:underline">
-              Angel Investment
-            </a>
-            <a className="footer-menu select-none cursor-pointer hover:underline">
-              Events
-            </a>
-            <a className="footer-menu select-none cursor-pointer hover:underline">
-              Careers
-            </a>
-            <Link href="/contact" className="footer-menu hover:underline">
-              Demo
+            <Link href="/about" passHref legacyBehavior>
+              <AHLink className="footer-menu hover:underline" href="/about">
+                <span className="">About Us</span>
+              </AHLink>
             </Link>
-            <Link href="/contact" className="footer-menu hover:underline">
-              Contact Us
+            <Link href="/angel-investment" passHref legacyBehavior>
+              <AHLink href="/angel-investment" className="footer-menu hover:underline">
+                Angel Investment
+              </AHLink>
+            </Link>
+            <Link href="/news-and-events" passHref legacyBehavior>
+              <AHLink className="footer-menu hover:underline" href="/news-and-events">
+                <span className="">News & Events</span>
+              </AHLink>
+            </Link>
+            <Link href="/careers" passHref legacyBehavior>
+              <AHLink className="footer-menu hover:underline" href="/careers">
+                <span className="">Careers</span>
+              </AHLink>
+            </Link>
+            <Link href="/contact" passHref legacyBehavior>
+              <AHLink className="footer-menu hover:underline" href="/contact">
+                <span className="">Demo</span>
+              </AHLink>
+            </Link>
+            <Link href="/contact" passHref legacyBehavior>
+              <AHLink className="footer-menu hover:underline" href="/contact">
+                <span className="">Contact Us</span>
+              </AHLink>
             </Link>
           </div>
-          <div className="grid gap-4 text-white md:justify-self-center">
+          <div className="grid gap-4 text-white place-content-start md:justify-self-center">
             <span className="footer-menu font-bold text-xl">Solutions</span>
-            <Link href="/website-api" className="footer-menu hover:underline">
-              Website API
+            <Link href="/white-label" passHref legacyBehavior>
+              <AHLink className="footer-menu hover:underline" href="/white-label">
+                <span className="">White Label</span>
+              </AHLink>
             </Link>
-            <Link href="/turnkey-system" className="footer-menu hover:underline">
-              Turnkey-System
+            <Link href="/turnkey-system" passHref legacyBehavior>
+              <AHLink className="footer-menu hover:underline" href="/turnkey-system">
+                <span className="">Turnkey-System</span>
+              </AHLink>
             </Link>
-            <Link href="/managed-services" className="footer-menu hover:underline">
-              Managed Services
+            <Link href="/managed-services" passHref legacyBehavior>
+              <AHLink className="footer-menu hover:underline" href="/managed-services">
+                <span className="">Managed Services</span>
+              </AHLink>
             </Link>
           </div>
-          <div className="grid gap-4 text-white md:justify-self-end">
+          <div className="grid gap-4 text-white place-content-start md:justify-self-end">
             <span className="footer-menu font-bold text-xl">Products</span>
-            <Link href="/sportsbook" className="footer-menu hover:underline">
-              Sportsbook
+            <Link href="/sportsbook" passHref legacyBehavior>
+              <AHLink className="footer-menu hover:underline" href="/sportsbook">
+                <span className="">Sportsbook</span>
+              </AHLink>
             </Link>
-            <Link href="/online-casino" className="footer-menu hover:underline">
-              Online Casino
+            <Link href="/online-casino" passHref legacyBehavior>
+              <AHLink className="footer-menu hover:underline" href="/online-casino">
+                <span className="">Online Casino</span>
+              </AHLink>
             </Link>
-            <Link href="/crypto-solutions" className="footer-menu hover:underline">
-              Crypto Solutions
+            <Link href="/crypto-solutions" passHref legacyBehavior>
+              <AHLink className="footer-menu hover:underline" href="/crypto-solutions">
+                <span className="">Crypto Solutions</span>
+              </AHLink>
             </Link>
-            <Link href="/affiliate-agent-system" className="footer-menu hover:underline">
-              Affiliate and Agent System
+            <Link href="/affiliate-agent-system" passHref legacyBehavior>
+              <AHLink className="footer-menu hover:underline" href="/affiliate-agent-system">
+                <span className="">Affiliate and Agent System</span>
+              </AHLink>
             </Link>
           </div>
         </div>
 
-        <a className="relative select-none cursor-pointer max-w-fit z-10 text-white privacy-policy hover:underline">
-          Terms and Conditions & Privacy Policy
-        </a>
+        <div className="relative flex items-center select-none max-w-fit z-10 text-white space-x-3">
+          <Link href="/terms-and-conditions" passHref legacyBehavior>
+            <AHLink className="footer-menu hover:underline" href="/terms-and-conditions">
+              <span className="">Terms and Conditions</span>
+            </AHLink>
+          </Link>
+          <span>&</span>
+          <Link href="/privacy-policy" passHref legacyBehavior>
+            <AHLink className="footer-menu hover:underline" href="/privacy-policy">
+              <span className="">Privacy Policy</span>
+            </AHLink>
+          </Link>
+        </div>
+
         <div className="relative z-10 grid grid-flow-row gap-11 text-white justify-items-stretch lg:place-items-center lg:grid-flow-col lg:gap-0">
           <div className="website-content inline-flex space-x-4 items-center lg:justify-self-start">
-            <Image src={Plus18} alt="18 Plus" />
+            <Image src={Plus18} alt="Content 18 Plus" />
             <p className="text-sm">
               The Website Content Is Not Intended For An Audience Under 18 Years Of Age
             </p>
@@ -215,8 +146,4 @@ const Footer = forwardRef<HTMLDivElement, {}>((_props, ref) => {
       <Amblem className="amblem absolute z-0 -bottom-[9%] left-0 w-full xl:bottom-0" />
     </div>
   );
-});
-
-Footer.displayName = "AHFooter";
-
-export default Footer;
+}

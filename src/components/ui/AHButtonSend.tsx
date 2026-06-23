@@ -1,7 +1,6 @@
 "use client";
 import { classNames } from "@/utils";
 import { useGSAP } from "@gsap/react";
-import { sendGTMEvent } from '@next/third-parties/google';
 import gsap from "gsap";
 import { useRef } from "react";
 
@@ -63,16 +62,15 @@ export default function ButtonSend({
       <button
         ref={btnRef}
         type="submit"
-        onClick={() => sendGTMEvent({ event: 'buttonClicked', value: 'AW-16532795192/Xqh_CNXl968ZELjeucs9' })}
         className={classNames(
           available ? "cursor-pointer" : "cursor-not-allowed",
           "relative block rounded-full w-full h-full p-0.5 drop-shadow-xl bg-white"
         )}
       >
         <div
-          className={`relative z-20 w-full h-full rounded-full ${bg} text-white px-10 py-7 text-center lg:px-20`}
+          className={`relative z-20 w-full h-full rounded-full ${bg} px-10 py-7 text-center lg:px-20`}
         >
-          <span className="text-sm select-none uppercase">{label}</span>
+          <span className="text-sm text-white select-none uppercase">{label}</span>
         </div>
         <span className="absolute z-20 flex items-center justify-end top-1/2 -translate-y-1/2 right-10">
           {
@@ -86,97 +84,90 @@ export default function ButtonSend({
                   fill="none"
                   xmlns="http://www.w3.org/2000/svg"
                 >
-                  <g clipPath="url(#clip0_157_3319)">
-                    <path
-                      d="M11 1.83337V3.66671"
-                      stroke="#FFFFFF"
-                      strokeWidth="2"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                    />
-                    <path
-                      d="M15.5837 3.06152L14.667 4.64924"
-                      stroke="#FFFFFF"
-                      strokeWidth="2"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                    />
-                    <path
-                      d="M18.9388 6.41675L17.3511 7.33341"
-                      stroke="#FFFFFF"
-                      strokeWidth="2"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                    />
-                    <path
-                      d="M20.1668 11H18.3335"
-                      stroke="#FFFFFF"
-                      strokeWidth="2"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                    />
-                    <path
-                      d="M18.9388 15.5834L17.3511 14.6667"
-                      stroke="#FFFFFF"
-                      strokeWidth="2"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                    />
-                    <path
-                      d="M15.5837 18.9385L14.667 17.3508"
-                      stroke="#FFFFFF"
-                      strokeWidth="2"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                    />
-                    <path
-                      d="M11 20.1667V18.3334"
-                      stroke="#FFFFFF"
-                      strokeWidth="2"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                    />
-                    <path
-                      d="M6.41699 18.9385L7.33366 17.3508"
-                      stroke="#FFFFFF"
-                      strokeWidth="2"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                    />
-                    <path
-                      d="M3.06152 15.5834L4.64924 14.6667"
-                      stroke="#FFFFFF"
-                      strokeWidth="2"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                    />
-                    <path
-                      d="M1.8335 11H3.66683"
-                      stroke="#FFFFFF"
-                      strokeWidth="2"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                    />
-                    <path
-                      d="M3.06152 6.41675L4.64924 7.33341"
-                      stroke="#FFFFFF"
-                      strokeWidth="2"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                    />
-                    <path
-                      d="M6.41699 3.06152L7.33366 4.64924"
-                      stroke="#FFFFFF"
-                      strokeWidth="2"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                    />
-                  </g>
-                  <defs>
-                    <clipPath id="clip0_157_3319">
-                      <rect width="22" height="22" fill="white" />
-                    </clipPath>
-                  </defs>
+                  <path
+                    d="M11 1.83337V3.66671"
+                    stroke="#FFFFFF"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  />
+                  <path
+                    d="M15.5837 3.06152L14.667 4.64924"
+                    stroke="#FFFFFF"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  />
+                  <path
+                    d="M18.9388 6.41675L17.3511 7.33341"
+                    stroke="#FFFFFF"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  />
+                  <path
+                    d="M20.1668 11H18.3335"
+                    stroke="#FFFFFF"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  />
+                  <path
+                    d="M18.9388 15.5834L17.3511 14.6667"
+                    stroke="#FFFFFF"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  />
+                  <path
+                    d="M15.5837 18.9385L14.667 17.3508"
+                    stroke="#FFFFFF"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  />
+                  <path
+                    d="M11 20.1667V18.3334"
+                    stroke="#FFFFFF"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  />
+                  <path
+                    d="M6.41699 18.9385L7.33366 17.3508"
+                    stroke="#FFFFFF"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  />
+                  <path
+                    d="M3.06152 15.5834L4.64924 14.6667"
+                    stroke="#FFFFFF"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  />
+                  <path
+                    d="M1.8335 11H3.66683"
+                    stroke="#FFFFFF"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  />
+                  <path
+                    d="M3.06152 6.41675L4.64924 7.33341"
+                    stroke="#FFFFFF"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  />
+                  <path
+                    d="M6.41699 3.06152L7.33366 4.64924"
+                    stroke="#FFFFFF"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  />
                 </svg>
               ),
               SUCCESS: (
@@ -187,19 +178,12 @@ export default function ButtonSend({
                   fill="none"
                   xmlns="http://www.w3.org/2000/svg"
                 >
-                  <g clipPath="url(#clip0_157_3337)">
-                    <path
-                      fillRule="evenodd"
-                      clipRule="evenodd"
-                      d="M0 11C0 8.08262 1.15893 5.28473 3.22183 3.22183C5.28473 1.15893 8.08262 0 11 0C13.9174 0 16.7153 1.15893 18.7782 3.22183C20.8411 5.28473 22 8.08262 22 11C22 13.9174 20.8411 16.7153 18.7782 18.7782C16.7153 20.8411 13.9174 22 11 22C8.08262 22 5.28473 20.8411 3.22183 18.7782C1.15893 16.7153 0 13.9174 0 11H0ZM10.3723 15.708L16.7053 7.79093L15.5613 6.87573L10.1611 13.6239L6.336 10.4368L5.39733 11.5632L10.3723 15.7095V15.708Z"
-                      fill="#1AD598"
-                    />
-                  </g>
-                  <defs>
-                    <clipPath id="clip0_157_3337">
-                      <rect width="22" height="22" fill="white" />
-                    </clipPath>
-                  </defs>
+                  <path
+                    fillRule="evenodd"
+                    clipRule="evenodd"
+                    d="M0 11C0 8.08262 1.15893 5.28473 3.22183 3.22183C5.28473 1.15893 8.08262 0 11 0C13.9174 0 16.7153 1.15893 18.7782 3.22183C20.8411 5.28473 22 8.08262 22 11C22 13.9174 20.8411 16.7153 18.7782 18.7782C16.7153 20.8411 13.9174 22 11 22C8.08262 22 5.28473 20.8411 3.22183 18.7782C1.15893 16.7153 0 13.9174 0 11H0ZM10.3723 15.708L16.7053 7.79093L15.5613 6.87573L10.1611 13.6239L6.336 10.4368L5.39733 11.5632L10.3723 15.7095V15.708Z"
+                    fill="#1AD598"
+                  />
                 </svg>
               ),
               FAILED: (

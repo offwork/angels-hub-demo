@@ -1,13 +1,11 @@
-import { ImageLoaderProps } from "next/image";
-import { useEffect, useLayoutEffect } from 'react';
+import { useEffect, useLayoutEffect } from "react";
 
 //////////////////////////////////////////////////////////////////////
 ///////////////////////                        ///////////////////////
 /////////////////          HELPER METHODS          ///////////////////
 ///////////////////////                        ///////////////////////
 //////////////////////////////////////////////////////////////////////
-const useIsomorphicLayoutEffect =
-  typeof window !== 'undefined' ? useLayoutEffect : useEffect;
+const useIsomorphicLayoutEffect = typeof window !== "undefined" ? useLayoutEffect : useEffect;
 
 function classNames(...classes: string[]) {
   return classes.filter(Boolean).join(" ");
@@ -17,42 +15,53 @@ function SplitFirstWord(str: string) {
   return str.replace(/\s+/g, "");
 }
 
+function SeparationStaticImageName(str: string) {
+  const extension = str.lastIndexOf(".");
+  const slash = str.lastIndexOf("/") + 1;
+  const imageName = str.substring(slash, extension).split("-");
+  return imageName[imageName.length - 1];
+}
+
 const isEmptyObject = (obj: object) => Boolean(Object.keys(obj).length);
 
 const capitalize = (str: string) => {
   const words =
     str.length > 1
-      ? str
-          .split("-")
-          .map((el) =>
-            el[0].toUpperCase().concat(...el.substring(1, el.length))
-          )
+      ? str.split("-").map((el) => el[0].toUpperCase() + el.substring(1))
       : [""];
-  return words.join().replace(/[\s,]/g, " ");
+  return words.join(" ");
 };
 
-const graphAssetsLoader = ({
-  src,
-  width,
-}: ImageLoaderProps) => {
-  const relativeSrc = (src: string) => src.split('/').pop();
-  return `https://media.graphassets.com/resize=fit:max,width:${width}/output=format:webp/${relativeSrc(
-    src
-  )}`;
-  // return `https://media.graphassets.com/resize=fit:max,height:499,width:896/output=format:webp/${relativeSrc(src)}`;
-};
-
-function transformObjectToParams(object: {
-  [key: string]: string | number | undefined | null;
-}) {
+function transformObjectToParams(object: { [key: string]: string | number | undefined | null }) {
   const params = Object.entries(object)
     .filter(([, value]) => value !== undefined && value !== null)
-    .map(
-      ([key, value]) =>
-        `${encodeURIComponent(key)}=${encodeURIComponent(String(value))}`,
-    );
+    .map(([key, value]) => `${encodeURIComponent(key)}=${encodeURIComponent(String(value))}`);
 
-  return params.length > 0 ? `?${params.join('&')}` : '';
+  return params.length > 0 ? `?${params.join("&")}` : "";
+}
+
+function transformTagsToUpparcase(tags: string[]) {
+  const tagsMap = [
+    { display: "Articles", value: "articles" },
+    { display: "Events", value: "events" },
+    { display: "Press Releases", value: "pressReleases" },
+    { display: "News", value: "news" },
+  ];
+
+  const result: string[] = [];
+
+  return tags.reduce((cur: string[], acc: string) => {
+    tagsMap.forEach((elm) => {
+
+      if (elm.value === acc) {
+        result.push(elm.display)
+      }
+      return result
+    });
+
+    cur = result
+    return cur;
+  }, []);
 }
 
 //////////////////////////////////////////////////////////////////////
@@ -61,11 +70,12 @@ function transformObjectToParams(object: {
 ///////////////////////                        ///////////////////////
 //////////////////////////////////////////////////////////////////////
 export {
-  SplitFirstWord,
   capitalize,
   classNames,
   isEmptyObject,
-  graphAssetsLoader,
+  SplitFirstWord,
   transformObjectToParams,
+  transformTagsToUpparcase,
   useIsomorphicLayoutEffect,
+  SeparationStaticImageName
 };

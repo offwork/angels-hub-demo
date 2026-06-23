@@ -1,4 +1,5 @@
 "use client";
+import { SeparationStaticImageName } from "@/utils";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import Image from "next/image";
@@ -10,6 +11,7 @@ export default function Providers() {
   const tabletSliderRef = useRef<HTMLDivElement>(null!);
   const mobileSliderRef = useRef<HTMLDivElement>(null!);
   const provider = useRef<HTMLDivElement>(null!);
+
   useGSAP(
     () => {
       const desktopBreakPoint = 1024;
@@ -114,9 +116,9 @@ export default function Providers() {
       >
         <div className="provider-row top-0 absolute grid grid-cols-3 gap-3 place-items-center">
           {[
-            "/images/provider-amusnet.png",
-            "/images/provider-ezugi.png",
-            "/images/provider-betsoft.png",
+            "/provider-amusnet.png",
+            "/provider-ezugi.png",
+            "/provider-betsoft.png",
           ].map((item, idx) => (
             <div
               key={`provider-row-1-${idx}`}
@@ -126,9 +128,10 @@ export default function Providers() {
                 className="absolute z-0 bottom-0 px-2 object-contain object-center top-1/2 -translate-y-1/2 left-1/2 -translate-x-1/2 opacity-80 w-auto max-h-16"
                 src={item}
                 style={{ width: "100%", height: "auto" }}
+                unoptimized
                 width={120}
                 height={60}
-                alt={`provider-${idx}`}
+                alt={`${SeparationStaticImageName(item)}-${idx}`}
               />
               <div className="absolute z-0 rounded-lg w-full h-full bg-angel-blue-900 mix-blend-screen"></div>
             </div>
@@ -136,9 +139,9 @@ export default function Providers() {
         </div>
         <div className="provider-row top-0 absolute grid grid-cols-3 gap-3 place-items-center">
           {[
-            "/images/provider-blueprint.png",
-            "/images/provider-blueprint.png",
-            "/images/provider-endorphia.png",
+            "/provider-blueprint.png",
+            "/provider-playngo.png",
+            "/provider-endorphia.png",
           ].map((item, idx) => (
             <div
               ref={provider}
@@ -149,9 +152,10 @@ export default function Providers() {
                 className="absolute z-0 bottom-0 px-2 object-contain object-center top-1/2 -translate-y-1/2 left-1/2 -translate-x-1/2 opacity-80 w-auto max-h-16"
                 src={item}
                 style={{ width: "100%", height: "auto" }}
+                unoptimized
                 width={120}
                 height={60}
-                alt={`provider-${idx}`}
+                alt={`${SeparationStaticImageName(item)}-${idx}`}
               />
               <div className="absolute z-0 rounded-lg w-full h-full bg-angel-blue-900 mix-blend-screen"></div>
             </div>
@@ -159,9 +163,9 @@ export default function Providers() {
         </div>
         <div className="provider-row top-0 absolute grid grid-cols-3 gap-3 place-items-center">
           {[
-            "/images/provider-evolutiongaming.png",
-            "/images/provider-evolution.png",
-            "/images/provider-evoplay.png",
+            "/provider-evolutiongaming.png",
+            "/provider-evolution.png",
+            "/provider-evoplay.png",
           ].map((item, idx) => (
             <div
               ref={provider}
@@ -172,9 +176,10 @@ export default function Providers() {
                 className="absolute z-0 bottom-0 px-2 object-contain object-center top-1/2 -translate-y-1/2 left-1/2 -translate-x-1/2 opacity-80 w-auto max-h-16"
                 src={item}
                 style={{ width: "100%", height: "auto" }}
+                unoptimized
                 width={120}
                 height={60}
-                alt={`provider-${idx}`}
+                alt={`${SeparationStaticImageName(item)}-${idx}`}
               />
               <div className="absolute z-0 rounded-lg w-full h-full bg-angel-blue-900 mix-blend-screen"></div>
             </div>
@@ -182,9 +187,9 @@ export default function Providers() {
         </div>
         <div className="provider-row top-0 absolute grid grid-cols-3 gap-3 place-items-center">
           {[
-            "/images/provider-wazdan.png",
-            "/images/provider-goldenrace.png",
-            "/images/provider-irondog.png",
+            "/provider-wazdan.png",
+            "/provider-goldenrace.png",
+            "/provider-irondog.png",
           ].map((item, idx) => (
             <div
               ref={provider}
@@ -195,9 +200,10 @@ export default function Providers() {
                 className="absolute z-0 bottom-0 px-2 object-contain object-center top-1/2 -translate-y-1/2 left-1/2 -translate-x-1/2 opacity-80 w-auto max-h-16"
                 src={item}
                 style={{ width: "100%", height: "auto" }}
+                unoptimized
                 width={120}
                 height={60}
-                alt={`provider-${idx}`}
+                alt={`${SeparationStaticImageName(item)}-${idx}`}
               />
               <div className="absolute z-0 rounded-lg w-full h-full bg-angel-blue-900 mix-blend-screen"></div>
             </div>
@@ -205,9 +211,9 @@ export default function Providers() {
         </div>
         <div className="provider-row top-0 absolute grid grid-cols-3 gap-3 place-items-center">
           {[
-            "/images/provider-isoftbet.png",
-            "/images/provider-microgaming.png",
-            "/images/provider-netent.png",
+            "/provider-isoftbet.png",
+            "/provider-microgaming.png",
+            "/provider-netent.png",
           ].map((item, idx) => (
             <div
               ref={provider}
@@ -218,9 +224,10 @@ export default function Providers() {
                 className="absolute z-0 bottom-0 px-2 object-contain object-center top-1/2 -translate-y-1/2 left-1/2 -translate-x-1/2 opacity-80 w-auto max-h-16"
                 src={item}
                 style={{ width: "100%", height: "auto" }}
+                unoptimized
                 width={120}
                 height={60}
-                alt={`provider-${idx}`}
+                alt={`${SeparationStaticImageName(item)}-${idx}`}
               />
               <div className="absolute z-0 rounded-lg w-full h-full bg-angel-blue-900 mix-blend-screen"></div>
             </div>
@@ -228,9 +235,9 @@ export default function Providers() {
         </div>
         <div className="provider-row top-0 absolute grid grid-cols-3 gap-3 place-items-center">
           {[
-            "/images/provider-oryxgaming.png",
-            "/images/provider-playngo.png",
-            "/images/provider-pragmaticplay.png",
+            "/provider-oryxgaming.png",
+            "/provider-playngo.png",
+            "/provider-pragmaticplay.png",
           ].map((item, idx) => (
             <div
               ref={provider}
@@ -241,9 +248,10 @@ export default function Providers() {
                 className="absolute z-0 bottom-0 px-2 object-contain object-center top-1/2 -translate-y-1/2 left-1/2 -translate-x-1/2 opacity-80 w-auto max-h-16"
                 src={item}
                 style={{ width: "100%", height: "auto" }}
+                unoptimized
                 width={120}
                 height={60}
-                alt={`provider-${idx}`}
+                alt={`${SeparationStaticImageName(item)}-${idx}`}
               />
               <div className="absolute z-0 rounded-lg w-full h-full bg-angel-blue-900 mix-blend-screen"></div>
             </div>
@@ -251,9 +259,9 @@ export default function Providers() {
         </div>
         <div className="provider-row top-0 absolute grid grid-cols-3 gap-3 place-items-center">
           {[
-            "/images/provider-quckspin.png",
-            "/images/provider-redtiger.png",
-            "/images/provider-spinomenal.png",
+            "/provider-quckspin.png",
+            "/provider-redtiger.png",
+            "/provider-spinomenal.png",
           ].map((item, idx) => (
             <div
               ref={provider}
@@ -264,9 +272,10 @@ export default function Providers() {
                 className="absolute z-0 bottom-0 px-2 object-contain object-center top-1/2 -translate-y-1/2 left-1/2 -translate-x-1/2 opacity-80 w-auto max-h-16"
                 src={item}
                 style={{ width: "100%", height: "auto" }}
+                unoptimized
                 width={120}
                 height={60}
-                alt={`provider-${idx}`}
+                alt={`${SeparationStaticImageName(item)}-${idx}`}
               />
               <div className="absolute z-0 rounded-lg w-full h-full bg-angel-blue-900 mix-blend-screen"></div>
             </div>
@@ -274,9 +283,9 @@ export default function Providers() {
         </div>
         <div className="provider-row top-0 absolute grid grid-cols-3 gap-3 place-items-center">
           {[
-            "/images/provider-tomhorn.png",
-            "/images/provider-vivogaming.png",
-            "/images/vivo-gaming-dark.png",
+            "/provider-tomhorn.png",
+            "/provider-vivogaming.png",
+            "/vivo-gaming-dark.png",
           ].map((item, idx) => (
             <div
               ref={provider}
@@ -287,9 +296,10 @@ export default function Providers() {
                 className="absolute z-0 bottom-0 px-2 object-contain object-center top-1/2 -translate-y-1/2 left-1/2 -translate-x-1/2 opacity-80 w-auto max-h-16"
                 src={item}
                 style={{ width: "100%", height: "auto" }}
+                unoptimized
                 width={120}
                 height={60}
-                alt={`provider-${idx}`}
+                alt={`${SeparationStaticImageName(item)}-${idx}`}
               />
               <div className="absolute z-0 rounded-lg w-full h-full bg-angel-blue-900 mix-blend-screen"></div>
             </div>
@@ -297,9 +307,9 @@ export default function Providers() {
         </div>
         <div className="provider-row top-0 absolute grid grid-cols-3 gap-3 place-items-center">
           {[
-            "/images/provider-yggdrasil.png",
-            "/images/provider-microgaming.png",
-            "/images/provider-netent.png",
+            "/provider-yggdrasil.png",
+            "/provider-microgaming.png",
+            "/provider-netent.png",
           ].map((item, idx) => (
             <div
               ref={provider}
@@ -310,9 +320,10 @@ export default function Providers() {
                 className="absolute z-0 bottom-0 px-2 object-contain object-center top-1/2 -translate-y-1/2 left-1/2 -translate-x-1/2 opacity-80 w-auto max-h-16"
                 src={item}
                 style={{ width: "100%", height: "auto" }}
+                unoptimized
                 width={120}
                 height={60}
-                alt={`provider-${idx}`}
+                alt={`${SeparationStaticImageName(item)}-${idx}`}
               />
               <div className="absolute z-0 rounded-lg w-full h-full bg-angel-blue-900 mix-blend-screen"></div>
             </div>
@@ -326,11 +337,11 @@ export default function Providers() {
       >
         <div className="provider-row top-0 absolute grid grid-cols-5 gap-3 place-items-center">
           {[
-            "/images/provider-amusnet.png",
-            "/images/provider-ezugi.png",
-            "/images/provider-betsoft.png",
-            "/images/provider-blueprint.png",
-            "/images/provider-elk.png",
+            "/provider-amusnet.png",
+            "/provider-ezugi.png",
+            "/provider-betsoft.png",
+            "/provider-blueprint.png",
+            "/provider-elk.png",
           ].map((item, idx) => (
             <div
               key={`provider-row-1-${idx}`}
@@ -340,9 +351,10 @@ export default function Providers() {
                 className="absolute z-0 bottom-0 px-2 object-contain object-center top-1/2 -translate-y-1/2 left-1/2 -translate-x-1/2 opacity-80 w-auto max-h-16"
                 src={item}
                 style={{ width: "100%", height: "auto" }}
+                unoptimized
                 width={120}
                 height={60}
-                alt={`provider-${idx}`}
+                alt={`${SeparationStaticImageName(item)}-${idx}`}
               />
               <div className="absolute z-0 rounded-lg w-full h-full bg-angel-blue-900 mix-blend-screen"></div>
             </div>
@@ -350,11 +362,11 @@ export default function Providers() {
         </div>
         <div className="provider-row top-0 absolute grid grid-cols-5 gap-3 place-items-center">
           {[
-            "/images/provider-endorphia.png",
-            "/images/provider-evolutiongaming.png",
-            "/images/provider-evolution.png",
-            "/images/provider-evoplay.png",
-            "/images/provider-wazdan.png",
+            "/provider-endorphia.png",
+            "/provider-evolutiongaming.png",
+            "/provider-evolution.png",
+            "/provider-evoplay.png",
+            "/provider-wazdan.png",
           ].map((item, idx) => (
             <div
               ref={provider}
@@ -365,9 +377,10 @@ export default function Providers() {
                 className="absolute z-0 bottom-0 px-2 object-contain object-center top-1/2 -translate-y-1/2 left-1/2 -translate-x-1/2 opacity-80 w-auto max-h-16"
                 src={item}
                 style={{ width: "100%", height: "auto" }}
+                unoptimized
                 width={120}
                 height={60}
-                alt={`provider-${idx}`}
+                alt={`${SeparationStaticImageName(item)}-${idx}`}
               />
               <div className="absolute z-0 rounded-lg w-full h-full bg-angel-blue-900 mix-blend-screen"></div>
             </div>
@@ -375,11 +388,11 @@ export default function Providers() {
         </div>
         <div className="provider-row top-0 absolute grid grid-cols-5 gap-3 place-items-center">
           {[
-            "/images/provider-goldenrace.png",
-            "/images/provider-irondog.png",
-            "/images/provider-isoftbet.png",
-            "/images/provider-microgaming.png",
-            "/images/provider-netent.png",
+            "/provider-goldenrace.png",
+            "/provider-irondog.png",
+            "/provider-isoftbet.png",
+            "/provider-microgaming.png",
+            "/provider-netent.png",
           ].map((item, idx) => (
             <div
               ref={provider}
@@ -390,9 +403,10 @@ export default function Providers() {
                 className="absolute z-0 bottom-0 px-2 object-contain object-center top-1/2 -translate-y-1/2 left-1/2 -translate-x-1/2 opacity-80 w-auto max-h-16"
                 src={item}
                 style={{ width: "100%", height: "auto" }}
+                unoptimized
                 width={120}
                 height={60}
-                alt={`provider-${idx}`}
+                alt={`${SeparationStaticImageName(item)}-${idx}`}
               />
               <div className="absolute z-0 rounded-lg w-full h-full bg-angel-blue-900 mix-blend-screen"></div>
             </div>
@@ -400,11 +414,11 @@ export default function Providers() {
         </div>
         <div className="provider-row top-0 absolute grid grid-cols-5 gap-3 place-items-center">
           {[
-            "/images/provider-amusnet.png",
-            "/images/provider-ezugi.png",
-            "/images/provider-betsoft.png",
-            "/images/provider-blueprint.png",
-            "/images/provider-elk.png",
+            "/provider-betsoft.png",
+            "/provider-spinomenal.png",
+            "/provider-yggdrasil.png",
+            "/provider-evoplay.png",
+            "/provider-elk.png",
           ].map((item, idx) => (
             <div
               ref={provider}
@@ -415,9 +429,10 @@ export default function Providers() {
                 className="absolute z-0 bottom-0 px-2 object-contain object-center top-1/2 -translate-y-1/2 left-1/2 -translate-x-1/2 opacity-80 w-auto max-h-16"
                 src={item}
                 style={{ width: "100%", height: "auto" }}
+                unoptimized
                 width={120}
                 height={60}
-                alt={`provider-${idx}`}
+                alt={`${SeparationStaticImageName(item)}-${idx}`}
               />
               <div className="absolute z-0 rounded-lg w-full h-full bg-angel-blue-900 mix-blend-screen"></div>
             </div>
@@ -425,11 +440,11 @@ export default function Providers() {
         </div>
         <div className="provider-row top-0 absolute grid grid-cols-5 gap-3 place-items-center">
           {[
-            "/images/provider-oryxgaming.png",
-            "/images/provider-playngo.png",
-            "/images/provider-pragmaticplay.png",
-            "/images/provider-quckspin.png",
-            "/images/provider-redtiger.png",
+            "/provider-oryxgaming.png",
+            "/provider-playngo.png",
+            "/provider-pragmaticplay.png",
+            "/provider-quckspin.png",
+            "/provider-redtiger.png",
           ].map((item, idx) => (
             <div
               ref={provider}
@@ -440,9 +455,10 @@ export default function Providers() {
                 className="absolute z-0 bottom-0 px-2 object-contain object-center top-1/2 -translate-y-1/2 left-1/2 -translate-x-1/2 opacity-80 w-auto max-h-16"
                 src={item}
                 style={{ width: "100%", height: "auto" }}
+                unoptimized
                 width={120}
                 height={60}
-                alt={`provider-${idx}`}
+                alt={`${SeparationStaticImageName(item)}-${idx}`}
               />
               <div className="absolute z-0 rounded-lg w-full h-full bg-angel-blue-900 mix-blend-screen"></div>
             </div>
@@ -450,11 +466,11 @@ export default function Providers() {
         </div>
         <div className="provider-row top-0 absolute grid grid-cols-5 gap-3 place-items-center">
           {[
-            "/images/provider-spinomenal.png",
-            "/images/provider-tomhorn.png",
-            "/images/provider-vivogaming.png",
-            "/images/vivo-gaming-dark.png",
-            "/images/provider-yggdrasil.png",
+            "/provider-elk.png",
+            "/provider-tomhorn.png",
+            "/provider-vivogaming.png",
+            "/vivo-gaming-dark.png",
+            "/provider-yggdrasil.png",
           ].map((item, idx) => (
             <div
               ref={provider}
@@ -465,9 +481,10 @@ export default function Providers() {
                 className="absolute z-0 bottom-0 px-2 object-contain object-center top-1/2 -translate-y-1/2 left-1/2 -translate-x-1/2 opacity-80 w-auto max-h-16"
                 src={item}
                 style={{ width: "100%", height: "auto" }}
+                unoptimized
                 width={120}
                 height={60}
-                alt={`provider-${idx}`}
+                alt={`${SeparationStaticImageName(item)}-${idx}`}
               />
               <div className="absolute z-0 rounded-lg w-full h-full bg-angel-blue-900 mix-blend-screen"></div>
             </div>
@@ -481,12 +498,12 @@ export default function Providers() {
       >
         <div className="provider-row top-0 absolute grid grid-cols-6 gap-3 place-items-center">
           {[
-            "/images/provider-amusnet.png",
-            "/images/provider-ezugi.png",
-            "/images/provider-betsoft.png",
-            "/images/provider-blueprint.png",
-            "/images/provider-elk.png",
-            "/images/provider-endorphia.png",
+            "/provider-amusnet.png",
+            "/provider-ezugi.png",
+            "/provider-betsoft.png",
+            "/provider-blueprint.png",
+            "/provider-elk.png",
+            "/provider-endorphia.png",
           ].map((item, idx) => (
             <div
               key={`provider-row-1-${idx}`}
@@ -496,9 +513,10 @@ export default function Providers() {
                 className="absolute z-0 bottom-0 px-2 object-contain object-center top-1/2 -translate-y-1/2 left-1/2 -translate-x-1/2 opacity-80 w-auto max-h-16"
                 src={item}
                 style={{ width: "100%", height: "auto" }}
+                unoptimized
                 width={120}
                 height={60}
-                alt={`provider-${idx}`}
+                alt={`${SeparationStaticImageName(item)}-${idx}`}
               />
               <div className="absolute z-0 rounded-lg w-full h-full bg-angel-blue-900 mix-blend-screen"></div>
             </div>
@@ -506,12 +524,12 @@ export default function Providers() {
         </div>
         <div className="provider-row top-0 absolute grid grid-cols-6 gap-3 place-items-center">
           {[
-            "/images/provider-evolutiongaming.png",
-            "/images/provider-evolution.png",
-            "/images/provider-evoplay.png",
-            "/images/provider-wazdan.png",
-            "/images/provider-goldenrace.png",
-            "/images/provider-irondog.png",
+            "/provider-isoftbet.png",
+            "/provider-microgaming.png",
+            "/provider-netent.png",
+            "/provider-oryxgaming.png",
+            "/provider-playngo.png",
+            "/provider-pragmaticplay.png",
           ].map((item, idx) => (
             <div
               ref={provider}
@@ -522,9 +540,10 @@ export default function Providers() {
                 className="absolute z-0 bottom-0 px-2 object-contain object-center top-1/2 -translate-y-1/2 left-1/2 -translate-x-1/2 opacity-80 w-auto max-h-16"
                 src={item}
                 style={{ width: "100%", height: "auto" }}
+                unoptimized
                 width={120}
                 height={60}
-                alt={`provider-${idx}`}
+                alt={`${SeparationStaticImageName(item)}-${idx}`}
               />
               <div className="absolute z-0 rounded-lg w-full h-full bg-angel-blue-900 mix-blend-screen"></div>
             </div>
@@ -532,12 +551,12 @@ export default function Providers() {
         </div>
         <div className="provider-row top-0 absolute grid grid-cols-6 gap-3 place-items-center">
           {[
-            "/images/provider-yggdrasil.png",
-            "/images/provider-ezugi.png",
-            "/images/provider-betsoft.png",
-            "/images/provider-blueprint.png",
-            "/images/provider-elk.png",
-            "/images/provider-endorphia.png",
+            "/provider-evolutiongaming.png",
+            "/provider-evolution.png",
+            "/provider-evoplay.png",
+            "/provider-wazdan.png",
+            "/provider-goldenrace.png",
+            "/provider-irondog.png",
           ].map((item, idx) => (
             <div
               ref={provider}
@@ -548,9 +567,10 @@ export default function Providers() {
                 className="absolute z-0 bottom-0 px-2 object-contain object-center top-1/2 -translate-y-1/2 left-1/2 -translate-x-1/2 opacity-80 w-auto max-h-16"
                 src={item}
                 style={{ width: "100%", height: "auto" }}
+                unoptimized
                 width={120}
                 height={60}
-                alt={`provider-${idx}`}
+                alt={`${SeparationStaticImageName(item)}-${idx}`}
               />
               <div className="absolute z-0 rounded-lg w-full h-full bg-angel-blue-900 mix-blend-screen"></div>
             </div>
@@ -558,12 +578,12 @@ export default function Providers() {
         </div>
         <div className="provider-row top-0 absolute grid grid-cols-6 gap-3 place-items-center">
           {[
-            "/images/provider-isoftbet.png",
-            "/images/provider-microgaming.png",
-            "/images/provider-netent.png",
-            "/images/provider-oryxgaming.png",
-            "/images/provider-playngo.png",
-            "/images/provider-pragmaticplay.png",
+            "/provider-yggdrasil.png",
+            "/provider-tomhorn.png",
+            "/provider-endorphia.png",
+            "/provider-amusnet.png",
+            "/provider-ezugi.png",
+            "/provider-spinomenal.png",
           ].map((item, idx) => (
             <div
               ref={provider}
@@ -574,9 +594,10 @@ export default function Providers() {
                 className="absolute z-0 bottom-0 px-2 object-contain object-center top-1/2 -translate-y-1/2 left-1/2 -translate-x-1/2 opacity-80 w-auto max-h-16"
                 src={item}
                 style={{ width: "100%", height: "auto" }}
+                unoptimized
                 width={120}
                 height={60}
-                alt={`provider-${idx}`}
+                alt={`${SeparationStaticImageName(item)}-${idx}`}
               />
               <div className="absolute z-0 rounded-lg w-full h-full bg-angel-blue-900 mix-blend-screen"></div>
             </div>
@@ -584,12 +605,12 @@ export default function Providers() {
         </div>
         <div className="provider-row top-0 absolute grid grid-cols-6 gap-3 place-items-center">
           {[
-            "/images/provider-quckspin.png",
-            "/images/provider-redtiger.png",
-            "/images/provider-spinomenal.png",
-            "/images/provider-tomhorn.png",
-            "/images/provider-vivogaming.png",
-            "/images/provider-vivodark.png",
+            "/provider-quckspin.png",
+            "/provider-redtiger.png",
+            "/provider-wazdan.png",
+            "/provider-tomhorn.png",
+            "/provider-vivogaming.png",
+            "/provider-vivodark.png",
           ].map((item, idx) => (
             <div
               ref={provider}
@@ -600,9 +621,10 @@ export default function Providers() {
                 className="absolute z-0 bottom-0 px-2 object-contain object-center top-1/2 -translate-y-1/2 left-1/2 -translate-x-1/2 opacity-80 w-auto max-h-16"
                 src={item}
                 style={{ width: "100%", height: "auto" }}
+                unoptimized
                 width={120}
                 height={60}
-                alt={`provider-${idx}`}
+                alt={`${SeparationStaticImageName(item)}`}
               />
               <div className="absolute z-0 rounded-lg w-full h-full bg-angel-blue-900 mix-blend-screen"></div>
             </div>
