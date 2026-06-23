@@ -10,9 +10,13 @@ const config: Config = {
   ],
   theme: {
     extend: {
+      listStyleType: {
+        roman: 'upper-roman',
+        alpha: 'lower-alpha',
+      },
       backgroundImage: {
         "gradient-radial":
-          "radial-gradient(120% 160% at 70% 20%, rgba(252, 253, 255, 0) 0%, var(--tw-gradient-stops))",
+          "radial-gradient(120% 110% at 50% 25%, rgba(252, 253, 255, 0) 0%, var(--tw-gradient-stops))",
         "gradient-conic":
           "radial-gradient(130% 100% at 50% 0%, rgba(252, 253, 255, 0) 0%, var(--tw-gradient-stops))",
       },

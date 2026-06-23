@@ -1,0 +1,71 @@
+{
+  "twitter_account": "https://twitter.com/angelshubcom",
+  "twitter_creator": "@angelshubcom",
+  "linkedin_account": "https://www.linkedin.com/company/angelshub/",
+  "instagram_account": "https://www.instagram.com/angelshub_official/",
+  "base_url": "https://www.angelshub.com",
+  "site_title": "AngelsHub: Comprehensive iGaming Solutions",
+  "site_description": "Explore top-tier iGaming solutions including sportsbook, casino, crypto services, and more. Enhance your gaming business with AngelsHub.",
+  "pages": {
+    "affiliate-agent-system": {
+      "title": "Affiliate Agent System | Boost Your Earnings with AngelsHub",
+      "description": "Maximize your earnings with AngelsHub's affiliate agent system. Discover seamless integration and advanced tracking tools."
+    },
+    "crypto-solutions": {
+      "title": "Crypto Solutions for iGaming | Secure & Efficient",
+      "description": "Integrate secure cryptocurrency payments with AngelsHub. Enhance your platform with cutting-edge crypto solutions."
+    },
+    "online-casino": {
+      "title": "Online Casino Platform | Innovative Gaming by AngelsHub",
+      "description": "Launch your online casino with AngelsHub's innovative platform. Access top games, security, and player engagement tools."
+    },
+    "sportsbook": {
+      "title": "Sportsbook Software | Powerful & Customizable Solutions",
+      "description": "Elevate your sports betting business with AngelsHub's sportsbook software. Customize your platform for optimal performance."
+    },
+    "contact": {
+      "title": "Contact AngelsHub | Your iGaming Solutions Partner",
+      "description": "Get in touch with AngelsHub for expert iGaming solutions. We're here to support your business needs."
+    },
+    "careers": {
+      "title": "Careers at AngelsHub | Join the iGaming Innovators",
+      "description": "Explore exciting career opportunities at AngelsHub. Join our team and shape the future of iGaming."
+    },
+    "news-and-events": {
+      "title": "AngelsHub News & Events | Stay Updated on iGaming",
+      "description": "Keep up with the latest news and events at AngelsHub. Stay informed on the latest iGaming trends and innovations."
+    },
+    "about": {
+      "title": "About AngelsHub | Leaders in iGaming Solutions",
+      "description": "Learn more about AngelsHub, a leader in iGaming solutions. Discover our mission, vision, and industry expertise."
+    },
+    "angel-investment": {
+      "title": "Angel Investment Opportunities | Empowering iGaming Startups",
+      "description": "Invest in the future of iGaming with AngelsHub. Discover promising startups and innovative investment opportunities."
+    },
+    "managed-services": {
+      "title": "Managed Services by AngelsHub | Optimize Your iGaming Operations",
+      "description": "Streamline your iGaming operations with AngelsHub's managed services. From customer support to payment management, we've got you covered."
+    },
+    "turnkey-system": {
+      "title": "Turnkey iGaming Solutions | Launch Your Platform with Ease",
+      "description": "Quickly launch your iGaming platform with AngelsHub's turnkey solutions. Get a complete, ready-to-use system."
+    },
+    "white-label": {
+      "title": "White Label iGaming Solutions | Customizable Platforms by AngelsHub",
+      "description": "Customize and launch your iGaming brand with AngelsHub's white-label solutions. Fully adaptable to your needs."
+    },
+    "terms-and-conditions": {
+      "title": "AngelsHub Terms and Conditions | Know Your Rights",
+      "description": "Review the terms and conditions for using AngelsHub's iGaming solutions. Stay informed on our policies and practices."
+    },
+    "privacy-policy": {
+      "title": "Privacy Policy | Protecting Your Data at AngelsHub",
+      "description": "Learn how AngelsHub protects your data. Our privacy policy outlines the measures we take to ensure your security."
+    },
+    "cookie-policy": {
+      "title": "Cookie Policy | Understanding Data Use on AngelsHub",
+      "description": "Customize and launch your iGaming brand with AngelsHub's white-label solutions. Fully adaptable to your needs."
+    }
+  }
+}

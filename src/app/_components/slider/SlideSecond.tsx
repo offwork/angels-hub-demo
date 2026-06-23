@@ -5,22 +5,15 @@ import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import Image from "next/image";
 import { useContext, useRef } from "react";
-import BLUE_SHAPE from "../../../../public/images/blue-shape.svg";
-import ORANGE_SHAPE from "../../../../public/images/orange-shape.svg";
-import CARD_2 from "../../../../public/images/slide-card-2.png";
-import CIP_2 from "../../../../public/images/slider-cip-2.png";
-import CIP_BLUR_2 from "../../../../public/images/slider-cip-blur-2.png";
-import SLIDER_PIC_2 from "../../../../public/images/slider-main-2.png";
+import BLUE_SHAPE from "../../../../public/blue-shape.svg";
+import ORANGE_SHAPE from "../../../../public/orange-shape.svg";
 
-gsap.registerPlugin(useGSAP);
 
 export default function Slide2({ slide }: { slide: number }) {
+  gsap.registerPlugin(useGSAP);
   const { selected } = useContext(SelectedSlideContext);
   const slideRef = useRef<HTMLDivElement>(null!);
   const imageRef = useRef<HTMLImageElement>(null!);
-  const imageRef1 = useRef<HTMLImageElement>(null!);
-  const imageRef2 = useRef<HTMLImageElement>(null!);
-  const imageRef3 = useRef<HTMLImageElement>(null!);
   const titleRef1 = useRef<HTMLHeadingElement>(null!);
   const titleRef2 = useRef<HTMLHeadingElement>(null!);
   const titleRef3 = useRef<HTMLHeadingElement>(null!);
@@ -160,39 +153,6 @@ export default function Slide2({ slide }: { slide: number }) {
             autoAlpha: 1,
           },
           "<0.2"
-        )
-        .fromTo(
-          imageRef1.current,
-          { rotate: 0, scale: 0.2, opacity: 0, autoAlpha: 0 },
-          {
-            rotate: -45,
-            scale: 1,
-            opacity: 1,
-            autoAlpha: 1,
-          },
-          "<0.2"
-        )
-        .fromTo(
-          imageRef2.current,
-          {
-            rotate: 0,
-            scale: 0.2,
-            opacity: 0,
-            autoAlpha: 0,
-          },
-          {
-            rotate: 45,
-            scale: 1,
-            opacity: 1,
-            autoAlpha: 1,
-          },
-          "<"
-        )
-        .fromTo(
-          imageRef3.current,
-          { scale: 0.2, opacity: 0, autoAlpha: 0 },
-          { scale: 1, opacity: 1, autoAlpha: 1 },
-          "<"
         );
     },
     { scope: slideRef.current, dependencies: [slide] }
@@ -204,50 +164,24 @@ export default function Slide2({ slide }: { slide: number }) {
         <Image
           ref={imageRef}
           className="absolute z-20 object-cover right-0 h-3/4 sm:h-auto 6xl:right-80"
-          src={SLIDER_PIC_2.src}
-          priority
-          width={SLIDER_PIC_2.width}
-          height={SLIDER_PIC_2.height}
-          alt="Slider picture 1"
+          src="/slider-main-2.png"
+          width={861}
+          height={1080}
+          loading="lazy"
+          sizes="(min-width: 920px) 861px, calc(93.5vw + 20px)"
+          alt="A Cutting-Edge iGaming Revolution"
         />
         <Image
           ref={imageBlueRef}
           className="absolute z-10 brightness-200 opacity-50 scale-150 -right-16 top-40 sm:-right-24 sm:top-16 sm:scale-100 lg:top-0 lg:-right-32 xl:-right-48 6xl:right-32"
           src={BLUE_SHAPE}
-          alt=""
+          alt="Angels blue shape"
         />
         <Image
           ref={imageOrangeRef}
           className="relative z-10 scale-150 -top-24 -left-60 sm:scale-100 sm:-top-60 sm:-left-36 md:-top-64 md:-left-56 lg:-top-80 lg:-left-80 xl:-top-56 xl:-left-[540px] 2xl:-top-96 2xl:-left-[480px] 3xl:-left-96 4xl:-left-24 4xl:-top-[460px] 5xl:-left-16 5xl:-top-96 6xl:-top-96 6xl:-left-11"
           src={ORANGE_SHAPE}
-          alt=""
-        />
-        <Image
-          ref={imageRef1}
-          className="absolute z-30 hidden xl:block xl:top-[600px] xl:right-[800px] 2xl:right-[880px] 3xl:right-[940px] 6xl:right-[1260px] drop-shadow-[0_35px_15px_rgba(0,0,0,0.35)]"
-          src={CIP_2.src}
-          priority
-          width={106}
-          height={100}
-          alt="Slider picture 1"
-        />
-        <Image
-          ref={imageRef2}
-          className="absolute z-30 hidden xl:block xl:top-10 xl:right-[470px] 6xl:right-[800px]"
-          src={CIP_BLUR_2.src}
-          priority
-          width={114}
-          height={77}
-          alt="Slider picture 1"
-        />
-        <Image
-          ref={imageRef3}
-          className="absolute z-30 hidden xl:block xl:top-80 right-9 6xl:right-[360px] drop-shadow-[0_90px_10px_rgba(0,0,0,0.35)]"
-          src={CARD_2.src}
-          priority
-          width={188}
-          height={170}
-          alt="Slider picture 1"
+          alt="Angels orange shape"
         />
         <div className="absolute z-20 w-full h-2/3 bottom-4 md:-bottom-16 2xl:-bottom-24 3xl:-bottom-32 bg-gradient-to-t from-angel-blue via-angel-blue via-50%"></div>
       </div>
@@ -255,17 +189,17 @@ export default function Slide2({ slide }: { slide: number }) {
       <div className="container absolute z-30 top-40 left-1/2 -translate-x-1/2 text-center lg:text-left">
         <div className="grid max-w-4xl gap-10 text-white justify-items-center lg:justify-items-start lg:gap-10 4xl:gap-11 5xl:gap-14">
           <div>
-            <h1
+            <h2
               ref={titleRef1}
               className="text-4xl font-light md:text-5xl lg:text-[50px] xl:text-[80px] drop-shadow-[0_4px_3px_rgba(0,0,0,0.65)]"
             >
-              Home for the NextGen
-            </h1>
+              A Cutting-Edge
+            </h2>
             <h2
               ref={titleRef2}
               className="font-semibold text-4xl md:text-5xl lg:text-6xl xl:text-8xl drop-shadow-[0_4px_3px_rgba(0,0,0,0.65)]"
             >
-              iGaming Platform
+              iGaming Revolution
             </h2>
             <h3
               ref={titleRef3}
@@ -278,12 +212,16 @@ export default function Slide2({ slide }: { slide: number }) {
             ref={describeRef}
             className="text-sm max-w-72 md:max-w-96 lg:text-lg lg:max-w-md xl:max-w-xl 4xl:text-xl"
           >
-            AngelsHub is a technology and service provider for online gaming
-            industry. We offer white label, turnkey, SAAS solutions, crypto
-            solutions and much much more!
+            Offering customised technology and exceptional support anything about iGaming.
           </p>
           <div ref={linkRef} className="flex">
-            <ButtonFill bg="bg-angel-orange" size="medium" href="/contact" label={"BOOK A MEETING"} />
+            <ButtonFill
+              className="bg-angel-orange text-white"
+              size="medium"
+              href="/contact"
+              target="_blank"
+              label={"BOOK A MEETING"}
+            />
           </div>
         </div>
       </div>

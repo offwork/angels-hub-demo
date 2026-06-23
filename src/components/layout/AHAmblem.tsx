@@ -1,5 +1,3 @@
-"use client"
-
 export default function Amblem({className}: {className: string}) {
   return (
     <div className={className}>

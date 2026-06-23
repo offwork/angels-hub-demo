@@ -15,6 +15,7 @@ export default function HamburgerButton({ onClick }: { onClick?: () => void }) {
   return (
     <button
       onClick={toggle}
+      role="button"
       className={classNames(
         toggled ? "bg-white" : "bg-angel-orange",
         "flex-row items-center rounded-lg py-4 px-3 min-h-11"

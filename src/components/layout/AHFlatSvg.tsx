@@ -1,5 +1,3 @@
-"use client"
-
 export default function AngelsHubFlatSVG({ className }: {className: string}) {
   return (
     <svg

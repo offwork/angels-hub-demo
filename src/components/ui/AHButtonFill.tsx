@@ -1,23 +1,28 @@
 "use client";
 import Link from "next/link";
-import { useRef } from "react";
+import { HTMLAttributeAnchorTarget, useRef } from "react";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
+import { classNames } from "@/utils";
 
-type BTN_SIZE = "small" | "medium" | "large";
+type BTN_SIZE = "normal" | "small" | "medium" | "large" | "apply" | "accordion";
 
 export default function ButtonFill({
-  bg,
+  className,
   href,
   label,
   size,
   selector,
+  upDown = false,
+  target,
 }: {
   href: string;
   label: string;
-  bg: string;
+  className: string;
   size: BTN_SIZE;
-  selector?: string
+  selector?: string;
+  upDown?: boolean;
+  target?: HTMLAttributeAnchorTarget;
 }) {
   const linkRef = useRef<HTMLAnchorElement>(null!);
 
@@ -66,28 +71,85 @@ export default function ButtonFill({
     <>
       {
         {
-          small: (
+          normal: (
             <a
-              type="button"
               ref={linkRef}
-              className={`cursor-pointer ${selector} relative rounded-full max-w-fit h-auto p-0.5`}
+              type="button"
+              className={`${selector} cursor-pointer relative block rounded-full max-w-fit h-auto p-0.5`}
             >
               <div
-                className={`relative z-10 w-full h-full rounded-full ${bg} text-white px-11 py-4 text-center`}
+                className={`${className} relative z-10 w-full h-full rounded-full px-11 py-4 text-center`}
               >
                 <span className="select-none uppercase">{label}</span>
               </div>
               <div className="absolute top-0 left-0 z-0 w-full h-full bg-gradient-to-tr from-angel-orange from-25% to-angel-blue-500 to-75% rounded-full"></div>
             </a>
           ),
+          accordion: (
+            <a
+              ref={linkRef}
+              type="button"
+              className="relative block cursor-pointer rounded-full max-w-fit h-auto p-0.5 bg-white"
+            >
+              <div
+                className={`${className} relative z-10 w-full h-full rounded-full px-9 py-3 flex items-center`}
+              >
+                <svg
+                  className={classNames(upDown ? "rotate-180" : "rotate-0", "w-7 h-7")}
+                  width="57"
+                  height="30"
+                  viewBox="0 0 57 30"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M55.5 1.50098L28.5 28.501L1.5 1.50098"
+                    stroke="#939393"
+                    strokeWidth="1.5"
+                  />
+                </svg>
+              </div>
+              <div className="absolute top-0 left-0 z-0 w-full h-full bg-gradient-to-tr from-angel-orange from-25% to-angel-blue-500 to-75% rounded-full"></div>
+            </a>
+          ),
+          apply: (
+            <a
+              ref={linkRef}
+              type="button"
+              className="relative block cursor-pointer rounded-full max-w-fit h-auto p-0.5 bg-white"
+            >
+              <div
+                className={`${className} relative z-10 w-full h-full rounded-full px-9 py-3 text-center`}
+              >
+                <span className="select-none">{label}</span>
+              </div>
+              <div className="absolute top-0 left-0 z-0 w-full h-full bg-gradient-to-tr from-angel-orange from-25% to-angel-blue-500 to-75% rounded-full"></div>
+            </a>
+          ),
+          small: (
+            <Link
+              href={href}
+              ref={linkRef}
+              target={target}
+              className="relative block rounded-full max-w-fit h-auto p-0.5 bg-white"
+            >
+              <div
+                className={`${className} relative z-10 w-full h-full rounded-full px-9 py-3 text-center`}
+              >
+                <span className="select-none">{label}</span>
+              </div>
+              <div className="absolute top-0 left-0 z-0 w-full h-full bg-gradient-to-tr from-angel-orange from-25% to-angel-blue-500 to-75% rounded-full"></div>
+            </Link>
+          ),
           medium: (
             <Link
               href={href}
               ref={linkRef}
+              target={target}
               className="relative rounded-full max-w-fit h-auto p-0.5"
             >
               <div
-                className={`relative z-10 w-full h-full rounded-full ${bg} text-white px-11 py-4 text-center`}
+                className={`${className} relative z-10 w-full h-full rounded-full px-11 py-4 text-center`}
               >
                 <span className="select-none uppercase">{label}</span>
               </div>
@@ -98,10 +160,11 @@ export default function ButtonFill({
             <Link
               href={href}
               ref={linkRef}
+              target={target}
               className="relative grow rounded-full w-full h-auto p-0.5 drop-shadow-xl bg-white"
             >
               <div
-                className={`relative z-10 w-full h-full rounded-full ${bg} text-white px-10 py-7 text-center lg:px-20`}
+                className={`${className} relative z-10 w-full h-full rounded-full px-10 py-7 text-center lg:px-20`}
               >
                 <span className="text-sm select-none uppercase">{label}</span>
               </div>
