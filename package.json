@@ -10,7 +10,7 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@gsap/react": "^2.1.0",
+    "@gsap/react": "^2.1.2",
     "@next/bundle-analyzer": "^14.2.12",
     "@next/third-parties": "^14.2.3",
     "cssnano": "^7.0.6",
